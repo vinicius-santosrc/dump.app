@@ -1,0 +1,236 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+::root {
+    --bg-color: white
+    --txt-color: black
+}
+
+.dumpheader {
+    padding: 2rem 3rem;
+
+
+}
+
+.dumpheader img{
+    margin: auto;
+    width: 150px;
+    cursor: pointer;
+}
+
+.banner-index-application {
+    margin: auto;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-index-application img{
+   margin: auto;
+   width: 1200px;
+   cursor: pointer;
+   transition: 500ms;
+}
+
+.banner-index-application img:hover {
+    transform: scale(1.02);
+}
+
+.section-text-banner {
+    display: flex;
+    margin: 2rem 5rem;
+    position: relative;
+    height: 900px;
+    align-items: center;
+    text-align: center;
+}
+
+.section-text-banner h2 {
+    margin: auto;
+    font-size: 3.5rem;
+    width: 100%;
+    font-weight: 600;
+    color: rgb(79, 77, 77);
+    cursor: pointer;
+}
+
+.section-text-banner img {
+    position: absolute;
+    width: 600px;
+    cursor: pointer;
+    animation: cellphone 20s ease-out infinite;
+}
+
+.section-text-banner-image-1 {
+    right: 0;
+}
+
+.section-text-content-titles {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 45%;
+}
+
+.section-text-content-titles button {
+    padding: 30px 140px;
+    margin-top: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 500ms;
+    font-size: 1rem;
+    background-color: #edabae;
+    border-radius: 50px;
+    border: 1px solid #edabae;
+}
+
+.section-text-content-titles button:hover {
+    background-color: white;
+}
+
+@keyframes cellphone {
+    0% {
+        
+    }
+
+    50% {
+        transform: rotate(8deg);
+    }
+}
+
+.page-content-mobile {
+    display: none;
+}
+
+.section-text-banner p {
+
+}
+
+@media screen and (max-width: 900px) {
+    .page-content {
+        display: none;
+    }
+
+    .page-content-mobile {
+        display: block;
+    }
+
+    .dumpheader {
+        padding: 2rem 3rem;
+        text-align: center;
+        margin: auto;
+        cursor: pointer;
+    
+    }
+
+    .section-text-banner p {
+
+    }
+    
+    .dumpheader img{
+        margin: auto;
+        width: 120px;
+        pointer-events: none;
+    }
+    
+    .banner-index-application {
+        margin: auto;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .banner-index-application img{
+       margin: auto;
+       width: 350px;
+       cursor: pointer;
+       transition: 500ms;
+    }
+    
+    .banner-index-application img:hover {
+        transform: scale(1.02);
+    }
+    
+    .section-text-banner {
+        display: flex;
+        margin: 6rem 1rem;
+        position: relative;
+        height: 500px;
+        align-items: center;
+        background-color: transparent;
+        text-align: center;
+        border-radius: 20px;
+    }
+    
+    .section-text-banner h2 {
+        margin: auto;
+        font-size: 2.2rem;
+        width: 100%;
+        font-weight: 700;
+        color: black;
+        cursor: pointer;
+        text-align: left;
+        padding-left: 20px;
+        margin-bottom: 2vh;
+    }
+
+    .section-text-banner p {
+        color: black;
+        text-align: left;
+        padding-left: 20px;
+    }
+    
+    .section-text-banner img {
+        position: absolute;
+        top: -70px;
+        width: 130px;
+        cursor: pointer;
+        display: block;
+        animation: cellphone 20s ease-out infinite;
+    }
+    
+    .section-text-banner-image-1 {
+        right: 0;
+    }
+    
+    .section-text-content-titles {
+        display: block;
+        margin: auto;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .section-text-content-titles button {
+        padding: 20px 0px;
+        width: 100%;
+        margin-top: 2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 500ms;
+        font-size: 0.8rem;
+        background-color: #edabae;
+        border-radius: 50px;
+        border: 1px solid transparent;
+    }
+    
+    .section-text-content-titles button:hover {
+        background-color: white;
+    }
+    
+    @keyframes cellphone {
+        0% {
+            
+        }
+    
+        50% {
+            transform: rotate(8deg);
+        }
+    }
+
+}

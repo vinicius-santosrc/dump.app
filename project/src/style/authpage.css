@@ -1,0 +1,232 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.auth-content {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    border: 1px solid rgb(218, 218, 218);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-content img {
+    width: 40vw;
+    height: 40vw;
+    object-fit: cover;
+}
+
+.right-side-auth-content {
+    text-align: center;
+    margin: auto;
+}
+
+.right-side-auth-content header h1 {
+    font-size: 3rem;
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.btns-signup button{
+    border: 1px solid black;
+    color: black;
+    width: 300px;
+    height: 40px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btns-signup button img {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+    object-fit: contain;
+}
+
+.another {
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.another .line {
+    width: 100%;
+    margin: 0 3rem;
+    background-color: rgb(34, 34, 34);
+    height: 1.5px;
+}
+
+.right-side-auth-content form {
+    display: block;
+}
+
+.signup-btns-mail {
+    margin: 2rem 0;
+}
+
+.signup-btns-mail input {
+    width: 90%;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid;
+    margin-bottom: 0.5rem;
+    outline: none;
+    color: black;
+}
+
+.signup-btns-mail #signup{
+    width: 90%;
+    padding: 10px;
+    font-weight: 700;
+    background-color: black;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    border: 1px solid;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.signup-btns-mail #signup:hover {
+    background-color: white;
+    border: 1px solid;
+    color: black;
+    
+}
+
+.forgetpass {
+    margin-top: 3rem;
+    color: gray;
+}
+
+.forgetpass a {
+    color: rgb(11, 185, 185);
+    text-decoration: 1px line aqua;
+}
+
+@media screen and (max-width: 900px) {
+    .auth-content {
+        margin: auto;
+        width: 95%;
+        text-align: center;
+        border: 1px solid rgb(218, 218, 218);
+        display: block;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .auth-content img {
+        width: 100%;
+        height: 90vw;
+        object-fit: cover;
+    }
+    
+    .right-side-auth-content {
+        text-align: center;
+        margin: auto;
+    }
+    
+    .right-side-auth-content header h1 {
+        font-size: 2.6rem;
+        text-align: left;
+        margin: 2rem 1rem;
+    }
+    
+    .btns-signup button{
+        border: 1px solid black;
+        color: black;
+        width: 300px;
+        height: 40px;
+        border-radius: 50px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        background-color: transparent;
+        align-items: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .btns-signup button img {
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
+        object-fit: contain;
+    }
+    
+    .another {
+        margin: auto;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .another .line {
+        width: 100%;
+        margin: 0 3rem;
+        background-color: rgb(34, 34, 34);
+        height: 1.5px;
+    }
+    
+    .right-side-auth-content form {
+        display: block;
+    }
+    
+    .signup-btns-mail {
+        margin: 2rem 0;
+    }
+    
+    .signup-btns-mail input {
+        width: 90%;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: 1px solid;
+        margin-bottom: 0.5rem;
+        outline: none;
+        color: black;
+    }
+    
+    .signup-btns-mail #signup{
+        width: 90%;
+        padding: 10px;
+        font-weight: 700;
+        background-color: black;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        border: 1px solid;
+        cursor: pointer;
+        transition: 500ms;
+    }
+    
+    .signup-btns-mail #signup:hover {
+        background-color: white;
+        border: 1px solid;
+        color: black;
+        
+    }
+    
+    .forgetpass {
+        margin-top: 3rem;
+        color: gray;
+    }
+    
+    .forgetpass a {
+        color: rgb(11, 185, 185);
+        text-decoration: 1px line aqua;
+    }
+}
