@@ -61,7 +61,7 @@
 
 .section-text-banner img {
     position: absolute;
-    width: 600px;
+    width: 320px;
     cursor: pointer;
     animation: cellphone 20s ease-out infinite;
 }
@@ -217,6 +217,7 @@
         background-color: #edabae;
         border-radius: 50px;
         border: 1px solid transparent;
+        columns: black;
     }
     
     .section-text-content-titles button:hover {

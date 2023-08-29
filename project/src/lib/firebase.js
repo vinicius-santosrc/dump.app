@@ -1,6 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import firebase from "firebase/compat/app";
+import 'firebase/compat/firestore'
+import 'firebase/compat/storage'
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMYYq5djqW5cMaDFiCDmCLL1XB5BvSGbM",
@@ -14,7 +18,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const app2 = firebase.initializeApp(firebaseConfig)
+
 const auth = getAuth(app)
+const db = getFirestore(app)
+
+const database = app2.firestore();
+const storage = firebase.storage();
+
 const provider = new GoogleAuthProvider();
 const signOutUser = () => {
     auth.signOut()
@@ -26,4 +37,4 @@ const signOutUser = () => {
     })
 }
 
-export {app, provider, signInWithPopup, signOutUser, auth}
+export {db, app, provider, signInWithPopup, signOutUser, auth, storage,database}
