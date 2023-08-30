@@ -8,6 +8,7 @@ import firebase from "firebase/compat/app"
 export default function CreatePost() {
 
     const user = auth.currentUser
+    
         const [desc, setDesc] = useState("");
         const fileRef = useRef("")
         const [filePost, setFilePost] = useState("")

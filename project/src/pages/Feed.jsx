@@ -21,13 +21,15 @@ export default function Feed() {
                 {!error &&
                     postRealtime.docs.map((p) => {
                         return(
-                            <Posts 
-                            displayName={p.data().name}
-                            photoURL={p.data().imageprofile}
-                            username={(p.data().name).toLowerCase()}
-                            fotopostada={p.data().filePost}
-                            time={p.data().timestamp}
-                        />
+                            <Posts
+                                
+                                displayName={p.data().name}
+                                photoURL={p.data().imageprofile}
+                                username={(p.data().name).toLowerCase()}
+                                fotopostada={p.data().filePost}
+                                descricao={p.data().desc}
+                                time={p.data().timestamp}
+                            />
                         )
                     })
                 }

@@ -21,9 +21,10 @@ export default function Suggestions() {
                 <div className="Card-Suggestions-Users">
                 {!err &&   
                    usersCreated.docs.map((user) => {
+                    const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.data().username}
                         return(
-                            <div className="card-user-sg">
-                                <Suggestions_User 
+                            <div className="card-user-sg" onClick={gotouser}>
+                                <Suggestions_User
                                     photo={user.data().photoURL}
                                     displayname={user.data().name}
                                     username= {user.data().username}
