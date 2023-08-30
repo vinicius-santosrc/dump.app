@@ -5,9 +5,10 @@ import Posts from "../components/pages/feed/Posts";
 import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { Loading, HideLoading } from "../components/Loading";
 
 export default function Feed() {
-
+    //document.querySelector('.loading').style.display = 'none'
    const [postRealtime, error] = useCollection(
     database.collection("posts").orderBy("timestamp", "desc")
    )
@@ -15,9 +16,9 @@ export default function Feed() {
     return(
         <div className="App-Feed feedposts">
             <HeaderFeed />
+            
             <div className="dump-feed-posts">
                 {!error &&
-                
                     postRealtime.docs.map((p) => {
                         return(
                             <Posts 
@@ -28,7 +29,8 @@ export default function Feed() {
                             time={p.data().timestamp}
                         />
                         )
-                    })}
+                    })
+                }
             </div>
             <Suggestions />
             <CreatePost />

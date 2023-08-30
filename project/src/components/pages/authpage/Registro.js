@@ -3,15 +3,34 @@ import React, { useEffect, useState } from 'react';
 import '../../../style/authpage.css'
 
 /* FIREBASE IMPORTS*/
-import { auth, provider, signInWithPopup, app } from '../../../lib/firebase';
+import { auth, provider, signInWithPopup, app, database } from '../../../lib/firebase';
+import firebase from "firebase/compat/app"
 
 function AuthPageComponentRegistro() {
     
   const [i_ison, setUserOn] = useState('')
   const SignWithGoogle = async ()=> {
     signInWithPopup(auth, provider).then((i) => {
+        const username= (i.user.displayName).toLocaleLowerCase().replace(/" "/g, '')
+        return(
+            
+            database.collection("users")
+            .doc(i.user.uid)
+            .set({
+                name: i.user.displayName,
+                username: username,
+                email: i.user.email,
+                emailverif: i.user.emailVerified,
+                phonenumber: i.user.phoneNumber,
+                photoURL: i.user.photoURL,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                uid: i.user.uid
+            })
+          ).then(() => {
+            window.location.href = window.location.origin
+          });
 
-      window.location.href = window.location.origin
+      
     })
   }
 

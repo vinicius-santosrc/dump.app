@@ -9,7 +9,7 @@ export default function Suggestions_User(props) {
             <img src={props.photo} />
                 <div className="card-user-sg-rightside">
                 <h1>{props.displayname}</h1>
-                <p>{props.username}</p>
+                <p>@{props.username}</p>
             </div>
         </>
     )

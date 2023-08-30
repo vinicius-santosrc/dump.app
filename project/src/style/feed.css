@@ -296,6 +296,52 @@ body {
     font-weight: 500;
 }
 
+.loading {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    position: fixed;
+    display: block;
+    text-align: center;
+}
+
+.loading img {
+    margin: auto;
+    width: 250px;
+    margin-top: 40vh;
+    margin-bottom: 40vh;
+}
+
+@media screen and (max-width: 1780px) and (min-width: 900px) {
+    .App-Header-Feed {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        padding: 40px 0;
+        margin: 0 50px;
+    }
+    .rightsideheader {
+        display: flex;
+        gap: 15px;
+        position: fixed;
+        right: 50px;
+    }
+
+    .card-suggestios-block {
+        margin: 145px 50px;
+    }
+
+    .Card-Suggestions {
+        width: 200px;
+    }
+
+    .dump-post {
+        width: 500px;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .card-suggestios-block {
         display: none

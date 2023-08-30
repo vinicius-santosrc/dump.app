@@ -11,18 +11,14 @@ import IndexPage from './pages/IndexPage';
 import Cadastrar from './pages/SignUp';
 import Login from './pages/Login';
 import Feed from './pages/Feed';
+import  { Loading, HideLoading } from './components/Loading';
 
 function App() {
   const [i_ison, setUserOn] = useState('')
-  const SignWithGoogle = async ()=> {
-    signInWithPopup(auth, provider).then((i) => {
 
-      window.location.href = window.location.origin
-    })
-  };
 
   useEffect(() => {
-
+    
     auth.onAuthStateChanged(function (u) {
       setUserOn(u) 
     })
@@ -30,27 +26,34 @@ function App() {
   if(i_ison) {
     return (
       <div className="App">
+
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Feed />} />
             <Route path='/accounts/signup' element={<Cadastrar />} />
             <Route path='/accounts/login' element={<Login />} />
           </Routes>
+
         </BrowserRouter>
       </div>
     );
   }
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<IndexPage />} />
-          <Route path='/accounts/signup' element={<Cadastrar />} />
-          <Route path='/accounts/login' element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+  else {
+    return (
+      <div className="App">
+
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<IndexPage /> } />
+            <Route path='/accounts/signup' element={<Cadastrar />} />
+            <Route path='/accounts/login' element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+
+      </div>
+      
+    );
+  }
 }
 
 export default App;
