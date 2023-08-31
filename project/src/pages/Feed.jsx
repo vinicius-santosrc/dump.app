@@ -23,6 +23,7 @@ export default function Feed() {
                     postRealtime.docs.map((p) => {
                         return(
                             <Posts
+                                id={p.id}
                                 displayName={p.data().name}
                                 photoURL={p.data().imageprofile}
                                 username={(p.data().name).toLowerCase()}

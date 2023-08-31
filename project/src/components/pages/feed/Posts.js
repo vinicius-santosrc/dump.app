@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
-import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore'
+import {addDoc, collection, doc, getFirebase, onSnapshot, setDoc} from 'firebase/firestore'
 import CommentsPost from './CommentsPost';
 
 
 export default function Posts(props) {
+    const [comments, setComments] = useState([]);
+    const [likes, setLikes] = useState([]);
     function gotouser() {
         database
         .collection("users")
@@ -20,6 +22,28 @@ export default function Posts(props) {
         )
 
     }
+    const likesofpub = () => {database.collection("posts")
+    .doc(props.id)
+    .get()
+    .then(s => {
+        return s.data().likes
+})}
+
+    function likethisphoto() {
+        database.collection("posts")
+        .doc(props.id)
+        .update({
+            likes: [auth.currentUser.uid]
+        })
+        .then(s => {
+            alert('Sucesso')
+        })
+                    
+    }
+
+    
+
+     
         return(
             <div className="dump-post">
                 <div className="dump-post-header" onClick={gotouser}>
@@ -40,7 +64,7 @@ export default function Posts(props) {
                 </div>
                 <div className="dump-post-bottom">
                     <div className="btns-dump-comments">
-                        <button><i className="fa-regular fa-heart"></i> </button>
+                        <button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> {likesofpub.length} </button>
                         <button><i className="fa-solid fa-retweet"></i> </button>
                     </div>
                     <div>
