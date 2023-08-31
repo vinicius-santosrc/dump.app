@@ -6,6 +6,7 @@ import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Loading, HideLoading } from "../components/Loading";
+import Messages from "../components/pages/feed/Messages";
 
 export default function Feed() {
     //document.querySelector('.loading').style.display = 'none'
@@ -15,14 +16,13 @@ export default function Feed() {
    
     return(
         <div className="App-Feed feedposts">
+            <Messages />
             <HeaderFeed />
-            
             <div className="dump-feed-posts">
                 {!error &&
                     postRealtime.docs.map((p) => {
                         return(
                             <Posts
-                                
                                 displayName={p.data().name}
                                 photoURL={p.data().imageprofile}
                                 username={(p.data().name).toLowerCase()}

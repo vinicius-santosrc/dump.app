@@ -261,18 +261,15 @@ body {
     margin-bottom: 2vh;
 }
 
-.createnewpost-middle {
-    text-align: center;
-}
-
-.createnewpost-middle img{
-    width: 400px;
+.left-side-preview img{
+    width: 100%;
+    border-radius: 10px;
     margin: auto;
     margin-bottom: 2vh;
     pointer-events: none;
 }
 
-.createnewpost-middle input {
+.createnewpost-middle input.imagechanger {
     background-color: rgb(130, 51, 219);
     padding: 10px;
     margin-top: 1vh;
@@ -333,6 +330,90 @@ body {
     font-size: 1rem;
 }
 
+.createnewpost-middle {
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.left-side-preview {
+    width: 100%;
+}
+
+.bottom-card-post {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: none;
+    
+}
+
+.bottom-card-post button {
+    background-color: transparent;
+    color: blueviolet;
+    font-weight: 600;
+    border: none;
+    font-size: 1.0rem;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.alert {
+    background-color: red;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    display: none;
+}
+
+.previewdesc {
+    display: none;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.previewdesc-top {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: left;
+    gap: 10px;
+    width: 100%;
+}
+
+.previewdesc-top img {
+    width: 3.5rem;
+    border-radius: 100%;
+
+}
+
+.createnewpost-middle {
+    display: flex;
+}
+
+.right-side-previewimage {
+    position: relative;
+    width: 100%;
+}
+
+.descriptionphoto {
+    width: 100%;
+    padding-bottom: 200px;
+    margin-top: 1vh;
+    outline: none;
+    border: none;
+}
+
+.messages-app {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 18;
+    display: none;
+    background-color: white;
+}
+
 @media screen and (max-width: 1780px) and (min-width: 900px) {
     .App-Header-Feed {
         display: flex;
@@ -376,7 +457,7 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        padding: 30px 0;
+        padding: 20px 0;
         background: white;
         width: 100%;
         margin: 0 0;
@@ -545,19 +626,28 @@ body {
 
     .createneewpost-card {
         position: fixed;
-        width: 90%;
-        height: 50%;
+        width: 100%;
+        height: 100%;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
         margin: auto;
         background-color: white;
-        padding: 20px;
+        padding: 40px 10px;
         z-index: 2;
-        border-radius: 10px;
+        border-radius: 0px;
         display: none;
+        overflow: auto;
     }
+
+    .createnewpost-middle {
+        display: block;
+        margin: auto;
+    }
+
+
+
     
     .background-posts {
         width: 100%;
@@ -582,13 +672,14 @@ body {
     }
     
     .createnewpost-middle img{
-        width: 15rem;
+        width: 100%;
         margin: auto;
-        margin-bottom: 5vh;
+        margin-bottom: 0vh;
         pointer-events: none;
     }
     
-    .createnewpost-middle input {
+    .createnewpost-middle input.imagechanger {
+        margin: auto;
         background-color: rgb(130, 51, 219);
         padding: 10px;
         margin-top: 1vh;
@@ -604,5 +695,76 @@ body {
 
     .dump-comments-post img {
         border-radius: 100%;
+    }
+    
+    .left-side-preview {
+        width: 100%;
+    }
+    
+    .bottom-card-post {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: none;
+        
+    }
+    
+    .bottom-card-post button {
+        background-color: transparent;
+        color: blueviolet;
+        font-weight: 600;
+        border: none;
+        font-size: 1.0rem;
+        cursor: pointer;
+        padding: 20px;
+    }
+
+    
+    .alert {
+        background-color: red;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        padding: 10px;
+        display: none;
+    }
+    
+    .previewdesc {
+        display: none;
+        align-items: center;
+        justify-content: left;
+        padding-left: 0px;
+        height: 300px;
+        margin-top: 2vh;
+        
+    }
+    
+    .previewdesc-top {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        text-align: left;
+        gap: 10px;
+        width: 100px;
+    }
+    
+    .previewdesc-top img {
+        width: 3.5rem;
+        border-radius: 100%;
+     
+    }
+
+    
+    .right-side-previewimage {
+        position: relative;
+        width: 100%;
+    }
+    
+    .descriptionphoto {
+        width: 100%;
+        padding-bottom: 200px;
+        margin-top: 1vh;
+        outline: none;
+        border: none;
     }
 }
