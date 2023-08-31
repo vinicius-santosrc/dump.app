@@ -59,12 +59,6 @@ export default function CreatePost() {
             
             setDesc("");
             closepoppups();
-            Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-              )
-              
         };
 
         const handleImage = (e) => {
