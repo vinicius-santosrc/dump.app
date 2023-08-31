@@ -413,6 +413,77 @@ body {
     display: none;
     background-color: white;
 }
+.dump-profile-app {
+    background-color: white;
+    z-index: 18;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    padding: 0px 200px;
+    display: none;
+}
+
+.dump-profile-app  header {
+    display: flex;
+    padding: 20px 0;
+    align-items: center;
+    gap: 10px ;
+}
+.dump-profile-app  header i {
+    font-size: 1.6rem;
+}
+.dump-profile-app  header img {
+    width: 10rem;
+}
+
+.dump-profile-cap {
+    width: 100%;
+    height: 300px;
+}
+
+.dump-profile-cap img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.dump-profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2vh 20px;
+}
+
+.dump-profile-info img {
+    border-radius: 100%;
+}
+
+.leftside-profile {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dump-profile-followers {
+    display: flex;
+    gap: 10px;
+    margin: 2vh 20px;
+}
+
+.dump-profile-photos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 2vh;
+}
+
+.dump-profile-photos img {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+}
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
     .App-Header-Feed {
@@ -457,7 +528,7 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        padding: 20px 0;
+        padding: 10px 0;
         background: white;
         width: 100%;
         margin: 0 0;
@@ -766,5 +837,73 @@ body {
         margin-top: 1vh;
         outline: none;
         border: none;
+    }
+
+    .dump-profile-app {
+        background-color: white;
+        z-index: 18;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        padding: 0px 0px;
+        margin: 0px -30px;
+    }
+    
+    .dump-profile-app  header {
+        display: flex;
+        padding: 20px 20px;
+        
+    }
+    .dump-profile-app  header img {
+        width: 7rem;
+    }
+    
+    .dump-profile-cap {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .dump-profile-cap img {
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+    }
+    
+    .dump-profile-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 2vh 20px;
+    }
+    
+    .dump-profile-info img {
+        border-radius: 100%;
+    }
+    
+    .leftside-profile {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .dump-profile-followers {
+        display: flex;
+        gap: 10px;
+        margin: 2vh 20px;
+    }
+    
+    .dump-profile-photos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 2vh;
+    }
+    
+    .dump-profile-photos img {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
     }
 }

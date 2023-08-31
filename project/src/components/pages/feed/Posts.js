@@ -3,6 +3,7 @@ import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
 import {addDoc, collection, doc, getFirebase, onSnapshot, setDoc} from 'firebase/firestore'
 import CommentsPost from './CommentsPost';
+import UserPerfil from './UserPerfil';
 
 
 export default function Posts(props) {
@@ -15,8 +16,20 @@ export default function Posts(props) {
         .get()
         .then(s => {
             s.docs.map(res => {
-                window.location.href = window.location.origin + "?user=" + res.data().username
+                window.location.href = "#?user=" + res.data().username
+                document.querySelector(".dump-profile-app").style.display = 'block'
+                document.querySelector(".dump-profile-cap").innerHTML = `<img src='` + res.data().photoURL + `'</img>`
+                document.querySelector(".leftside-profile").innerHTML = `
+                <img src='${props.photoURL}' />
+                        <div>
+                            <h2>${props.displayName}</h2>
+                            <p>@${props.username}</p>
+                        </div>
+                `
+                
             })
+           
+            
         }
 
         )

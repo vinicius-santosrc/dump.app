@@ -7,6 +7,7 @@ import CreatePost from "../components/pages/feed/CreatePost";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Loading, HideLoading } from "../components/Loading";
 import Messages from "../components/pages/feed/Messages";
+import UserPerfil from "../components/pages/feed/UserPerfil";
 
 export default function Feed() {
     //document.querySelector('.loading').style.display = 'none'
@@ -16,6 +17,7 @@ export default function Feed() {
    
     return(
         <div className="App-Feed feedposts">
+            <UserPerfil />
             <Messages />
             <HeaderFeed />
             <div className="dump-feed-posts">

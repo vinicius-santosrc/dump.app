@@ -11,8 +11,7 @@ function User(props) {
     return(
         <div className='current-user-page user'>
             <img src={props.photoURL} />
-            <h1>{props.displayname}</h1>
-            <p>@{props.username}</p>
+            
         </div>
     )
 }
