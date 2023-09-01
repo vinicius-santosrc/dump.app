@@ -29,6 +29,7 @@ export default function Posts(props) {
     }
 
     let quantoflikes = () => {
+
         database.collection("posts")
         .doc(props.id)
         .collection("likes")
@@ -41,28 +42,13 @@ export default function Posts(props) {
     
 
     const likesofpub = () => {database.collection("posts")
+    
     .doc(props.id)
     .get()
     .then(s => {
         return s.data().likes
     })}
 
-    function setlike () {
-        database.collection("posts")
-        .doc(props.id)
-        .collection('likes')
-        .doc(auth.currentUser.uid)
-        .get()
-        .then(s => {
-            if(s.exists) {
-               //console.log("voce curtiu essas aq o "+ props.id)
-            }
-        })
-        
-    }
-    
-
-    setlike()
 
     function likethisphoto() {
         database.collection("posts")
@@ -72,9 +58,6 @@ export default function Posts(props) {
         .set({
             uid: auth.currentUser.uid
          })
-        .then(s => {
-            alert('Sucesso')
-        })
                     
     }
 
@@ -84,9 +67,6 @@ export default function Posts(props) {
         .collection('likes')
         .doc(auth.currentUser.uid)
         .delete()
-        .then(s => {
-            alert('Sucesso')
-        })
                     
     }
 
@@ -100,12 +80,16 @@ export default function Posts(props) {
         .get()
         .then(s => {
             setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)
-            s.docs.map(res => {
+            s.docs.filter(res => res.data().uid == auth.currentUser.uid).map(rs => {
+                setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>) 
+            })
+            
+            /*s.docs.map(res => {
                 {res.data().uid == auth.currentUser.uid ? 
                     setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>) 
                     :
                     setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)}
-                })
+                })*/
             
             })
             
