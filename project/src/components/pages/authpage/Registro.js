@@ -11,7 +11,7 @@ function AuthPageComponentRegistro() {
   const [i_ison, setUserOn] = useState('')
   const SignWithGoogle = async ()=> {
     signInWithPopup(auth, provider).then((i) => {
-        const username= (i.user.displayName).toLocaleLowerCase().replace(/" "/g, '')
+        const username= (i.user.displayName).toLocaleLowerCase().replace(/ /g, '')
         return(
             
             database.collection("users")

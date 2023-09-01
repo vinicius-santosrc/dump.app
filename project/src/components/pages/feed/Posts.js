@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
-import {addDoc, collection, doc, getFirebase, onSnapshot, setDoc} from 'firebase/firestore'
+import {addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc} from 'firebase/firestore'
 import CommentsPost from './CommentsPost';
 import UserPerfil from './UserPerfil';
 
@@ -16,16 +16,8 @@ export default function Posts(props) {
         .get()
         .then(s => {
             s.docs.map(res => {
-                window.location.href = "#?user=" + res.data().username
-                document.querySelector(".dump-profile-app").style.display = 'block'
-                document.querySelector(".dump-profile-cap").innerHTML = `<img src='` + res.data().photoURL + `'</img>`
-                document.querySelector(".leftside-profile").innerHTML = `
-                <img src='${props.photoURL}' />
-                        <div>
-                            <h2>${props.displayName}</h2>
-                            <p>@${props.username}</p>
-                        </div>
-                `
+                window.location.href = window.location.origin +  "#?user=" + res.data().username
+                
                 
             })
            
@@ -35,19 +27,63 @@ export default function Posts(props) {
         )
 
     }
+
+    let quantoflikes = () => {
+        database.collection("posts")
+        .doc(props.id)
+        .collection("likes")
+        .get()
+        .then(s => {
+            return s.size
+        })
+
+    }
+    
+
     const likesofpub = () => {database.collection("posts")
     .doc(props.id)
     .get()
     .then(s => {
         return s.data().likes
-})}
+    })}
+
+    function setlike () {
+        database.collection("posts")
+        .doc(props.id)
+        .collection('likes')
+        .doc(auth.currentUser.uid)
+        .get()
+        .then(s => {
+            if(s.exists) {
+               //console.log("voce curtiu essas aq o "+ props.id)
+            }
+        })
+        
+    }
+    
+
+    setlike()
 
     function likethisphoto() {
         database.collection("posts")
         .doc(props.id)
-        .update({
-            likes: [auth.currentUser.uid]
+        .collection('likes')
+        .doc(auth.currentUser.uid)
+        .set({
+            uid: auth.currentUser.uid
+         })
+        .then(s => {
+            alert('Sucesso')
         })
+                    
+    }
+
+    function unlikethisphoto() {
+        database.collection("posts")
+        .doc(props.id)
+        .collection('likes')
+        .doc(auth.currentUser.uid)
+        .delete()
         .then(s => {
             alert('Sucesso')
         })
@@ -55,9 +91,30 @@ export default function Posts(props) {
     }
 
     
-
+    const ButtonLike = () => {
+        const [btn, setButton] = useState('')
+        
+        database.collection("posts")
+        .doc(props.id)
+        .collection("likes")
+        .get()
+        .then(s => {
+            setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)
+            s.docs.map(res => {
+                {res.data().uid == auth.currentUser.uid ? 
+                    setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>) 
+                    :
+                    setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)}
+                })
+            
+            })
+            
+        return (btn)
+        
+    }
      
         return(
+            
             <div className="dump-post">
                 <div className="dump-post-header" onClick={gotouser}>
                     <img src={props.photoURL} />
@@ -77,7 +134,7 @@ export default function Posts(props) {
                 </div>
                 <div className="dump-post-bottom">
                     <div className="btns-dump-comments">
-                        <button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> {likesofpub.length} </button>
+                        <ButtonLike />
                         <button><i className="fa-solid fa-retweet"></i> </button>
                     </div>
                     <div>

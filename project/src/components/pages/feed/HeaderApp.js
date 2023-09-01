@@ -35,8 +35,7 @@ const gotomyprofile = () => {
     .get()
     .then(s => {
         s.docs.map(yourprofile => {
-        
-            window.location.href=window.location.origin + '/?user=' + yourprofile.data().username
+            window.location.href=window.location.origin + '#/?user=' + yourprofile.data().username
         })
     })
 }
