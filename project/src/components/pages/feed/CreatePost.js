@@ -4,9 +4,10 @@ import { auth, provider, signInWithPopup, app, db, storage, database } from '../
 import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore'
 import { reauthenticateWithRedirect } from 'firebase/auth';
 import firebase from "firebase/compat/app"
+import databases from '../../../lib/appwrite';
+import { Query, ID } from 'appwrite';
 
 export default function CreatePost() {
-
     const user = auth.currentUser
     
         const [desc, setDesc] = useState("");
@@ -15,48 +16,56 @@ export default function CreatePost() {
 
         const HandlePost = async (e) => {
             e.preventDefault();
-
+            let idpost = auth.currentUser.uid + '_' + Math.random(2, 100)
             if(!desc) return document.querySelector(".alert").style.display = 'block';
+            if(filePost) {
+                document.querySelector(".seending-pic-dump").style.display = 'flex'
 
-            await database
-            .collection("posts")
-            .add({
-                desc: desc,
-                name: user.displayName,
-                email: user.email,
-                imageprofile: user.photoURL,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            })
-            .then((doc) => {
-                if(filePost) {
-                    const upload = storage
-                    .ref(`posts/${doc.id}`)
-                    .putString(filePost, 'data_url')
+                document.querySelector(".seending-pic-dump img").setAttribute("src", filePost)
+                document.querySelector(".sucess-upload-photo img").setAttribute("src", filePost)
+                const upload = storage
+                
+                .ref(`posts/${idpost}`)
+                .putString(filePost, 'data_url')
 
-                    removeFile();
+                removeFile();
+                
+                upload.on(
+                    "state_change",
+                    null,
+                    (err) => console.log(err),
+                    () => {
+                        storage
+                        .ref("posts")
+                        .child(idpost)
+                        .getDownloadURL()
+                        .then((url) => {
+                            postthis(url)
+                        })
+                    }
+                )
+            }
 
-                    upload.on(
-                        "state_change",
-                        null,
-                        (err) => console.log(err),
-                        () => {
-                            storage
-                            .ref("posts")
-                            .child(doc.id)
-                            .getDownloadURL()
-                            .then((url) => {
-                                database.collection("posts").doc(doc.id).set(
-                                    {
-                                        filePost: url,
-                                    },
-                                    { merge: true }
-                                )
-                            })
-                        }
-                    )
-                }
-            })
-            
+            const postthis = (url) => {
+                console.log('loading')
+                databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
+                    filePost: url,
+                    legenda: desc,
+                    displayName: user.displayName,
+                    username: (user.displayName).toLocaleLowerCase(),
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    timestamp: ''
+                }).then(() => {
+                    document.querySelector(".seending-pic-dump").style.display = 'none'
+                    document.querySelector(".sucess-upload-photo").style.display = 'flex'
+                    setInterval(() => {
+                        document.querySelector(".sucess-upload-photo").style.display = 'none'
+                    }, 10000)
+
+                })
+            }
+        
             setDesc("");
             closepoppups();
         };
@@ -97,6 +106,11 @@ export default function CreatePost() {
     }
     return (
         <>
+            <div className='loading-wrap'>
+                <div className='card-posting-photo'>
+                    
+                </div>
+            </div>
             <div className="background-posts" onClick={closepoppups}></div>
             <div className="createneewpost-card">
                 <h1 className="header-createnewpost"><i onClick={closepoppups} className="fa-solid fa-chevron-left"></i> Criar nova publicação</h1>

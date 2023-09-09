@@ -4,46 +4,46 @@ import { auth, provider, signInWithPopup, app, db, database } from '../../../lib
 import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } from 'firebase/firestore'
 import CommentsPost from './CommentsPost';
 import UserPerfil from './UserPerfil';
+import databases from '../../../lib/appwrite';
+import { Query } from 'appwrite';
 
 
 export default function Posts(props) {
+
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     function gotouser() {
-        database
+        /*database
             .collection("users")
             .where("username", "==", props.username)
             .get()
             .then(s => {
                 s.docs.map(res => {
                     window.location.href = window.location.origin + "#?user=" + res.data().username
-
-
                 })
 
 
             }
 
             )
-
+            */
     }
 
     let quantoflikes = () => {
 
-        database.collection("posts")
+        /*database.collection("posts")
             .doc(props.id)
             .collection("likes")
             .get()
             .then(s => {
                 return s.size
             })
-
+        */
     }
 
 
     const likesofpub = () => {
         database.collection("posts")
-
             .doc(props.id)
             .get()
             .then(s => {
@@ -53,50 +53,60 @@ export default function Posts(props) {
 
 
     function likethisphoto() {
-        database.collection("posts")
+        
+        
+
+        /*database.collection("posts")
             .doc(props.id)
             .collection('likes')
             .doc(auth.currentUser.uid)
             .set({
                 uid: auth.currentUser.uid
             })
-
+            */
     }
 
     function unlikethisphoto() {
-        database.collection("posts")
+        /*database.collection("posts")
             .doc(props.id)
             .collection('likes')
             .doc(auth.currentUser.uid)
             .delete()
-
+        */
     }
 
     function ButtonDeletePublic() {
-        let [buttonremove, setRemoveButton] = useState('')
-        database.collection("posts")
-            .doc(props.id)
-            .get()
-            .then((res) => {
-                if (res.data().email == auth.currentUser.email) {
-                    setRemoveButton(<button onClick={removethisphoto}><i className="fa-solid fa-trash-can"></i></button>)
-                }
-                else {
+        let [buttonremover, setButtonRemove] = useState("")
 
-                }
-
-            })
-        return (buttonremove)
+        useState(()=> {
+            const LoadedInfo = async () => {
+                const res = 
+                    await databases.getDocument(
+                    "64f9329a26b6d59ade09",
+                    '64f93c1c40d294e4f379',
+                    props.id,
+                )
+                    res.email == auth.currentUser.email ? setButtonRemove(
+                        <button onClick={removethisphoto}><i className="fa-solid fa-trash-can"></i></button>
+                    ) : <></>                  
+                
+                    
+            }
+            LoadedInfo()
+        })
+        return (buttonremover)
+        
     }
 
     function removethisphoto() {
-        database.collection("posts")
+        /*database.collection("posts")
             .doc(props.id)
             .delete()
-        alert("deu bom")
+        alert("deu bom")*/
     }
 
     function LikesPost() {
+        /*
         const [likesphoto, setLikePhoto] = useState("")
         database.collection("posts")
             .doc(props.id)
@@ -114,13 +124,13 @@ export default function Posts(props) {
             })
         return (likesphoto)
 
-
+        */
     }
 
     const ButtonLike = () => {
         const [btn, setButton] = useState('')
 
-        database.collection("posts")
+       /* database.collection("posts")
             .doc(props.id)
             .collection("likes")
             .get()
@@ -129,7 +139,7 @@ export default function Posts(props) {
                 s.docs.filter(res => res.data().uid == auth.currentUser.uid).map(rs => {
                     setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>)
                 })
-
+            */
                 /*s.docs.map(res => {
                     {res.data().uid == auth.currentUser.uid ? 
                         setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>) 
@@ -137,9 +147,11 @@ export default function Posts(props) {
                         setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)}
                     })*/
 
-            })
+      /*      })
 
         return (btn)
+        */
+        
 
     }
 
@@ -153,9 +165,7 @@ export default function Posts(props) {
                         <h3>{props.displayName}</h3>
                         <p>@{props.username}</p>
                     </div>
-                    <div>
-                        <p>{new Date(props.time?.toDate()).toLocaleString()}</p>
-                    </div>
+
                 </div>
             </div>
             <div className="dump-post-photo">
@@ -167,6 +177,7 @@ export default function Posts(props) {
                     <ButtonLike />
                     <div className='likes-card-box'>
                         <LikesPost />
+                        <button onClick={likethisphoto}></button>
                     </div>
                     <button><i className="fa-solid fa-retweet"></i> </button>
                     <ButtonDeletePublic />

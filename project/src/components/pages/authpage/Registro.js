@@ -6,6 +6,7 @@ import '../../../style/authpage.css'
 import { auth, provider, signInWithPopup, app, database } from '../../../lib/firebase';
 import firebase from "firebase/compat/app"
 
+
 function AuthPageComponentRegistro() {
     
   const [i_ison, setUserOn] = useState('')
@@ -13,7 +14,7 @@ function AuthPageComponentRegistro() {
     signInWithPopup(auth, provider).then((i) => {
         const username= (i.user.displayName).toLocaleLowerCase().replace(/ /g, '')
         return(
-            
+
             database.collection("users")
             .doc(i.user.uid)
             .set({

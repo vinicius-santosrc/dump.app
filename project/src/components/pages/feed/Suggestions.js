@@ -4,11 +4,22 @@ import { auth, provider, signInWithPopup, app, db, database } from '../../../lib
 import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore'
 import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import databases from '../../../lib/appwrite';
+import { Query } from 'appwrite';
 
 export default function Suggestions() {
-    const [usersCreated, err] = useCollection(
-        database.collection("users").orderBy("timestamp", "desc")
-    )
+
+    const [Users, setUsers] = useState([])
+
+    const loadUsers = async () => {
+        const userslogged = await databases.listDocuments('64f9329a26b6d59ade09',"64f93be88eee8bb83ec3",[Query.orderDesc("$createdAt")]);
+        setUsers(userslogged.documents)
+
+    }
+
+    useEffect(() => {
+        loadUsers()
+    })
 
     return(
         <div className='card-suggestios-block'>
@@ -19,15 +30,15 @@ export default function Suggestions() {
             <div className="Card-Suggestions">
             <h1>Novos no Dump</h1>
                 <div className="Card-Suggestions-Users">
-                {!err &&   
-                   usersCreated.docs.map((user) => {
-                    const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.data().username}
+                {
+                   Users.map((user) => {
+                    const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.username}
                         return(
                             <div className="card-user-sg" onClick={gotouser}>
                                 <Suggestions_User
-                                    photo={user.data().photoURL}
-                                    displayname={user.data().name}
-                                    username= {user.data().username}
+                                    photo={user.photoURL}
+                                    displayname={user.name}
+                                    username= {user.username}
                                 />
                             </div>
                         )
