@@ -208,7 +208,7 @@ body {
     width: 360px;
     border-radius: 20px;
     margin-bottom: 1vh;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .card-user-sg img {
@@ -487,6 +487,36 @@ body {
     object-fit: cover;
 }
 
+.loading-posts-dump-in-bottom {
+    display: block;
+}
+
+.EndOfThePage-dump i {
+    font-size: 2rem;
+    color: green;
+}
+
+.EndOfThePage-dump {
+    display: none;
+    margin: auto;
+    width: 650px;
+    border-top: 1px solid #bab9b9;
+    border-bottom: 1px solid #bab9b9;
+    padding: 10px;
+    text-align: center;
+}
+
+.loading-posts-dump-in-bottom {
+    width: 650px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.Momentum-module_container__Yyu8l {
+    margin: auto;
+}
+
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
     .App-Header-Feed {
@@ -514,6 +544,20 @@ body {
 
     .dump-post {
         width: 500px;
+    }
+
+    .loading-posts-dump-in-bottom {
+        width: 500px;
+    }
+
+    .EndOfThePage-dump {
+        display: none;
+        margin: auto;
+        width: 500px;
+        border-top: 1px solid #bab9b9;
+        border-bottom: 1px solid #bab9b9;
+        padding: 10px;
+        text-align: center;
     }
 }
 
@@ -999,4 +1043,22 @@ body {
         padding: 10px;
         display: none;
     }
+
+    .EndOfThePage-dump {
+        display: none;
+        margin: auto;
+        width: 100%;
+        border-top: 1px solid #bab9b9;
+        border-bottom: 1px solid #bab9b9;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .loading-posts-dump-in-bottom {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+    }
+    
 }

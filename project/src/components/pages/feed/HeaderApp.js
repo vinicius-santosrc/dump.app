@@ -40,6 +40,15 @@ const gotomyprofile = () => {
     })
 }
 
+function gotoHomePage() {
+    if(window.location.href == window.location.origin) {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
+}
+
 export default function HeaderFeed() {
     const [i_ison, setUserOn] = useState('')
     const SignWithGoogle =()=> {
@@ -115,7 +124,7 @@ export default function HeaderFeed() {
                 </div>
             </header>
             <nav className='nav-bar-mobile'>
-                <a><i className="fa-solid fa-house"></i></a>
+                <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a><i className="fa-solid fa-magnifying-glass"></i></a>
                 <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a>
                 <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a>

@@ -12,14 +12,18 @@ export default function Suggestions() {
     const [Users, setUsers] = useState([])
 
     const loadUsers = async () => {
-        const userslogged = await databases.listDocuments('64f9329a26b6d59ade09',"64f93be88eee8bb83ec3",[Query.orderDesc("$createdAt")]);
+        const userslogged = await databases.listDocuments('64f9329a26b6d59ade09',
+        "64f93be88eee8bb83ec3",
+        [Query.orderDesc("$createdAt")]).catch((e) => {
+            console.log(e)
+        })
         setUsers(userslogged.documents)
 
     }
 
-    useEffect(() => {
-        loadUsers()
-    })
+    let FirstUsers = Users.slice(0, 4)
+
+    window.addEventListener('load', loadUsers())
 
     return(
         <div className='card-suggestios-block'>
@@ -31,7 +35,8 @@ export default function Suggestions() {
             <h1>Novos no Dump</h1>
                 <div className="Card-Suggestions-Users">
                 {
-                   Users.map((user) => {
+                
+                FirstUsers.map((user) => {
                     const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.username}
                         return(
                             <div className="card-user-sg" onClick={gotouser}>
@@ -43,6 +48,7 @@ export default function Suggestions() {
                             </div>
                         )
                     })
+                   
                 }
                 </div>
             </div>

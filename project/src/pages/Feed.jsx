@@ -12,21 +12,45 @@ import databases from "../lib/appwrite";
 import { useEffect, useState } from "react";
 import { Query } from "appwrite";
 import PostingPhoto from "../components/pages/feed/PostingPhoto";
+import LoadingContent from "../components/pages/feed/LoadingContent";
+import EndOfPage from "../components/pages/feed/EndOfPage";
+
+let numberofload = 3
+window.addEventListener("scroll", verificarFimDaPagina);
+
+function verificarFimDaPagina() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        numberofload += 3
+        
+    }
+}
 
 export default function Feed() {
-
+    
     const [postsRealtime, setPosts] = useState([])
 
-    useEffect(() => {
-        getPosts();
-    })
-
     const getPosts = async () => {
-        const response = await databases.listDocuments("64f9329a26b6d59ade09",
-         '64f93c1c40d294e4f379',
-          [Query.orderDesc("$createdAt")]);
-        setPosts(response.documents)
+        const response =
+            await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            '64f93c1c40d294e4f379',
+            [Query.orderDesc("$createdAt")]).catch((e) => {
+                console.log(e)
+            })
+
+            setPosts(response.documents)
+
+            if(numberofload > (response.documents).length) {
+                numberofload = (response.documents).length
+                document.querySelector(".loading-posts-dump-in-bottom").style.display = 'none'
+                document.querySelector(".EndOfThePage-dump").style.display = 'block'
+            }
     }
+
+    window.addEventListener('DOMContentLoaded', getPosts())
+
+    
+    let LastPosts = postsRealtime.slice(0 , numberofload)
 
     //document.querySelector('.loading').style.display = 'none'   
     return(
@@ -39,8 +63,8 @@ export default function Feed() {
                     
                 />
                 {
-                    postsRealtime.map(p => {
-
+                    
+                    LastPosts.map((p) => {
                         return(
                             <Posts
                                 id={p.$id}
@@ -55,7 +79,8 @@ export default function Feed() {
                     })
                     
                 }
-                    
+                <LoadingContent />
+                <EndOfPage />
             
                 
             </div>
@@ -64,3 +89,4 @@ export default function Feed() {
         </div>
     )
 }
+
