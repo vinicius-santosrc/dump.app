@@ -29,7 +29,8 @@ function createnewpost() {
 }
 
 const gotomyprofile = () => {
-    database
+    signOutUser()
+    /*database
     .collection('users')
     .where('uid' , '==', auth.currentUser.uid)
     .get()
@@ -37,7 +38,7 @@ const gotomyprofile = () => {
         s.docs.map(yourprofile => {
             window.location.href=window.location.origin + '#/?user=' + yourprofile.data().username
         })
-    })
+    })*/
 }
 
 function CurtidasList() {

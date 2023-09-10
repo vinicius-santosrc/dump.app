@@ -216,7 +216,7 @@ body {
 
 .dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe{
     width: 100%;
-    height: 700px;
+    height: 100%;
     object-fit: cover;
     margin-top: 10px;
     border-radius: 10px;
