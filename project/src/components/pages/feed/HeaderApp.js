@@ -157,8 +157,11 @@ export default function HeaderFeed() {
             </nav>  
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>
-                    <h2><i className="fa-regular fa-heart"></i> Curtidas</h2>
-                    <button onClick={fecharCurtidas}><i className="fa-solid fa-xmark"></i></button>
+                    <h2>
+                        <button onClick={fecharCurtidas}>
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </button> Notificações</h2>
+                    
                 </div>
                 <CurtidasList />
             </div>
