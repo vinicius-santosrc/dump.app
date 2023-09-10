@@ -59,12 +59,12 @@ function CurtidasList() {
 }
 
 function gotoHomePage() {
-    if(window.location.href == window.location.origin) {
+
         window.scrollTo({
             top: 0,
-            behavior: "smooth"
-        })
-    }
+            behavior: "smooth" // Comportamento de rolagem suave
+        });
+    
 }
 
 function openCurtidas() {
@@ -123,7 +123,7 @@ export default function HeaderFeed() {
                     <img onClick={gotoHome} src= {window.location.origin  + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
                     <div>
                     <div className="LeftSidePageHeader leftsidepagefeed">
-                        <div className="LeftsideRedirect">
+                        <div className="LeftsideRedirect" onClick={gotoHomePage}>
                             <a className="Redirect"><i className="fa-solid fa-house"></i> Página Inicial</a>
                         </div>
                         <div className="LeftsideRedirect" onClick={createnewpost}>

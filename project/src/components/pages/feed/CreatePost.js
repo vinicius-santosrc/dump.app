@@ -17,7 +17,9 @@ export default function CreatePost() {
         const HandlePost = async (e) => {
             e.preventDefault();
             let idpost = auth.currentUser.uid + '_' + Math.random(2, 100)
-            if(!desc) return document.querySelector(".alert").style.display = 'block';
+            if(!desc) {
+                setDesc('Sem legenda')
+            };
             if(filePost) {
                 document.querySelector(".seending-pic-dump").style.display = 'flex'
 
@@ -113,7 +115,13 @@ export default function CreatePost() {
             </div>
             <div className="background-posts" onClick={closepoppups}></div>
             <div className="createneewpost-card">
-                <h1 className="header-createnewpost"><i onClick={closepoppups} className="fa-solid fa-chevron-left"></i> Criar nova publicação</h1>
+                <div className="header-createnewpost">
+                    <i onClick={closepoppups} className="fa-solid fa-chevron-left"></i>
+                    <h2>Nova publicação</h2>
+                    <div className='bottom-card-post'>
+                            <button onClick={HandlePost}>Publicar</button>
+                    </div>
+                </div>
                 <div className="createnewpost-middle">
                     <div className='left-side-preview'>
                     <img src="../../../static/media/posting_photo_re_plk8.svg" className='svg-logo-create' />
@@ -141,9 +149,6 @@ export default function CreatePost() {
                         
                     </div>
                 </div>
-                <div className='bottom-card-post'>
-                            <button onClick={HandlePost}>Publicar</button>
-                        </div>
             </div>
         </>
     )

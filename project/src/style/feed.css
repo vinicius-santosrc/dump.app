@@ -407,7 +407,18 @@ body {
     border-bottom: 1px solid rgb(194, 194, 194);
     font-size: 1.5rem;
     margin-bottom: 2vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }
+
+.header-createnewpost h2 {
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+
 
 .left-side-preview img{
     width: 100%;
@@ -489,9 +500,7 @@ body {
 }
 
 .bottom-card-post {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    position: relative;
     display: none;
     
 }
@@ -503,7 +512,7 @@ body {
     border: none;
     font-size: 1.0rem;
     cursor: pointer;
-    padding: 20px;
+    padding: 0px;
 }
 
 .alert {
@@ -1002,8 +1011,8 @@ body {
         right: 0;
         margin: auto;
         background-color: white;
-        padding: 40px 10px;
-        z-index: 2;
+        padding: 20px 10px;
+        z-index: 20;
         border-radius: 0px;
         display: none;
         overflow: auto;
@@ -1070,9 +1079,7 @@ body {
     }
     
     .bottom-card-post {
-        position: absolute;
-        bottom: 0;
-        right: 0;
+        position: relative;
         display: none;
         
     }
@@ -1084,7 +1091,7 @@ body {
         border: none;
         font-size: 1.0rem;
         cursor: pointer;
-        padding: 20px;
+        padding: 0px;
     }
 
     
