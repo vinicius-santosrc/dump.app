@@ -18,7 +18,7 @@ body {
     position: fixed;
     padding: 40px 0;
     margin: 0 200px;
-    z-index: 18;
+    z-index: 1;
 }
 
 
@@ -43,7 +43,7 @@ body {
 .curtidaspage-dump {
     right: 0;
     position: fixed;
-    z-index: 19;
+    z-index: 1;
     width: 560px;
     height: 100%;
     background-color: white;
@@ -394,7 +394,7 @@ body {
     right: 25%;
     background-color: white;
     padding: 20px;
-    z-index: 2;
+    z-index: 4;
     border-radius: 10px;
     display: none;
 }

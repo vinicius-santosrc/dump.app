@@ -47,9 +47,6 @@ export default function Feed() {
                 document.querySelector(".EndOfThePage-dump").style.display = 'block'
             }
     }
-    useEffect(() => {
-        HideLoading()
-    })
 
     window.addEventListener('DOMContentLoaded', getPosts())
 

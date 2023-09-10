@@ -8,11 +8,6 @@ import { auth } from "../lib/firebase";
 
 
 function Login() {
-    useEffect(() => {
-        if (auth.currentUser == null) {
-          HideLoading()
-        }
-      })
     return(
         <>
         <Header />

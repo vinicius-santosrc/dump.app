@@ -8,12 +8,6 @@ import { auth } from "../lib/firebase";
 
 
 function Cadastrar() {
-    useEffect(() => {
-        
-        if (auth.currentUser == null) {
-          HideLoading()
-        }
-      })
     return(
         <>
         <Header />

@@ -26,7 +26,6 @@ function App() {
   if(i_ison) {
     return (
       <div className="App">
-        <Loading />
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Feed />} />
@@ -40,7 +39,6 @@ function App() {
   else {
     return (
       <div className="App">
-        <Loading />
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<IndexPage /> } />
