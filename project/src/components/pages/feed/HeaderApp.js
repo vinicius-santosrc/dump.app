@@ -40,6 +40,23 @@ const gotomyprofile = () => {
     })
 }
 
+function CurtidasList() {
+    return(
+        <div className='curtidas-null-dump'>
+            <img src="../static/media/undraw_void_-3-ggu.svg" />
+            <h2>Nada por aqui.</h2>
+            <p>Aqui aparecerão suas curtidas.</p>
+        </div>
+        /*<div className='curtida-user-dump'>
+            <img src={auth.currentUser.photoURL} />
+            <div className='content-name-curtida'>
+                <h2>{auth.currentUser.displayName}</h2>
+                <p>{auth.currentUser.displayName}</p>
+            </div>
+        </div>*/
+    )
+}
+
 function gotoHomePage() {
     if(window.location.href == window.location.origin) {
         window.scrollTo({
@@ -47,6 +64,15 @@ function gotoHomePage() {
             behavior: "smooth"
         })
     }
+}
+
+function openCurtidas() {
+    document.querySelector(".curtidaspage-dump").style.display = 'block'
+}
+
+function fecharCurtidas() {
+    document.querySelector(".curtidaspage-dump").style.display = 'none'
+
 }
 
 export default function HeaderFeed() {
@@ -107,7 +133,7 @@ export default function HeaderFeed() {
                                 <img src={i_ison.photoURL} />
                                 <div>
                                     <h3 className="currentuser-displayname">{i_ison.displayName}</h3>
-                                    <p className="currentuser-id">@{''}</p>
+                                    <p className="currentuser-id">@{i_ison.displayName}</p>
                                 </div>
                         </div>
                         </div>
@@ -115,7 +141,7 @@ export default function HeaderFeed() {
                     </div>
                 </div>
                 <div className="App-Header-Feed-RightSide rightsideheader">
-                    <a href="">
+                    <a onClick={openCurtidas}>
                         <i className="fa-regular fa-heart"></i>
                     </a>
                     <a href="">
@@ -129,6 +155,13 @@ export default function HeaderFeed() {
                 <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a>
                 <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a>
             </nav>  
+            <div className='curtidaspage-dump'>
+                <div className='curtidasheader'>
+                    <h2><i className="fa-regular fa-heart"></i> Curtidas</h2>
+                    <button onClick={fecharCurtidas}><i className="fa-solid fa-xmark"></i></button>
+                </div>
+                <CurtidasList />
+            </div>
         </>
     )
 }

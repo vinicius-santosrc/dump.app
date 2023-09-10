@@ -6,10 +6,12 @@ import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore'
 export default function Suggestions_User(props) {
     return(
         <>
-            <img src={props.photo} />
-                <div className="card-user-sg-rightside">
-                <h1>{props.displayname}</h1>
-                <p>@{props.username}</p>
+            <div className='leftside-perfil'>
+                <img src={props.photo} />
+                    <div className="card-user-sg-rightside">
+                    <h1>{props.displayname}</h1>
+                    <p>@{props.username}</p>
+                </div>
             </div>
         </>
     )

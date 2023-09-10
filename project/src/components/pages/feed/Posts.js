@@ -53,8 +53,8 @@ export default function Posts(props) {
 
 
     function likethisphoto() {
-        
-        
+
+
 
         /*database.collection("posts")
             .doc(props.id)
@@ -76,7 +76,7 @@ export default function Posts(props) {
     }
 
     function ButtonDeletePublic() {
-        let [buttonremover, setButtonRemove] = useState("")
+        /*let [buttonremover, setButtonRemove] = useState("")
 
         useState(()=> {
             const LoadedInfo = async () => {
@@ -94,8 +94,8 @@ export default function Posts(props) {
             }
             LoadedInfo()
         })
-        return (buttonremover)
-        
+        return (buttonremover)*/
+
     }
 
     function removethisphoto() {
@@ -105,58 +105,52 @@ export default function Posts(props) {
         alert("deu bom")*/
     }
 
-    function LikesPost() {
-        /*
-        const [likesphoto, setLikePhoto] = useState("")
-        database.collection("posts")
-            .doc(props.id)
-            .collection('likes')
-            .get()
-            .then((rp) => {
-                setLikePhoto(
-                    rp.docs.map((res) => {
-                        <div className='post-like-user'>
-                            <h2>{res.data().uid}</h2>
-                        </div>
-                    }
-                    ))
 
-            })
-        return (likesphoto)
 
-        */
-    }
 
-    const ButtonLike = () => {
-        const [btn, setButton] = useState('')
+    async function toggleCurtida() {
+        const publicacaoId = props.id
+        const usuarioId = auth.currentUser.uid
+        try {
+            // Obtenha o documento da publicação
+            const publicacao = await databases.getDocument(
+                '64f9329a26b6d59ade09',
+                '64f93c1c40d294e4f379',
+                publicacaoId
+            );
 
-       /* database.collection("posts")
-            .doc(props.id)
-            .collection("likes")
-            .get()
-            .then(s => {
-                setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)
-                s.docs.filter(res => res.data().uid == auth.currentUser.uid).map(rs => {
-                    setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>)
-                })
-            */
-                /*s.docs.map(res => {
-                    {res.data().uid == auth.currentUser.uid ? 
-                        setButton(<button onClick={unlikethisphoto}><i className="fa-solid fa-heart"> </i></button>) 
-                        :
-                        setButton(<button onClick={likethisphoto}><i className="fa-regular fa-heart"></i> </button>)}
-                    })*/
+            // Certifique-se de que o campo 'likes' existe ou crie-o se não existir
+            if (!publicacao.data.likes) {
+                publicacao.data.likes = [];
+            }
 
-      /*      })
+            const curtidaIndex = publicacao.data.likes.indexOf(usuarioId);
 
-        return (btn)
-        */
-        
+            if (curtidaIndex === -1) {
+                // Se o usuário ainda não curtiu, adicione sua curtida
+                publicacao.data.likes.push(usuarioId);
+            } else {
+                // Se o usuário já curtiu, remova sua curtida
+                publicacao.data.likes.splice(curtidaIndex, 1);
+            }
+
+            // Atualize a publicação no banco de dados
+            await databases.updateDocument(
+                '64f9329a26b6d59ade09',
+                '64f93c1c40d294e4f379',
+                 publicacaoId,
+                  publicacao);
+
+            alert('Curtida atualizada com sucesso!');
+        } catch (error) {
+            console.log(error)
+        }
 
     }
+
+
 
     return (
-
         <div className="dump-post">
             <div className="dump-post-header" onClick={gotouser}>
                 <img src={props.photoURL} />
@@ -169,15 +163,15 @@ export default function Posts(props) {
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img controls autoPlay src={props.fotopostada} />
+                <img onDoubleClick={toggleCurtida} controls autoPlay src={props.fotopostada} />
 
             </div>
             <div className="dump-post-bottom">
                 <div className="btns-dump-comments">
-                    <ButtonLike />
+                    <button onClick={toggleCurtida}><i className="fa-regular fa-heart"></i> </button>
                     <div className='likes-card-box'>
-                        <LikesPost />
-                        <button onClick={likethisphoto}></button>
+
+
                     </div>
                     <button><i className="fa-solid fa-retweet"></i> </button>
                     <ButtonDeletePublic />

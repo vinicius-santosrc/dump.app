@@ -28,28 +28,43 @@ export default function Suggestions() {
     return(
         <div className='card-suggestios-block'>
             <div className="Card-Suggestions">
-                <h1>Versão beta</h1>
-                <p>Essa aplicação está na versão beta e está propicia a mudanças no sistema, design e nas informações.</p>
+                <div className='sugg-card-beta'>
+                    <h1>Versão beta</h1>
+                    <p>Essa aplicação está na versão beta e está propicia a mudanças no sistema, design e nas informações.</p>
+                </div>
             </div>
             <div className="Card-Suggestions">
-            <h1>Novos no Dump</h1>
+                <div className='sugg-card-beta'>
+                    <h1>Principais #HashTags</h1>
+                </div>
+            </div>
+            <div className="Card-Suggestions">
+                <div className='header-sugg'>
+                    <h1>Quem seguir</h1>
+                </div>
                 <div className="Card-Suggestions-Users">
-                {
-                
-                FirstUsers.map((user) => {
-                    const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.username}
-                        return(
-                            <div className="card-user-sg" onClick={gotouser}>
-                                <Suggestions_User
-                                    photo={user.photoURL}
-                                    displayname={user.name}
-                                    username= {user.username}
-                                />
-                            </div>
-                        )
-                    })
-                   
-                }
+                    {
+                    
+                    FirstUsers.map((user) => {
+                        const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.username}
+                            return(
+                                <div className="card-user-sg" onClick={gotouser}>
+                                    <Suggestions_User
+                                        photo={user.photoURL}
+                                        displayname={user.displayName}
+                                        username= {user.username}
+                                    />
+                                    <div className='button-follow'>
+                                        <button>Seguir</button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    
+                    }
+                <div className='bottom-suggest-users'>
+                    <button>Ver mais</button>
+                </div>
                 </div>
             </div>
         </div>

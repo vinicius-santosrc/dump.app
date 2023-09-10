@@ -25,6 +25,7 @@ function verificarFimDaPagina() {
     }
 }
 
+
 export default function Feed() {
     
     const [postsRealtime, setPosts] = useState([])

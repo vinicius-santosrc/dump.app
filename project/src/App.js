@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     
     auth.onAuthStateChanged(function (u) {
-      setUserOn(u) 
+      setUserOn(u)
     })
   })
   if(i_ison) {
@@ -33,7 +33,6 @@ function App() {
             <Route path='/accounts/signup' element={<Cadastrar />} />
             <Route path='/accounts/login' element={<Login />} />
           </Routes>
-
         </BrowserRouter>
       </div>
     );
