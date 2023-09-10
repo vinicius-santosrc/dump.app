@@ -475,7 +475,7 @@ body {
 }
 
 .dump-post-bottom-desc p {
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .createnewpost-middle {
@@ -680,6 +680,12 @@ body {
     animation: heartcurtida 1s ease-in-out;
 }
 
+.scrolup {
+    font-size: 0.1rem ;
+    animation: scrollup 0.3s ease-in-out;
+    transition: 500ms;
+}
+
 @keyframes heartcurtida {
     0% {
         font-size: 0rem;
@@ -700,6 +706,7 @@ body {
 
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
+
     .App-Header-Feed {
         display: flex;
         justify-content: space-between;
@@ -707,7 +714,10 @@ body {
         position: fixed;
         padding: 40px 0;
         margin: 0 25px;
+        animation: scrolldown 0.3 ease-in-out;
     }
+
+    
     .rightsideheader {
         display: flex;
         gap: 15px;
@@ -813,10 +823,11 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        padding: 10px 0;
+        padding: 5px 0;
         background: white;
         width: 100%;
         margin: 0 0;
+        transition: 500ms;
     }
     
     
@@ -867,16 +878,16 @@ body {
     }
     
     .dump-post-header h3 {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .dump-post-header p {
-        font-size: 1rem;
+        font-size: 0.8rem;
         color: gray;
     }
     
     .dump-post-header img {
-        width: 3.2rem;
+        width: 2.4rem;
         border-radius: 100%;
     }
     
@@ -901,7 +912,7 @@ body {
     }
     
     .dump-feed-posts {
-        padding: 120px 0;
+        padding: 100px 0;
     }
     
     .dump-post-bottom {
