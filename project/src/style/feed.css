@@ -963,15 +963,16 @@ body {
     .nav-bar-mobile {
         display: flex;
         width: 100%;
-        justify-content: center;
+        justify-content: space-evenly;
         position: fixed;
         bottom: 0;
-        padding: 20px;
-        padding-bottom: 40px;
-        gap: 80px;
+        padding: 10px 0px;
+        padding-bottom: 25px;
+        gap: 60px;
         font-size: 1.5rem;
         margin: 0 -30px;
         background-color: white;
+        border-top: 1px solid rgb(224, 224, 224);
         z-index: 20;
     }
 
