@@ -23,7 +23,6 @@ function IndexPage() {
         setUserResult(res)
 
       }
-      console.log(resultuser)
       current()
       
       let currentu

@@ -53,8 +53,13 @@ body {
     animation: abrircurtidas 0.5s ease-in-out ;
 }
 
-.close {
+.showcurtidas {
+    display: block;
+}
+
+.closecurtidas {
     animation: closecurtidas 0.5s ease-in-out;
+
 }
 
 .curtidasheader {
@@ -62,17 +67,8 @@ body {
     justify-content: space-between;
     padding: 10px 5px;
     margin-bottom: 15px;
+    
 
-}
-
-@keyframes closecurtidas {
-    0% {
-        right: 0;
-    }
-
-    100% {
-        right: -50vw;
-    }
 }
 
 @keyframes abrircurtidas {
@@ -82,6 +78,19 @@ body {
     100%{
         right: 0;
     }
+}
+
+.curtidasheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.curtidasheader img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
 }
 
 .curtidasheader h2{
@@ -102,6 +111,8 @@ body {
     padding: 20px 20px;
     gap: 10px;
     font-size: 0.7rem;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(225, 225, 225);
 }
 
 .curtidas-null-dump {
@@ -219,7 +230,7 @@ body {
     height: 100%;
     object-fit: cover;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 0px;
     cursor: pointer;
     z-index: -1;
     
@@ -816,9 +827,43 @@ body {
     gap: 10px;
 }
 
+.leftsidecontent-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.leftsidecontent-alert h2 {
+    font-size: 0.9rem;
+}
+
+.contentalert h2 {
+    font-size: 0.9rem;
+}
+
+.curtida-index {
+    font-size: 1.3rem;
+    color: red;
+}
 
 
 @media screen and (max-width: 900px) {
+    .curtidasheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .curtidasheader img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+
+    .curtidasheader h2 {
+        font-size: 1rem;
+    }
     .card-suggestios-block {
         display: none
     }
@@ -906,7 +951,8 @@ body {
     
     .dump-post-photo img, .dump-post-photo iframe{
         width: 100%;
-        height: 500px;
+        height: 488px;
+
         margin-top: 10px;
         border-radius: 10px;
         cursor: pointer;
@@ -991,7 +1037,7 @@ body {
         font-size: 1.5rem;
         margin: 0 -30px;
         background-color: white;
-        border-top: 1px solid rgb(224, 224, 224);
+        border-top: 1px solid rgb(199, 199, 199);
         z-index: 20;
     }
 
@@ -1284,6 +1330,15 @@ body {
         border-left: 1px solid rgb(217, 217, 217);
         display: none;
         animation: abrircurtidas 0.3s ease-in-out ;
+    }
+
+    .showcurtidas {
+        display: block;
+    }
+    
+    .closecurtidas {
+        animation: closecurtidas 0.5s ease-in-out;
+    
     }
     
     @keyframes closecurtidas {

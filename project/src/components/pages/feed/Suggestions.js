@@ -12,7 +12,8 @@ export default function Suggestions() {
     const [Users, setUsers] = useState([])
 
     const loadUsers = async () => {
-        const userslogged = await databases.listDocuments('64f9329a26b6d59ade09',
+        const userslogged = await databases.listDocuments(
+        '64f9329a26b6d59ade09',
         "64f93be88eee8bb83ec3",
         [Query.orderDesc("$createdAt")]).catch((e) => {
             console.log(e)

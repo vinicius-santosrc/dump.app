@@ -8,6 +8,8 @@ import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from "firebase/compat/app"
 import {User, UserNotFound } from '../../../pages/User';
+import databases from '../../../lib/appwrite';
+import { Query } from 'appwrite';
 
 getUrlUser()
 function getUrlUser() {
@@ -42,20 +44,57 @@ const gotomyprofile = () => {
 }
 
 function CurtidasList() {
-    return(
-        <div className='curtidas-null-dump'>
-            <img src="../static/media/undraw_void_-3-ggu.svg" />
-            <h2>Nada por aqui.</h2>
-            <p>Aqui aparecerão suas curtidas.</p>
-        </div>
-        /*<div className='curtida-user-dump'>
-            <img src={auth.currentUser.photoURL} />
-            <div className='content-name-curtida'>
-                <h2>{auth.currentUser.displayName}</h2>
-                <p>{auth.currentUser.displayName}</p>
-            </div>
-        </div>*/
-    )
+    const CurrentUserId = auth.currentUser.uid
+
+    const [notfy, setNot] = useState('')
+
+    const getNoty = async () => {
+        await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64fd4c66a7628f81bde8",
+            [Query.orderDesc("$createdAt")]
+            )
+            .then(res => {
+                if(res.documents.filter( e => e.TO_UID == CurrentUserId).length == 0) {
+                    setNot(
+                        <div className='curtidas-null-dump'>
+                            <img src="../static/media/undraw_void_-3-ggu.svg" />
+                            <h2>Nada por aqui.</h2>
+                            <p>Aqui aparecerão suas curtidas.</p>
+                        </div>
+                    )
+                }
+                else {
+                    setNot(res.documents.filter( e => e.TO_UID == CurrentUserId).map((not) => {
+                    
+                        return(
+                            <div className='curtida-user-dump'>
+                                <div className='curtida-index'>
+                                    <i className="fa-solid fa-heart fa-beat-fade"></i>
+                                </div>
+                                <div className='leftsidecontent-alert'>
+                                    <img src={not.SENDER_PIC} />
+                                    <div className='content-name-curtida'>
+                                        <h2>{not.SENDER_NAME}</h2>
+                                    </div>
+                                </div>
+                                <div className='contentalert'>
+                                    <p>{not.ACTION == 'like' ? 'curtiu sua publicação' : ''}</p>
+                                </div>
+            
+                            </div>
+                        )
+                      
+                    }))
+                }
+                
+            })
+    }
+
+    getNoty()
+        
+        
+    return notfy
 }
 
 function gotoHomePage() {
@@ -68,11 +107,13 @@ function gotoHomePage() {
 }
 
 function openCurtidas() {
-    document.querySelector(".curtidaspage-dump").style.display = 'block'
+    document.querySelector(".curtidaspage-dump").classList.toggle('showcurtidas')
 }
 
 function fecharCurtidas() {
-    document.querySelector(".curtidaspage-dump").style.display = 'none'
+    document.querySelector(".curtidaspage-dump").classList.toggle('showcurtidas')
+
+
 
 }
 
@@ -158,10 +199,12 @@ export default function HeaderFeed() {
             </nav>  
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>
-                    <h2>
+                    
                         <button onClick={fecharCurtidas}>
                             <i className="fa-solid fa-chevron-left"></i>
-                        </button> Notificações</h2>
+                        </button>
+                        <h2>Notificações</h2>
+                        <img src={auth.currentUser.photoURL} />
                     
                 </div>
                 <CurtidasList />
