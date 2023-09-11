@@ -9,7 +9,7 @@ export default function Suggestions_User(props) {
             <div className='leftside-perfil'>
                 <img src={props.photo} />
                     <div className="card-user-sg-rightside">
-                    <h1>{props.displayname}</h1>
+                    <h1>{props.displayname} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
                     <p>@{props.username}</p>
                 </div>
             </div>

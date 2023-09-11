@@ -53,6 +53,10 @@ body {
     animation: abrircurtidas 0.5s ease-in-out ;
 }
 
+.verifyaccount {
+    color: rgb(88, 209, 249);
+}
+
 .showcurtidas {
     display: block;
 }

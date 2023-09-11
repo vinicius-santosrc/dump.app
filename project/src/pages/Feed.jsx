@@ -50,8 +50,21 @@ export default function Feed() {
 
     window.addEventListener('DOMContentLoaded', getPosts())
 
-    
+    const [users, Setusersdb] = useState()
+    const [verifiqued, SetVerif] = useState()
     let LastPosts = postsRealtime.slice(0 , numberofload)
+
+    const user = async () => {
+        await databases.listDocuments(
+            '64f9329a26b6d59ade09',
+            "64f93be88eee8bb83ec3",
+        )
+        .then((r) => {
+            Setusersdb(r)
+        })
+    } 
+
+    user()
 
     //document.querySelector('.loading').style.display = 'none'   
     return(
@@ -66,6 +79,7 @@ export default function Feed() {
                 {
                     
                     LastPosts.map((p) => {
+                    
                         return(
                             <Posts
                                 id={p.$id}
@@ -75,8 +89,13 @@ export default function Feed() {
                                 fotopostada={p.filePost}
                                 descricao={p.legenda}
                                 timestamp = {p.timestamp}
+                                isthisverifiqued = {
+                                    users.documents.filter( e => e.email == p.email ).map((u) => {
+                                    return u.isthisverifiqued
+                                })}
                             />
                         )
+
                     })
                     
                 }

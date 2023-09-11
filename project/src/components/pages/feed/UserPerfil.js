@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
 import {addDoc, collection, doc, getFirebase, onSnapshot, setDoc} from 'firebase/firestore'
-import CommentsPost from './CommentsPost';
 
 export default function UserPerfil(props) {
     function closeuserpop() {

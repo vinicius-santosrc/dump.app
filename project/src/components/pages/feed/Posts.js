@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
 import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } from 'firebase/firestore'
-import CommentsPost from './CommentsPost';
 import UserPerfil from './UserPerfil';
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
-
 
 export default function Posts(props) {
 
@@ -108,45 +106,16 @@ export default function Posts(props) {
 
 
 
-    async function toggleCurtida() {
-        const publicacaoId = props.id
-        const usuarioId = auth.currentUser.uid
-        try {
-            // Obtenha o documento da publicação
-            const publicacao = await databases.getDocument(
-                '64f9329a26b6d59ade09',
-                '64f93c1c40d294e4f379',
-                publicacaoId
-            );
+    
 
-            // Certifique-se de que o campo 'likes' existe ou crie-o se não existir
-            if (!publicacao.data.likes) {
-                publicacao.data.likes = [];
-            }
-
-            const curtidaIndex = publicacao.data.likes.indexOf(usuarioId);
-
-            if (curtidaIndex === -1) {
-                // Se o usuário ainda não curtiu, adicione sua curtida
-                publicacao.data.likes.push(usuarioId);
-            } else {
-                // Se o usuário já curtiu, remova sua curtida
-                publicacao.data.likes.splice(curtidaIndex, 1);
-            }
-
-            // Atualize a publicação no banco de dados
-            await databases.updateDocument(
-                '64f9329a26b6d59ade09',
-                '64f93c1c40d294e4f379',
-                 publicacaoId,
-                  publicacao);
-
-            alert('Curtida atualizada com sucesso!');
-        } catch (error) {
-            console.log(error)
-        }
+    function Comments() {
 
     }
+
+    const publicacaoId = props.id
+    const userId = auth.currentUser.uid
+    const textoComentario = document.querySelector("#comments-dump-photo")
+
 
 
 
@@ -156,19 +125,19 @@ export default function Posts(props) {
                 <img src={props.photoURL} />
                 <div className="dump-post-header-rightside">
                     <div>
-                        <h3>{props.displayName}</h3>
+                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
                         <p>@{props.username}</p>
                     </div>
 
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img onDoubleClick={toggleCurtida} controls autoPlay src={props.fotopostada} />
+                <img onDoubleClick={''} controls autoPlay src={props.fotopostada} />
 
             </div>
             <div className="dump-post-bottom">
                 <div className="btns-dump-comments">
-                    <button onClick={toggleCurtida}><i className="fa-regular fa-heart"></i> </button>
+                    <button onClick={''}><i className="fa-regular fa-heart"></i> </button>
                     <div className='likes-card-box'>
 
 
@@ -179,7 +148,13 @@ export default function Posts(props) {
                 <div>
                     <a className="dump-comments-post">
                         <div>
-                            <CommentsPost />
+
+                            <input id='comments-dump-photo' placeholder='Envie seu comentario' />
+                            <button onClick={''}>COMENTAR</button>
+
+                        </div>
+                        <div className='comments-photo'>
+                            <Comments />
                         </div>
 
                     </a>

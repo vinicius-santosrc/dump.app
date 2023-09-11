@@ -22,7 +22,7 @@ export default function Suggestions() {
 
     }
 
-    let FirstUsers = Users.slice(0, 4)
+    let FirstUsers = Users.slice(0, 6)
 
     window.addEventListener('load', loadUsers())
 
@@ -54,6 +54,7 @@ export default function Suggestions() {
                                         photo={user.photoURL}
                                         displayname={user.displayName}
                                         username= {user.username}
+                                        isthisverifiqued = {user.isthisverifiqued}
                                     />
                                     <div className='button-follow'>
                                         <button>Seguir</button>
