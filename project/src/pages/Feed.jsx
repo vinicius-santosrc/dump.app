@@ -1,6 +1,6 @@
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import { auth, provider, signInWithPopup, app, db, database } from '../lib/firebase';
-import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore';
+import { addDoc, collection, doc, getFirebase, setDoc } from 'firebase/firestore';
 import Posts from "../components/pages/feed/Posts";
 import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
@@ -21,66 +21,71 @@ window.addEventListener("scroll", verificarFimDaPagina);
 function verificarFimDaPagina() {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         numberofload += 3
-        
+
     }
 }
 
 
 export default function Feed() {
-    
+
     const [postsRealtime, setPosts] = useState([])
 
     const getPosts = async () => {
         const response =
             await databases.listDocuments(
-            "64f9329a26b6d59ade09",
-            '64f93c1c40d294e4f379',
-            [Query.orderDesc("$createdAt")]).catch((e) => {
-                console.log(e)
-            })
+                "64f9329a26b6d59ade09",
+                '64f93c1c40d294e4f379',
+                [Query.orderDesc("$createdAt")]).catch((e) => {
+                    console.log(e)
+                })
 
-            setPosts(response.documents)
+        setPosts(response.documents)
 
-            if(numberofload > (response.documents).length) {
-                numberofload = (response.documents).length
-                document.querySelector(".loading-posts-dump-in-bottom").style.display = 'none'
-                document.querySelector(".EndOfThePage-dump").style.display = 'block'
-            }
+        if (numberofload > (response.documents).length) {
+            numberofload = (response.documents).length
+            document.querySelector(".loading-posts-dump-in-bottom").style.display = 'none'
+            document.querySelector(".EndOfThePage-dump").style.display = 'block'
+        }
     }
 
     window.addEventListener('DOMContentLoaded', getPosts())
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
-    let LastPosts = postsRealtime.slice(0 , numberofload)
+    let LastPosts = postsRealtime.slice(0, numberofload)
 
     const user = async () => {
         await databases.listDocuments(
             '64f9329a26b6d59ade09',
             "64f93be88eee8bb83ec3",
         )
-        .then((r) => {
-            Setusersdb(r)
-        })
-    } 
+            .then((r) => {
+                Setusersdb(r)
+            })
+    }
 
     user()
 
+    useEffect(() => {
+        HideLoading()
+    })
     //document.querySelector('.loading').style.display = 'none'   
-    return(
+    return (
+        
         <div className="App-Feed feedposts">
+            
             <UserPerfil />
             <Messages />
             <HeaderFeed />
             <div className="dump-feed-posts">
-                <PostingPhoto 
-                    
+                <PostingPhoto
+
                 />
                 {
-                    
+
                     LastPosts.map((p) => {
-                    
-                        return(
+
+                        return (
                             <Posts
                                 id={p.$id}
                                 displayName={p.displayName}
@@ -88,21 +93,21 @@ export default function Feed() {
                                 username={(p.displayName).toLowerCase()}
                                 fotopostada={p.filePost}
                                 descricao={p.legenda}
-                                timestamp = {p.timestamp}
-                                isthisverifiqued = {
-                                    users.documents.filter( e => e.email == p.email ).map((u) => {
-                                    return u.isthisverifiqued
-                                })}
+                                timestamp={p.timestamp}
+                                isthisverifiqued={
+                                    users.documents.filter(e => e.email == p.email).map((u) => {
+                                        return u.isthisverifiqued
+                                    })}
                             />
                         )
 
                     })
-                    
+
                 }
                 <LoadingContent />
                 <EndOfPage />
-            
-                
+
+
             </div>
             <Suggestions />
             <CreatePost />

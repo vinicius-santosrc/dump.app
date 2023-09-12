@@ -8,6 +8,9 @@ import { auth } from "../lib/firebase";
 
 
 function Login() {
+    useEffect(() => {
+        HideLoading()
+    })
     return(
         <>
         <Header />

@@ -7,7 +7,11 @@ import { Loading, HideLoading } from "../components/Loading";
 import { auth } from "../lib/firebase";
 
 
+
 function Cadastrar() {
+    useEffect(() => {
+        HideLoading()
+    })
     return(
         <>
         <Header />

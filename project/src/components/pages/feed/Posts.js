@@ -113,7 +113,7 @@ export default function Posts(props) {
     }
 
     const publicacaoId = props.id
-    const userId = auth.currentUser.uid
+    const userId = 'auth.currentUser.uid'
     const textoComentario = document.querySelector("#comments-dump-photo")
 
 

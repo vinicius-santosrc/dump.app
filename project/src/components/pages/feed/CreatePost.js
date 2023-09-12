@@ -8,6 +8,9 @@ import databases from '../../../lib/appwrite';
 import { Query, ID } from 'appwrite';
 
 export default function CreatePost() {
+    if(!auth.currentUser) {
+        return console.log("error createpost")
+    }
     const user = auth.currentUser
     
         const [desc, setDesc] = useState("");
