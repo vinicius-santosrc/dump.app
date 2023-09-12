@@ -116,11 +116,13 @@ export default function Posts(props) {
     const userId = 'auth.currentUser.uid'
     const textoComentario = document.querySelector("#comments-dump-photo")
 
-
+    function gotoPost() {
+        window.location.href = `${window.location.origin}/posts/${props.id}`
+    }
 
 
     return (
-        <div className="dump-post">
+        <div className="dump-post" onClick={gotoPost}>
             <div className="dump-post-header" onClick={gotouser}>
                 <img src={props.photoURL} />
                 <div className="dump-post-header-rightside">

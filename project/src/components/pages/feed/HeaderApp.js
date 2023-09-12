@@ -210,8 +210,8 @@ export default function HeaderFeed() {
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a><i className="fa-solid fa-magnifying-glass"></i></a>
-                <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a>
-                <a onClick={gotomyprofile}><img src={auth.currentUser ? auth.currentUser.photoURL : <></>} /></a>
+                {i_ison ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
+                {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>

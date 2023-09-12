@@ -850,8 +850,14 @@ body {
     color: red;
 }
 
+.dump-post-show-mobile {
+    display: none;
+}
 
 @media screen and (max-width: 900px) {
+    .dump-post-show-pc {
+        display: none;
+    }
     .curtidasheader {
         display: flex;
         justify-content: space-between;
@@ -1368,5 +1374,52 @@ body {
         100%{
             right: 0;
         }
+    }
+
+    .dump-post-show-mobile {
+        display: block;
+    }
+    .dump-post-show-mobile .dump-post-header-show {
+        display: flex;
+        justify-content: space-between;
+        align-self: center;
+        padding: 20px 5px;
+        font-size: 1.4rem;
+        
+    }
+    .dump-post-show-mobile .dump-post-topimage {
+        width: 100%;
+    }
+    .dump-post-show-mobile .dump-post-topimage img{
+        width: 100%;
+    }
+
+    .dump-post-show-mobile .dump-post-header-show a{
+        color: black;
+    }
+
+    .dump-post-show-mobile .flex-dump-info-image img {
+        width: 3rem;
+        border-radius: 100%;
+    }
+
+    .dump-post-show-mobile .flex-dump-info-image {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+    }
+
+    .dump-post-show-mobile .flex-dump-info-image h1 {
+        font-size: 1rem;
+    }
+
+    .dump-post-show-mobile .flex-dump-info-image p {
+        font-size: 0.9rem;
+    }
+    
+
+    .dump-post-show-mobile .dump-post-header-show img {
+        width: 5rem;
     }
 }

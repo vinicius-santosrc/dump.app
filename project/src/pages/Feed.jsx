@@ -30,7 +30,6 @@ export default function Feed() {
     const [postsRealtime, setPosts] = useState([])
 
     const getPosts = async () => {
-        console.log('load posts')
         const response =
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",

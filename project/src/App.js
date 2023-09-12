@@ -11,6 +11,7 @@ import IndexPage from './pages/IndexPage';
 import Cadastrar from './pages/SignUp';
 import Login from './pages/Login';
 import Feed from './pages/Feed';
+import PostDetails from './pages/PostDetails';
 import { Loading, HideLoading } from './components/Loading';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     })
   })
   return (
-    
+
     <div className="App">
       <Loading />
       <BrowserRouter>
@@ -32,8 +33,9 @@ function App() {
           <Route path='/' element={<Feed />} />
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
+          <Route path='/posts/:idPost' element={<PostDetails />} />
         </Routes>
-        
+
       </BrowserRouter>
     </div>
   );

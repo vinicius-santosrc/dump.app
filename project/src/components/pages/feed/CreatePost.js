@@ -53,7 +53,6 @@ export default function CreatePost() {
         }
 
         const postthis = (url) => {
-            console.log('loading')
             databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
                 filePost: url,
                 legenda: desc,
