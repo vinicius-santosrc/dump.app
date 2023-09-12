@@ -25,12 +25,12 @@ function verificarFimDaPagina() {
     }
 }
 
-
 export default function Feed() {
 
     const [postsRealtime, setPosts] = useState([])
 
     const getPosts = async () => {
+        console.log('load posts')
         const response =
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
@@ -48,7 +48,11 @@ export default function Feed() {
         }
     }
 
-    window.addEventListener('DOMContentLoaded', getPosts())
+    useEffect(() => {
+        HideLoading();
+        document.addEventListener("load", getPosts())
+    })
+    
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
@@ -65,15 +69,11 @@ export default function Feed() {
     }
 
     user()
-
-    useEffect(() => {
-        HideLoading()
-    })
     //document.querySelector('.loading').style.display = 'none'   
     return (
-        
+
         <div className="App-Feed feedposts">
-            
+
             <UserPerfil />
             <Messages />
             <HeaderFeed />
