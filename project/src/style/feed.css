@@ -1557,7 +1557,7 @@ body {
         background: white;
         padding: 20px;
         position: absolute;
-        display: block;
+
         top: 40%;
         left: 0;
         right: 0;
@@ -1565,7 +1565,7 @@ body {
         margin:0 auto;
         justify-content: center;
         text-align: center;
-        display: none;
+
         border-radius: 1px solid rgb(154, 154, 154);
         z-index: 5;
         animation: openmenuoptions 0.5s ease-in-out;
@@ -1604,7 +1604,7 @@ body {
     .dump-post-options-background {
         width: 100vw;
         height: 100vh;
-        display: none;
+
         position: fixed;
         z-index: 4;
         left: 0;

@@ -34,6 +34,8 @@ function App() {
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
           <Route path='/posts/:idPost' element={<PostDetails />} />
+          <Route path='/messages/inbox' element={''} />
+          <Route path='/messages/i/:idConta' element={''} />
         </Routes>
 
       </BrowserRouter>

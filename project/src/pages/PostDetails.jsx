@@ -39,30 +39,42 @@ export default function PostDetails() {
 
     function open_options_post() {
         document.querySelector(".dump-post-options-background").style.display = 'block'
-        document.querySelector(".dump-post-options ").style.display = 'block'
+        document.querySelector(".dump-post-options").style.display = 'block'
+
+        document.querySelector(".dump-post-show-mobile .dump-post-options-background").style.display = 'block'
+        document.querySelector(".dump-post-show-mobile .dump-post-options").style.display = 'block'
     }
 
     function close_options_post() {
         document.querySelector(".dump-post-options ").style.display = 'none'
+        document.querySelector(".dump-post-show-mobile .dump-post-options ").style.display = 'none'
     }
 
     function copiarlink() {
         navigator.clipboard.writeText(window.location.href);
         document.querySelector("#copylink").innerHTML = `Copiado!`
+        document.querySelector(".dump-post-show-mobile #copylink").innerHTML = `Copiado!`
         setTimeout(() => {
             document.querySelector("#copylink").innerHTML = `Copiar link`
+            document.querySelector(".dump-post-show-mobile #copylink").innerHTML = `Copiar link`
         }, 2000);
     }
     function compartilhar() {
         close_options_post()
         document.querySelector(".dump-post-options-compartilhar").style.display = 'block'
         document.querySelector(".compartilhar-options").style.display = 'block'
+
+        document.querySelector(".dump-post-show-mobile .dump-post-options-compartilhar").style.display = 'block'
+        document.querySelector(".dump-post-show-mobile .compartilhar-options").style.display = 'block'
     }
 
 
     function fecharcompartilhar() {
         document.querySelector(".dump-post-options-compartilhar").style.display = 'none'
         document.querySelector(".compartilhar-options").style.display = 'none'
+
+        document.querySelector(".dump-post-show-mobile .dump-post-options-compartilhar").style.display = 'none'
+        document.querySelector(".dump-post-show-mobile .compartilhar-options").style.display = 'none'
     }
 
     function compartilhar_whatsapp() {
@@ -72,6 +84,7 @@ export default function PostDetails() {
 
     function fecharbackground() {
         document.querySelector(".dump-post-options-background").style.display = 'none'
+        document.querySelector(".dump-post-show-mobile .dump-post-options-background").style.display = 'none'
     }
 
     function closepopups() {
