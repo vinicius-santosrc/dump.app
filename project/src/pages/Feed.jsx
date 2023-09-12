@@ -51,12 +51,11 @@ export default function Feed() {
     useEffect(() => {
         HideLoading();
     })
-    
+    let LastPosts = postsRealtime.slice(0, numberofload)
     getPosts()
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
-    let LastPosts = postsRealtime.slice(0, numberofload)
 
     const user = async () => {
         await databases.listDocuments(
