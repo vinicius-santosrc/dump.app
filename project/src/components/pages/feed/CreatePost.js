@@ -39,7 +39,10 @@ export default function CreatePost() {
             upload.on(
                 "state_change",
                 null,
-                (err) => console.log(err),
+                (err) => {
+                    document.querySelector(".seending-pic-dump").style.display = 'none';
+                    document.querySelector(".error-upload-photo").style.display = 'flex'
+                },
                 () => {
                     storage
                         .ref("posts")

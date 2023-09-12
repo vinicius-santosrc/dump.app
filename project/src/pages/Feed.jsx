@@ -86,6 +86,7 @@ export default function Feed() {
                         return (
                             <Posts
                                 id={p.$id}
+                                datepost={p.$createdAt}
                                 displayName={p.displayName}
                                 photoURL={p.photoURL}
                                 username={(p.displayName).toLowerCase()}

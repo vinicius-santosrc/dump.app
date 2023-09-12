@@ -105,9 +105,6 @@ export default function Posts(props) {
 
 
 
-
-
-
     function Comments() {
 
     }
@@ -120,6 +117,8 @@ export default function Posts(props) {
         window.location.href = `${window.location.origin}/posts/${props.id}`
     }
 
+    var datepost = new Date(props.datepost)
+    var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
     return (
         <div className="dump-post" onClick={gotoPost}>
@@ -138,6 +137,7 @@ export default function Posts(props) {
 
             </div>
             <div className="dump-post-bottom">
+            <label className="time-display-dump">{datefilepost}</label>
                 <div className="btns-dump-comments">
                     <button onClick={''}><i className="fa-regular fa-heart"></i> </button>
                     <button><i className="fa-regular fa-paper-plane"></i></button>

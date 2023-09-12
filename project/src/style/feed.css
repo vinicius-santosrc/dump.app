@@ -804,7 +804,7 @@ body {
     display: none;
 }
 
-.seending-pic-dump img, .sucess-upload-photo img {
+.seending-pic-dump img, .sucess-upload-photo img, .error-upload-photo img {
     border-radius: 10px;
     width: 90px;
     height: 90px;
@@ -831,6 +831,17 @@ body {
     gap: 10px;
 }
 
+.error-upload-photo {
+    background-color: red;
+    width: 650px;
+    color: white;
+    margin: 20px auto;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    display: none;
+}
+
 .leftsidecontent-alert {
     display: flex;
     align-items: center;
@@ -854,7 +865,141 @@ body {
     display: none;
 }
 
+.dump-post-show-pc .dump-post-header-show {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    padding: 20px 20px;
+    font-size: 1.4rem;
+    
+}
+.dump-post-show-pc .dump-post-topimage {
+    text-align: center;
+}
+.dump-post-show-pc .dump-post-topimage img{
+    width: 450px;
+    margin: auto;
+    text-align: center;
+}
+
+.dump-post-show-pc .dump-post-header-show a{
+    color: black;
+}
+
+.dump-post-header-show label {
+    cursor: pointer;
+}
+
+.dump-post-show-pc .flex-dump-info-image img {
+    width: 3rem;
+    border-radius: 100%;
+}
+
+.dump-post-show-pc .time-display-dump {
+    color: rgb(158, 158, 158);
+    font-weight: 400;
+}
+
+.dump-post-options, .dump-post-options-compartilhar {
+    background: white;
+    padding: 20px;
+    position: absolute;
+    display: block;
+    top: 40%;
+    left: 0;
+    right: 0;
+    width: 300px;
+    margin:0 auto;
+    justify-content: center;
+    text-align: center;
+    display: none;
+    border-radius: 1px solid rgb(154, 154, 154);
+    z-index: 5;
+    animation: openmenuoptions 0.5s ease-in-out;
+    border-radius: 10px;
+}
+
+.dump-post-options-compartilhar h4 {
+    text-align: left;
+}
+
+.dump-post-options-compartilhar button {
+    border: none;
+    border-bottom: 1px solid rgb(209, 209, 209);
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    margin: 10px 0px;
+    background-color: white;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+#whatsapp-btn {
+    color: green;
+    cursor: pointer;
+}
+
+@keyframes openmenuoptions {
+    0% {
+        transform: scale(0.9)
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.dump-post-img-inner {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
+}
+.dump-post-options-background {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.266);
+}
+
+.dump-post-options #cancel, .dump-post-options-compartilhar #cancel {
+    color: red;
+}
+
+.dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+.dump-post-show-pc .flex-dump-info-image {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.dump-post-show-pc .flex-dump-info-image h1 {
+    font-size: 1rem;
+}
+
+.dump-post-show-pc .flex-dump-info-image p {
+    font-size: 0.9rem;
+}
+
+
+.dump-post-show-pc .dump-post-header-show img {
+    width: 5rem;
+}
+
 @media screen and (max-width: 900px) {
+    .dump-post-img-inner {
+        display: block;
+    }
     .dump-post-show-pc {
         display: none;
     }
@@ -1289,7 +1434,7 @@ body {
         z-index: -1;
     }
     
-    .seending-pic-dump img, .sucess-upload-photo img {
+    .seending-pic-dump img, .sucess-upload-photo img, .error-upload-photo img {
         border-radius: 10px;
         width: 75px;
         height: 70px;
@@ -1403,6 +1548,79 @@ body {
         border-radius: 100%;
     }
 
+    .dump-post-show-mobile .time-display-dump {
+        color: rgb(158, 158, 158);
+        font-weight: 400;
+    }
+
+    .dump-post-options, .dump-post-options-compartilhar {
+        background: white;
+        padding: 20px;
+        position: absolute;
+        display: block;
+        top: 40%;
+        left: 0;
+        right: 0;
+        width: 300px;
+        margin:0 auto;
+        justify-content: center;
+        text-align: center;
+        display: none;
+        border-radius: 1px solid rgb(154, 154, 154);
+        z-index: 5;
+        animation: openmenuoptions 0.5s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .dump-post-options-compartilhar h4 {
+        text-align: left;
+    }
+
+    .dump-post-options-compartilhar button {
+        border: none;
+        border-bottom: 1px solid rgb(209, 209, 209);
+        padding: 10px;
+        text-align: left;
+        width: 100%;
+        margin: 10px 0px;
+        background-color: white;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    #whatsapp-btn {
+        color: green;
+    }
+
+    @keyframes openmenuoptions {
+        0% {
+            transform: scale(0.9)
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .dump-post-options-background {
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        position: fixed;
+        z-index: 4;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.266);
+    }
+
+    .dump-post-options #cancel, .dump-post-options-compartilhar #cancel {
+        color: red;
+    }
+
+    .dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {
+        padding: 10px;
+    }
+    
+
     .dump-post-show-mobile .flex-dump-info-image {
         display: flex;
         align-items: center;
@@ -1421,5 +1639,15 @@ body {
 
     .dump-post-show-mobile .dump-post-header-show img {
         width: 5rem;
+    }
+
+    .error-upload-photo {
+        background-color: rgb(254, 65, 65);
+        width: 100%;
+        color: white;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 10px;
+        gap: 10px;
     }
 }
