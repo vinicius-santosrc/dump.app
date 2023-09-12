@@ -44,14 +44,9 @@ const gotomyprofile = () => {
 }
 
 function CurtidasList() {
-    if (!auth.currentUser) {
-        return console.log('curtidas list error')
-    }
-
     const CurrentUserId = auth.currentUser.uid
 
     const [notfy, setNot] = useState('')
-
     const getNoty = async () => {
         await databases.listDocuments(
             "64f9329a26b6d59ade09",
@@ -228,7 +223,7 @@ export default function HeaderFeed() {
                     <img src={auth.currentUser ? auth.currentUser.photoURL : <></>} />
 
                 </div>
-                <CurtidasList />
+                {auth.currentUser ? <CurtidasList /> : <></>}
             </div>
         </>
     )

@@ -50,9 +50,9 @@ export default function Feed() {
 
     useEffect(() => {
         HideLoading();
-        document.addEventListener("load", getPosts())
     })
     
+    getPosts()
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
