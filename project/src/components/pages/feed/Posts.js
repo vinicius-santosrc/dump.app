@@ -106,7 +106,7 @@ export default function Posts(props) {
 
 
 
-    
+
 
     function Comments() {
 
@@ -138,30 +138,32 @@ export default function Posts(props) {
             <div className="dump-post-bottom">
                 <div className="btns-dump-comments">
                     <button onClick={''}><i className="fa-regular fa-heart"></i> </button>
+                    <button><i className="fa-regular fa-paper-plane"></i></button>
                     <div className='likes-card-box'>
-
-
                     </div>
                     <button><i className="fa-solid fa-retweet"></i> </button>
+                    <button><i className="fa-regular fa-bookmark"></i></button>
                     <ButtonDeletePublic />
+                    
                 </div>
-                <div>
-                    <a className="dump-comments-post">
-                        <div>
 
-                            <input id='comments-dump-photo' placeholder='Envie seu comentario' />
-                            <button onClick={''}>COMENTAR</button>
-
-                        </div>
-                        <div className='comments-photo'>
-                            <Comments />
-                        </div>
-
-                    </a>
-                </div>
             </div>
             <div className="dump-post-bottom-desc">
                 <p><b>@{props.username}</b>: {props.descricao}</p>
+            </div>
+            <div>
+                <a className="dump-comments-post">
+                    <div>
+
+                        <input id='comments-dump-photo' placeholder='Envie seu comentario' />
+                        <button onClick={''}>COMENTAR</button>
+
+                    </div>
+                    <div className='comments-photo'>
+                        <Comments />
+                    </div>
+
+                </a>
             </div>
         </div>
     )
