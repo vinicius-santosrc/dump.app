@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import databases from "../lib/appwrite";
 import { Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
-import { auth } from "../lib/firebase";
+import { auth, provider, signInWithPopup } from "../lib/firebase";
 
 export default function Account() {
     const { ID_ACCOUNT } = useParams();
