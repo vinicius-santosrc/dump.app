@@ -8,13 +8,17 @@ import databases from '../../../lib/appwrite';
 import { Query, ID } from 'appwrite';
 
 export default function CreatePost() {
-    
+    function ErroPostDump() {
+        document.querySelector(".seending-pic-dump").style.display = 'none';
+        document.querySelector(".error-upload-photo").style.display = 'flex';
+        document.querySelector(".seending-pic-dump-left-side").innerHTML = `<img src=${filePost}></img>`
+    }
     const user = auth.currentUser
 
     const [desc, setDesc] = useState("");
     const fileRef = useRef("")
     const [filePost, setFilePost] = useState("")
-    if(!user) {
+    if (!user) {
         return user
     }
     const HandlePost = async (e) => {
@@ -23,7 +27,7 @@ export default function CreatePost() {
         if (!desc) {
             setDesc('Sem legenda')
         };
-    
+
         if (filePost) {
             document.querySelector(".seending-pic-dump").style.display = 'flex'
 
@@ -40,8 +44,7 @@ export default function CreatePost() {
                 "state_change",
                 null,
                 (err) => {
-                    document.querySelector(".seending-pic-dump").style.display = 'none';
-                    document.querySelector(".error-upload-photo").style.display = 'flex'
+                    ErroPostDump()
                 },
                 () => {
                     storage
@@ -63,15 +66,19 @@ export default function CreatePost() {
                 username: (user.displayName).toLocaleLowerCase(),
                 email: user.email,
                 photoURL: user.photoURL,
-                timestamp: ''
-            }).then(() => {
-                document.querySelector(".seending-pic-dump").style.display = 'none'
-                document.querySelector(".sucess-upload-photo").style.display = 'flex'
-                setInterval(() => {
-                    document.querySelector(".sucess-upload-photo").style.display = 'none'
-                }, 10000)
-
+                uid: auth.currentUser.uid
             })
+                .then(() => {
+                    document.querySelector(".seending-pic-dump").style.display = 'none'
+                    document.querySelector(".sucess-upload-photo").style.display = 'flex'
+                    setInterval(() => {
+                        document.querySelector(".sucess-upload-photo").style.display = 'none'
+                    }, 10000)
+
+                })
+                .catch(() => {
+                    ErroPostDump()
+                })
         }
 
         setDesc("");

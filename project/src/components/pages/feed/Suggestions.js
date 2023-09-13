@@ -16,14 +16,17 @@ export default function Suggestions() {
         '64f9329a26b6d59ade09',
         "64f93be88eee8bb83ec3",
         [Query.orderDesc("$createdAt")]).catch((e) => {
+
         })
         setUsers(userslogged.documents)
 
     }
 
+    loadUsers()
+    
     let FirstUsers = Users.slice(0, 6)
 
-    loadUsers()
+    
 
     return(
         <div className='card-suggestios-block'>

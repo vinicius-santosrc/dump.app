@@ -27,15 +27,16 @@ export default function Feed() {
     const [postsRealtime, setPosts] = useState([])
 
     const getPosts = async () => {
-        const response =
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
-                [Query.orderDesc("$createdAt")]).catch((e) => {
+                [Query.orderDesc("$createdAt")])
+                .then((res) => {
+                    setPosts(res.documents)
+                })
+                .catch((e) => {
                     console.log(e)
                 })
-
-        setPosts(response.documents)
     }
 
     useEffect(() => {
@@ -72,7 +73,7 @@ export default function Feed() {
                 />
                 {
 
-                    LastPosts.map((p) => {
+                postsRealtime.map((p) => {
 
                         return (
                             <Posts
@@ -87,11 +88,11 @@ export default function Feed() {
                                 timestamp={p.timestamp}
                                 isthisverifiqued={
 
-                                        users.documents.filter(e => e.email == p.email).map((u) => {
-                                            return u.isthisverifiqued
-                                        })
-                                    
-  }
+                                    users.documents.filter(e => e.email == p.email).map((u) => {
+                                        return u.isthisverifiqued
+                                    })
+
+                                }
                             />
                         )
 

@@ -37,7 +37,7 @@ export default function PostingPhoto(props) {
             </div>
             <div className='error-upload-photo'>
             <div className="seending-pic-dump-left-side imagepicsending">
-                    <img src={props.image} />
+
                 </div>
                 <div className="seending-pic-dump-right-side contentsideseending">
                     <div className='seendingcontent-sb'>
