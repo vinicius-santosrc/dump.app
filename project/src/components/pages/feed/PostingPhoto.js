@@ -1,5 +1,5 @@
 import { MrMiyagi } from '@uiball/loaders'
-import { auth } from '../../../lib/firebase'
+
 
 export default function PostingPhoto(props) {
     return (

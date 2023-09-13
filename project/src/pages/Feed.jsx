@@ -1,11 +1,8 @@
 import HeaderFeed from "../components/pages/feed/HeaderApp";
-import { auth, provider, signInWithPopup, app, db, database } from '../lib/firebase';
-import { addDoc, collection, doc, getFirebase, setDoc } from 'firebase/firestore';
 import Posts from "../components/pages/feed/Posts";
 import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { Loading, HideLoading } from "../components/Loading";
+import { HideLoading } from "../components/Loading";
 import Messages from "../components/pages/feed/Messages";
 import UserPerfil from "../components/pages/feed/UserPerfil";
 import databases from "../lib/appwrite";

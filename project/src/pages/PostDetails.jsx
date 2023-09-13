@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
+
 import { HideLoading } from "../components/Loading";
 import databases from "../lib/appwrite";
 import { useParams } from "react-router-dom";
-import HeaderFeed from "../components/pages/feed/HeaderApp";
+
 
 export default function PostDetails() {
     const { idPost } = useParams();

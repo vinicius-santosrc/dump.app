@@ -9,7 +9,7 @@ export default function AccountMentions() {
     const { ID_ACCOUNT } = useParams();
 
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
-    const [USERS_POSTS, setPostsofUser] = useState('')
+
 
     useEffect(() => {
         HideLoading()
@@ -28,42 +28,6 @@ export default function AccountMentions() {
 
     }, [ID_ACCOUNT])
     const [nofposts, setNumberofPosts] = useState()
-    useEffect(() => {
-        const getPostsofUser = async () => {
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                '64f93c1c40d294e4f379',
-                [Query.orderDesc("$createdAt")]).catch((e) => {
-                    console.log(e)
-                }
-            )
-    
-                .then((res) => {
-                    if(!res.documents) {
-                        return <>NADA ENCONTADO</>
-                    }
-                    setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u) => {
-                        setNumberofPosts(u.length)
-
-                        function gotoPostSelect() {
-                            window.location.href = `${window.location.origin}/posts/${u.$id}`
-                        }
-                    
-                        return (
-                            <>
-                                <div className="dump-user-account" onClick={gotoPostSelect}>
-                                    <img className="dump-image-show" alt={u.legenda} src={u.filePost} />
-                                </div>
-                            </>
-                        )
-                    }))
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
-        }
-        getPostsofUser()
-    })
 
     function backtoprofile() {
         let url = (window.location.href).replace('/mentions', '')
