@@ -23,7 +23,7 @@ export default function Suggestions() {
 
     let FirstUsers = Users.slice(0, 6)
 
-    document.addEventListener('load', loadUsers())
+    loadUsers()
 
     return(
         <div className='card-suggestios-block'>

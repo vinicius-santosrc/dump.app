@@ -86,9 +86,12 @@ export default function Feed() {
                                 descricao={p.legenda}
                                 timestamp={p.timestamp}
                                 isthisverifiqued={
-                                    users.documents.filter(e => e.email == p.email).map((u) => {
-                                        return u.isthisverifiqued
-                                    })}
+
+                                        users.documents.filter(e => e.email == p.email).map((u) => {
+                                            return u.isthisverifiqued
+                                        })
+                                    
+  }
                             />
                         )
 

@@ -91,7 +91,7 @@ function CurtidasList() {
             })
     }
 
-    getNoty()
+    //getNoty()
 
 
     return notfy
