@@ -13,6 +13,9 @@ import Login from './pages/Login';
 import Feed from './pages/Feed';
 import PostDetails from './pages/PostDetails';
 import { Loading, HideLoading } from './components/Loading';
+import Inbox from './pages/Inbox';
+import Account from './pages/Account';
+import AccountMentions from './pages/AccountMentions';
 
 function App() {
   const [i_ison, setUserOn] = useState('')
@@ -34,8 +37,9 @@ function App() {
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
           <Route path='/posts/:idPost' element={<PostDetails />} />
-          <Route path='/messages/inbox' element={''} />
-          <Route path='/messages/i/:idConta' element={''} />
+          <Route path='/messages/inbox' element={<Inbox />} />
+          <Route path='/user/:ID_ACCOUNT' element={<Account />} />
+          <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
         </Routes>
 
       </BrowserRouter>

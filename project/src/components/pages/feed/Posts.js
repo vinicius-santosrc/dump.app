@@ -11,6 +11,20 @@ export default function Posts(props) {
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     function gotouser() {
+        
+        const getUserUrl = async () => {
+            await databases.listDocuments(
+                "64f9329a26b6d59ade09",
+                "64f93be88eee8bb83ec3",
+            )
+                .then((res) => {
+                    res.documents.filter(e => e.email == props.email).map((r) => {
+                        window.location.href = `${window.location.origin}/user/${r.$id}`
+                    })
+                })
+        }
+        getUserUrl()
+
         /*database
             .collection("users")
             .where("username", "==", props.username)
@@ -121,7 +135,7 @@ export default function Posts(props) {
     var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
     return (
-        <div className="dump-post" onClick={gotoPost}>
+        <div className="dump-post" >
             <div className="dump-post-header" onClick={gotouser}>
                 <img src={props.photoURL} />
                 <div className="dump-post-header-rightside">
@@ -133,7 +147,7 @@ export default function Posts(props) {
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img onDoubleClick={''} controls autoPlay src={props.fotopostada} />
+                <img onDoubleClick={''} onClick={gotoPost} controls autoPlay src={props.fotopostada} />
 
             </div>
             <div className="dump-post-bottom">

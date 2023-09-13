@@ -46,7 +46,7 @@ export default function Suggestions() {
                     {
                     
                     FirstUsers.map((user) => {
-                        const gotouser = () => { window.location.href=window.location.origin + '/?user=' + user.username}
+                        const gotouser = () => { window.location.href=window.location.origin + '/user/' + user.$id}
                             return(
                                 <div className="card-user-sg" onClick={gotouser}>
                                     <Suggestions_User

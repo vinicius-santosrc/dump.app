@@ -39,12 +39,6 @@ export default function Feed() {
                 })
 
         setPosts(response.documents)
-
-        if (numberofload > (response.documents).length) {
-            numberofload = (response.documents).length
-            document.querySelector(".loading-posts-dump-in-bottom").style.display = 'none'
-            document.querySelector(".EndOfThePage-dump").style.display = 'block'
-        }
     }
 
     useEffect(() => {
@@ -87,6 +81,7 @@ export default function Feed() {
                             <Posts
                                 id={p.$id}
                                 datepost={p.$createdAt}
+                                email={p.email}
                                 displayName={p.displayName}
                                 photoURL={p.photoURL}
                                 username={(p.displayName).toLowerCase()}

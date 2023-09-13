@@ -710,6 +710,119 @@ body {
     transition: 500ms;
 }
 
+.dump-account-page {
+    width: 1000px;
+    margin: auto;
+    
+}
+
+.top-dump-account-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-dump-account-back-btn h1 {
+    font-size: 1rem;
+    cursor: default;
+}
+
+.top-dump-account-back-btn button {
+    background-color: transparent;
+    padding: 5px;
+    border: none;
+}
+
+.top-dump-account-back-btn button:hover {
+    cursor: pointer;
+}
+
+.top-dump-account-back-btn {
+    padding: 10px 0px;
+    border-top: 1px solid rgb(199, 199, 199);
+}
+
+.leftside-account {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rightside-account {
+    text-align: center;
+}
+
+.followers-card {
+    display: flex;
+    gap: 10px;
+}
+
+.dump-user-account {
+    width: 250px;
+    height: 250px;
+}
+
+.dump-user-account img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.dump-user-account img:hover {
+    filter: brightness(0.8)
+}
+
+.dumps-account-user-show {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px 0px;
+    gap: 3px;
+}
+
+.rightside-account .btns-links {
+    display: flex;
+    gap: 10px;
+}
+
+.leftside-account h1 {
+    font-size: 1.2rem;
+}
+
+.leftside-account img {
+    width: 6rem;
+    border-radius: 100%;
+}
+
+.top-account {
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-account button {
+    padding: 10px 40px;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    border: 1px solid black;
+    transition: 500ms;
+}
+
+.top-account button:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+    
+}
+
+.leftside-account p {
+    font-size: 0.9rem;
+}
 @keyframes heartcurtida {
     0% {
         font-size: 0rem;
@@ -994,6 +1107,29 @@ body {
 
 .dump-post-show-pc .dump-post-header-show img {
     width: 5rem;
+}
+
+.selecttypeofpublic {
+    width: 400px;
+    padding: 0px;
+    margin: 0;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px;
+}
+
+.selecttypeofpublic label {
+    padding: 10px 60px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.selecttypeofpublic label#selected {
+    background-color: rgb(0, 0, 0);
+    color: white;
 }
 
 @media screen and (max-width: 900px) {
@@ -1649,5 +1785,155 @@ body {
         border-radius: 10px;
         padding: 10px;
         gap: 10px;
+    }
+
+    .dump-account-page {
+        width: 100%;
+        margin: auto;
+        
+    }
+    
+    .top-dump-account-back-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .top-dump-account-back-btn h1 {
+        font-size: 0.9rem;
+        cursor: default;
+    }
+    
+    .top-dump-account-back-btn button {
+        background-color: transparent;
+        padding: 5px;
+        border: none;
+    }
+    
+    .top-dump-account-back-btn button:hover {
+        cursor: pointer;
+    }
+    
+    .top-dump-account-back-btn {
+        padding: 10px 0px;
+        border-top: 1px solid rgb(199, 199, 199);
+    }
+    
+    .leftside-account {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .rightside-account {
+        text-align: center;
+    }
+    
+    .followers-card {
+        display: flex;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .followers-card p {
+    
+        font-size: 0.7rem;
+    }
+    
+    .dump-user-account {
+        width: 135px;
+        height: 135px;
+    }
+    
+    .dump-user-account img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: 500ms;
+    }
+    
+    .dump-user-account img:hover {
+        filter: brightness(0.8)
+    }
+    
+    .dumps-account-user-show {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 30px 0px;
+        width: 100%;
+        gap: 4px;
+
+    }
+
+    .dumps-of-user {
+        margin: 0px -30px
+    }
+    
+    .rightside-account .btns-links {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .leftside-account h1 {
+        font-size: 0.9rem;
+    }
+    
+    .leftside-account img {
+        width: 4rem;
+        border-radius: 100%;
+    }
+    
+    .top-account {
+        padding: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .top-account button {
+        padding: 5px 20px;
+        background-color: black;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        border: 1px solid black;
+        transition: 500ms;
+    }
+    
+    .top-account button:hover {
+        cursor: pointer;
+        background-color: transparent;
+        color: black;
+        
+    }
+    
+    .leftside-account p {
+        font-size: 0.8rem;
+    }
+    .selecttypeofpublic {
+        width: 350px;
+        padding: 0px;
+        margin: auto;
+        text-align: center;
+        border: 1px solid gray;
+        border-radius: 10px;
+        display: flex;
+        
+        justify-content: space-between;
+        margin: 10px 30px;
+    }
+    
+    .selecttypeofpublic label {
+        padding: 10px 52px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+    
+    .selecttypeofpublic label#selected {
+        background-color: rgb(0, 0, 0);
+        color: white;
     }
 }

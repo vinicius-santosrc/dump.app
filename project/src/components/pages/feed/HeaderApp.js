@@ -7,19 +7,8 @@ import { signOutUser } from "../../../lib/firebase"
 import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from "firebase/compat/app"
-import { User, UserNotFound } from '../../../pages/User';
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
-
-getUrlUser()
-function getUrlUser() {
-    const urlParams = new URLSearchParams(window.location.search)
-    return urlParams.get('user')
-}
-
-function isnewuser() {
-    return getUrlUser() ? false : true;
-}
 
 function gotoHome() {
     window.location.href = window.location.origin
@@ -29,9 +18,21 @@ function createnewpost() {
     document.querySelector('.createneewpost-card').style.display = 'block';
     document.querySelector('.background-posts').style.display = 'block';
 }
-
 const gotomyprofile = () => {
-    signOutUser()
+    
+    const getprofile = async () => {
+        
+        await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3"
+        ).then((res) => {
+            res.documents.filter(a => a.uid == auth.currentUser.uid).map((r) => {
+                window.location.href = `${window.location.origin}/user/${r.$id}`
+            })
+        })
+    }
+    getprofile()
+
     /*database
     .collection('users')
     .where('uid' , '==', auth.currentUser.uid)
@@ -128,33 +129,6 @@ export default function HeaderFeed() {
             setUserOn(u)
         })
     })
-    if (!isnewuser()) {
-        let usernameuser = getUrlUser();
-        database
-            .collection("users")
-            .where('username', '==', usernameuser)
-            .get()
-            .then(u => {
-                if (u.docs.length != 0) {
-                    u.docs.map(a => {
-                        return (
-                            <User
-                                displayname={a.data().name}
-                                username={a.data().username}
-                                photoURL={a.data().photoURL}
-                            />
-                        )
-                    })
-                }
-                else {
-                    u.docs.map(a => {
-                        return (
-                            <UserNotFound />
-                        )
-                    })
-                }
-            })
-    }
 
     const [db_userison, Set_USER_IS_ON_VERIF] = useState('')
 
@@ -220,6 +194,7 @@ export default function HeaderFeed() {
                         <i className="fa-solid fa-chevron-left"></i>
                     </button>
                     <h2>Notificações</h2>
+                    
                     <img src={auth.currentUser ? auth.currentUser.photoURL : <></>} />
 
                 </div>
