@@ -69,7 +69,7 @@ export default function Feed() {
             <Messages />
             <HeaderFeed />
             <div className="dump-feed-posts">
-                <Dailys />
+                
                 <PostingPhoto
 
                 />
