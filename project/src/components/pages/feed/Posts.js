@@ -147,8 +147,7 @@ export default function Posts(props) {
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img onDoubleClick={''} onClick={gotoPost} controls autoPlay src={props.fotopostada} />
-
+                <img onDoubleClick={''} onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
             </div>
             <div className="dump-post-bottom">
             <label className="time-display-dump">{datefilepost}</label>

@@ -194,6 +194,12 @@ body {
     border-radius: 100%;
 }
 
+.account-off-div-flexbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .dump-post {
     margin: auto;
     width: 650px;
@@ -1051,6 +1057,54 @@ body {
 #whatsapp-btn {
     color: green;
     cursor: pointer;
+}
+
+.dailys-dump {
+    margin: auto;
+    width: 650px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.dailys-dump-flexbox-show {
+    display: flex;
+    width: 100%;
+    overflow: auto;
+}
+.dailys-dump-flexbox-show img {
+    width: 4rem;
+    border-radius: 100%;
+}
+
+.dailys-dump-flexbox-show h1 {
+    font-size: 1rem;
+}
+
+.dailys-dump-flexbox-show p {
+    font-size: 1rem;
+}
+
+.daily-main-account, .daily-another-accounts {
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.error {
+    display: none;
+}
+
+.daily-another-accounts  img {
+    border: 2px solid rgb(145, 74, 252);
+    padding: 2px;
+}
+
+.beta-version {
+    background :#eaeaea;
+    padding: 10px;
+    border-radius: 10px;
+    display: none;
 }
 
 @keyframes openmenuoptions {
@@ -1935,5 +1989,25 @@ body {
     .selecttypeofpublic label#selected {
         background-color: rgb(0, 0, 0);
         color: white;
+    }
+
+    .beta-version {
+        background :#eaeaea;
+        padding: 10px;
+        border-radius: 10px;
+        display: block;
+        width: 100%;
+    }
+
+    .beta-version h1{
+        font-size: 1rem;
+    }
+
+    .beta-version p{
+        font-size: 1rem;
+    }
+
+    .dailys-dump{
+        width: 100%;
     }
 }

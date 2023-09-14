@@ -18,10 +18,10 @@ function createnewpost() {
     document.querySelector('.createneewpost-card').style.display = 'block';
     document.querySelector('.background-posts').style.display = 'block';
 }
-const gotomyprofile = () => {
-    
+const gotomyprofile = async () => {
+
     const getprofile = async () => {
-        
+
         await databases.listDocuments(
             "64f9329a26b6d59ade09",
             "64f93be88eee8bb83ec3"
@@ -45,7 +45,7 @@ const gotomyprofile = () => {
 }
 
 function CurtidasList() {
-    const CurrentUserId = auth.currentUser.uid
+    /*const CurrentUserId = auth.currentUser.uid
 
     const [notfy, setNot] = useState('')
     const getNoty = async () => {
@@ -94,7 +94,7 @@ function CurtidasList() {
     //getNoty()
 
 
-    return notfy
+    return notfy*/
 }
 
 function gotoHomePage() {
@@ -118,6 +118,7 @@ function fecharCurtidas() {
 }
 
 export default function HeaderFeed() {
+    const [getUserAtual, setGetUser] = useState('')
     const [i_ison, setUserOn] = useState('')
     const SignWithGoogle = () => {
         signInWithPopup(auth, provider).then((i) => {
@@ -128,29 +129,31 @@ export default function HeaderFeed() {
         auth.onAuthStateChanged(function (u) {
             setUserOn(u)
         })
+        
+        const getuseratual = async () => {
+            await databases.listDocuments(
+                '64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3'
+            )
+            .then((e) => {
+                e.documents.filter(d => d.uid == auth.currentUser.uid)
+                .map((response) => {
+                    setGetUser(response)
+                })
+            })
+        }
+
+        getuseratual()
     })
 
     const [db_userison, Set_USER_IS_ON_VERIF] = useState('')
 
-    function Accountleftside() {
-        if (!i_ison) {
-            Set_USER_IS_ON_VERIF(
-                <>NAO EXISTE Conta</>
-            )
-        }
-        else {
-            Set_USER_IS_ON_VERIF(
-                <div className="account-div-flexbox" onClick={gotomyprofile}>
-                    <img src={auth.currentUser ? auth.currentUser.photoURL : ''} />
-                    <div>
-                        <h3 className="currentuser-displayname">{auth.currentUser ? auth.currentUser.displayName : ''}</h3>
-                        <p className="currentuser-id">@{auth.currentUser ? auth.currentUser.displayName : <></>}</p>
-                    </div>
-                </div>
-            )
-        }
-        return db_userison
+    function gotoLoginPage() {
+        window.location.href = window.location.origin + '/accounts/signup'
     }
+
+
+
 
     return (
 
@@ -167,7 +170,27 @@ export default function HeaderFeed() {
                                 {i_ison ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
                             </div>
                             <div className="account-div">
-                                <Accountleftside />
+                                {i_ison ?
+                                    <div className="account-div-flexbox" onClick={gotomyprofile}>
+                                        <img src={getUserAtual.photoURL} />
+                                        <div>
+                                            <h3 className="currentuser-displayname">{ getUserAtual.displayName}</h3>
+                                            <p className="currentuser-id">@{getUserAtual.username}</p>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="account-off-div-flexbox" >
+                                        <i className="fa-solid fa-right-to-bracket"></i>
+                                        <div onClick={gotoLoginPage}>
+                                            <h3 className="currentuser-displayname">
+                                                Faça seu login
+                                            </h3>
+                                            <p className="currentuser-id">
+                                                Entre agora para o dump
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -185,7 +208,7 @@ export default function HeaderFeed() {
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
-                {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                {i_ison ? <a onClick={gotomyprofile}><img src={getUserAtual.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>
@@ -194,11 +217,13 @@ export default function HeaderFeed() {
                         <i className="fa-solid fa-chevron-left"></i>
                     </button>
                     <h2>Notificações</h2>
-                    
-                    <img src={auth.currentUser ? auth.currentUser.photoURL : <></>} />
+
+                    {i_ison ? <img src={getUserAtual.photoURL} /> : <></>}
+
+
 
                 </div>
-                {auth.currentUser ? <CurtidasList /> : <></>}
+                {i_ison ? <CurtidasList /> : <></>}
             </div>
         </>
     )

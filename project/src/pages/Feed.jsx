@@ -11,6 +11,7 @@ import { Query } from "appwrite";
 import PostingPhoto from "../components/pages/feed/PostingPhoto";
 import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
+import Dailys from "../components/pages/feed/Dailys";
 
 let numberofload = 3
 window.addEventListener("scroll", verificarFimDaPagina);
@@ -68,11 +69,12 @@ export default function Feed() {
             <Messages />
             <HeaderFeed />
             <div className="dump-feed-posts">
+                <Dailys />
                 <PostingPhoto
 
                 />
                 {
-
+                
                 postsRealtime.map((p) => {
 
                         return (
@@ -80,9 +82,15 @@ export default function Feed() {
                                 id={p.$id}
                                 datepost={p.$createdAt}
                                 email={p.email}
-                                displayName={p.displayName}
-                                photoURL={p.photoURL}
-                                username={(p.displayName).toLowerCase()}
+                                displayName={users.documents.filter(e => e.email == p.email).map((u) => {
+                                    return u.displayName
+                                })}
+                                photoURL={users.documents.filter(e => e.email == p.email).map((u) => {
+                                    return u.photoURL
+                                })}
+                                username={users.documents.filter(e => e.email == p.email).map((u) => {
+                                    return u.username
+                                })}
                                 fotopostada={p.filePost}
                                 descricao={p.legenda}
                                 timestamp={p.timestamp}

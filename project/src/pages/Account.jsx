@@ -122,6 +122,11 @@ export default function Account() {
         );
     }
 
+    function changeInfoPage() {
+        document.querySelector("title").innerText = `${ID_ACCOUNT_I.displayName} (@${ID_ACCOUNT_I.username}) | Dump`
+    }
+    changeInfoPage()
+
     return (
         <>
             <HeaderAccount />
