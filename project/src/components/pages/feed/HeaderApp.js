@@ -49,6 +49,7 @@ function CurtidasList() {
     const CurrentUserId = auth.currentUser.uid
 
     const [notfy, setNot] = useState('')
+   
     const getNoty = async () => {
         await databases.listDocuments(
             "64f9329a26b6d59ade09",
@@ -189,7 +190,7 @@ export default function HeaderFeed() {
                                 {i_ison ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
                             </div>
                             <div className="account-div">
-                                {i_ison ?
+                                {i_ison  ?
                                     <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid} ><div className="account-div-flexbox" onClick={gotomyprofile}>
                                         <img src={ID_ACCOUNT_I.photoURL} />
                                         <div>

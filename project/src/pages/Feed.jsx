@@ -57,7 +57,7 @@ export default function Feed() {
 
     useEffect(() => {
         user()
-    }, [])
+    })
     //document.querySelector('.loading').style.display = 'none'   
     return (
 
@@ -102,7 +102,7 @@ export default function Feed() {
 
                     }, [])
 
-                }, []
+                }
                 <LoadingContent />
                 <EndOfPage />
 
