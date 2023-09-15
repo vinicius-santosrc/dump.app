@@ -44,6 +44,7 @@ const gotomyprofile = () => {
     })*/
 }
 
+
 function CurtidasList() {
     const CurrentUserId = auth.currentUser.uid
 
@@ -91,7 +92,9 @@ function CurtidasList() {
             })
     }
 
-    //getNoty()
+    useEffect(() => {
+        getNoty()
+    }, [])
 
 
     return notfy
@@ -128,7 +131,7 @@ export default function HeaderFeed() {
         auth.onAuthStateChanged(function (u) {
             setUserOn(u)
         })
-    })
+    }, [])
 
     const [db_userison, Set_USER_IS_ON_VERIF] = useState('')
 
@@ -136,8 +139,36 @@ export default function HeaderFeed() {
         window.location.href = window.location.origin + '/accounts/signup'
     }
 
+    let ID_ACCOUNT = ''
+    if (auth.currentUser) {
+        ID_ACCOUNT = auth.currentUser.uid
+    }
 
+    const [ID_ACCOUNT_I, SetAccount] = useState(null)
 
+    const getUserAtual = async () => {
+        await databases.getDocument(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3",
+            ID_ACCOUNT
+        )
+            .then((response) => {
+                SetAccount(response)
+    
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    
+    }
+
+    useEffect(() => {
+        getUserAtual()
+    })
+
+    function gotoSearch() {
+        window.location.href = window.location.origin + '/search'
+    }
 
 
     return (
@@ -151,18 +182,21 @@ export default function HeaderFeed() {
                             <div className="LeftsideRedirect" onClick={gotoHomePage}>
                                 <a className="Redirect"><i className="fa-solid fa-house"></i> Página Inicial</a>
                             </div>
+                            <div className="LeftsideRedirect" onClick={gotoSearch}>
+                                <a className="Redirect"><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
+                            </div>                            
                             <div className="LeftsideRedirect" onClick={createnewpost}>
                                 {i_ison ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
                             </div>
                             <div className="account-div">
                                 {i_ison ?
-                                    <div className="account-div-flexbox" onClick={gotomyprofile}>
-                                        <img src={auth.currentUser.photoURL} />
+                                    <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid} ><div className="account-div-flexbox" onClick={gotomyprofile}>
+                                        <img src={ID_ACCOUNT_I.photoURL} />
                                         <div>
-                                            <h3 className="currentuser-displayname">{ auth.currentUser.displayName}</h3>
-                                            <p className="currentuser-id">@{auth.currentUser.displayName}</p>
+                                            <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
+                                            <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p>
                                         </div>
-                                    </div>
+                                    </div></a>
                                     :
                                     <div className="account-off-div-flexbox" >
                                         <i className="fa-solid fa-right-to-bracket"></i>
@@ -191,9 +225,9 @@ export default function HeaderFeed() {
             </header>
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
-                <a><i className="fa-solid fa-magnifying-glass"></i></a>
+                <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
-                {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                {i_ison ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>
@@ -203,7 +237,7 @@ export default function HeaderFeed() {
                     </button>
                     <h2>Notificações</h2>
 
-                    {i_ison ? <img src={auth.currentUser.photoURL} /> : <></>}
+                    {i_ison ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
 
 
 

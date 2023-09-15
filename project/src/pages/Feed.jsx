@@ -13,38 +13,34 @@ import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
 import Dailys from "../components/pages/feed/Dailys";
 
-let numberofload = 3
-window.addEventListener("scroll", verificarFimDaPagina);
 
-function verificarFimDaPagina() {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        numberofload += 3
-
-    }
-}
 
 export default function Feed() {
 
     const [postsRealtime, setPosts] = useState([])
 
     const getPosts = async () => {
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                '64f93c1c40d294e4f379',
-                [Query.orderDesc("$createdAt")])
-                .then((res) => {
-                    setPosts(res.documents)
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
+        await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            '64f93c1c40d294e4f379',
+            [Query.orderDesc("$createdAt")])
+            .then((res) => {
+                
+                setPosts(res.documents)
+
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
 
     useEffect(() => {
         HideLoading();
     })
-    let LastPosts = postsRealtime.slice(0, numberofload)
-    getPosts()
+    useEffect(() => {
+        getPosts()
+    }, [])
+    let LastPosts = postsRealtime
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
@@ -59,7 +55,9 @@ export default function Feed() {
             })
     }
 
-    user()
+    useEffect(() => {
+        user()
+    }, [])
     //document.querySelector('.loading').style.display = 'none'   
     return (
 
@@ -69,14 +67,12 @@ export default function Feed() {
             <Messages />
             <HeaderFeed />
             <div className="dump-feed-posts">
-                
+
                 <PostingPhoto
 
                 />
                 {
-                
-                postsRealtime.map((p) => {
-
+                    postsRealtime.map((p) => {
                         return (
                             <Posts
                                 id={p.$id}
@@ -104,9 +100,9 @@ export default function Feed() {
                             />
                         )
 
-                    })
+                    }, [])
 
-                }
+                }, []
                 <LoadingContent />
                 <EndOfPage />
 

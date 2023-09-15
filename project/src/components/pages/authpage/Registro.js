@@ -53,11 +53,11 @@ function AuthPageComponentRegistro() {
                             // Outros campos do documento do usuário
                         }
                     )
-                    .then(() => {
-                        window.location.href = window.location.origin
-                    })
+                        .then(() => {
+                            window.location.href = window.location.origin
+                        })
 
-                   
+
                 } else {
                     window.location.href = window.location.origin
                 }
@@ -143,7 +143,14 @@ function AuthPageComponentRegistro() {
         )
     }
     else {
-        
+        return (
+            
+            <>
+                <h1>Você já está logado</h1>
+                <p>Agora, aproveite o máximo da nossa aplicação.</p>
+                <a href='../' >Voltar</a>
+            </>
+        )
 
     }
 

@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
+
 }
 
 body {
@@ -50,7 +50,7 @@ body {
     padding: 10px;
     border-left: 1px solid rgb(217, 217, 217);
     display: none;
-    animation: abrircurtidas 0.5s ease-in-out ;
+    animation: abrircurtidas 0.5s ease-in-out;
 }
 
 .verifyaccount {
@@ -71,7 +71,7 @@ body {
     justify-content: space-between;
     padding: 10px 5px;
     margin-bottom: 15px;
-    
+
 
 }
 
@@ -79,7 +79,8 @@ body {
     0% {
         right: -50vw;
     }
-    100%{
+
+    100% {
         right: 0;
     }
 }
@@ -97,7 +98,7 @@ body {
     border-radius: 100%;
 }
 
-.curtidasheader h2{
+.curtidasheader h2 {
     cursor: default;
 }
 
@@ -125,7 +126,7 @@ body {
     text-align: center;
 }
 
-.curtidas-null-dump img{
+.curtidas-null-dump img {
     width: 200px;
 }
 
@@ -156,7 +157,7 @@ body {
     font-size: 1rem;
 }
 
-.LeftSidePageHeader a{
+.LeftSidePageHeader a {
     font-size: 1.3rem;
     padding: 10px 20px;
 }
@@ -170,11 +171,16 @@ body {
     margin-bottom: 2vh;
 }
 
-.account-div{
+.account-div {
     position: fixed;
     bottom: 50px;
     padding: 10px 10px;
     width: 350px;
+}
+
+.account-div a {
+    text-decoration: none;
+    font-size: 01rem;
 }
 
 .account-div:hover {
@@ -198,6 +204,10 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.link_above {
+    color: rgb(189, 82, 255);
 }
 
 .dump-post {
@@ -235,7 +245,7 @@ body {
     position: relative;
 }
 
-.dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe{
+.dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe {
     width: 600px;
     height: 500px;
     object-fit: contain;
@@ -243,7 +253,7 @@ body {
     border-radius: 0px;
     cursor: pointer;
     z-index: -1;
-    
+
 }
 
 .dump-feed-posts {
@@ -284,6 +294,7 @@ body {
 .leftside-comment-dump p {
     padding: 0px 10px;
 }
+
 .btns-dump-comments {
     align-items: center;
     display: flex;
@@ -327,7 +338,7 @@ body {
 
 }
 
-.bottom-suggest-users button{
+.bottom-suggest-users button {
     border: none;
     background-color: transparent;
     color: blue;
@@ -367,10 +378,10 @@ body {
 
 .card-user-sg:hover {
     background-color: #d2d1d1;
-    
+
 }
 
-.card-user-sg  button {
+.card-user-sg button {
     background-color: white;
     padding: 5px 15px;
     border: none;
@@ -385,7 +396,7 @@ body {
     gap: 10px;
 }
 
-.leftside-perfil h1{
+.leftside-perfil h1 {
     font-size: 1rem;
 }
 
@@ -393,7 +404,7 @@ body {
     text-decoration: underline black;
 }
 
-.leftside-perfil p{
+.leftside-perfil p {
     font-size: 0.7rem;
 }
 
@@ -424,7 +435,7 @@ body {
     display: none;
 }
 
-.header-createnewpost{
+.header-createnewpost {
     border-bottom: 1px solid rgb(194, 194, 194);
     font-size: 1.5rem;
     margin-bottom: 2vh;
@@ -441,7 +452,7 @@ body {
 
 
 
-.left-side-preview img{
+.left-side-preview img {
     width: 100%;
     border-radius: 10px;
     margin: auto;
@@ -462,7 +473,6 @@ body {
     display: flex;
     font-size: 0.7rem;
     gap: 10px
-    
 }
 
 .dump-comments-post img {
@@ -494,7 +504,7 @@ body {
     background: white;
     z-index: 17;
     position: fixed;
-    width:100vw;
+    width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
@@ -523,7 +533,7 @@ body {
 .bottom-card-post {
     position: relative;
     display: none;
-    
+
 }
 
 .bottom-card-post button {
@@ -591,6 +601,7 @@ body {
     display: none;
     background-color: white;
 }
+
 .dump-profile-app {
     background-color: white;
     z-index: 18;
@@ -602,16 +613,18 @@ body {
     display: none;
 }
 
-.dump-profile-app  header {
+.dump-profile-app header {
     display: flex;
     padding: 20px 0;
     align-items: center;
-    gap: 10px ;
+    gap: 10px;
 }
-.dump-profile-app  header i {
+
+.dump-profile-app header i {
     font-size: 1.6rem;
 }
-.dump-profile-app  header img {
+
+.dump-profile-app header img {
     width: 10rem;
 }
 
@@ -711,7 +724,7 @@ body {
 }
 
 .scrolup {
-    font-size: 0.1rem ;
+    font-size: 0.1rem;
     animation: scrollup 0.3s ease-in-out;
     transition: 500ms;
 }
@@ -719,7 +732,7 @@ body {
 .dump-account-page {
     width: 1000px;
     margin: auto;
-    
+
 }
 
 .top-dump-account-back-btn {
@@ -765,7 +778,8 @@ body {
 
 .dump-user-account {
     width: 250px;
-    height: 250px;
+    height: 400px;
+    
 }
 
 .dump-user-account img {
@@ -823,12 +837,13 @@ body {
     cursor: pointer;
     background-color: transparent;
     color: black;
-    
 }
 
 .leftside-account p {
     font-size: 0.9rem;
 }
+
+
 @keyframes heartcurtida {
     0% {
         font-size: 0rem;
@@ -860,7 +875,7 @@ body {
         animation: scrolldown 0.3 ease-in-out;
     }
 
-    
+
     .rightsideheader {
         display: flex;
         gap: 15px;
@@ -883,6 +898,7 @@ body {
     .curtidaspage-dump {
         width: 280px;
     }
+
     .card-user-sg button {
         display: none;
     }
@@ -916,7 +932,7 @@ body {
     height: 100%;
 }
 
-.seending-pic-dump{
+.seending-pic-dump {
     width: 650px;
     margin: 20px auto;
     gap: 10px;
@@ -990,18 +1006,20 @@ body {
     align-self: center;
     padding: 20px 20px;
     font-size: 1.4rem;
-    
+
 }
+
 .dump-post-show-pc .dump-post-topimage {
     text-align: center;
 }
-.dump-post-show-pc .dump-post-topimage img{
+
+.dump-post-show-pc .dump-post-topimage img {
     width: 450px;
     margin: auto;
     text-align: center;
 }
 
-.dump-post-show-pc .dump-post-header-show a{
+.dump-post-show-pc .dump-post-header-show a {
     color: black;
 }
 
@@ -1028,7 +1046,7 @@ body {
     left: 0;
     right: 0;
     width: 300px;
-    margin:0 auto;
+    margin: 0 auto;
     justify-content: center;
     text-align: center;
     display: none;
@@ -1072,6 +1090,7 @@ body {
     width: 100%;
     overflow: auto;
 }
+
 .dailys-dump-flexbox-show img {
     width: 4rem;
     border-radius: 100%;
@@ -1095,13 +1114,13 @@ body {
     display: none;
 }
 
-.daily-another-accounts  img {
+.daily-another-accounts img {
     border: 2px solid rgb(145, 74, 252);
     padding: 2px;
 }
 
 .beta-version {
-    background :#eaeaea;
+    background: #eaeaea;
     padding: 10px;
     border-radius: 10px;
     display: none;
@@ -1111,6 +1130,7 @@ body {
     0% {
         transform: scale(0.9)
     }
+
     100% {
         transform: scale(1);
     }
@@ -1120,8 +1140,9 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    
+
 }
+
 .dump-post-options-background {
     width: 100vw;
     height: 100vh;
@@ -1147,7 +1168,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    
+
 }
 
 .dump-post-show-pc .flex-dump-info-image h1 {
@@ -1186,19 +1207,114 @@ body {
     color: white;
 }
 
+.dump-edit-my-profile {
+    width: 800px;
+    margin: 30px auto;
+}
+
+.card-edit-profile {
+    background: #E4E4E4;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.spacer-title {
+    margin: 10px 0px;
+}
+
+.card-edit-profile input {
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    outline: none;
+}
+
+.private-account {
+    text-align: center;
+}
+
+.private-account i {
+    border: 1px solid;
+    padding: 10px;
+    font-size: 2rem;
+    color: rgb(153, 0, 255);
+    border-radius: 20%;
+}
+
+#youraccountislocked {
+    color: gray;
+    text-align: right;
+}
+
+.sucess-message-top {
+    background-color: rgb(4, 185, 4);
+    width: 800px;
+    margin: auto;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.error-message-top {
+    background-color: rgb(185, 28, 4);
+    width: 800px;
+    margin: auto;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: none;
+}
+
+.loading-wrapper {
+    display: none;
+}
+
+.btn-bottom-profile {
+    margin: 30px 0px;
+    gap: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-bottom-profile button {
+    padding: 10px 40px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#saveaccount {
+    background-color: rgb(51, 186, 51);
+    color: white;
+}
+
+#removeaccount {
+    background-color: red;
+    color: white;
+}
+
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
         display: block;
     }
+
     .dump-post-show-pc {
         display: none;
     }
+
     .curtidasheader {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .curtidasheader img {
         width: 40px;
         height: 40px;
@@ -1209,14 +1325,16 @@ body {
     .curtidasheader h2 {
         font-size: 1rem;
     }
+
     .card-suggestios-block {
         display: none
     }
+
     body {
         margin: 0 30px;
         position: relative;
     }
-    
+
     .App-Header-Feed {
         display: flex;
         justify-content: space-between;
@@ -1228,73 +1346,73 @@ body {
         margin: 0 0;
         transition: 500ms;
     }
-    
-    
+
+
     .App-Header-Feed img {
         width: 6rem;
         cursor: pointer;
         transition: 500ms;
     }
-    
+
     .App-Header-Feed img:hover {
         transform: scale(1.07);
     }
-    
-    
+
+
     .rightsideheader {
         display: flex;
         gap: 15px;
         position: fixed;
         right: 30px;
     }
-    
+
     .App-Header-Feed a {
         font-size: 1.7rem;
         transition: 500ms;
         cursor: pointer;
         color: black;
     }
-    
+
     .App-Header-Feed a:hover {
         transform: scale(1.1);
     }
-    
+
     .LeftSidePageHeader {
         display: none;
     }
-    
+
     .dump-post {
         margin: auto;
         width: 100%;
         margin-bottom: 40px;
     }
-    
+
     .dump-post-header {
         display: flex;
         align-items: center;
         gap: 10px;
         cursor: pointer;
     }
-    
+
     .dump-post-header h3 {
         font-size: 0.8rem;
     }
-    
+
     .dump-post-header p {
         font-size: 0.8rem;
         color: gray;
     }
-    
+
     .dump-post-header img {
         width: 2.4rem;
         border-radius: 100%;
     }
-    
+
     .dump-post-header-rightside {
         display: flex;
     }
-    
-    .dump-post-photo img, .dump-post-photo iframe{
+
+    .dump-post-photo img, .dump-post-photo iframe {
         width: 100%;
         height: 488px;
 
@@ -1310,16 +1428,16 @@ body {
         border-radius: 20px;
         cursor: pointer;
     }
-    
+
     .dump-feed-posts {
         padding: 100px 0;
     }
-    
+
     .dump-post-bottom {
         display: flex;
         justify-content: space-between;
     }
-    
+
     .dump-comments-post {
         display: flex;
         align-items: center;
@@ -1331,24 +1449,25 @@ body {
         width: 100%;
         margin-top: 10px;
     }
-    
+
     .dump-comments-post:hover {
         transform: scale(1.03);
     }
-    
+
     .leftside-comment-dump {
         display: flex;
         align-items: center;
     }
-    
+
     .leftside-comment-dump img {
         width: 2rem;
         border-radius: 100%;
     }
-    
+
     .leftside-comment-dump p {
         padding: 0px 10px;
     }
+
     .btns-dump-comments {
         align-items: center;
         display: flex;
@@ -1360,7 +1479,7 @@ body {
         padding: 3px;
         border-radius: 10px;
     }
-    
+
     .btns-dump-comments button {
         padding: 10px;
         font-size: 1.3rem;
@@ -1368,11 +1487,11 @@ body {
         background: none;
         border: none;
     }
-    
+
     .btns-dump-comments button:nth-child(1):hover {
         color: red;
     }
-    
+
     .btns-dump-comments button:nth-child(2):hover {
         color: rgb(209, 116, 255);
     }
@@ -1390,6 +1509,11 @@ body {
         background-color: white;
         border-top: 1px solid rgb(199, 199, 199);
         z-index: 20;
+
+    }
+
+    .nav-bar-mobile a {
+        color: black;
     }
 
     .nav-bar-mobile img {
@@ -1422,7 +1546,7 @@ body {
 
 
 
-    
+
     .background-posts {
         width: 100%;
         height: 100%;
@@ -1434,24 +1558,24 @@ body {
         z-index: 1;
     }
 
-    .header-createnewpost{
+    .header-createnewpost {
         border-bottom: 1px solid rgb(194, 194, 194);
         font-size: 1.2rem;
         margin-bottom: 5vh;
     }
-    
+
     .createnewpost-middle {
         text-align: center;
         align-items: center;
     }
-    
-    .createnewpost-middle img{
+
+    .createnewpost-middle img {
         width: 100%;
         margin: auto;
         margin-bottom: 0vh;
         pointer-events: none;
     }
-    
+
     .createnewpost-middle input.imagechanger {
         margin: auto;
         background-color: rgb(130, 51, 219);
@@ -1470,17 +1594,17 @@ body {
     .dump-comments-post img {
         border-radius: 100%;
     }
-    
+
     .left-side-preview {
         width: 100%;
     }
-    
+
     .bottom-card-post {
         position: relative;
         display: none;
-        
+
     }
-    
+
     .bottom-card-post button {
         background-color: transparent;
         color: blueviolet;
@@ -1491,7 +1615,7 @@ body {
         padding: 0px;
     }
 
-    
+
     .alert {
         background-color: red;
         color: white;
@@ -1500,7 +1624,7 @@ body {
         padding: 10px;
         display: none;
     }
-    
+
     .previewdesc {
         display: none;
         align-items: center;
@@ -1508,9 +1632,9 @@ body {
         padding-left: 0px;
         height: 300px;
         margin-top: 2vh;
-        
+
     }
-    
+
     .previewdesc-top {
         display: flex;
         align-items: center;
@@ -1519,19 +1643,19 @@ body {
         gap: 10px;
         width: 100px;
     }
-    
+
     .previewdesc-top img {
         width: 3.5rem;
         border-radius: 100%;
-     
+
     }
 
-    
+
     .right-side-previewimage {
         position: relative;
         width: 100%;
     }
-    
+
     .descriptionphoto {
         width: 100%;
         padding-bottom: 200px;
@@ -1550,66 +1674,67 @@ body {
         padding: 0px 0px;
         margin: 0px -30px;
     }
-    
-    .dump-profile-app  header {
+
+    .dump-profile-app header {
         display: flex;
         padding: 20px 20px;
-        
+
     }
-    .dump-profile-app  header img {
+
+    .dump-profile-app header img {
         width: 7rem;
     }
-    
+
     .dump-profile-cap {
         width: 100%;
         height: 300px;
     }
-    
+
     .dump-profile-cap img {
         width: 100%;
         object-fit: cover;
         height: 100%;
     }
-    
+
     .dump-profile-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin: 2vh 20px;
     }
-    
+
     .dump-profile-info img {
         border-radius: 100%;
     }
-    
+
     .leftside-profile {
         display: flex;
         gap: 10px;
         align-items: center;
     }
-    
+
     .dump-profile-followers {
         display: flex;
         gap: 10px;
         margin: 2vh 20px;
     }
-    
+
     .dump-profile-photos {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 20px;
         margin-bottom: 2vh;
-        
+
     }
-    
+
     .dump-profile-photos img {
         width: 100px;
         height: 150px;
         object-fit: cover;
     }
 
-    .seending-pic-dump{
+    .seending-pic-dump {
         width: 100%;
         margin: 20px auto;
         gap: 10px;
@@ -1623,26 +1748,26 @@ body {
     .MrMiyagi-module_container__Rld70 {
         z-index: -1;
     }
-    
+
     .seending-pic-dump img, .sucess-upload-photo img, .error-upload-photo img {
         border-radius: 10px;
         width: 75px;
         height: 70px;
         object-fit: cover;
     }
-    
+
     .contentsideseending {
         align-items: center;
         font-size: 0.7rem;
         display: flex;
         justify-content: space-between;
     }
-    
+
     .seendingcontent-sb {
         justify-content: space-between;
     }
 
-    
+
     .sucess-upload-photo {
         background-color: rgb(143, 224, 138);
         width: 100%;
@@ -1667,7 +1792,7 @@ body {
         margin: auto;
         text-align: center;
         justify-content: center;
-        
+
     }
 
     .curtidaspage-dump {
@@ -1680,33 +1805,34 @@ body {
         padding: 10px;
         border-left: 1px solid rgb(217, 217, 217);
         display: none;
-        animation: abrircurtidas 0.3s ease-in-out ;
+        animation: abrircurtidas 0.3s ease-in-out;
     }
 
     .showcurtidas {
         display: block;
     }
-    
+
     .closecurtidas {
         animation: closecurtidas 0.5s ease-in-out;
-    
+
     }
-    
+
     @keyframes closecurtidas {
         0% {
             right: 0;
         }
-    
+
         100% {
             right: -100vw;
         }
     }
-    
+
     @keyframes abrircurtidas {
         0% {
             right: -100vw;
         }
-        100%{
+
+        100% {
             right: 0;
         }
     }
@@ -1714,22 +1840,25 @@ body {
     .dump-post-show-mobile {
         display: block;
     }
+
     .dump-post-show-mobile .dump-post-header-show {
         display: flex;
         justify-content: space-between;
         align-self: center;
         padding: 20px 5px;
         font-size: 1.4rem;
-        
+
     }
+
     .dump-post-show-mobile .dump-post-topimage {
         width: 100%;
     }
-    .dump-post-show-mobile .dump-post-topimage img{
+
+    .dump-post-show-mobile .dump-post-topimage img {
         width: 100%;
     }
 
-    .dump-post-show-mobile .dump-post-header-show a{
+    .dump-post-show-mobile .dump-post-header-show a {
         color: black;
     }
 
@@ -1752,7 +1881,7 @@ body {
         left: 0;
         right: 0;
         width: 300px;
-        margin:0 auto;
+        margin: 0 auto;
         justify-content: center;
         text-align: center;
 
@@ -1786,6 +1915,7 @@ body {
         0% {
             transform: scale(0.9)
         }
+
         100% {
             transform: scale(1);
         }
@@ -1809,13 +1939,13 @@ body {
     .dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {
         padding: 10px;
     }
-    
+
 
     .dump-post-show-mobile .flex-dump-info-image {
         display: flex;
         align-items: center;
         gap: 10px;
-        
+
     }
 
     .dump-post-show-mobile .flex-dump-info-image h1 {
@@ -1825,7 +1955,7 @@ body {
     .dump-post-show-mobile .flex-dump-info-image p {
         font-size: 0.9rem;
     }
-    
+
 
     .dump-post-show-mobile .dump-post-header-show img {
         width: 5rem;
@@ -1844,45 +1974,45 @@ body {
     .dump-account-page {
         width: 100%;
         margin: auto;
-        
+
     }
-    
+
     .top-dump-account-back-btn {
         display: flex;
         align-items: center;
         gap: 10px;
     }
-    
+
     .top-dump-account-back-btn h1 {
         font-size: 0.9rem;
         cursor: default;
     }
-    
+
     .top-dump-account-back-btn button {
         background-color: transparent;
         padding: 5px;
         border: none;
     }
-    
+
     .top-dump-account-back-btn button:hover {
         cursor: pointer;
     }
-    
+
     .top-dump-account-back-btn {
         padding: 10px 0px;
         border-top: 1px solid rgb(199, 199, 199);
     }
-    
+
     .leftside-account {
         display: flex;
         align-items: center;
         gap: 10px;
     }
-    
+
     .rightside-account {
         text-align: center;
     }
-    
+
     .followers-card {
         display: flex;
         gap: 5px;
@@ -1890,15 +2020,15 @@ body {
     }
 
     .followers-card p {
-    
+
         font-size: 0.7rem;
     }
-    
+
     .dump-user-account {
-        width: 135px;
-        height: 135px;
+        width: 195px;
+        height: 355px;
     }
-    
+
     .dump-user-account img {
         width: 100%;
         height: 100%;
@@ -1906,46 +2036,46 @@ body {
         cursor: pointer;
         transition: 500ms;
     }
-    
+
     .dump-user-account img:hover {
         filter: brightness(0.8)
     }
-    
+
     .dumps-account-user-show {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         margin: 30px 0px;
         width: 100%;
-        gap: 4px;
+        gap: 10px;
 
     }
 
     .dumps-of-user {
         margin: 0px -30px
     }
-    
+
     .rightside-account .btns-links {
         display: flex;
         gap: 10px;
     }
-    
+
     .leftside-account h1 {
         font-size: 0.9rem;
     }
-    
+
     .leftside-account img {
         width: 4rem;
         border-radius: 100%;
     }
-    
+
     .top-account {
         padding: 10px 0px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    
+
     .top-account button {
         padding: 5px 20px;
         background-color: black;
@@ -1955,17 +2085,18 @@ body {
         border: 1px solid black;
         transition: 500ms;
     }
-    
+
     .top-account button:hover {
         cursor: pointer;
         background-color: transparent;
         color: black;
-        
+
     }
-    
+
     .leftside-account p {
         font-size: 0.8rem;
     }
+
     .selecttypeofpublic {
         width: 350px;
         padding: 0px;
@@ -1974,40 +2105,141 @@ body {
         border: 1px solid gray;
         border-radius: 10px;
         display: flex;
-        
+
         justify-content: space-between;
         margin: 10px 30px;
     }
-    
+
     .selecttypeofpublic label {
         padding: 10px 52px;
         font-size: 0.9rem;
         cursor: pointer;
         border-radius: 10px;
     }
-    
+
     .selecttypeofpublic label#selected {
         background-color: rgb(0, 0, 0);
         color: white;
     }
 
     .beta-version {
-        background :#eaeaea;
+        background: #eaeaea;
         padding: 10px;
         border-radius: 10px;
         display: block;
         width: 100%;
     }
 
-    .beta-version h1{
+    .beta-version h1 {
         font-size: 1rem;
     }
 
-    .beta-version p{
+    .beta-version p {
         font-size: 1rem;
     }
 
-    .dailys-dump{
+    .dailys-dump {
         width: 100%;
+    }
+
+    .dump-edit-my-profile {
+        width: 100%;
+        margin: 30px auto;
+    }
+
+    .card-edit-profile {
+        background: #E4E4E4;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .spacer-title {
+        margin: 10px 0px;
+    }
+
+    .card-edit-profile input {
+        width: 100%;
+        height: 30px;
+        background-color: transparent;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        outline: none;
+        color: black;
+    }
+
+    .private-account {
+        text-align: center;
+    }
+
+    .private-account i {
+        border: 1px solid;
+        padding: 10px;
+        font-size: 2rem;
+        color: rgb(153, 0, 255);
+        border-radius: 20%;
+    }
+
+    #youraccountislocked {
+        color: gray;
+        text-align: right;
+    }
+
+    .sucess-message-top {
+        background-color: rgb(4, 185, 4);
+        width: 800px;
+        margin: auto;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .error-message-top {
+        background-color: rgb(185, 28, 4);
+        width: 800px;
+        margin: auto;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .loading-wrapper {
+        display: none;
+    }
+
+    .btn-bottom-profile {
+        margin: 30px auto;
+        gap: 10px;
+        display: block;
+        justify-content: center;
+
+    }
+
+    .btn-bottom-profile button {
+        padding: 10px 70px;
+        font-size: 0.8rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        margin: 10px auto;
+        color: black;
+    }
+
+    #saveaccount {
+        background-color: rgb(51, 186, 51);
+        color: white;
+    }
+
+    #removeaccount {
+        background-color: red;
+        color: white;
+    }
+
+    .card-edit-profile h1 {
+        font-size: 0.9rem;
     }
 }

@@ -16,6 +16,8 @@ import { Loading, HideLoading } from './components/Loading';
 import Inbox from './pages/Inbox';
 import Account from './pages/Account';
 import AccountMentions from './pages/AccountMentions';
+import EditMyProfile from './pages/EditMyProfile';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const [i_ison, setUserOn] = useState('')
@@ -40,6 +42,7 @@ function App() {
           <Route path='/messages/inbox' element={<Inbox />} />
           <Route path='/user/:ID_ACCOUNT' element={<Account />} />
           <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
+          <Route path='/search' element={<SearchPage />} />
         </Routes>
 
       </BrowserRouter>

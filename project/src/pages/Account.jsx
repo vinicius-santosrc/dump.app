@@ -6,12 +6,15 @@ import databases from "../lib/appwrite";
 import { Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
+import { Ring } from '@uiball/loaders'
+
 
 export default function Account() {
     const { ID_ACCOUNT } = useParams();
-
+    const [nofposts, setNumberofPosts] = useState()
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [USERS_POSTS, setPostsofUser] = useState('')
+    const userUID = auth.currentUser
 
     useEffect(() => {
         HideLoading()
@@ -29,8 +32,9 @@ export default function Account() {
 
 
     }, [ID_ACCOUNT])
-    const [nofposts, setNumberofPosts] = useState()
+
     useEffect(() => {
+
         const getPostsofUser = async () => {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
@@ -38,19 +42,20 @@ export default function Account() {
                 [Query.orderDesc("$createdAt")]).catch((e) => {
                     console.log(e)
                 }
-            )
-    
+                )
+
                 .then((res) => {
-                    if(!res.documents) {
+                    if (!res.documents) {
                         return <>NADA ENCONTADO</>
                     }
-                    setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u) => {
-                        setNumberofPosts(u.length)
+                    const nofpots = res.documents.filter(r => r.email == ID_ACCOUNT_I.email).length
+                    setNumberofPosts(nofpots)
 
+                    setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u) => {
                         function gotoPostSelect() {
                             window.location.href = `${window.location.origin}/posts/${u.$id}`
                         }
-                    
+
                         return (
                             <>
                                 <div className="dump-user-account" onClick={gotoPostSelect}>
@@ -85,12 +90,12 @@ export default function Account() {
         auth.onAuthStateChanged(function (u) {
             setUserOn(u)
         })
-    })
+    }, [])
 
     const gotomyprofile = () => {
-    
+
         const getprofile = async () => {
-            
+
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 "64f93be88eee8bb83ec3"
@@ -101,7 +106,7 @@ export default function Account() {
             })
         }
         getprofile()
-    
+
         /*database
         .collection('users')
         .where('uid' , '==', auth.currentUser.uid)
@@ -117,7 +122,12 @@ export default function Account() {
         return (
             <>
 
-                <div>Carregando...</div>
+                <div><Ring
+                    size={40}
+                    lineWeight={5}
+                    speed={2}
+                    color="black"
+                /></div>
             </>
         );
     }
@@ -126,6 +136,77 @@ export default function Account() {
         document.querySelector("title").innerText = `${ID_ACCOUNT_I.displayName} (@${ID_ACCOUNT_I.username}) | Dump`
     }
     changeInfoPage()
+
+    function backtoprofile() {
+        let url = (window.location.href).replace('/mentions', '')
+        window.location.href = url
+    }
+
+
+
+    const userId = ID_ACCOUNT_I.uid;
+    const targetUserId = 'vinicius';
+    const userDocument = databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
+
+    const following = userDocument.following || [];
+
+    // Função para verificar se um usuário segue outro
+    async function followUser() {
+        try {
+            const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
+
+            const following = userDocument.following || [];
+
+            if (following.includes(targetUserId)) {
+                console.log('Você já está seguindo este usuário.');
+                return;
+            }
+
+            following.push(targetUserId);
+
+            await databases.updateDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId, {
+                following: following,
+            });
+
+            console.log('Agora você está seguindo o usuário com ID:', targetUserId);
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
+        }
+    } // Substitua pelo ID do usuário autenticado
+
+    // Função para parar de seguir um usuário
+    async function unfollowUser() {
+        try {
+            const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
+
+            if (!userDocument) {
+                console.error('Usuário não encontrado.');
+                return;
+            }
+
+            const following = userDocument.data.following || [];
+
+            if (!following.includes(targetUserId)) {
+                console.log('Você não está seguindo este usuário.');
+                return;
+            }
+
+            const updatedFollowing = following.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId, {
+                following: updatedFollowing,
+            });
+
+            console.log('Você parou de seguir o usuário com ID:', targetUserId);
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
+        }
+    }
+
+    function editmyprofile_btn() {
+        window.location.href = `${window.location.origin}/accounts/edit/`
+    }
+
 
     return (
         <>
@@ -146,8 +227,15 @@ export default function Account() {
                         </div>
                         <div className="rightside-account">
                             <div className="btns-links">
-                                <button>SEGUIR</button>
-                                <button><i className="fa-solid fa-inbox"></i></button>
+                                {userUID && userUID.uid == ID_ACCOUNT_I.uid ?
+                                    <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
+                                    :
+                                    <>
+                                        <button>SEGUIR</button>
+                                        <button><i className="fa-solid fa-inbox"></i></button>
+                                    </>
+                                }
+
                             </div>
                             <div className="followers-card">
                                 <p>{0} seguidores</p>
@@ -157,24 +245,67 @@ export default function Account() {
                         </div>
                     </div>
                     <div className="middle-account-top">
-                        <p>Sem descrição</p>
-
+                        <p>{ID_ACCOUNT_I.bio}</p>
+                        <a className="link_above" href={ID_ACCOUNT_I.link_above} target="_blank">{ID_ACCOUNT_I.link_above}</a>
                     </div>
                 </div>
                 <div className="dumps-of-user">
                     <div className="selecttypeofpublic">
-                        <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
-                        <label onClick={gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
+                        {window.location.pathname == `/user/${ID_ACCOUNT_I.uid}/mentions` ?
+
+                            <>
+                                <label onClick={backtoprofile}><i className="fa-regular fa-image"></i> Dumps</label>
+                                <label id="selected"><i className="fa-solid fa-quote-left"></i> Menções</label>
+                            </>
+                            :
+                            <>
+                                <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
+                                <label onClick={gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
+                            </>
+                        }
                     </div>
+                    {ID_ACCOUNT_I.private == true ?
+                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.following.includes(targetUserId) ?
+                            <>
+                                <label id="youraccountislocked">Sua conta está privada.</label>
+                            </>
+                            :
+                            <></>
+                        }</>
+                        :
+                        <></>
+                    }
                     <div className="dumps-account-user-show">
-                        {USERS_POSTS}
+                    
+
+                        {ID_ACCOUNT_I.private == true ?
+                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.following.includes(targetUserId) ?
+                                <>
+                                    {USERS_POSTS}
+                                </>
+                                :
+                                <div className="private-account">
+                                    <i className="fa-solid fa-lock"></i>
+                                    <p>
+                                        Conta privada
+                                    </p>
+                                    <p>Para acessar seus dumps, siga esse usuário.</p>
+                                </div>
+
+                            }</>
+                        :
+                            <>{USERS_POSTS}</>
+                        }
+
+
+
                     </div>
                 </div>
             </div>
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
-                <a><i className="fa-solid fa-magnifying-glass"></i></a>
-                
+                <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
+
                 {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
         </>

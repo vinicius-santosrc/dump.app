@@ -22,7 +22,10 @@ export default function Suggestions() {
 
     }
 
-    loadUsers()
+    useEffect(() => {
+        loadUsers()
+        console.log('carregou users')
+    }, [])
     
     let FirstUsers = Users.slice(0, 6)
 

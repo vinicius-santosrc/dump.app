@@ -1,12 +1,12 @@
 import { MrMiyagi } from '@uiball/loaders'
 
 
-export default function PostingPhoto(props) {
+export default function PostingPhoto() {
     return (
         <>
             <div className="seending-pic-dump">
                 <div className="seending-pic-dump-left-side imagepicsending">
-                    <img src={props.image} />
+                    <img src='' />
                 </div>
                 <div className="seending-pic-dump-right-side contentsideseending">
                     <div className='seendingcontent-sb'>
@@ -25,7 +25,7 @@ export default function PostingPhoto(props) {
             </div>
             <div className='sucess-upload-photo'>
                 <div className="seending-pic-dump-left-side imagepicsending">
-                    <img src={props.image} />
+                    <img src='' />
                 </div>
                 <div className="seending-pic-dump-right-side contentsideseending">
                     <div className='seendingcontent-sb'>
