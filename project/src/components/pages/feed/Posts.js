@@ -10,8 +10,9 @@ export default function Posts(props) {
 
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [currentpostuser, setUserPostProfile] = useState('')
     function gotouser() {
-        
+
         const getUserUrl = async () => {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
@@ -123,6 +124,7 @@ export default function Posts(props) {
 
     }
 
+
     const publicacaoId = props.id
     const userId = 'auth.currentUser.uid'
     const textoComentario = document.querySelector("#comments-dump-photo")
@@ -135,7 +137,7 @@ export default function Posts(props) {
     var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
     return (
-        <div className="dump-post" >
+        <div className="dump-post">
             <div className="dump-post-header" onClick={gotouser}>
                 <img src={props.photoURL} />
                 <div className="dump-post-header-rightside">
@@ -150,7 +152,7 @@ export default function Posts(props) {
                 <img onDoubleClick={''} onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
             </div>
             <div className="dump-post-bottom">
-            <label className="time-display-dump">{datefilepost}</label>
+                <label className="time-display-dump">{datefilepost}</label>
                 <div className="btns-dump-comments">
                     <button onClick={''}><i className="fa-regular fa-heart"></i> </button>
                     <button><i className="fa-regular fa-paper-plane"></i></button>
@@ -159,7 +161,7 @@ export default function Posts(props) {
                     <button><i className="fa-solid fa-retweet"></i> </button>
                     <button><i className="fa-regular fa-bookmark"></i></button>
                     <ButtonDeletePublic />
-                    
+
                 </div>
 
             </div>

@@ -11,6 +11,22 @@ body {
     position: relative;
 }
 
+.loading-btn {
+    display: none;
+    background: transparent !important;
+}
+
+.followers-card-show-users {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+
 .App-Header-Feed {
     display: flex;
     justify-content: space-between;
@@ -21,6 +37,9 @@ body {
     z-index: 1;
 }
 
+.followers-card-show-users {
+    display: none;
+}
 
 .App-Header-Feed img {
     width: 8rem;
@@ -1171,6 +1190,7 @@ body {
 
 }
 
+
 .dump-post-show-pc .flex-dump-info-image h1 {
     font-size: 1rem;
 }
@@ -1298,6 +1318,80 @@ body {
 #removeaccount {
     background-color: red;
     color: white;
+}
+
+.dump-search-page {
+    width: 750px;
+    margin: auto;
+    padding:  150px 0;
+
+}
+
+.dump-input-top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dump-input-top input {
+    width: 100%;
+    color: black;
+    border: 1px solid black;
+    outline: none;
+    font-size: 1rem;
+    padding: 0px 10px;
+}
+
+.dump-input-top button {
+    color: white;
+    padding: 10px 30px;
+    border: 1px solid black;
+    background-color: black;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.dump-input-top button:hover {
+    background-color: white;
+    color: black;
+}
+
+.filters-search {
+    margin: auto;
+    text-align: left;
+}
+
+.filters-search label {
+    font-size: 0.9rem;
+    color: black;
+    cursor: pointer;
+}
+
+.dump-flexbox-show-people {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dump-user-search {
+    width: 45%;
+    padding: 10px;
+    
+}
+
+.dump-user-search a {
+    text-decoration: none;
+    color: black;
+}
+
+.dump-user-search img {
+    border-radius: 100%;
+    width: 5rem;
+}
+
+.dump-user-search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 900px) {
@@ -2025,7 +2119,7 @@ body {
     }
 
     .dump-user-account {
-        width: 195px;
+        width: 185px;
         height: 355px;
     }
 
@@ -2241,5 +2335,91 @@ body {
 
     .card-edit-profile h1 {
         font-size: 0.9rem;
+    }
+
+    .dump-search-page {
+        width: 100%;
+        margin: auto;
+        padding:  150px 0;
+    
+    }
+    
+    .dump-input-top{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .dump-input-top input {
+        width: 100%;
+        color: black;
+        border: 1px solid black;
+        outline: none;
+        font-size: 1rem;
+        padding: 0px 10px;
+    }
+    
+    .dump-input-top button {
+        color: white;
+        padding: 10px 30px;
+        border: 1px solid black;
+        background-color: black;
+        cursor: pointer;
+        transition: 500ms;
+    }
+    
+    .dump-input-top button:hover {
+        background-color: white;
+        color: black;
+    }
+    
+    .filters-search {
+        margin: auto;
+        text-align: left;
+    }
+    
+    .filters-search label {
+        font-size: 0.9rem;
+        color: black;
+        cursor: pointer;
+    }
+    
+    .dump-flexbox-show-people {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .dump-user-search {
+        width: 100%;
+        padding: 10px;
+        
+    }
+    
+    .dump-user-search a {
+        text-decoration: none;
+        color: black;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgb(226, 226, 226);
+    }
+    
+    .dump-user-search img {
+        border-radius: 100%;
+        width: 4rem;
+    }
+
+    .dump-user-search h2 {
+        font-size: 0.9rem;
+    }
+
+    .dump-user-search p {
+        font-size: 0.8re,;
+    }
+    
+    .dump-user-search {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
     }
 }

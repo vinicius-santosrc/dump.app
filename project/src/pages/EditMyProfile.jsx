@@ -32,6 +32,7 @@ export default function EditMyProfile() {
 
 
     useEffect(() => {
+        
         databases.getDocument(
             "64f9329a26b6d59ade09",
             "64f93be88eee8bb83ec3",
@@ -45,12 +46,12 @@ export default function EditMyProfile() {
                 console.log(e)
             })
 
-    }, [])
+    })
     async function updateAccount() {
         document.querySelector(".loading-wrapper").style.display = 'block'
         document.querySelector(".btn-bottom-profile").style.display = 'none'
 
-        /*updateProfile(auth.currentUser, {
+        updateProfile(auth.currentUser, {
             displayName: displaynamecont.value
         })
             .then(async () => {
@@ -59,7 +60,10 @@ export default function EditMyProfile() {
                     "64f93be88eee8bb83ec3",
                     ID_ACCOUNT,
                     {
-                        displayName: displaynamecont.value
+                        displayName: displaynamecont.value,
+                        username: usernameupdate.value,
+                        bio: inputbio.value,
+                        link_above: inputlink.value
                     }
                 )
                     .then(() => {
@@ -79,22 +83,21 @@ export default function EditMyProfile() {
                 document.querySelector(".loading-wrapper").style.display = 'none'
                 document.querySelector(".btn-bottom-profile").style.display = 'block'
             })
-        */
+        
     }
 
     function changeInfo() {
 
-        /*displaynamecont.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.displayName : ''
+        displaynamecont.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.displayName : ''
         usernameupdate.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.username : ''
         inputbio.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.bio : ''
-        inputlink.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.link_above : ''    */ 
+        inputlink.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.link_above : ''    
 
     }
 
     useEffect(() => {
         changeInfo()
     }, [])
-
 
     return (
         <>
@@ -119,12 +122,12 @@ export default function EditMyProfile() {
                                 <input type="file" />
                             </div>
                             <div className="InputFileTopCard">
-
+                                <h3>Nome</h3>
                                 <input id="displayname-update" placeholder="Nome"
                                 />
                             </div>
                             <div className="InputFileTopCard">
-
+                            <h3>Username</h3>
                                 <input id="username-update" placeholder="Usuário"
                                 />
                             </div>
@@ -186,6 +189,7 @@ export default function EditMyProfile() {
                     speed={2}
                     color="black"
                 /></>}
+                
         </>
     )
 }

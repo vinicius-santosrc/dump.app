@@ -43,6 +43,7 @@ function App() {
           <Route path='/user/:ID_ACCOUNT' element={<Account />} />
           <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
           <Route path='/search' element={<SearchPage />} />
+          <Route path='/accounts/edit' element={<EditMyProfile />} />
         </Routes>
 
       </BrowserRouter>

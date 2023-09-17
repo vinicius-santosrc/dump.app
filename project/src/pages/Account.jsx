@@ -7,6 +7,7 @@ import { Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
 import { Ring } from '@uiball/loaders'
+import Swal from 'sweetalert2'
 
 
 export default function Account() {
@@ -15,6 +16,12 @@ export default function Account() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [USERS_POSTS, setPostsofUser] = useState('')
     const userUID = auth.currentUser
+    const [isFollowing, setIsFollow] = useState(null)
+    const [listofFollowers, setListOfFollowers] = useState("")
+
+    useEffect(() => {
+        ButtonActionProfile()
+    })
 
     useEffect(() => {
         HideLoading()
@@ -39,7 +46,7 @@ export default function Account() {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
-                [Query.orderDesc("$createdAt")]).catch((e) => {
+                [Query.limit(100), Query.orderDesc("$createdAt")]).catch((e) => {
                     console.log(e)
                 }
                 )
@@ -92,6 +99,10 @@ export default function Account() {
         })
     }, [])
 
+    function ButtonActionProfile() {
+        checkIfFollowsUser()
+    }
+
     const gotomyprofile = () => {
 
         const getprofile = async () => {
@@ -142,23 +153,76 @@ export default function Account() {
         window.location.href = url
     }
 
+    let targetUserId
+
+    if (auth.currentUser) {
+        targetUserId = auth.currentUser.uid;
+    }
 
 
     const userId = ID_ACCOUNT_I.uid;
-    const targetUserId = 'vinicius';
+
     const userDocument = databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
     const following = userDocument.following || [];
 
+    const DB_UID = '64f9329a26b6d59ade09'
+    const COL_UID = '64f93be88eee8bb83ec3'
+
+    async function checkIfFollowsUser() {
+
+        try {
+            // Obtenha o documento do usuário
+            const user = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                userId);
+
+            setListOfFollowers(user.following)
+
+            if (!user) {
+                document.querySelector(".loading-btn").style.display = 'block'
+            }
+
+            const following = user.following || [];
+
+            if (following.includes(targetUserId)) {
+
+                setIsFollow(true)
+                return true;
+            } else {
+
+                setIsFollow(false)
+                return false;
+            }
+        } catch (error) {
+            setIsFollow(false)
+
+            return false;
+        }
+    }
+
     // Função para verificar se um usuário segue outro
     async function followUser() {
+        function esconderbotoes() {
+            document.querySelector(".btns-links button").style.display = 'none'
+            document.querySelector(".loading-btn").style.display = 'block'
+        }
+        function voltarbotoes() {
+            document.querySelector(".btns-links button").style.display = 'block'
+            document.querySelector(".loading-btn").style.display = 'none'
+        }
+
+        esconderbotoes()
+
         try {
             const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
             const following = userDocument.following || [];
 
             if (following.includes(targetUserId)) {
-                console.log('Você já está seguindo este usuário.');
+                alert('você já está seguindo')
+                voltarbotoes()
                 return;
             }
 
@@ -168,7 +232,14 @@ export default function Account() {
                 following: following,
             });
 
-            console.log('Agora você está seguindo o usuário com ID:', targetUserId);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Você começou a seguir.',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            voltarbotoes()
         } catch (error) {
             console.error('Erro ao seguir o usuário:', error);
         }
@@ -176,18 +247,24 @@ export default function Account() {
 
     // Função para parar de seguir um usuário
     async function unfollowUser() {
+        function esconderbotoes() {
+            document.querySelector(".btns-links button").style.display = 'none'
+            document.querySelector(".loading-btn").style.display = 'block'
+        }
+        function voltarbotoes() {
+            document.querySelector(".btns-links button").style.display = 'block'
+            document.querySelector(".loading-btn").style.display = 'none'
+        }
+
+        esconderbotoes()
         try {
             const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
-            if (!userDocument) {
-                console.error('Usuário não encontrado.');
-                return;
-            }
-
-            const following = userDocument.data.following || [];
+            const following = userDocument.following || [];
 
             if (!following.includes(targetUserId)) {
                 console.log('Você não está seguindo este usuário.');
+                voltarbotoes()
                 return;
             }
 
@@ -197,7 +274,14 @@ export default function Account() {
                 following: updatedFollowing,
             });
 
-            console.log('Você parou de seguir o usuário com ID:', targetUserId);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Você parou de seguir.',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            voltarbotoes()
         } catch (error) {
             console.error('Erro ao parar de seguir o usuário:', error);
         }
@@ -205,6 +289,10 @@ export default function Account() {
 
     function editmyprofile_btn() {
         window.location.href = `${window.location.origin}/accounts/edit/`
+    }
+
+    function openseguidorescard() {
+
     }
 
 
@@ -231,16 +319,55 @@ export default function Account() {
                                     <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
                                     :
                                     <>
-                                        <button>SEGUIR</button>
-                                        <button><i className="fa-solid fa-inbox"></i></button>
+                                        {isFollowing === true ?
+                                            <button onClick={unfollowUser}>PARAR DE SEGUIR</button>
+                                            :
+                                            <button onClick={followUser}>SEGUIR</button>}
+
                                     </>
                                 }
+                                <button className="loading-btn">
+                                    <Ring
+                                        size={40}
+                                        lineWeight={5}
+                                        speed={2}
+                                        color="black"
+                                    />
+                                </button>
+                                <button><i className="fa-solid fa-inbox"></i></button>
 
                             </div>
                             <div className="followers-card">
-                                <p>{0} seguidores</p>
+                                <p onClick={openseguidorescard}>{(ID_ACCOUNT_I.following).length} seguidores</p>
                                 <p>{0} seguindo</p>
                                 <p>{nofposts} dumps</p>
+                            </div>
+                            <div className="followers-card-show-users">
+                                <header className="header-seguidores">
+                                    <div className="text-header-dump">
+                                        <h2>Seguidores de @{ID_ACCOUNT_I.username}</h2>
+                                    </div>
+                                </header>
+                                <div className="list-of-followers">
+                                    {/*
+
+                                        (listofFollowers).map((item => {
+                                            databases.getDocument(
+                                                "64f9329a26b6d59ade09",
+                                                '64f93be88eee8bb83ec3',
+                                                item
+                                            ).then((e) => {
+                                                return (
+                                                    <div className="follower-dump-user">
+                                                        <img src={e.photoURL} />
+                                                        <h2>{e.displayName}</h2>
+                                                        <p>@{e.username}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }))
+                                    */}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -265,7 +392,7 @@ export default function Account() {
                         }
                     </div>
                     {ID_ACCOUNT_I.private == true ?
-                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.following.includes(targetUserId) ?
+                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid ?
                             <>
                                 <label id="youraccountislocked">Sua conta está privada.</label>
                             </>
@@ -276,7 +403,7 @@ export default function Account() {
                         <></>
                     }
                     <div className="dumps-account-user-show">
-                    
+
 
                         {ID_ACCOUNT_I.private == true ?
                             <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.following.includes(targetUserId) ?
@@ -293,7 +420,7 @@ export default function Account() {
                                 </div>
 
                             }</>
-                        :
+                            :
                             <>{USERS_POSTS}</>
                         }
 

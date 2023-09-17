@@ -12,27 +12,34 @@ import PostingPhoto from "../components/pages/feed/PostingPhoto";
 import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
 import Dailys from "../components/pages/feed/Dailys";
-
-
+import { Client, Databases } from 'appwrite'
 
 export default function Feed() {
 
     const [postsRealtime, setPosts] = useState([])
-
     const getPosts = async () => {
-        await databases.listDocuments(
-            "64f9329a26b6d59ade09",
-            '64f93c1c40d294e4f379',
-            [Query.orderDesc("$createdAt")])
-            .then((res) => {
+        try {
+            await databases.listDocuments(
+                "64f9329a26b6d59ade09",
+                '64f93c1c40d294e4f379',
+                [Query.limit(100), Query.orderDesc("$createdAt")],
+                [Query.orderDesc("$createdAt")],
                 
-                setPosts(res.documents)
+                0
+            )
 
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+                .then((res) => {
+                    setPosts(res.documents)
+                    console.log(res.documents.length)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        } catch (error) {
+            console.log('error: ', error)
+        }
     }
+
 
     useEffect(() => {
         HideLoading();
@@ -52,6 +59,7 @@ export default function Feed() {
         )
             .then((r) => {
                 Setusersdb(r)
+
             })
     }
 
@@ -91,12 +99,12 @@ export default function Feed() {
                                 descricao={p.legenda}
                                 timestamp={p.timestamp}
                                 isthisverifiqued={
-
                                     users.documents.filter(e => e.email == p.email).map((u) => {
                                         return u.isthisverifiqued
                                     })
 
                                 }
+                                userisfollowing={p.following}
                             />
                         )
 
