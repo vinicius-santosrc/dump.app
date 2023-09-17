@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { HideLoading } from "../components/Loading";
 import databases from "../lib/appwrite";
 import { useParams } from "react-router-dom";
+import { auth } from "../lib/firebase";
+import Swal from 'sweetalert2'
 
 
 export default function PostDetails() {
@@ -120,6 +122,39 @@ export default function PostDetails() {
         document.querySelector("title").innerText = `${publicacao.displayName} | Dump`
     }
     changeInfoPage()
+
+    async function deletepublic() {
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Essa ação não poderá ser revertida.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonTextButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Sucesso!',
+                    'Seu dump foi deletado com sucesso.',
+                    'success'
+                )
+                databases.deleteDocument(
+                    "64f9329a26b6d59ade09",
+                    "64f93c1c40d294e4f379",
+                    idPost
+                ).then((e) => {
+                    if(auth.currentUser) {
+                        window.location.href = window.location.origin + '/user/' + auth.currentUser.uid
+                    }
+                })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+        })
+    }
     return (
         <>
             <div className="dump-post-show-pc">
@@ -216,6 +251,15 @@ export default function PostDetails() {
                             </div>
                             <div className="bottom-desc">
                                 <p>{publicacao.legenda}</p>
+                            </div>
+                            <div className="button-remove">
+                                {auth.currentUser ?
+                                    publicacao.email == auth.currentUser.email ?
+                                        <button onClick={deletepublic}>EXCLUIR</button>
+                                        :
+                                        ''
+                                    :
+                                    ''}
                             </div>
                         </div>
                     </div>
