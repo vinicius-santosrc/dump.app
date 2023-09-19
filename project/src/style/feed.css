@@ -74,6 +74,7 @@ body {
 
 .verifyaccount {
     color: rgb(88, 209, 249);
+    cursor: pointer;
 }
 
 .showcurtidas {
@@ -173,27 +174,102 @@ body {
     position: fixed;
     z-index: 2;
     top: 150px;
-    font-size: 1rem;
+    font-size: 1.6rem;
 }
 
 .LeftSidePageHeader a {
     font-size: 1.3rem;
-    padding: 10px 20px;
+    padding: 10px 0px;
 }
 
 .LeftSidePageHeader a:hover {
     background-color: #ebebeb;
-    border-radius: 50px;
+    border-radius: 10px;
 }
 
 .LeftsideRedirect {
     margin-bottom: 2vh;
 }
 
+.dump-posts-saved-flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.dump-posts-saved a {
+    color: black;
+    text-decoration: none;
+}
+
+.dump-posts-saved img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    transition: 500ms;
+}
+
+.dump-posts-saved img:hover {
+    filter: brightness(0.7);
+}
+
+.dump-posts-saved-empty {
+    text-align: center;
+    justify-content: center;
+    background-color: #dedede;
+    padding: 10px 250px;
+    border-radius: 10px;
+}
+
+.dump-posts-saved-empty img{
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    margin: auto;
+    text-align: center;
+}
+
+.dump-posts-saved-empty h2 {
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.dump-posts-saved-empty p {
+    text-align: left;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: rgb(103, 103, 103);
+}
+
+.btns-inner {
+    display: flex;
+    gap: 5px;
+    padding: 10px 0px;
+}
+
+.btns-inner button {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.btns-inner button:nth-child(1):hover {
+    color: red;
+}
+
+.btns-inner button:nth-child(3):hover {
+    color: rgb(249, 77, 255);
+}
+
 .account-div {
     position: fixed;
     bottom: 50px;
-    padding: 10px 10px;
+    padding: 00px 10px;
     width: 350px;
 }
 
@@ -202,7 +278,7 @@ body {
     font-size: 01rem;
 }
 
-.account-div:hover {
+.account-div-flexbox:hover {
     background-color: #ebebeb;
     border-radius: 20px;
     cursor: pointer;
@@ -276,7 +352,7 @@ body {
 }
 
 .dump-feed-posts {
-    padding: 120px 0;
+    padding: 0px 0;
 }
 
 .dump-post-bottom {
@@ -328,12 +404,60 @@ body {
     border: none;
 }
 
+#following-user {
+    color: rgb(186, 69, 207);
+    font-weight: 600;
+}
+
+.account-div-options {
+    display: block;
+    position: absolute;
+    bottom: 100px;
+    left: 0px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 350px;
+    border-radius: 10px;
+    z-index: 40;
+    display: none;
+
+}
+
+.background-button {
+    width: 100vw;
+    background-color: transparent;
+    height: 110vh;
+    position: fixed;
+    z-index: 22;
+    display: none;
+}
+
+.account-div-options button {
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+}
+
+.account-div-options button:hover {
+    background-color: rgb(227, 227, 227);
+    border-radius: 10px;
+}
+
 .btns-dump-comments button:nth-child(1):hover {
     color: red;
 }
 
 .btns-dump-comments button:nth-child(2):hover {
     color: rgb(209, 116, 255);
+}
+
+.dump-like-action-button {
+    display: flex;
+    align-items: center;
 }
 
 .card-suggestios-block {
@@ -833,6 +957,7 @@ body {
 .leftside-account img {
     width: 6rem;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .top-account {
@@ -1394,6 +1519,94 @@ body {
     margin-bottom: 10px;
 }
 
+.dump-radio-input-view input {
+    
+}
+
+.buttons-radio {
+    position: relative;
+    display: flex;
+    width: 750px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px ;
+
+}
+
+.buttons-radio label {
+    cursor: pointer;
+    color: black;
+    opacity: 0.7;
+}
+
+.dump-radio-input-view input:nth-child(1):checked ~ .buttons-radio label:nth-child(1),
+.dump-radio-input-view input:nth-child(2):checked ~ .buttons-radio label:nth-child(2) {
+    color: rgb(177, 108, 231);
+    font-weight: 600;
+}
+
+.underline {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 3px;
+    width: 10.333%;
+    background-color: rgb(177, 108, 231);
+    transition: 500ms;
+}
+
+.photosizePLUS {
+    position: fixed;
+    margin: 0 auto;
+    top: 25%;
+    text-align: center;
+    justify-content: center;
+    z-index: 2;
+    width: 100%;
+    display: none;
+}
+
+.photosizePLUS img{
+    width: 430px;
+    height: 430px;
+    margin: auto;
+    border-radius: 100%;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#following-user {
+
+}
+
+.button-close-profile-image {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+}
+
+.button-close-profile-image button {
+    font-size: 2rem;
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.BACKGROUND-CLOSE {
+    position: fixed;
+    width: 100vw;
+    margin: -80px auto;
+    display: none;
+    height: 120vh;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.934);
+}
+
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
         display: block;
@@ -1524,7 +1737,7 @@ body {
     }
 
     .dump-feed-posts {
-        padding: 100px 0;
+        padding: 0px 0;
     }
 
     .dump-post-bottom {
@@ -1565,17 +1778,17 @@ body {
     .btns-dump-comments {
         align-items: center;
         display: flex;
-        background-color: rgb(238, 238, 238);
+        background-color: transparent;
         margin: auto;
         text-align: center;
         width: 100%;
-        justify-content: space-evenly;
+        justify-content: right;
         padding: 3px;
         border-radius: 10px;
     }
 
     .btns-dump-comments button {
-        padding: 10px;
+        padding: 0px;
         font-size: 1.3rem;
         cursor: pointer;
         background: none;
@@ -2421,5 +2634,207 @@ body {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+    }
+
+    .buttons-radio {
+        position: relative;
+        display: flex;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+        gap: 20px;
+        padding-top: 70px ;
+        padding-bottom: 30px;
+    
+    }
+    
+    .buttons-radio label {
+        cursor: pointer;
+        color: black;
+        opacity: 0.7;
+    }
+
+    .photosizePLUS {
+        position: fixed;
+        margin: 0 -30px;
+        top: 25%;
+        text-align: center;
+        justify-content: center;
+        z-index: 22;
+        width: 100%;
+        display: none;
+    }
+    
+    .photosizePLUS img{
+        width: 240px;
+        height: 240px;
+        margin: auto;
+        border-radius: 100%;
+        position: relative;
+        text-align: center;
+        justify-content: center;
+        pointer-events: none;
+    }
+    
+    .button-close-profile-image {
+        position: fixed;
+        top: 30px;
+        left: 30px;
+    }
+    
+    .button-close-profile-image button {
+        font-size: 2rem;
+        color: white;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .BACKGROUND-CLOSE {
+        position: fixed;
+        width: 100%;
+        
+        margin: -80px -30px;
+        display: none;
+        height: 120vh;
+        z-index: 21;
+        background-color: rgba(0, 0, 0, 0.934);
+    } 
+
+    .dump-posts-saved {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    
+    }
+    
+    .dump-posts-saved img {
+        width: 350px;
+        height: 300px;
+        object-fit: cover;
+    }
+
+
+    
+    .dump-posts-saved-empty {
+        text-align: center;
+        justify-content: center;
+        background-color: #dedede;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    .dump-posts-saved-empty img{
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        margin: auto;
+        text-align: center;
+    }
+    
+    .dump-posts-saved-empty h2 {
+        text-align: left;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+    
+    .dump-posts-saved-empty p {
+        text-align: left;
+        font-weight: 400;
+        font-size: 0.9rem;
+        color: rgb(103, 103, 103);
+    }
+
+    .dump-posts-saved-flex {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .dump-posts-saved a {
+        color: black;
+        text-decoration: none;
+    }
+    
+    .dump-posts-saved img {
+        width: 400px;
+        height: 300px;
+        object-fit: cover;
+        transition: 500ms;
+    }
+    
+    .dump-posts-saved img:hover {
+        filter: brightness(0.7);
+    }
+    
+    .dump-posts-saved-empty {
+        text-align: center;
+        justify-content: center;
+        background-color: #dedede;
+        padding: 10px 10px;
+        border-radius: 10px;
+    }
+    
+    .dump-posts-saved-empty img{
+        width: 250px;
+        height: 250px;
+        object-fit: contain;
+        margin: auto;
+        text-align: center;
+    }
+    
+    .dump-posts-saved-empty h2 {
+        text-align: left;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+    
+    .dump-posts-saved-empty p {
+        text-align: left;
+        font-weight: 400;
+        font-size: 1.0rem;
+        color: rgb(103, 103, 103);
+    }
+    
+    .btns-inner {
+        display: flex;
+        justify-content: right;
+        gap: 5px;
+        padding: 10px 0px;
+    }
+    
+    .btns-inner button {
+        font-size: 1.3rem;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        transition: 500ms;
+        background-color: #e1e1e1;
+        padding: 5px 20px;
+        border-radius: 10px;
+    }
+    
+    .btns-inner button:nth-child(1):hover {
+        color: red;
+    }
+    
+    .btns-inner button:nth-child(3):hover {
+        color: rgb(249, 77, 255);
+    }
+    .button-remove {
+        justify-content: right;
+        text-align: right;
+    }
+
+    .button-remove button {
+        padding: 7px 30px;
+        border-radius: 10px;
+        border: none;
+        background-color: #e1e1e1;
     }
 }

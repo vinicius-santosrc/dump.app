@@ -30,20 +30,26 @@ export default function Suggestions() {
     useEffect(() => {
         window.addEventListener('DOMContentLoaded', loadUsers())
     }, [])
+
     
-    let FirstUsers = Users.slice(0, 6)
+    let FirstUsers = Users.slice(0, 5)
+
+    const version = '0.5.1'
 
     return(
         <div className='card-suggestios-block'>
             <div className="Card-Suggestions">
                 <div className='sugg-card-beta'>
-                    <h1>Versão beta</h1>
+                    <h1>Versão {version}</h1>
                     <p>Essa aplicação está na versão beta e está propicia a mudanças no sistema, design e nas informações.</p>
                 </div>
             </div>
             <div className="Card-Suggestions">
                 <div className='sugg-card-beta'>
-                    <h1>Principais #HashTags</h1>
+                    <h1>Principais Dumps</h1>
+                    {
+
+                    }
                 </div>
             </div>
             <div className="Card-Suggestions">
@@ -63,9 +69,6 @@ export default function Suggestions() {
                                         username= {user.username}
                                         isthisverifiqued = {user.isthisverifiqued}
                                     />
-                                    <div className='button-follow'>
-                                        <button>Seguir</button>
-                                    </div>
                                 </div>
                             )
                         })

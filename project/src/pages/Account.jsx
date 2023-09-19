@@ -19,9 +19,6 @@ export default function Account() {
     const [isFollowing, setIsFollow] = useState(null)
     const [listofFollowers, setListOfFollowers] = useState("")
 
-    useEffect(() => {
-        ButtonActionProfile()
-    })
 
     useEffect(() => {
         HideLoading()
@@ -41,12 +38,19 @@ export default function Account() {
     }, [ID_ACCOUNT])
 
     useEffect(() => {
+        checkIfFollowsUser()
+    })
+
+    useEffect(() => {
 
         const getPostsofUser = async () => {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
-                [Query.limit(100), Query.orderDesc("$createdAt")]).catch((e) => {
+                [Query.limit(100),
+                Query.orderDesc("$createdAt")])
+
+                .catch((e) => {
                     console.log(e)
                 }
                 )
@@ -103,6 +107,8 @@ export default function Account() {
         checkIfFollowsUser()
     }
 
+
+
     const gotomyprofile = () => {
 
         const getprofile = async () => {
@@ -132,13 +138,15 @@ export default function Account() {
     if (!ID_ACCOUNT_I) {
         return (
             <>
-
-                <div><Ring
-                    size={40}
-                    lineWeight={5}
-                    speed={2}
-                    color="black"
-                /></div>
+            <Header />
+                <div className="loading-inner">
+                    <Ring
+                        size={40}
+                        lineWeight={5}
+                        speed={2}
+                        color="black"
+                    />
+                </div>
             </>
         );
     }
@@ -160,11 +168,13 @@ export default function Account() {
     }
 
 
+
+
     const userId = ID_ACCOUNT_I.uid;
 
     const userDocument = databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
-    const following = userDocument.following || [];
+    const followers = userDocument.followers || [];
 
     const DB_UID = '64f9329a26b6d59ade09'
     const COL_UID = '64f93be88eee8bb83ec3'
@@ -178,15 +188,15 @@ export default function Account() {
                 COL_UID,
                 userId);
 
-            setListOfFollowers(user.following)
+            setListOfFollowers(user.followers)
 
             if (!user) {
                 document.querySelector(".loading-btn").style.display = 'block'
             }
 
-            const following = user.following || [];
+            const followers = user.followers || [];
 
-            if (following.includes(targetUserId)) {
+            if (followers.includes(targetUserId)) {
 
                 setIsFollow(true)
                 return true;
@@ -197,10 +207,12 @@ export default function Account() {
             }
         } catch (error) {
             setIsFollow(false)
-
+            console.log(error)
             return false;
         }
     }
+
+
 
     // Função para verificar se um usuário segue outro
     async function followUser() {
@@ -218,19 +230,23 @@ export default function Account() {
         try {
             const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
-            const following = userDocument.following || [];
+            const followers = userDocument.followers || [];
 
-            if (following.includes(targetUserId)) {
+            if (followers.includes(targetUserId)) {
                 alert('você já está seguindo')
                 voltarbotoes()
                 return;
             }
 
-            following.push(targetUserId);
+            followers.push(targetUserId);
 
-            await databases.updateDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId, {
-                following: following,
+            await databases.updateDocument('64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                userId, {
+                followers: followers,
             });
+
+            ButtonActionProfile()
 
             Swal.fire({
                 position: 'top-end',
@@ -260,18 +276,18 @@ export default function Account() {
         try {
             const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
-            const following = userDocument.following || [];
+            const followers = userDocument.followers || [];
 
-            if (!following.includes(targetUserId)) {
+            if (!followers.includes(targetUserId)) {
                 console.log('Você não está seguindo este usuário.');
                 voltarbotoes()
                 return;
             }
 
-            const updatedFollowing = following.filter((id) => id !== targetUserId);
+            const updatedFollowers = followers.filter((id) => id !== targetUserId);
 
             await databases.updateDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId, {
-                following: updatedFollowing,
+                followers: updatedFollowers,
             });
 
             Swal.fire({
@@ -282,10 +298,12 @@ export default function Account() {
                 timer: 1500
             })
             voltarbotoes()
+            ButtonActionProfile()
         } catch (error) {
             console.error('Erro ao parar de seguir o usuário:', error);
         }
     }
+
 
     function editmyprofile_btn() {
         window.location.href = `${window.location.origin}/accounts/edit/`
@@ -295,19 +313,43 @@ export default function Account() {
 
     }
 
+    function closeimageprofile() {
+        document.querySelector(".photosizePLUS").style.display = 'none'
+        document.querySelector(".BACKGROUND-CLOSE").style.display = 'none'
+    }
+
+    function openphotoprofile() {
+        document.querySelector(".photosizePLUS").style.display = 'block'
+        document.querySelector(".BACKGROUND-CLOSE").style.display = 'block'
+    }
+
+    const followersofUser = '' //(ID_ACCOUNT_I.followers).length
+    const followingOfUser = '' //(ID_ACCOUNT_I.following).length
+
 
     return (
         <>
             <HeaderAccount />
+            <div className="photosizePLUS">
+                <img alt={`Foto de perfil de @${ID_ACCOUNT_I.username}`} src={ID_ACCOUNT_I.photoURL} />
+            </div>
+            <div className="BACKGROUND-CLOSE" onClick={closeimageprofile}>
+                <div className="button-close-profile-image">
+                    <button onClick={closeimageprofile}><i className="fa-solid fa-chevron-left"></i></button>
+                </div>
+            </div>
             <div className="dump-account-page">
+
 
                 <div className="dump-account-background">
 
                 </div>
                 <div className="dump-account-infos">
+
                     <div className="top-account">
+
                         <div className="leftside-account">
-                            <img src={ID_ACCOUNT_I.photoURL} />
+                            <img onClick={openphotoprofile} src={ID_ACCOUNT_I.photoURL} />
                             <div className="account-details">
                                 <h1>{ID_ACCOUNT_I.displayName} {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
                                 <p>@{ID_ACCOUNT_I.username}</p>
@@ -319,10 +361,11 @@ export default function Account() {
                                     <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
                                     :
                                     <>
-                                        {isFollowing === true ?
-                                            <button onClick={unfollowUser}>PARAR DE SEGUIR</button>
+                                        {isFollowing ?
+                                            <button onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
                                             :
-                                            <button onClick={followUser}>SEGUIR</button>}
+                                            <button onClick={followUser}>Seguir</button>
+                                        }
 
                                     </>
                                 }
@@ -338,8 +381,8 @@ export default function Account() {
 
                             </div>
                             <div className="followers-card">
-                                <p onClick={openseguidorescard}>{(ID_ACCOUNT_I.following).length} seguidores</p>
-                                <p>{0} seguindo</p>
+                                <p onClick={openseguidorescard}>{followersofUser} seguidores</p>
+                                <p>{followingOfUser} seguindo</p>
                                 <p>{nofposts} dumps</p>
                             </div>
                             <div className="followers-card-show-users">
@@ -406,7 +449,7 @@ export default function Account() {
 
 
                         {ID_ACCOUNT_I.private == true ?
-                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.following.includes(targetUserId) ?
+                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.followers.includes(targetUserId) ?
                                 <>
                                     {USERS_POSTS}
                                 </>
@@ -432,7 +475,7 @@ export default function Account() {
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
-
+                {i_ison ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
                 {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
         </>

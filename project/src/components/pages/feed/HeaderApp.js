@@ -49,8 +49,33 @@ function CurtidasList() {
     const CurrentUserId = auth.currentUser.uid
 
     const [notfy, setNot] = useState('')
-   
-    const getNoty = async () => {
+    const [sender, setSENDER] = useState(null)
+
+    async function getUserAtual2() {
+        await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64fd4c66a7628f81bde8",
+            [Query.orderDesc("$createdAt")]
+        ).then((response) => {
+            const DB_UID = '64f9329a26b6d59ade09'
+            const USER_COL = '64f93be88eee8bb83ec3'
+
+            response.documents.filter(e => e.TO_UID == CurrentUserId).map(async (notification) => {
+                await databases.getDocument(
+                    DB_UID,
+                    USER_COL,
+                    notification.SENDER_UID
+                )
+                    .then(sender => {
+                        getNoty(sender)
+                    })
+
+            })
+        })
+    }
+
+
+    const getNoty = async (sender) => {
         await databases.listDocuments(
             "64f9329a26b6d59ade09",
             "64fd4c66a7628f81bde8",
@@ -62,30 +87,70 @@ function CurtidasList() {
                         <div className='curtidas-null-dump'>
                             <img src="../static/media/undraw_void_-3-ggu.svg" />
                             <h2>Nada por aqui.</h2>
-                            <p>Aqui aparecerão suas curtidas.</p>
+                            <p>Aqui aparecerão suas notificações.</p>
                         </div>
                     )
                 }
                 else {
                     setNot(res.documents.filter(e => e.TO_UID == CurrentUserId).map((not) => {
+                        const datanotcriada = new Date(not.$createdAt)
+
+                        const datanotcriadacomparar = Date(not.$createdAt)
+                        const datahoje = new Date()
+
+                        const mesdoPost = datanotcriada.getMonth()
+                        const diadoPost = datanotcriada.getDate()
+
+                        const MesesDoAno = [
+                            "Janeiro",
+                            "Fevereiro",
+                            "Março",
+                            "Abril",
+                            "Maio",
+                            "Junho",
+                            "Julho",
+                            "Agosto",
+                            "Setembro",
+                            "Outubro",
+                            "Novembro",
+                            "Dezembro"
+                        ]
 
                         return (
-                            <div className='curtida-user-dump'>
-                                <div className='curtida-index'>
-                                    <i className="fa-solid fa-heart fa-beat-fade"></i>
-                                </div>
-                                <div className='leftsidecontent-alert'>
-                                    <img src={not.SENDER_PIC} />
-                                    <div className='content-name-curtida'>
-                                        <h2>{not.SENDER_NAME}</h2>
-                                    </div>
-                                </div>
-                                <div className='contentalert'>
-                                    <p>{not.ACTION == 'like' ? 'curtiu sua publicação' : ''}</p>
-                                </div>
 
+                            <div className='curtida-user-dump'>
+                                <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                                    <div className='curtida-index'>
+                                        <i className="fa-solid fa-heart fa-beat-fade"></i>
+                                    </div>
+                                    <div className='leftsidecontent-alert'>
+                                        <img src={sender.photoURL} />
+                                        <div className='content-name-curtida'>
+                                            <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+                                            <label>{datahoje == datanotcriadacomparar ?
+                                                'Hoje' :
+                                                `${diadoPost} de ${MesesDoAno[mesdoPost]} `
+                                            }</label>
+                                        </div>
+
+                                    </div>
+                                    <div className='contentalert'>
+                                        <p>{not.ACTION == 'like' ? 'curtiu sua publicação' :
+                                            <>
+                                                {not.ACTION == 'follow' ?
+                                                    'começou a seguir você'
+                                                    :
+                                                    ''
+                                                }
+                                            </>
+                                        }</p>
+                                    </div>
+                                </a>
                             </div>
                         )
+
+
+
 
                     }))
                 }
@@ -94,7 +159,7 @@ function CurtidasList() {
     }
 
     useEffect(() => {
-        getNoty()
+        getUserAtual2()
     }, [])
 
 
@@ -102,11 +167,16 @@ function CurtidasList() {
 }
 
 function gotoHomePage() {
+    {
+        window.location.pathname == '/' ?
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // Comportamento de rolagem suave
+            })
+            :
+            window.location.href = window.location.origin
+    }
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Comportamento de rolagem suave
-    });
 
 }
 
@@ -155,12 +225,12 @@ export default function HeaderFeed() {
         )
             .then((response) => {
                 SetAccount(response)
-    
+
             })
             .catch((e) => {
                 console.log(e)
             })
-    
+
     }
 
     useEffect(() => {
@@ -171,10 +241,30 @@ export default function HeaderFeed() {
         window.location.href = window.location.origin + '/search'
     }
 
+    function gotoSaves() {
+        window.location.href = window.location.origin + '/saves'
+    }
+
+    function gotomyprofilenav() {
+        window.location.href = window.location.origin + '/user/' + ID_ACCOUNT_I.uid
+    }
+
+    function accountoptions() {
+        document.querySelector(".account-div-options").style.display = 'block'
+        document.querySelector(".background-button").style.display = 'block'
+    }
+
+    function closeaccountoptions() {
+        document.querySelector(".account-div-options").style.display = 'none'
+        document.querySelector(".background-button").style.display = 'none'
+    }
+
+
 
     return (
 
         <>
+            <div onClick={closeaccountoptions} className='background-button'></div>
             <header className="App-Header-Feed FeedHeader">
                 <div className="App-Header-Feed-LeftSide leftsideheader">
                     <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
@@ -185,13 +275,36 @@ export default function HeaderFeed() {
                             </div>
                             <div className="LeftsideRedirect" onClick={gotoSearch}>
                                 <a className="Redirect"><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
-                            </div>                            
+                            </div>
+                            <div className="LeftsideRedirect" onClick={openCurtidas}>
+                                {i_ison ? <a className="Redirect"><i className="fa-solid fa-bell"></i> Notificações</a> : ''}
+                            </div>
+                            <div className="LeftsideRedirect" onClick={''}>
+                                {i_ison ? <a className="Redirect"><i className="fa-regular fa-comment-dots"></i> Mensagens</a> : ''}
+                            </div>
+                            <div className="LeftsideRedirect" onClick={gotoSaves}>
+                                {i_ison ? <a className="Redirect"><i className="fa-solid fa-bookmark"></i> Salvos</a> : <></>}
+                            </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
                                 {i_ison ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
                             </div>
+
                             <div className="account-div">
-                                {i_ison  ?
-                                    <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid} ><div className="account-div-flexbox" onClick={gotomyprofile}>
+                                {i_ison ?
+                                    <div className='account-div-options'>
+                                        <div className='button-action-account'>
+                                            <button onClick={gotomyprofilenav}>Ver sua conta</button>
+                                        </div>
+                                        <div className='button-action-account'>
+                                            <button onClick={signOutUser}>Sair da sua conta</button>
+                                        </div>
+
+                                    </div>
+                                    :
+                                    <></>
+                                }
+                                {i_ison ?
+                                    <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
                                         <img src={ID_ACCOUNT_I.photoURL} />
                                         <div>
                                             <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
@@ -212,6 +325,7 @@ export default function HeaderFeed() {
                                     </div>
                                 }
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -228,6 +342,7 @@ export default function HeaderFeed() {
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
+                {i_ison ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
                 {i_ison ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
             <div className='curtidaspage-dump'>

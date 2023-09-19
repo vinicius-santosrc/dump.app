@@ -5,11 +5,13 @@ import databases from "../lib/appwrite";
 import { useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
+import { Query } from "appwrite";
 
 
 export default function PostDetails() {
     const { idPost } = useParams();
     const [publicacao, setPublicacao] = useState(null);
+    const [publicacaoId, setPublicaoId] = useState(null)
     const [userPub, setUserPub] = useState(null)
 
     useEffect(() => {
@@ -21,11 +23,273 @@ export default function PostDetails() {
         )
             .then((response) => {
                 setPublicacao(response)
+                setPublicaoId(response.$id)
             })
             .catch((e) => {
                 console.log(e)
             })
     }, [idPost])
+
+    const DB_UID = '64f9329a26b6d59ade09'
+    const COL_UID = '64f93c1c40d294e4f379'
+    let targetUserId
+
+    if (auth.currentUser) {
+        targetUserId = auth.currentUser.uid;
+    }
+
+    
+
+    /** VERIFICAÇÃO DUMP ATUAL */
+
+    const [isLiked, setLike] = useState(null)
+    const [isSaved, setSave] = useState(null)
+    const [ListOfSaves, setListOfSaves] = useState(null)
+    const [ListOfLikes, setListOfLikes] = useState(null)
+    const [NumberOfLikes, setNumberOfLikes] = useState(null)
+
+
+    useEffect(() => {
+        window.addEventListener('DOMContentLoaded', checkDumpLikes())
+        window.addEventListener('DOMContentLoaded', checkDumpSaves())
+    }, [])
+
+
+    async function checkDumpLikes() {
+
+        try {
+            // Obtenha o documento do usuário
+            const user = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId
+            );
+
+            setListOfLikes(user.likes)
+            setNumberOfLikes(user.likes.length)
+
+
+            const likes = user.likes || [];
+
+            if (likes.includes(targetUserId)) {
+                setLike(true)
+                return true;
+            } else {
+
+                setLike(false)
+                return false;
+            }
+        } catch (error) {
+            setLike(false)
+            console.log(error)
+            return false;
+        }
+    }
+
+    async function checkDumpSaves() {
+
+        try {
+            // Obtenha o documento do usuário
+            const user = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            setListOfSaves(user.saves)
+
+            const saves = user.saves || [];
+
+            if (saves.includes(targetUserId)) {
+                setSave(true)
+                return true;
+            } else {
+
+                setSave(false)
+                return false;
+            }
+        } catch (error) {
+            setSave(false)
+            console.log(error)
+            return false;
+        }
+    }
+
+    /** CURTIR DUMP ATUAL */
+
+    const [toUid_Send, setTOUID] = useState(null)
+    const [UserAtual, SetUserAtual] = useState(null)
+
+    let SENDERUID
+    if (auth.currentUser) {
+        SENDERUID = auth.currentUser.uid
+    }
+
+
+    async function likethepost() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const likes = userDocument.likes || [];
+
+            if (likes.includes(targetUserId)) {
+                alert('você já curtiu a publicação')
+                checkDumpLikes()
+                return;
+            }
+
+            likes.push(targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                likes: likes,
+            });
+
+            checkDumpLikes()
+
+            const NOT_DOC = '64fd4c66a7628f81bde8'
+            const USERS_DOC = '64f93be88eee8bb83ec3'
+            await databases.listDocuments(
+                DB_UID,
+                USERS_DOC,
+                [Query.equal('email', publicacao.email)])
+                .then(response => {
+                    response.documents.map((e) => {
+                        setTOUID(e.uid)
+                    })
+                })
+            await databases.listDocuments(
+                DB_UID,
+                USERS_DOC,
+                [Query.equal('email', auth.currentUser)])
+                .then((response) => {
+                    SetUserAtual(response.documents)
+                })
+
+
+            const uuid = require('uuid');
+            await databases.createDocument(
+                DB_UID,
+                NOT_DOC,
+                uuid.v4(),
+                {
+                    TO_UID: toUid_Send,
+                    SENDER_UID: SENDERUID,
+                    SENDER_PIC: 'https://a.com.br',
+                    SENDER_USERNAME: '',
+                    SENDER_NAME: '',
+                    PHOTO_REL: publicacao.$id,
+                    ACTION: 'like'
+                }
+            )
+
+
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
+        }
+    }
+
+    async function unlikethisphoto() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const likes = userDocument.likes || [];
+
+            if (!likes.includes(targetUserId)) {
+                console.log('Você não curtiu essa publicacao ainda.');
+                checkDumpLikes()
+                return;
+            }
+
+            const likesUpdated = likes.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                likes: likesUpdated,
+            });
+
+            checkDumpLikes()
+
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
+        }
+    }
+
+    /** SALVAR DUMP ATUAL */
+
+    async function savedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const saves = userDocument.saves || [];
+
+            if (saves.includes(targetUserId)) {
+                alert('você já salvou a publicação')
+                checkDumpSaves()
+                return;
+            }
+
+            saves.push(targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: saves,
+            });
+
+
+
+            checkDumpSaves()
+
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
+        }
+    }
+    async function unsavedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const saves = userDocument.saves || [];
+
+            if (!saves.includes(targetUserId)) {
+                console.log('Você ainda não salvou esse dump.');
+                checkDumpSaves()
+                return;
+            }
+
+            const savesUpdated = saves.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: savesUpdated,
+            });
+
+
+            checkDumpSaves()
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
+        }
+    }
 
 
 
@@ -145,7 +409,7 @@ export default function PostDetails() {
                     "64f93c1c40d294e4f379",
                     idPost
                 ).then((e) => {
-                    if(auth.currentUser) {
+                    if (auth.currentUser) {
                         window.location.href = window.location.origin + '/user/' + auth.currentUser.uid
                     }
                 })
@@ -155,6 +419,7 @@ export default function PostDetails() {
             }
         })
     }
+
     return (
         <>
             <div className="dump-post-show-pc">
@@ -202,6 +467,41 @@ export default function PostDetails() {
                                 <div className="bottom-desc">
                                     <p>{publicacao.legenda}</p>
                                 </div>
+                                <div className="btns-inner">
+                                    {isLiked ?
+                                        <>
+                                            <button></button>
+                                            <div className='dump-like-action-button'>
+                                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                                <p>{NumberOfLikes}</p>
+                                            </div>
+
+                                        </>
+                                        :
+                                        <>
+                                            <div className='dump-like-action-button'>
+                                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                                <p>{NumberOfLikes}</p>
+                                            </div>
+
+                                        </>
+                                    }
+                                    <div className='likes-card-box'>
+                                    </div>
+                                    {isSaved ?
+                                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                        :
+                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                </div>
+                            </div>
+                            <div className="button-remove">
+                                {auth.currentUser ?
+                                    publicacao.email == auth.currentUser.email ?
+                                        <button onClick={deletepublic}>EXCLUIR</button>
+                                        :
+                                        ''
+                                    :
+                                    ''}
                             </div>
                         </div>
 
@@ -252,6 +552,32 @@ export default function PostDetails() {
                             <div className="bottom-desc">
                                 <p>{publicacao.legenda}</p>
                             </div>
+                            <div className="btns-inner">
+                                    {isLiked ?
+                                        <>
+                                            <button></button>
+                                            <div className='dump-like-action-button'>
+                                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
+
+                                            </div>
+
+                                        </>
+                                        :
+                                        <>
+                                            <div className='dump-like-action-button'>
+                                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
+
+                                            </div>
+
+                                        </>
+                                    }
+                                    <div className='likes-card-box'>
+                                    </div>
+                                    {isSaved ?
+                                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                        :
+                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                </div>
                             <div className="button-remove">
                                 {auth.currentUser ?
                                     publicacao.email == auth.currentUser.email ?

@@ -5,6 +5,7 @@ import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } fro
 import UserPerfil from './UserPerfil';
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
+import Swal from 'sweetalert2'
 
 export default function Posts(props) {
 
@@ -42,90 +43,294 @@ export default function Posts(props) {
             */
     }
 
-    let quantoflikes = () => {
-
-        /*database.collection("posts")
-            .doc(props.id)
-            .collection("likes")
-            .get()
-            .then(s => {
-                return s.size
-            })
-        */
-    }
-
-
-    const likesofpub = () => {
-        database.collection("posts")
-            .doc(props.id)
-            .get()
-            .then(s => {
-                return s.data().likes
-            })
-    }
-
-
-    function likethisphoto() {
-
-
-
-        /*database.collection("posts")
-            .doc(props.id)
-            .collection('likes')
-            .doc(auth.currentUser.uid)
-            .set({
-                uid: auth.currentUser.uid
-            })
-            */
-    }
-
-    function unlikethisphoto() {
-        /*database.collection("posts")
-            .doc(props.id)
-            .collection('likes')
-            .doc(auth.currentUser.uid)
-            .delete()
-        */
-    }
-
-    function ButtonDeletePublic() {
-        /*let [buttonremover, setButtonRemove] = useState("")
-
-        useState(()=> {
-            const LoadedInfo = async () => {
-                const res = 
-                    await databases.getDocument(
-                    "64f9329a26b6d59ade09",
-                    '64f93c1c40d294e4f379',
-                    props.id,
-                )
-                    res.email == auth.currentUser.email ? setButtonRemove(
-                        <button onClick={removethisphoto}><i className="fa-solid fa-trash-can"></i></button>
-                    ) : <></>                  
-                
-                    
-            }
-            LoadedInfo()
-        })
-        return (buttonremover)*/
-
-    }
-
-    function removethisphoto() {
-        /*database.collection("posts")
-            .doc(props.id)
-            .delete()
-        alert("deu bom")*/
-    }
-
-
-
     function Comments() {
 
     }
 
-
+    const DB_UID = '64f9329a26b6d59ade09'
+    const COL_UID = '64f93c1c40d294e4f379'
+    let targetUserId
     const publicacaoId = props.id
+
+    if (auth.currentUser) {
+        targetUserId = auth.currentUser.uid;
+    }
+
+    /** VERIFICAÇÃO DUMP ATUAL */
+
+    const [isLiked, setLike] = useState(null)
+    const [isSaved, setSave] = useState(null)
+    const [ListOfSaves, setListOfSaves] = useState(null)
+    const [ListOfLikes, setListOfLikes] = useState(null)
+    const [NumberOfLikes, setNumberOfLikes] = useState(null)
+
+
+    useEffect(() => {
+        window.addEventListener('DOMContentLoaded', checkDumpLikes())
+        window.addEventListener('DOMContentLoaded', checkDumpSaves())
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 2000);
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 5000);
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 10000);
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 7000);
+        window.addEventListener("pageshow", checkDumpLikes())
+        window.addEventListener("pageshow", checkDumpSaves())
+
+        window.addEventListener("loadeddata", checkDumpLikes())
+        window.addEventListener("loadeddata", checkDumpSaves())
+
+        window.addEventListener("loadedmetadata", checkDumpLikes())
+        window.addEventListener("loadedmetadata", checkDumpSaves())
+
+    }, [])
+
+
+    async function checkDumpLikes() {
+
+        try {
+            // Obtenha o documento do usuário
+            const user = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            setListOfLikes(user.likes)
+            setNumberOfLikes(user.likes.length)
+
+
+            const likes = user.likes || [];
+
+            if (likes.includes(targetUserId)) {
+                setLike(true)
+                return true;
+            } else {
+
+                setLike(false)
+                return false;
+            }
+        } catch (error) {
+            setLike(false)
+            console.log(error)
+            return false;
+        }
+    }
+
+    async function checkDumpSaves() {
+
+        try {
+            // Obtenha o documento do usuário
+            const user = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            setListOfSaves(user.saves)
+
+            const saves = user.saves || [];
+
+            if (saves.includes(targetUserId)) {
+                setSave(true)
+                return true;
+            } else {
+
+                setSave(false)
+                return false;
+            }
+        } catch (error) {
+            setSave(false)
+            console.log(error)
+            return false;
+        }
+    }
+
+    /** CURTIR DUMP ATUAL */
+
+    const [toUid_Send, setTOUID] = useState(null)
+    const [UserAtual, SetUserAtual] = useState(null)
+
+    let SENDERUID
+    if (auth.currentUser) {
+        SENDERUID = auth.currentUser.uid
+    }
+
+
+    async function likethepost() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const likes = userDocument.likes || [];
+
+            if (likes.includes(targetUserId)) {
+
+                checkDumpLikes()
+                return;
+            }
+
+            likes.push(targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                likes: likes,
+            });
+
+            checkDumpLikes()
+
+            const NOT_DOC = '64fd4c66a7628f81bde8'
+            const USERS_DOC = '64f93be88eee8bb83ec3'
+            await databases.listDocuments(
+                DB_UID,
+                USERS_DOC,
+                [Query.equal('email', props.email)])
+                .then(response => {
+                    response.documents.map((e) => {
+                        setTOUID(e.uid)
+                    })
+                })
+            await databases.listDocuments(
+                DB_UID,
+                USERS_DOC,
+                [Query.equal('email', auth.currentUser)])
+                .then((response) => {
+                    SetUserAtual(response.documents)
+                })
+
+
+            const uuid = require('uuid');
+            await databases.createDocument(
+                DB_UID,
+                NOT_DOC,
+                uuid.v4(),
+                {
+                    TO_UID: toUid_Send,
+                    SENDER_UID: SENDERUID,
+                    SENDER_PIC: props.photoURL,
+                    SENDER_USERNAME: props.username,
+                    SENDER_NAME: props.displayName,
+                    PHOTO_REL: props.id,
+                    ACTION: 'like'
+                }
+            )
+
+
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
+        }
+    }
+
+    async function unlikethisphoto() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const likes = userDocument.likes || [];
+
+            if (!likes.includes(targetUserId)) {
+
+                checkDumpLikes()
+                return;
+            }
+
+            const likesUpdated = likes.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                likes: likesUpdated,
+            });
+
+            checkDumpLikes()
+
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
+        }
+    }
+
+    /** SALVAR DUMP ATUAL */
+
+    async function savedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const saves = userDocument.saves || [];
+
+            if (saves.includes(targetUserId)) {
+ 
+                checkDumpSaves()
+                return;
+            }
+
+            saves.push(targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: saves,
+            });
+
+
+
+            checkDumpSaves()
+
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
+        }
+    }
+    async function unsavedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
+
+            const saves = userDocument.saves || [];
+
+            if (!saves.includes(targetUserId)) {
+
+                checkDumpSaves()
+                return;
+            }
+
+            const savesUpdated = saves.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: savesUpdated,
+            });
+
+
+            checkDumpSaves()
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
+        }
+    }
+
     const userId = 'auth.currentUser.uid'
     const textoComentario = document.querySelector("#comments-dump-photo")
 
@@ -154,13 +359,33 @@ export default function Posts(props) {
             <div className="dump-post-bottom">
                 <label className="time-display-dump">{datefilepost}</label>
                 <div className="btns-dump-comments">
-                    <button onClick={''}><i className="fa-regular fa-heart"></i> </button>
-                    <button><i className="fa-regular fa-paper-plane"></i></button>
+
+                    {isLiked ?
+                        <>
+                            <button></button>
+                            <div className='dump-like-action-button'>
+                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                <p>{NumberOfLikes}</p>
+                            </div>
+
+                        </>
+                        :
+                        <>
+                            <div className='dump-like-action-button'>
+                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                <p>{NumberOfLikes}</p>
+                            </div>
+
+                        </>
+                    }
                     <div className='likes-card-box'>
                     </div>
-                    <button><i className="fa-solid fa-retweet"></i> </button>
-                    <button><i className="fa-regular fa-bookmark"></i></button>
-                    <ButtonDeletePublic />
+                    {isSaved ?
+                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                        :
+                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+
+
 
                 </div>
 

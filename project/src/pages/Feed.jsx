@@ -13,8 +13,10 @@ import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
 import Dailys from "../components/pages/feed/Dailys";
 import { Client, Databases } from 'appwrite'
+import { auth } from "../lib/firebase";
 
 export default function Feed() {
+    
 
     const [postsRealtime, setPosts] = useState([])
     const getPosts = async () => {
@@ -22,15 +24,16 @@ export default function Feed() {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
-                [Query.limit(100), Query.orderDesc("$createdAt")],
-                [Query.orderDesc("$createdAt")],
-                
-                0
+                [Query.limit(100),
+                Query.orderDesc("$createdAt"),
+    
+                ],
             )
 
                 .then((res) => {
+
                     setPosts(res.documents)
-                    console.log(res.documents.length)
+
                 })
                 .catch((e) => {
                     console.log(e)
@@ -39,23 +42,23 @@ export default function Feed() {
             console.log('error: ', error)
         }
     }
-
-
     useEffect(() => {
         HideLoading();
     })
-    useEffect(() => {
-        getPosts()
-    }, [])
-    let LastPosts = postsRealtime
+    let PostsFollowing = postsRealtime
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
+    
+    useEffect(() => {
+        getPosts()
+    }, [])
 
     const user = async () => {
         await databases.listDocuments(
             '64f9329a26b6d59ade09',
             "64f93be88eee8bb83ec3",
+            
         )
             .then((r) => {
                 Setusersdb(r)
@@ -74,6 +77,16 @@ export default function Feed() {
             <UserPerfil />
             <Messages />
             <HeaderFeed />
+
+            <div className="dump-radio-input-view">
+                <div className="dump-radio-input-type-view">
+
+                </div>
+                <div className="buttons-radio">
+                    <label for="foryou">Para você</label>
+
+                </div>
+            </div>
             <div className="dump-feed-posts">
 
                 <PostingPhoto
