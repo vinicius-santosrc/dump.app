@@ -13,6 +13,8 @@ import Swal from 'sweetalert2'
 export default function Account() {
     const { ID_ACCOUNT } = useParams();
     const [nofposts, setNumberofPosts] = useState()
+    const [numberofFollowers, SetNumberOfFollowers] = useState(null)
+    const [numberofFollowing, SetNumberOfFollowing] = useState(null)
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [USERS_POSTS, setPostsofUser] = useState('')
     const userUID = auth.currentUser
@@ -39,6 +41,13 @@ export default function Account() {
 
     useEffect(() => {
         checkIfFollowsUser()
+    })
+
+    useEffect(() => {
+        if (ID_ACCOUNT_I && ID_ACCOUNT_I.following && ID_ACCOUNT_I.followers) {
+            SetNumberOfFollowers(ID_ACCOUNT_I.followers.length)
+            SetNumberOfFollowing(ID_ACCOUNT_I.following.length)
+        }
     })
 
     useEffect(() => {
@@ -82,6 +91,7 @@ export default function Account() {
         }
         getPostsofUser()
     })
+
 
     function gotomentions() {
         window.location.href = window.location.origin + '/user/' + ID_ACCOUNT + '/mentions'
@@ -138,7 +148,7 @@ export default function Account() {
     if (!ID_ACCOUNT_I) {
         return (
             <>
-            <Header />
+                <Header />
                 <div className="loading-inner">
                     <Ring
                         size={40}
@@ -323,8 +333,6 @@ export default function Account() {
         document.querySelector(".BACKGROUND-CLOSE").style.display = 'block'
     }
 
-    const followersofUser = '' //(ID_ACCOUNT_I.followers).length
-    const followingOfUser = '' //(ID_ACCOUNT_I.following).length
 
 
     return (
@@ -381,8 +389,8 @@ export default function Account() {
 
                             </div>
                             <div className="followers-card">
-                                <p onClick={openseguidorescard}>{followersofUser} seguidores</p>
-                                <p>{followingOfUser} seguindo</p>
+                                <p onClick={openseguidorescard}>{numberofFollowers} seguidores</p>
+                                <p>{numberofFollowing} seguindo</p>
                                 <p>{nofposts} dumps</p>
                             </div>
                             <div className="followers-card-show-users">
@@ -434,8 +442,8 @@ export default function Account() {
                             </>
                         }
                     </div>
-                    {ID_ACCOUNT_I.private == true ?
-                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid ?
+                    {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
                             <>
                                 <label id="youraccountislocked">Sua conta está privada.</label>
                             </>
@@ -448,8 +456,8 @@ export default function Account() {
                     <div className="dumps-account-user-show">
 
 
-                        {ID_ACCOUNT_I.private == true ?
-                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid == ID_ACCOUNT_I.uid || ID_ACCOUNT_I.followers.includes(targetUserId) ?
+                        {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
                                 <>
                                     {USERS_POSTS}
                                 </>
