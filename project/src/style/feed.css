@@ -1692,7 +1692,7 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        
+        z-index: 23;
         padding: 5px 20px;
         background: rgba(255, 255, 255, 0.786);
         width: 100%;
@@ -1704,6 +1704,11 @@ body {
 
     .top-header-mobile img {
         width: 100px;
+    }
+
+    .rightsideheadermobile img {
+        width: 40px;
+        border-radius: 100%;
     }
 
     .top-header-mobile {
