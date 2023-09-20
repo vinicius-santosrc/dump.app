@@ -413,6 +413,7 @@ body {
     cursor: pointer;
     background: none;
     border: none;
+    color: black;
 }
 
 #following-user {
@@ -1485,6 +1486,12 @@ body {
     background-color: black;
     cursor: pointer;
     transition: 500ms;
+}
+
+#imagemRenderizada, #imagemReduzida, #imagemOriginal {
+    width: 90%;
+    height: 500px;
+    object-fit: cover;
 }
 
 .dump-input-top button:hover {

@@ -32,7 +32,7 @@ export default function EditMyProfile() {
     const inputbio = document.querySelector(".inputbio")
     const inputlink = document.querySelector(".inputlink")
     let privatebtn
-    if(document.querySelector("#inputprivateaccount")) {
+    if (document.querySelector("#inputprivateaccount")) {
         privatebtn = document.querySelector("#inputprivateaccount").checked
     }
 
@@ -72,7 +72,7 @@ export default function EditMyProfile() {
                         bio: inputbio.value,
                         link_above: inputlink.value,
                         private: privatebtn
-                        
+
                     }
                 )
                     .then(() => {
@@ -102,9 +102,9 @@ export default function EditMyProfile() {
             inputbio.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.bio ? ID_ACCOUNT_I.bio : ''
             inputlink.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.link_above ? ID_ACCOUNT_I.link_above : ''
 
-            if(ID_ACCOUNT_I.private) {
+            if (ID_ACCOUNT_I.private) {
                 document.querySelector("#inputprivateaccount").setAttribute('checked', '')
-            }   
+            }
             else {
                 document.querySelector("#inputprivateaccount").removeAttribute('checked')
             }
@@ -113,9 +113,68 @@ export default function EditMyProfile() {
     }
 
     useEffect(() => {
-        
+
         changeInfo()
+
     })
+
+
+    if (document.getElementById('imagemInput')) {
+        document.getElementById('imagemInput').addEventListener('change', () => {
+            const imagemInput = document.getElementById('imagemInput');
+            const reduzirButton = document.getElementById('reduzirButton');
+
+
+            const file = imagemInput.files[0];
+
+            // Função para redimensionar a imagem
+            async function reduzirQualidade(blob, qualidadeAlvo, tamanhoMaxKB) {
+                const img = new Image();
+                img.src = URL.createObjectURL(blob);
+
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    const largura = img.width;
+                    const altura = img.height;
+
+                    canvas.width = largura;
+                    canvas.height = altura;
+
+                    context.drawImage(img, 0, 0, largura, altura);
+
+                    // Converter para uma nova imagem com qualidade reduzida
+                    const novaQualidade = qualidadeAlvo / 100;
+                    const novaImagem = canvas.toDataURL('image/jpeg', novaQualidade);
+
+                    // Verificar o tamanho da nova imagem
+                    const novaTamanhoKB = Math.round(novaImagem.length / 1024);
+
+                    
+                    if (novaTamanhoKB <= tamanhoMaxKB) {
+                        // Exibir a nova imagem
+                        const novaImagemElemento = new Image();
+                        novaImagemElemento.src = novaImagem;
+
+                        console.log(`Tamanho da nova imagem: ${novaTamanhoKB} KB`);
+
+                        document.getElementById('imagemReduzida').setAttribute('src', novaImagemElemento.src)
+                    } else {
+                        alert(`A imagem reduzida excede o tamanho máximo de ${tamanhoMaxKB} KB.`);
+                    }
+                };
+            }
+
+            async function convertImage() {
+                const qualidadeAlvo = 30; // Qualidade desejada (95%)
+                const tamanhoMaxKB = 10000; // Tamanho máximo em KB
+
+                await reduzirQualidade(file, qualidadeAlvo, tamanhoMaxKB);
+            }
+            convertImage()
+        })
+
+    }
 
     return (
         <>
@@ -147,6 +206,9 @@ export default function EditMyProfile() {
                         <div className="card-edit-profile">
                             <div className="flex-card-image">
                                 <img src={auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.photoURL : ''} />
+                                <input type="file" name="" id="imagemInput" />
+
+                                <img id="imagemReduzida"></img>
                             </div>
                             <div className="InputFileTopCard">
                                 <h3>Nome</h3>

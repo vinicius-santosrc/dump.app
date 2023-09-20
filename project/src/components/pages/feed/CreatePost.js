@@ -87,20 +87,54 @@ export default function CreatePost() {
 
     const handleImage = (e) => {
         const reader = new FileReader();
-
+    
         if (e.target.files[0]) {
-            reader.readAsDataURL(e.target.files[0]);
-            document.querySelector(".svg-logo-create").style.display = "none"
-            document.querySelector(".imagechanger").style.display = 'none'
-            document.querySelector(".descriptionphoto").style.display = 'block'
-            document.querySelector(".step1postcreate").style.display = 'none'
-            document.querySelector(".previewdesc").style.display = 'block'
-            document.querySelector(".bottom-card-post").style.display = 'block'
+            const file = e.target.files[0];
+            reader.readAsDataURL(file);
+            document.querySelector(".svg-logo-create").style.display = "none";
+            document.querySelector(".imagechanger").style.display = 'none';
+            document.querySelector(".descriptionphoto").style.display = 'block';
+            document.querySelector(".step1postcreate").style.display = 'none';
+            document.querySelector(".previewdesc").style.display = 'block';
+            document.querySelector(".bottom-card-post").style.display = 'block';
         }
-
+    
         reader.onload = (readerEvent) => {
-            setFilePost(readerEvent.target.result);
-        }
+            const originalImageDataUrl = readerEvent.target.result;
+    
+            // Reduzir a qualidade para 40% e tamanho em KB
+            const qualidadeAlvo = 40; // Qualidade desejada (40%)
+            const tamanhoMaxKB = 10000; // Tamanho máximo em KB
+    
+            const img = new Image();
+            img.src = originalImageDataUrl;
+    
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                const largura = img.width;
+                const altura = img.height;
+    
+                canvas.width = largura;
+                canvas.height = altura;
+    
+                context.drawImage(img, 0, 0, largura, altura);
+    
+                // Converter para uma nova imagem com qualidade reduzida
+                const novaQualidade = qualidadeAlvo / 100;
+                const novaImagem = canvas.toDataURL('image/jpeg', novaQualidade);
+    
+                // Verificar o tamanho da nova imagem
+                const novaTamanhoKB = Math.round(novaImagem.length / 1024);
+    
+                if (novaTamanhoKB <= tamanhoMaxKB) {
+                    // Salvar a imagem reduzida no state ou fazer o que for necessário
+                    setFilePost(novaImagem);
+                } else {
+                    alert(`A imagem reduzida excede o tamanho máximo de ${tamanhoMaxKB} KB.`);
+                }
+            };
+        };
     }
     const removeFile = () => setFilePost(null);
 
