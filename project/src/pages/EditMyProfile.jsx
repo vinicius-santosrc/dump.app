@@ -8,20 +8,22 @@ import { Ring } from '@uiball/loaders'
 
 
 
+
 export default function EditMyProfile() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     let ID_ACCOUNT = ''
     if (auth.currentUser) {
         ID_ACCOUNT = auth.currentUser.uid
+
     }
 
 
     useEffect(() => {
         HideLoading()
-
-    })
+    }, [])
     function changeInfoPage() {
         document.querySelector("title").innerText = `Editar perfil | Dump`
+
     }
     changeInfoPage()
 
@@ -29,10 +31,14 @@ export default function EditMyProfile() {
     const usernameupdate = document.querySelector("#username-update")
     const inputbio = document.querySelector(".inputbio")
     const inputlink = document.querySelector(".inputlink")
+    let privatebtn
+    if(document.querySelector("#inputprivateaccount")) {
+        privatebtn = document.querySelector("#inputprivateaccount").checked
+    }
 
 
     useEffect(() => {
-        
+
         databases.getDocument(
             "64f9329a26b6d59ade09",
             "64f93be88eee8bb83ec3",
@@ -40,6 +46,7 @@ export default function EditMyProfile() {
         )
             .then((response) => {
                 SetAccount(response)
+
 
             })
             .catch((e) => {
@@ -63,7 +70,9 @@ export default function EditMyProfile() {
                         displayName: displaynamecont.value,
                         username: usernameupdate.value,
                         bio: inputbio.value,
-                        link_above: inputlink.value
+                        link_above: inputlink.value,
+                        private: privatebtn
+                        
                     }
                 )
                     .then(() => {
@@ -83,27 +92,46 @@ export default function EditMyProfile() {
                 document.querySelector(".loading-wrapper").style.display = 'none'
                 document.querySelector(".btn-bottom-profile").style.display = 'block'
             })
-        
+
     }
 
     function changeInfo() {
+        if (displaynamecont && ID_ACCOUNT_I && displaynamecont.value == '') {
+            displaynamecont.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.displayName ? ID_ACCOUNT_I.displayName : ''
+            usernameupdate.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.username ? ID_ACCOUNT_I.username : ''
+            inputbio.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.bio ? ID_ACCOUNT_I.bio : ''
+            inputlink.value = auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.link_above ? ID_ACCOUNT_I.link_above : ''
 
-        displaynamecont.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.displayName : ''
-        usernameupdate.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.username : ''
-        inputbio.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.bio : ''
-        inputlink.value = auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.link_above : ''    
-
+            if(ID_ACCOUNT_I.private) {
+                document.querySelector("#inputprivateaccount").setAttribute('checked', '')
+            }   
+            else {
+                document.querySelector("#inputprivateaccount").removeAttribute('checked')
+            }
+            document.querySelector(".loading-inner").style.display = 'none'
+        }
     }
 
     useEffect(() => {
+        
         changeInfo()
-    }, [])
+    })
 
     return (
         <>
             {auth.currentUser ?
                 <>
                     <HeaderAccount />
+                    <div className="loading-inner">
+
+
+                        <Ring
+                            size={40}
+                            lineWeight={5}
+                            speed={2}
+                            color="black"
+                        />
+                    </div>
                     <div className="sucess-message-top">
                         <h1>Sucesso</h1>
                         <p>Você salvou as informações</p>
@@ -119,7 +147,6 @@ export default function EditMyProfile() {
                         <div className="card-edit-profile">
                             <div className="flex-card-image">
                                 <img src={auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.photoURL : ''} />
-                                <input type="file" />
                             </div>
                             <div className="InputFileTopCard">
                                 <h3>Nome</h3>
@@ -127,7 +154,7 @@ export default function EditMyProfile() {
                                 />
                             </div>
                             <div className="InputFileTopCard">
-                            <h3>Username</h3>
+                                <h3>Username</h3>
                                 <input id="username-update" placeholder="Usuário"
                                 />
                             </div>
@@ -155,22 +182,14 @@ export default function EditMyProfile() {
                             <p>Caso queira deixar seu perfil privado</p>
                         </div>
                         <div className="card-edit-profile">
-                            {auth.currentUser && ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
-                                <>
-                                    <h1>Privado</h1>
-                                    <input type="checkbox" checked name="" id="" />
-                                </> :
-                                <>
-                                    <h1>Privado</h1>
-                                    <input type="checkbox" name="" id="" />
-                                </>}
+                            <input type="checkbox" name="" id="inputprivateaccount" />
 
                         </div>
 
                         <div className="btn-bottom-profile">
-                            <button id="removeaccount">REMOVER CONTA</button>
-                            <button id="desativeaccount">DESATIVAR CONTA</button>
-                            <button id="saveaccount" disabled onClick={updateAccount}>SALVAR INFORMAÇÕES</button>
+                            <button id="removeaccount" disabled>REMOVER CONTA</button>
+                            <button id="desativeaccount" disabled>DESATIVAR CONTA</button>
+                            <button id="saveaccount" onClick={updateAccount}>SALVAR INFORMAÇÕES</button>
                         </div>
                         <div className="loading-wrapper">
                             <Ring
@@ -189,7 +208,7 @@ export default function EditMyProfile() {
                     speed={2}
                     color="black"
                 /></>}
-                
+
         </>
     )
 }

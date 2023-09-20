@@ -63,6 +63,7 @@ function AuthPageComponentRegistro() {
                 }
             } catch (error) {
                 console.error('Erro ao verificar/criar documento do usuário:', error);
+                window.location.href = window.location.origin
             }
 
             //window.location.href = window.location.origin

@@ -270,15 +270,26 @@ body {
     position: fixed;
     bottom: 50px;
     padding: 00px 10px;
-    width: 350px;
+    width: 330px;
+    cursor: pointer;
 }
 
 .account-div a {
     text-decoration: none;
-    font-size: 01rem;
+    font-size: 0.7rem;
 }
 
-.account-div-flexbox:hover {
+.account-div h3 {
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.account-div p {
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.account-div:hover {
     background-color: #ebebeb;
     border-radius: 20px;
     cursor: pointer;
@@ -2494,18 +2505,18 @@ body {
 
     .sucess-message-top {
         background-color: rgb(4, 185, 4);
-        width: 800px;
+        width: 100%;
         margin: auto;
         color: white;
         padding: 10px;
         border-radius: 10px;
         margin-bottom: 10px;
-        display: none;
+        display: none
     }
 
     .error-message-top {
         background-color: rgb(185, 28, 4);
-        width: 800px;
+        width: 100%;
         margin: auto;
         color: white;
         padding: 10px;

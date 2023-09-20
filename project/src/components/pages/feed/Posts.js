@@ -277,7 +277,7 @@ export default function Posts(props) {
             const saves = userDocument.saves || [];
 
             if (saves.includes(targetUserId)) {
- 
+
                 checkDumpSaves()
                 return;
             }
@@ -338,6 +338,10 @@ export default function Posts(props) {
         window.location.href = `${window.location.origin}/posts/${props.id}`
     }
 
+    function errorsemuser() {
+        alert('Entre para curtir e salvar fotos.')
+    }
+
     var datepost = new Date(props.datepost)
     var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
@@ -360,30 +364,42 @@ export default function Posts(props) {
                 <label className="time-display-dump">{datefilepost}</label>
                 <div className="btns-dump-comments">
 
-                    {isLiked ?
+                    {auth.currentUser ?
                         <>
-                            <button></button>
-                            <div className='dump-like-action-button'>
-                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
-                                <p>{NumberOfLikes}</p>
-                            </div>
+                            {isLiked ?
+                                <>
+                                    <button></button>
+                                    <div className='dump-like-action-button'>
+                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                        <p>{NumberOfLikes}</p>
+                                    </div>
 
+                                </>
+                                :
+                                <>
+                                    <div className='dump-like-action-button'>
+                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                        <p>{NumberOfLikes}</p>
+                                    </div>
+
+                                </>
+                            }
+                            <div className='likes-card-box'>
+                            </div>
+                            {isSaved ?
+                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                :
+                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
                         </>
                         :
                         <>
                             <div className='dump-like-action-button'>
-                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
                                 <p>{NumberOfLikes}</p>
                             </div>
-
-                        </>
-                    }
-                    <div className='likes-card-box'>
-                    </div>
-                    {isSaved ?
-                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                        :
-                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                        </>}
+                        
 
 
 
@@ -407,7 +423,7 @@ export default function Posts(props) {
 
                 </a>
             </div>
-        </div>
+        </div >
     )
 
 }

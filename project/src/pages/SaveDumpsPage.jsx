@@ -61,6 +61,15 @@ export default function SaveDumpsPage() {
     useEffect(() => {
 
         getPostsSaved()
+        setInterval(() => {
+            getPostsSaved()
+        }, 2000);
+        setInterval(() => {
+            getPostsSaved()
+        }, 4000);
+        setInterval(() => {
+            getPostsSaved()
+        }, 6000);
     }, [])
 
     function changeInfoPage() {

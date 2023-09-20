@@ -238,7 +238,12 @@ export default function Account() {
         esconderbotoes()
 
         try {
-            const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
+
+            /** ADICIONAR SEGUIDOR PARA O USUÁRIO */
+            const userDocument = await databases.getDocument(
+                '64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                userId);
 
             const followers = userDocument.followers || [];
 
@@ -254,6 +259,29 @@ export default function Account() {
                 '64f93be88eee8bb83ec3',
                 userId, {
                 followers: followers,
+            });
+
+            /** ADICIONAR SEGUINDO PARA O ATUAL USUÁRIO */
+
+            const userDocumentATUAL = await databases.getDocument(
+                '64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                targetUserId);
+
+            const following = userDocumentATUAL.following || [];
+
+            if (following.includes(userId)) {
+                alert('Você já está seguindo')
+                voltarbotoes()
+                return;
+            }
+
+            following.push(userId);
+
+            await databases.updateDocument('64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                targetUserId, {
+                following: following,
             });
 
             ButtonActionProfile()
@@ -284,6 +312,8 @@ export default function Account() {
 
         esconderbotoes()
         try {
+            //REMOVER SEGUIDOR DO USUÁRIO SELECIONADO
+
             const userDocument = await databases.getDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId);
 
             const followers = userDocument.followers || [];
@@ -296,8 +326,34 @@ export default function Account() {
 
             const updatedFollowers = followers.filter((id) => id !== targetUserId);
 
-            await databases.updateDocument('64f9329a26b6d59ade09', '64f93be88eee8bb83ec3', userId, {
+            await databases.updateDocument(
+                '64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                userId, {
                 followers: updatedFollowers,
+            });
+
+            //REMOVER SEGUINDO DO USUARIO ATUAL
+
+            const userDocumentATUAL = await databases.getDocument('64f9329a26b6d59ade09',
+             '64f93be88eee8bb83ec3',
+              targetUserId);
+
+            const following = userDocumentATUAL.following || [];
+
+            if (!following.includes(userId)) {
+                console.log('Você não está seguindo este usuário.');
+                voltarbotoes()
+                return;
+            }
+
+            const updatedFollowing = following.filter((id) => id !== userId);
+
+            await databases.updateDocument(
+                '64f9329a26b6d59ade09',
+                '64f93be88eee8bb83ec3',
+                targetUserId, {
+                following: updatedFollowing,
             });
 
             Swal.fire({
@@ -307,7 +363,10 @@ export default function Account() {
                 showConfirmButton: false,
                 timer: 1500
             })
+
+
             voltarbotoes()
+
             ButtonActionProfile()
         } catch (error) {
             console.error('Erro ao parar de seguir o usuário:', error);
@@ -365,28 +424,33 @@ export default function Account() {
                         </div>
                         <div className="rightside-account">
                             <div className="btns-links">
-                                {userUID && userUID.uid == ID_ACCOUNT_I.uid ?
-                                    <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
-                                    :
+                                {auth.currentUser ?
                                     <>
-                                        {isFollowing ?
-                                            <button onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+                                        {userUID && userUID.uid == ID_ACCOUNT_I.uid ?
+                                            <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
                                             :
-                                            <button onClick={followUser}>Seguir</button>
+                                            <>
+                                                {isFollowing ?
+                                                    <button onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+                                                    :
+                                                    <button onClick={followUser}>Seguir</button>
+                                                }
+
+                                            </>
                                         }
+                                        <button className="loading-btn">
+                                            <Ring
+                                                size={40}
+                                                lineWeight={5}
+                                                speed={2}
+                                                color="black"
+                                            />
+                                        </button>
+                                        <button><i className="fa-solid fa-inbox"></i></button>
 
                                     </>
-                                }
-                                <button className="loading-btn">
-                                    <Ring
-                                        size={40}
-                                        lineWeight={5}
-                                        speed={2}
-                                        color="black"
-                                    />
-                                </button>
-                                <button><i className="fa-solid fa-inbox"></i></button>
-
+                                    :
+                                    <></>}
                             </div>
                             <div className="followers-card">
                                 <p onClick={openseguidorescard}>{numberofFollowers} seguidores</p>

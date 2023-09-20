@@ -260,7 +260,6 @@ export default function HeaderFeed() {
     }
 
 
-
     return (
 
         <>
@@ -287,6 +286,9 @@ export default function HeaderFeed() {
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
                                 {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
+                            </div>
+                            <div className="LeftsideRedirect" onClick={auth.signOut}>
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-right-from-bracket"></i> Sair da conta</a> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -324,6 +326,7 @@ export default function HeaderFeed() {
                                         </div>
                                     </div>
                                 }
+                                
                             </div>
 
                         </div>
