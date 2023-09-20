@@ -1552,7 +1552,7 @@ body {
     margin-bottom: 10px;
 }
 
-.dump-radio-input-view input {}
+
 
 .buttons-radio {
     position: relative;
@@ -1610,7 +1610,7 @@ body {
     pointer-events: none;
 }
 
-#following-user {}
+
 
 .button-close-profile-image {
     position: fixed;
