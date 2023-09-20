@@ -146,11 +146,16 @@ function AuthPageComponentRegistro() {
     else {
         return (
             
-            <>
+            <div className='dump-already-login'>
+                <img src='../static/media/undraw_young_and_happy_hfpe.svg' />
                 <h1>Você já está logado</h1>
                 <p>Agora, aproveite o máximo da nossa aplicação.</p>
-                <a href='../' >Voltar</a>
-            </>
+                <a href={window.location.origin}>
+                    <div className='button-back'>
+                        <label>Voltar</label>
+                    </div>
+                </a>
+            </div>
         )
 
     }

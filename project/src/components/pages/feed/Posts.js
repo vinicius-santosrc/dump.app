@@ -351,7 +351,7 @@ export default function Posts(props) {
                 <img src={props.photoURL} />
                 <div className="dump-post-header-rightside">
                     <div>
-                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
+                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
                         <p>@{props.username}</p>
                     </div>
 
@@ -412,10 +412,7 @@ export default function Posts(props) {
             <div>
                 <a className="dump-comments-post">
                     <div>
-
-                        <input id='comments-dump-photo' placeholder='Envie seu comentario' />
-                        <button onClick={''}>COMENTAR</button>
-
+                        <button>VER COMENTÁRIOS</button>
                     </div>
                     <div className='comments-photo'>
                         <Comments />

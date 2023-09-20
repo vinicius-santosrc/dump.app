@@ -126,7 +126,7 @@ function CurtidasList() {
                                     <div className='leftsidecontent-alert'>
                                         <img src={sender.photoURL} />
                                         <div className='content-name-curtida'>
-                                            <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+                                            <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
                                             <label>{datahoje == datanotcriadacomparar ?
                                                 'Hoje' :
                                                 `${diadoPost} de ${MesesDoAno[mesdoPost]} `
@@ -270,25 +270,22 @@ export default function HeaderFeed() {
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
                             <div className="LeftsideRedirect" onClick={gotoHomePage}>
-                                <a className="Redirect"><i className="fa-solid fa-house"></i> Página Inicial</a>
+                                <a className="Redirect" title='Página Inicial'><i className="fa-solid fa-house"></i> Página Inicial</a>
                             </div>
                             <div className="LeftsideRedirect" onClick={gotoSearch}>
-                                <a className="Redirect"><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
+                                <a className="Redirect" title='Pesquisar'><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
                             </div>
                             <div className="LeftsideRedirect" onClick={openCurtidas}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-bell"></i> Notificações</a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i> Notificações</a> : ''}
                             </div>
                             <div className="LeftsideRedirect" onClick={''}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-regular fa-comment-dots"></i> Mensagens</a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i> Mensagens</a> : ''}
                             </div>
                             <div className="LeftsideRedirect" onClick={gotoSaves}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-bookmark"></i> Salvos</a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i> Salvos</a> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
-                            </div>
-                            <div className="LeftsideRedirect" onClick={auth.signOut}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect"><i className="fa-solid fa-right-from-bracket"></i> Sair da conta</a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Criar publicação'><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -306,13 +303,13 @@ export default function HeaderFeed() {
                                     <></>
                                 }
                                 {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid ?
-                                    <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
+                                    <a title='Sua conta' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
                                         {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
                                         <div>
                                             {ID_ACCOUNT_I.displayName ?
                                                 <div className='top-show-account'>
                                                     <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
-                                                    {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></>
+                                                    {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></>
                                                         :
                                                         <></>
                                                     }
@@ -324,7 +321,7 @@ export default function HeaderFeed() {
                                         </div>
                                     </div></a>
                                     :
-                                    <div className="account-off-div-flexbox" >
+                                    <div className="account-off-div-flexbox" title='Fazer login'>
                                         <i className="fa-solid fa-right-to-bracket"></i>
                                         <div onClick={gotoLoginPage}>
                                             <h3 className="currentuser-displayname">
@@ -349,6 +346,30 @@ export default function HeaderFeed() {
                     <a href="">
                         <i className="fa-regular fa-comment-dots"></i>
                     </a>
+                </div>
+            </header>
+            <header className='dump-mobile-header'>
+                <div className='top-header-mobile'>
+                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
+                    <div className="top-header-mobile-icons-rightside rightsideheadermobile">
+                        <a onClick={openCurtidas}>
+                            <i className="fa-regular fa-heart"></i>
+                        </a>
+                        <a href={window.location.origin + '/messages/inbox'}>
+                            <i className="fa-regular fa-comment-dots"></i>
+                        </a>
+                        {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
+                        {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
+                    </div>
+                </div>
+                <div className='bottom-header-mobile'>
+                    <div className='option-feed-show'>
+                        <a id='selected'>Para você</a>
+                    </div>
+                    <div className='option-feed-show'>
+                        <a>Seguindo</a>
+                    </div>
+                    
                 </div>
             </header>
             <nav className='nav-bar-mobile'>

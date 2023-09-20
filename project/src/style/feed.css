@@ -37,6 +37,10 @@ body {
     z-index: 1;
 }
 
+.dump-mobile-header {
+    display: none;
+}
+
 .followers-card-show-users {
     display: none;
 }
@@ -223,7 +227,7 @@ body {
     border-radius: 10px;
 }
 
-.dump-posts-saved-empty img{
+.dump-posts-saved-empty img {
     width: 250px;
     height: 250px;
     object-fit: contain;
@@ -363,7 +367,8 @@ body {
 }
 
 .dump-feed-posts {
-    padding: 0px 0;
+    padding: 50px 0;
+
 }
 
 .dump-post-bottom {
@@ -944,7 +949,7 @@ body {
 .dump-user-account {
     width: 250px;
     height: 400px;
-    
+
 }
 
 .dump-user-account img {
@@ -1470,11 +1475,11 @@ body {
 .dump-search-page {
     width: 750px;
     margin: auto;
-    padding:  150px 0;
+    padding: 150px 0;
 
 }
 
-.dump-input-top{
+.dump-input-top {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -1528,7 +1533,7 @@ body {
 .dump-user-search {
     width: 45%;
     padding: 10px;
-    
+
 }
 
 .dump-user-search a {
@@ -1547,9 +1552,7 @@ body {
     margin-bottom: 10px;
 }
 
-.dump-radio-input-view input {
-    
-}
+.dump-radio-input-view input {}
 
 .buttons-radio {
     position: relative;
@@ -1559,7 +1562,7 @@ body {
     text-align: center;
     justify-content: center;
     gap: 20px;
-    padding: 50px ;
+    padding: 50px;
 
 }
 
@@ -1569,8 +1572,8 @@ body {
     opacity: 0.7;
 }
 
-.dump-radio-input-view input:nth-child(1):checked ~ .buttons-radio label:nth-child(1),
-.dump-radio-input-view input:nth-child(2):checked ~ .buttons-radio label:nth-child(2) {
+.dump-radio-input-view input:nth-child(1):checked~.buttons-radio label:nth-child(1),
+.dump-radio-input-view input:nth-child(2):checked~.buttons-radio label:nth-child(2) {
     color: rgb(177, 108, 231);
     font-weight: 600;
 }
@@ -1596,7 +1599,7 @@ body {
     display: none;
 }
 
-.photosizePLUS img{
+.photosizePLUS img {
     width: 430px;
     height: 430px;
     margin: auto;
@@ -1607,9 +1610,7 @@ body {
     pointer-events: none;
 }
 
-#following-user {
-
-}
+#following-user {}
 
 .button-close-profile-image {
     position: fixed;
@@ -1634,6 +1635,8 @@ body {
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.934);
 }
+
+
 
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
@@ -1680,6 +1683,66 @@ body {
         width: 100%;
         margin: 0 0;
         transition: 500ms;
+        display: none;
+    }
+
+    .dump-mobile-header {
+        backdrop-filter: blur(10px);
+        display: block;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        
+        padding: 5px 20px;
+        background: rgba(255, 255, 255, 0.786);
+        width: 100%;
+        margin: 0 -30px;
+        border-bottom: 1px solid rgb(222, 222, 222);
+        transition: 500ms;
+        
+    }
+
+    .top-header-mobile img {
+        width: 100px;
+    }
+
+    .top-header-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+
+    }
+
+    .bottom-header-mobile {
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 20px;
+
+    }
+
+    .bottom-header-mobile a {
+        font-weight: 600;
+        color: black;
+        font-size: 1rem;
+    }
+
+    .bottom-header-mobile a#selected {
+        background-color: black;
+        padding: 4px 15px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .rightsideheadermobile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #UserPhotoProfile {
+        width: 40px;
+        border-radius: 100%;
     }
 
 
@@ -1701,11 +1764,12 @@ body {
         right: 30px;
     }
 
-    .App-Header-Feed a {
+    .App-Header-Feed a, .top-header-mobile a {
         font-size: 1.7rem;
         transition: 500ms;
         cursor: pointer;
         color: black;
+
     }
 
     .App-Header-Feed a:hover {
@@ -1765,7 +1829,7 @@ body {
     }
 
     .dump-feed-posts {
-        padding: 0px 0;
+        padding: 120px 0;
     }
 
     .dump-post-bottom {
@@ -1838,7 +1902,7 @@ body {
         position: fixed;
         bottom: 0;
         padding: 10px 0px;
-        padding-bottom: 30px;
+        padding-bottom: 40px;
         font-size: 1.5rem;
         margin: 0 -30px;
         background-color: white;
@@ -2581,16 +2645,16 @@ body {
     .dump-search-page {
         width: 100%;
         margin: auto;
-        padding:  150px 0;
-    
+        padding: 150px 0;
+
     }
-    
-    .dump-input-top{
+
+    .dump-input-top {
         width: 100%;
         display: flex;
         justify-content: space-between;
     }
-    
+
     .dump-input-top input {
         width: 100%;
         color: black;
@@ -2599,7 +2663,7 @@ body {
         font-size: 1rem;
         padding: 0px 10px;
     }
-    
+
     .dump-input-top button {
         color: white;
         padding: 10px 30px;
@@ -2608,34 +2672,34 @@ body {
         cursor: pointer;
         transition: 500ms;
     }
-    
+
     .dump-input-top button:hover {
         background-color: white;
         color: black;
     }
-    
+
     .filters-search {
         margin: auto;
         text-align: left;
     }
-    
+
     .filters-search label {
         font-size: 0.9rem;
         color: black;
         cursor: pointer;
     }
-    
+
     .dump-flexbox-show-people {
         display: flex;
         flex-wrap: wrap;
     }
-    
+
     .dump-user-search {
         width: 100%;
         padding: 10px;
-        
+
     }
-    
+
     .dump-user-search a {
         text-decoration: none;
         color: black;
@@ -2644,7 +2708,7 @@ body {
         border-radius: 10px;
         background-color: rgb(226, 226, 226);
     }
-    
+
     .dump-user-search img {
         border-radius: 100%;
         width: 4rem;
@@ -2655,9 +2719,9 @@ body {
     }
 
     .dump-user-search p {
-        font-size: 0.8re,;
+        font-size: 0.8re, ;
     }
-    
+
     .dump-user-search {
         display: flex;
         align-items: center;
@@ -2672,11 +2736,11 @@ body {
         text-align: center;
         justify-content: center;
         gap: 20px;
-        padding-top: 70px ;
+        padding-top: 70px;
         padding-bottom: 30px;
-    
+
     }
-    
+
     .buttons-radio label {
         cursor: pointer;
         color: black;
@@ -2693,8 +2757,8 @@ body {
         width: 100%;
         display: none;
     }
-    
-    .photosizePLUS img{
+
+    .photosizePLUS img {
         width: 240px;
         height: 240px;
         margin: auto;
@@ -2704,13 +2768,13 @@ body {
         justify-content: center;
         pointer-events: none;
     }
-    
+
     .button-close-profile-image {
         position: fixed;
         top: 30px;
         left: 30px;
     }
-    
+
     .button-close-profile-image button {
         font-size: 2rem;
         color: white;
@@ -2718,26 +2782,26 @@ body {
         border: none;
         cursor: pointer;
     }
-    
+
     .BACKGROUND-CLOSE {
         position: fixed;
         width: 100%;
-        
+
         margin: -80px -30px;
         display: none;
         height: 120vh;
         z-index: 21;
         background-color: rgba(0, 0, 0, 0.934);
-    } 
+    }
 
     .dump-posts-saved {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 10px;
-    
+
     }
-    
+
     .dump-posts-saved img {
         width: 350px;
         height: 300px;
@@ -2745,7 +2809,7 @@ body {
     }
 
 
-    
+
     .dump-posts-saved-empty {
         text-align: center;
         justify-content: center;
@@ -2754,21 +2818,21 @@ body {
         padding: 10px;
         border-radius: 10px;
     }
-    
-    .dump-posts-saved-empty img{
+
+    .dump-posts-saved-empty img {
         width: 150px;
         height: 150px;
         object-fit: contain;
         margin: auto;
         text-align: center;
     }
-    
+
     .dump-posts-saved-empty h2 {
         text-align: left;
         font-weight: 700;
         font-size: 1rem;
     }
-    
+
     .dump-posts-saved-empty p {
         text-align: left;
         font-weight: 400;
@@ -2783,23 +2847,23 @@ body {
         gap: 10px;
         width: 100%;
     }
-    
+
     .dump-posts-saved a {
         color: black;
         text-decoration: none;
     }
-    
+
     .dump-posts-saved img {
         width: 400px;
         height: 300px;
         object-fit: cover;
         transition: 500ms;
     }
-    
+
     .dump-posts-saved img:hover {
         filter: brightness(0.7);
     }
-    
+
     .dump-posts-saved-empty {
         text-align: center;
         justify-content: center;
@@ -2807,35 +2871,35 @@ body {
         padding: 10px 10px;
         border-radius: 10px;
     }
-    
-    .dump-posts-saved-empty img{
+
+    .dump-posts-saved-empty img {
         width: 250px;
         height: 250px;
         object-fit: contain;
         margin: auto;
         text-align: center;
     }
-    
+
     .dump-posts-saved-empty h2 {
         text-align: left;
         font-weight: 700;
         font-size: 1.2rem;
     }
-    
+
     .dump-posts-saved-empty p {
         text-align: left;
         font-weight: 400;
         font-size: 1.0rem;
         color: rgb(103, 103, 103);
     }
-    
+
     .btns-inner {
         display: flex;
         justify-content: right;
         gap: 5px;
         padding: 10px 0px;
     }
-    
+
     .btns-inner button {
         font-size: 1.3rem;
         border: none;
@@ -2846,14 +2910,15 @@ body {
         padding: 5px 20px;
         border-radius: 10px;
     }
-    
+
     .btns-inner button:nth-child(1):hover {
         color: red;
     }
-    
+
     .btns-inner button:nth-child(3):hover {
         color: rgb(249, 77, 255);
     }
+
     .button-remove {
         justify-content: right;
         text-align: right;
@@ -2865,4 +2930,6 @@ body {
         border: none;
         background-color: #e1e1e1;
     }
+
+
 }

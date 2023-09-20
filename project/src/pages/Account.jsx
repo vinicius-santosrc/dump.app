@@ -418,7 +418,7 @@ export default function Account() {
                         <div className="leftside-account">
                             <img onClick={openphotoprofile} src={ID_ACCOUNT_I.photoURL} />
                             <div className="account-details">
-                                <h1>{ID_ACCOUNT_I.displayName} {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                <h1>{ID_ACCOUNT_I.displayName} {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
                                 <p>@{ID_ACCOUNT_I.username}</p>
                             </div>
                         </div>
@@ -431,9 +431,9 @@ export default function Account() {
                                             :
                                             <>
                                                 {isFollowing ?
-                                                    <button onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+                                                    <button title='Seguindo' onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
                                                     :
-                                                    <button onClick={followUser}>Seguir</button>
+                                                    <button title='Seguir' onClick={followUser}>Seguir</button>
                                                 }
 
                                             </>

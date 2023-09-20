@@ -78,15 +78,6 @@ export default function Feed() {
             <Messages />
             <HeaderFeed />
 
-            <div className="dump-radio-input-view">
-                <div className="dump-radio-input-type-view">
-
-                </div>
-                <div className="buttons-radio">
-                    <label for="foryou">Para você</label>
-
-                </div>
-            </div>
             <div className="dump-feed-posts">
 
                 <PostingPhoto

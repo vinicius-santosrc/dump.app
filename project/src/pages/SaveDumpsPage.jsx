@@ -10,6 +10,7 @@ export default function SaveDumpsPage() {
     const [USER_LOG, setUSERATUAL] = useState(null)
     const [COLLECTIONfiltered, setCOLLECTIONfiltered] = useState(null)
 
+    
 
     async function getPostsSaved() {
         const DB_UID = '64f9329a26b6d59ade09'

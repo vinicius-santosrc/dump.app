@@ -7,7 +7,34 @@ import HeaderFeed from "../components/pages/feed/HeaderApp"
 import { Query } from "appwrite"
 
 export default function SearchPage() {
+    const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [SearchPeople, setSearchPeople] = useState("")
+
+    let ID_ACCOUNT = ''
+    if (auth.currentUser) {
+        ID_ACCOUNT = auth.currentUser.uid
+    }
+
+    const getUserAtual = async () => {
+        await databases.getDocument(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3",
+            ID_ACCOUNT
+        )
+            .then((response) => {
+                SetAccount(response)
+
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+
+    }
+
+    useEffect(() => {
+        getUserAtual()
+    })
+
 
     useEffect(() => {
         HideLoading()
@@ -80,7 +107,7 @@ export default function SearchPage() {
                         <div className="dump-user-search">
                             <a href={window.location.origin + '/user/' + i.uid}>
                             <img src={i.photoURL} />
-                            <h2>{i.displayName} {i.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+                            <h2>{i.displayName} {i.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
                             <p>@{i.username}</p>
                             </a>
                         </div>
@@ -101,7 +128,7 @@ export default function SearchPage() {
             <div className="dump-search-page">
                 <div className="dump-input-top">
                     <input type="text" className="search-input" placeholder="Pesquisar (username)" />
-                    <button onClick={searchpeople}>Search</button>
+                    <button onClick={searchpeople}>Procurar</button>
                 </div>
                 <div className="filters-search">
                     <label>Pessoas</label>
@@ -115,7 +142,7 @@ export default function SearchPage() {
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
-                {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
         </>
 
