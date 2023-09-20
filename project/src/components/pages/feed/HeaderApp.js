@@ -74,6 +74,21 @@ function CurtidasList() {
         })
     }
 
+    let prevScrollPos = window.pageYOffset;
+
+    window.onscroll = function () {
+        let currentScrollPos = window.pageYOffset;
+
+        if (prevScrollPos > currentScrollPos) {
+            // O usuário está rolando para cima, mostramos o cabeçalho.
+            document.querySelector(".dump-mobile-header").style.top = "0";
+        } else {
+            // O usuário está rolando para baixo, escondemos o cabeçalho.
+            document.querySelector(".dump-mobile-header").style.top = "-100px"; // Pode ajustar a altura que desejar
+        }
+
+        prevScrollPos = currentScrollPos;
+    }
 
     const getNoty = async (sender) => {
         await databases.listDocuments(
@@ -369,7 +384,7 @@ export default function HeaderFeed() {
                     <div className='option-feed-show'>
                         <a>Seguindo</a>
                     </div>
-                    
+
                 </div>
             </header>
             <nav className='nav-bar-mobile'>

@@ -1699,6 +1699,7 @@ body {
         margin: 0 -30px;
         border-bottom: 1px solid rgb(222, 222, 222);
         transition: 500ms;
+        top: 0;
         
     }
 
@@ -1715,8 +1716,9 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-
+        top: 0;
+        position: relative;
+        transition: top 0.3s ease-in-out;
     }
 
     .bottom-header-mobile {
