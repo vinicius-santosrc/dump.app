@@ -79,6 +79,10 @@ function CurtidasList() {
     window.onscroll = function () {
         let currentScrollPos = window.pageYOffset;
 
+        if(window.pageYOffset < 25) {
+            return document.querySelector(".dump-mobile-header").style.top = "0";
+        }
+
         if (prevScrollPos > currentScrollPos) {
             // O usuário está rolando para cima, mostramos o cabeçalho.
             document.querySelector(".dump-mobile-header").style.top = "0";
