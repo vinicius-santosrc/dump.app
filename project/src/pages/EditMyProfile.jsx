@@ -206,9 +206,9 @@ export default function EditMyProfile() {
                         <div className="card-edit-profile">
                             <div className="flex-card-image">
                                 <img src={auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.photoURL : ''} />
-                                <input type="file" name="" id="imagemInput" />
+                                {/*<input type="file" name="" id="imagemInput" />
 
-                                <img id="imagemReduzida"></img>
+                                <img id="imagemReduzida"></img>*/}
                             </div>
                             <div className="InputFileTopCard">
                                 <h3>Nome</h3>

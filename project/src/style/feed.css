@@ -416,6 +416,16 @@ body {
     color: black;
 }
 
+.top-show-account {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.top-show-account i {
+    font-size: 1.2rem;
+}
+
 #following-user {
     color: rgb(186, 69, 207);
     font-weight: 600;

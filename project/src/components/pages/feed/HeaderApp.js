@@ -292,7 +292,7 @@ export default function HeaderFeed() {
                             </div>
 
                             <div className="account-div">
-                                {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid?
+                                {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid ?
                                     <div className='account-div-options'>
                                         <div className='button-action-account'>
                                             <button onClick={gotomyprofilenav}>Ver sua conta</button>
@@ -309,7 +309,17 @@ export default function HeaderFeed() {
                                     <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
                                         {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
                                         <div>
-                                            {ID_ACCOUNT_I.displayName ? <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3> : <h3>$Name</h3>}
+                                            {ID_ACCOUNT_I.displayName ?
+                                                <div className='top-show-account'>
+                                                    <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
+                                                    {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></>
+                                                        :
+                                                        <></>
+                                                    }
+                                                </div>
+                                                :
+                                                <h3>$Name</h3>
+                                            }
                                             {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p>@$username</p>}
                                         </div>
                                     </div></a>
@@ -326,7 +336,7 @@ export default function HeaderFeed() {
                                         </div>
                                     </div>
                                 }
-                                
+
                             </div>
 
                         </div>
