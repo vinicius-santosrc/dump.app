@@ -358,7 +358,7 @@ export default function Posts(props) {
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img onDoubleClick={''} onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+                <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
             </div>
             <div className="dump-post-bottom">
                 <label className="time-display-dump">{datefilepost}</label>
@@ -399,7 +399,7 @@ export default function Posts(props) {
                             </div>
                             <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
                         </>}
-                        
+
 
 
 

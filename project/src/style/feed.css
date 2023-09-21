@@ -1408,6 +1408,8 @@ body {
     text-align: center;
 }
 
+
+
 .private-account i {
     border: 1px solid;
     padding: 10px;
@@ -1531,7 +1533,7 @@ body {
 }
 
 .dump-user-search {
-    width: 45%;
+    width: 100%;
     padding: 10px;
 
 }
@@ -1539,11 +1541,14 @@ body {
 .dump-user-search a {
     text-decoration: none;
     color: black;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .dump-user-search img {
     border-radius: 100%;
-    width: 5rem;
+    width: 4rem;
 }
 
 .dump-user-search {
@@ -1551,8 +1556,13 @@ body {
     align-items: center;
     margin-bottom: 10px;
 }
+.dump-user-search h2 {
+    font-size: 1rem;
+}
 
-
+.dump-user-search p {
+    font-size: 0.9rem;
+}
 
 .buttons-radio {
     position: relative;
@@ -1636,6 +1646,27 @@ body {
     background-color: rgba(0, 0, 0, 0.934);
 }
 
+.suggest-publicacoes {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.dump-user-posts-search img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.dump-user-posts-search img:hover {
+    filter: brightness(0.8)
+}
+
+.filters-search h2 {
+    padding: 20px 0;
+}
+
 
 
 @media screen and (max-width: 900px) {
@@ -1692,7 +1723,7 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        z-index: 23;
+        z-index: 3;
         padding: 5px 20px;
         background: rgba(255, 255, 255, 0.786);
         width: 100%;
@@ -1700,6 +1731,12 @@ body {
         border-bottom: 1px solid rgb(222, 222, 222);
         transition: 500ms;
         top: 0;
+        
+    }
+
+    .inputheader {
+        width: 50%;
+        padding: 5px 20px;
         
     }
 
@@ -2652,7 +2689,7 @@ body {
     .dump-search-page {
         width: 100%;
         margin: auto;
-        padding: 150px 0;
+        padding: 120px 0;
 
     }
 
@@ -2703,22 +2740,29 @@ body {
 
     .dump-user-search {
         width: 100%;
-        padding: 10px;
-
+        padding: 1px 10px;
+        
     }
 
     .dump-user-search a {
         text-decoration: none;
         color: black;
         width: 100%;
-        padding: 10px;
+        padding: 0px 5px;
         border-radius: 10px;
-        background-color: rgb(226, 226, 226);
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     .dump-user-search img {
         border-radius: 100%;
-        width: 4rem;
+        width: 3rem;
+    }
+
+    .rightside-dump-user-search {
+        display: block;
     }
 
     .dump-user-search h2 {
@@ -2726,7 +2770,7 @@ body {
     }
 
     .dump-user-search p {
-        font-size: 0.8re, ;
+        font-size: 0.8rem;
     }
 
     .dump-user-search {
@@ -2939,4 +2983,24 @@ body {
     }
 
 
+    .suggest-publicacoes {
+        display: flex;
+        justify-content: left;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+    
+    .dump-user-posts-search img {
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+    }
+    
+    .dump-user-posts-search img:hover {
+        filter: brightness(0.8)
+    }
+    
+    .filters-search h2 {
+        padding: 20px 0;
+    }
 }

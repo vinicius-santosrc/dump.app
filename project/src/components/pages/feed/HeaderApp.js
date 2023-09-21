@@ -79,7 +79,7 @@ function CurtidasList() {
     window.onscroll = function () {
         let currentScrollPos = window.pageYOffset;
 
-        if(window.pageYOffset < 25) {
+        if (window.pageYOffset < 25) {
             return document.querySelector(".dump-mobile-header").style.top = "0";
         }
 
@@ -381,6 +381,7 @@ export default function HeaderFeed() {
                         {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
                     </div>
                 </div>
+                {window.location.pathname == '/' ?
                 <div className='bottom-header-mobile'>
                     <div className='option-feed-show'>
                         <a id='selected'>Para você</a>
@@ -389,7 +390,21 @@ export default function HeaderFeed() {
                         <a>Seguindo</a>
                     </div>
 
-                </div>
+                </div> : ''}
+                {window.location.pathname == '/search' ?
+                <div className='bottom-header-mobile'>
+                    <div className='option-feed-show'>
+                        <a id='selected'>Tudo</a>
+                    </div>
+                   <div className='option-feed-show'>
+                        <a>Pessoas</a>
+                    </div>
+                    <div className='option-feed-show'>
+                        <a>Publicações</a>
+                    </div>
+
+                </div> : ''
+                }
             </header>
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>

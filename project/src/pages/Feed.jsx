@@ -111,7 +111,6 @@ export default function Feed() {
                                 userisfollowing={p.following}
                             />
                         )
-
                     }, [])
 
                 }
