@@ -289,10 +289,10 @@ export default function HeaderFeed() {
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
                             <div className="LeftsideRedirect" onClick={gotoHomePage}>
-                                <a className="Redirect" title='Página Inicial'><i className="fa-solid fa-house"></i> Página Inicial</a>
+                                <a className="Redirect" title='Página Inicial' id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i> Página Inicial</a>
                             </div>
                             <div className="LeftsideRedirect" onClick={gotoSearch}>
-                                <a className="Redirect" title='Pesquisar'><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
+                                <a className="Redirect" title='Pesquisar' id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
                             </div>
                             <div className="LeftsideRedirect" onClick={openCurtidas}>
                                 {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i> Notificações</a> : ''}
@@ -304,7 +304,7 @@ export default function HeaderFeed() {
                                 {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i> Salvos</a> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Criar publicação'><i className="fa-solid fa-square-plus"></i> Criar publicação</a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect PublicarButton" title='Criar publicação'><i className="fa-solid fa-square-plus"></i> Publicar</a> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -358,6 +358,22 @@ export default function HeaderFeed() {
                         </div>
                     </div>
                 </div>
+                <div className='dump-header-flexible'>
+                    {window.location.pathname == '/' ? <h1>Página Inicial</h1> : <></>}
+                    <div className='buttons-change-view'>
+                        <div className='option-view' >
+                            <a id='selectedview'>
+                                Para você
+                            </a>
+                        </div>
+                        <div className='option-view'>
+                            <a>
+                                Seguindo
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
                 <div className="App-Header-Feed-RightSide rightsideheader">
                     <a onClick={openCurtidas}>
                         <i className="fa-regular fa-heart"></i>
@@ -382,33 +398,33 @@ export default function HeaderFeed() {
                     </div>
                 </div>
                 {window.location.pathname == '/' ?
-                <div className='bottom-header-mobile'>
-                    <div className='option-feed-show'>
-                        <a id='selected'>Para você</a>
-                    </div>
-                    <div className='option-feed-show'>
-                        <a>Seguindo</a>
-                    </div>
+                    <div className='bottom-header-mobile'>
+                        <div className='option-feed-show'>
+                            <a id='selected'>Para você</a>
+                        </div>
+                        <div className='option-feed-show'>
+                            <a>Seguindo</a>
+                        </div>
 
-                </div> : ''}
+                    </div> : ''}
                 {window.location.pathname == '/search' ?
-                <div className='bottom-header-mobile'>
-                    <div className='option-feed-show'>
-                        <a id='selected'>Tudo</a>
-                    </div>
-                   <div className='option-feed-show'>
-                        <a>Pessoas</a>
-                    </div>
-                    <div className='option-feed-show'>
-                        <a>Publicações</a>
-                    </div>
+                    <div className='bottom-header-mobile'>
+                        <div className='option-feed-show'>
+                            <a id='selected'>Tudo</a>
+                        </div>
+                        <div className='option-feed-show'>
+                            <a>Pessoas</a>
+                        </div>
+                        <div className='option-feed-show'>
+                            <a>Publicações</a>
+                        </div>
 
-                </div> : ''
+                    </div> : ''
                 }
             </header>
             <nav className='nav-bar-mobile'>
-                <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
-                <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
+                <a onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison && ID_ACCOUNT_I ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
                 {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
                 {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}

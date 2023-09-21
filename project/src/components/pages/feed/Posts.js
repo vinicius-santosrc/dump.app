@@ -156,8 +156,8 @@ export default function Posts(props) {
 
     /** CURTIR DUMP ATUAL */
 
-    const [toUid_Send, setTOUID] = useState(null)
-    const [UserAtual, SetUserAtual] = useState(null)
+    const [toUid_Send, setTOUID] = useState('')
+    const [UserAtual, SetUserAtual] = useState('')
 
     let SENDERUID
     if (auth.currentUser) {
@@ -191,236 +191,246 @@ export default function Posts(props) {
 
             checkDumpLikes()
 
+            const fetchToUid = async () => {
+                try {
+                    await databases.listDocuments(
+                        await databases.listDocuments(
+                            DB_UID,
+                            USERS_DOC,
+                        )
+                            .then(response => {
+                                response.documents.filter(r => r.email == props.email).map((e) => {
+                                    setTOUID(e.uid)
+                                    return e.uid
+                                })
+                            })
+                    )
+                    
+                } catch (error) {
+                    console.error('Erro ao buscar o valor de toUid_Send:', error);
+                }
+            };
+
             const NOT_DOC = '64fd4c66a7628f81bde8'
             const USERS_DOC = '64f93be88eee8bb83ec3'
-            await databases.listDocuments(
-                DB_UID,
-                USERS_DOC,
-                [Query.equal('email', props.email)])
-                .then(response => {
-                    response.documents.map((e) => {
-                        setTOUID(e.uid)
-                    })
-                })
-            await databases.listDocuments(
-                DB_UID,
-                USERS_DOC,
-                [Query.equal('email', auth.currentUser)])
-                .then((response) => {
-                    SetUserAtual(response.documents)
-                })
 
-
-            const uuid = require('uuid');
-            await databases.createDocument(
-                DB_UID,
-                NOT_DOC,
-                uuid.v4(),
-                {
-                    TO_UID: toUid_Send,
-                    SENDER_UID: SENDERUID,
-                    SENDER_PIC: props.photoURL,
-                    SENDER_USERNAME: props.username,
-                    SENDER_NAME: props.displayName,
-                    PHOTO_REL: props.id,
-                    ACTION: 'like'
-                }
-            )
-
+            fetchToUid()
+                .then(async () => {
+                    const uuid = require('uuid');
+                    if (!toUid_Send) {
+                        console.error('O valor de toUid_Send é inválido ou vazio.');
+                    } else {
+                        // Agora, você pode criar o documento com segurança.
+                        await databases.createDocument(
+                            DB_UID,
+                            NOT_DOC,
+                            uuid.v4(),
+                            {
+                                TO_UID: toUid_Send,
+                                SENDER_UID: SENDERUID,
+                                SENDER_PIC: props.photoURL,
+                                SENDER_USERNAME: props.username,
+                                SENDER_NAME: props.displayName,
+                                PHOTO_REL: props.id,
+                                ACTION: 'like'
+                            }
+                        );
+                    }
+                });
 
         } catch (error) {
-            console.error('Erro ao seguir o usuário:', error);
-        }
+        console.error('Erro ao seguir o usuário:', error);
     }
+}
 
-    async function unlikethisphoto() {
-        try {
-            const userDocument = await databases.getDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId);
+async function unlikethisphoto() {
+    try {
+        const userDocument = await databases.getDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId);
 
-            const likes = userDocument.likes || [];
+        const likes = userDocument.likes || [];
 
-            if (!likes.includes(targetUserId)) {
-
-                checkDumpLikes()
-                return;
-            }
-
-            const likesUpdated = likes.filter((id) => id !== targetUserId);
-
-            await databases.updateDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId, {
-                likes: likesUpdated,
-            });
+        if (!likes.includes(targetUserId)) {
 
             checkDumpLikes()
-
-
-        } catch (error) {
-            console.error('Erro ao parar de seguir o usuário:', error);
+            return;
         }
+
+        const likesUpdated = likes.filter((id) => id !== targetUserId);
+
+        await databases.updateDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId, {
+            likes: likesUpdated,
+        });
+
+        checkDumpLikes()
+
+
+    } catch (error) {
+        console.error('Erro ao parar de seguir o usuário:', error);
     }
+}
 
-    /** SALVAR DUMP ATUAL */
+/** SALVAR DUMP ATUAL */
 
-    async function savedump() {
-        try {
-            const userDocument = await databases.getDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId);
+async function savedump() {
+    try {
+        const userDocument = await databases.getDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId);
 
-            const saves = userDocument.saves || [];
+        const saves = userDocument.saves || [];
 
-            if (saves.includes(targetUserId)) {
-
-                checkDumpSaves()
-                return;
-            }
-
-            saves.push(targetUserId);
-
-            await databases.updateDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId, {
-                saves: saves,
-            });
-
-
+        if (saves.includes(targetUserId)) {
 
             checkDumpSaves()
-
-        } catch (error) {
-            console.error('Erro ao seguir o usuário:', error);
+            return;
         }
+
+        saves.push(targetUserId);
+
+        await databases.updateDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId, {
+            saves: saves,
+        });
+
+
+
+        checkDumpSaves()
+
+    } catch (error) {
+        console.error('Erro ao seguir o usuário:', error);
     }
-    async function unsavedump() {
-        try {
-            const userDocument = await databases.getDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId);
+}
+async function unsavedump() {
+    try {
+        const userDocument = await databases.getDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId);
 
-            const saves = userDocument.saves || [];
+        const saves = userDocument.saves || [];
 
-            if (!saves.includes(targetUserId)) {
-
-                checkDumpSaves()
-                return;
-            }
-
-            const savesUpdated = saves.filter((id) => id !== targetUserId);
-
-            await databases.updateDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId, {
-                saves: savesUpdated,
-            });
-
+        if (!saves.includes(targetUserId)) {
 
             checkDumpSaves()
-
-        } catch (error) {
-            console.error('Erro ao parar de seguir o usuário:', error);
+            return;
         }
+
+        const savesUpdated = saves.filter((id) => id !== targetUserId);
+
+        await databases.updateDocument(
+            DB_UID,
+            COL_UID,
+            publicacaoId, {
+            saves: savesUpdated,
+        });
+
+
+        checkDumpSaves()
+
+    } catch (error) {
+        console.error('Erro ao parar de seguir o usuário:', error);
     }
+}
 
-    const userId = 'auth.currentUser.uid'
-    const textoComentario = document.querySelector("#comments-dump-photo")
+const userId = 'auth.currentUser.uid'
+const textoComentario = document.querySelector("#comments-dump-photo")
 
-    function gotoPost() {
-        window.location.href = `${window.location.origin}/posts/${props.id}`
-    }
+function gotoPost() {
+    window.location.href = `${window.location.origin}/posts/${props.id}`
+}
 
-    function errorsemuser() {
-        alert('Entre para curtir e salvar fotos.')
-    }
+function errorsemuser() {
+    alert('Entre para curtir e salvar fotos.')
+}
 
-    var datepost = new Date(props.datepost)
-    var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
+var datepost = new Date(props.datepost)
+var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
-    return (
-        <div className="dump-post">
-            <div className="dump-post-header" onClick={gotouser}>
-                <img src={props.photoURL} />
-                <div className="dump-post-header-rightside">
-                    <div>
-                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
-                        <p>@{props.username}</p>
-                    </div>
-
-                </div>
-            </div>
-            <div className="dump-post-photo">
-                <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
-            </div>
-            <div className="dump-post-bottom">
-                <label className="time-display-dump">{datefilepost}</label>
-                <div className="btns-dump-comments">
-
-                    {auth.currentUser ?
-                        <>
-                            {isLiked ?
-                                <>
-                                    <button></button>
-                                    <div className='dump-like-action-button'>
-                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
-                                        <p>{NumberOfLikes}</p>
-                                    </div>
-
-                                </>
-                                :
-                                <>
-                                    <div className='dump-like-action-button'>
-                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
-                                        <p>{NumberOfLikes}</p>
-                                    </div>
-
-                                </>
-                            }
-                            <div className='likes-card-box'>
-                            </div>
-                            {isSaved ?
-                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                                :
-                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
-                        </>
-                        :
-                        <>
-                            <div className='dump-like-action-button'>
-                                <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
-                                <p>{NumberOfLikes}</p>
-                            </div>
-                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
-                        </>}
-
-
-
-
+return (
+    <div className="dump-post">
+        <div className="dump-post-header" onClick={gotouser}>
+            <img src={props.photoURL} />
+            <div className="dump-post-header-rightside">
+                <div>
+                    <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
+                    <p>@{props.username}</p>
                 </div>
 
             </div>
-            <div className="dump-post-bottom-desc">
-                <p><b>@{props.username}</b>: {props.descricao}</p>
-            </div>
-            <div>
-                <a className="dump-comments-post">
-                    <div>
-                        <button>VER COMENTÁRIOS</button>
-                    </div>
-                    <div className='comments-photo'>
-                        <Comments />
-                    </div>
+        </div>
+        <div className="dump-post-photo">
+            <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+        </div>
+        <div className="dump-post-bottom">
+            <label className="time-display-dump">{datefilepost}</label>
+            <div className="btns-dump-comments">
 
-                </a>
+                {auth.currentUser ?
+                    <>
+                        {isLiked ?
+                            <>
+                                <button></button>
+                                <div className='dump-like-action-button'>
+                                    <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                    <p>{NumberOfLikes}</p>
+                                </div>
+
+                            </>
+                            :
+                            <>
+                                <div className='dump-like-action-button'>
+                                    <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                    <p>{NumberOfLikes}</p>
+                                </div>
+
+                            </>
+                        }
+                        <div className='likes-card-box'>
+                        </div>
+                        {isSaved ?
+                            <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                            :
+                            <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                    </>
+                    :
+                    <>
+                        <div className='dump-like-action-button'>
+                            <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
+                            <p>{NumberOfLikes}</p>
+                        </div>
+                        <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                    </>}
+
+
+
+
             </div>
-        </div >
-    )
+
+        </div>
+        <div className="dump-post-bottom-desc">
+            <p><b>@{props.username}</b>: {props.descricao}</p>
+        </div>
+        <div>
+            <a className="dump-comments-post">
+                <div>
+                    <button>VER COMENTÁRIOS</button>
+                </div>
+                <div className='comments-photo'>
+                    <Comments />
+                </div>
+
+            </a>
+        </div>
+    </div >
+)
 
 }

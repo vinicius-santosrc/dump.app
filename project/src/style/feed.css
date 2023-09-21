@@ -32,7 +32,7 @@ body {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    padding: 40px 0;
+    padding: 10px 0;
     margin: 0 200px;
     z-index: 1;
 }
@@ -97,6 +97,53 @@ body {
     margin-bottom: 15px;
 
 
+}
+
+.dump-header-flexible {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.649);
+    width: 650px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 10px;
+
+}
+
+.dump-header-flexible h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.buttons-change-view {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.buttons-change-view a {
+    font-size: 1.2rem !important;
+}
+
+.option-view {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+#selectedview {
+    color: blueviolet;
+    font-weight: 500;
+}
+
+.option-view:hover {
+    background-color: rgba(217, 217, 217, 0.624);
+    
 }
 
 @keyframes abrircurtidas {
@@ -177,18 +224,39 @@ body {
 .LeftSidePageHeader {
     position: fixed;
     z-index: 2;
-    top: 150px;
+    top: 90px;
     font-size: 1.6rem;
+    width: 350px;
 }
 
 .LeftSidePageHeader a {
-    font-size: 1.3rem;
+    font-size: 1.34rem;
     padding: 10px 0px;
+    opacity: 0.8;
+    font-weight: 400
+}
+
+.LeftSidePageHeader a#selected {
+    opacity: 1;
+    font-weight: 700;
 }
 
 .LeftSidePageHeader a:hover {
     background-color: #ebebeb;
     border-radius: 10px;
+}
+
+.PublicarButton {
+    background-color: blueviolet;
+    color: white !important;
+    padding: 10px 50px !important;
+    width: 100% !important;
+    border-radius: 10px;
+    transition: 500ms;
+}
+
+.PublicarButton:hover {
+    background-color: rgb(130, 30, 222) !important;
 }
 
 .LeftsideRedirect {
@@ -367,7 +435,7 @@ body {
 }
 
 .dump-feed-posts {
-    padding: 50px 0;
+    padding: 150px 0;
 
 }
 
@@ -2018,8 +2086,15 @@ body {
 
     }
 
-    .nav-bar-mobile a {
+    .nav-bar-mobile a i{
         color: black;
+        opacity: 1;
+        font-style: normal;
+    }
+
+    .nav-bar-mobile a#selected i{
+        opacity: 1;
+        color: blueviolet;
     }
 
     .nav-bar-mobile img {
@@ -3069,5 +3144,9 @@ body {
 
     .dump-top-info-user {
         margin: 10px 0px;
+    }
+
+    .dump-header-flexible {
+        display: none;
     }
 }

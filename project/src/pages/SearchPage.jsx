@@ -193,9 +193,9 @@ export default function SearchPage() {
 
             </div>
             <nav className='nav-bar-mobile'>
-                <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
-                <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
-                {i_ison ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
+                <a onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
+                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
                 {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
             </nav>
         </>
