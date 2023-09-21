@@ -1538,6 +1538,28 @@ body {
 
 }
 
+.dump-post-liked{
+    color: red !important;
+}
+
+.dump-top-info-user a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.dump-top-info-user a img{
+    width: 3rem;
+}
+
+.rightside_user_information {
+    display: block;
+    align-items: center;
+}
+
 .dump-user-search a {
     text-decoration: none;
     color: black;
@@ -1665,6 +1687,47 @@ body {
 
 .filters-search h2 {
     padding: 20px 0;
+}
+
+.top-dump-user-current {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.top-dump-user-current img {
+    width: 3rem;
+    border-radius: 100%;
+}
+
+.top-dump-user-current .right-side-dump-current input {
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.top-dump-user-current .right-side-dump-current button {
+    padding: 5px 20px;
+    color: white;
+    background: black;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid black;
+    transition: 500ms;
+}
+
+.top-dump-user-current .right-side-dump-current button:hover {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
 }
 
 
@@ -3002,5 +3065,9 @@ body {
     
     .filters-search h2 {
         padding: 20px 0;
+    }
+
+    .dump-top-info-user {
+        margin: 10px 0px;
     }
 }

@@ -13,6 +13,11 @@ export default function PostDetails() {
     const [publicacao, setPublicacao] = useState(null);
     const [publicacaoId, setPublicaoId] = useState(null)
     const [userPub, setUserPub] = useState(null)
+    const [USER_DOC, setUserAt] = useState(null)
+
+    const USERSIDDATABASE = '64f93be88eee8bb83ec3'
+
+
 
     useEffect(() => {
         HideLoading()
@@ -38,7 +43,8 @@ export default function PostDetails() {
         targetUserId = auth.currentUser.uid;
     }
 
-    
+
+
 
     /** VERIFICAÇÃO DUMP ATUAL */
 
@@ -85,6 +91,11 @@ export default function PostDetails() {
             return false;
         }
     }
+    useEffect(() => {
+        if (auth.currentUser && publicacao.email != undefined) {
+            PostUserGet()
+        }
+    })
 
     async function checkDumpSaves() {
 
@@ -156,7 +167,7 @@ export default function PostDetails() {
             await databases.listDocuments(
                 DB_UID,
                 USERS_DOC,
-                [Query.equal('email', publicacao.email)])
+                [Query.equal('email', publicacao.email.email)])
                 .then(response => {
                     response.documents.map((e) => {
                         setTOUID(e.uid)
@@ -165,7 +176,7 @@ export default function PostDetails() {
             await databases.listDocuments(
                 DB_UID,
                 USERS_DOC,
-                [Query.equal('email', auth.currentUser)])
+                [Query.equal('email', auth.currentUser.email)])
                 .then((response) => {
                     SetUserAtual(response.documents)
                 })
@@ -420,6 +431,70 @@ export default function PostDetails() {
         })
     }
 
+
+
+
+    async function PostUserGet() {
+
+        await databases.listDocuments(
+            '64f9329a26b6d59ade09',
+            USERSIDDATABASE
+        )
+            .then((res) => {
+                res.documents.filter(r => r.email == publicacao.email).map((response) => {
+                    setUserAt(response)
+                })
+            })
+        getuseratual()
+    }
+
+    async function getuseratual() {
+        await databases.listDocuments(
+            DB_UID,
+            USERSIDDATABASE
+        )
+            .then((response) => {
+                response.documents.filter((r => r.email == auth.currentUser.email)).map((res) => {
+                    SetUserAtual(res)
+                })
+            })
+    }
+
+    async function publish_comment() {
+        let inputComment = document.querySelector("#comment-input")
+
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId
+            );
+        
+            // Verifique se 'comments' é um objeto ou inicialize-o como um objeto vazio
+            const comments = typeof userDocument.comments === 'object' ? userDocument.comments : {};
+        
+            const newCommentKey = Date.now(); // Usar um carimbo de data/hora como chave única
+            const newComment = {
+                comment: inputComment.value,
+                uid: targetUserId
+            };
+        
+            comments[newCommentKey] = newComment; // Adicione o novo objeto 'newComment' com a chave única
+        
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                comments: comments, // Atualize 'comments' com o novo objeto
+            });
+        
+            alert('Você comentou com sucesso!');
+
+        } catch (error) {
+            console.error('Erro ao comentar:', error);
+        }
+    }
+
     return (
         <>
             <div className="dump-post-show-pc">
@@ -460,7 +535,17 @@ export default function PostDetails() {
                             <div className="dump-post-middle-bottom-img">
                                 <div className="flex-dump-info-image">
                                     <div className="info-user-dump-post">
-                                        <h1 onClick={gotoUserPage}>{publicacao.displayName}</h1>
+                                        {USER_DOC && USER_DOC.displayName ? <>
+                                            <div className="dump-top-info-user">
+                                                <a href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                                    <img src={USER_DOC.photoURL} />
+                                                    <div className="rightside_user_information">
+                                                        <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                                        <p>@{USER_DOC.username}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </> : <></>}
                                         <label className="time-display-dump">{datefilepost}</label>
                                     </div>
                                 </div>
@@ -493,6 +578,19 @@ export default function PostDetails() {
                                         :
                                         <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
                                 </div>
+                                <section className="comments-section">
+                                    <h2>Comentários</h2>
+                                    <div className="top-dump-user-current">
+                                        {UserAtual ? <img src={UserAtual.photoURL} /> : ''}
+                                        <div className="right-side-dump-current">
+                                            <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                            <button onClick={publish_comment}>COMENTAR</button>
+                                        </div>
+                                    </div>
+                                    <div className="comments-of-dump">
+
+                                    </div>
+                                </section>
                             </div>
                             <div className="button-remove">
                                 {auth.currentUser ?
@@ -545,7 +643,17 @@ export default function PostDetails() {
                         <div className="dump-post-middle-bottom-img">
                             <div className="flex-dump-info-image">
                                 <div className="info-user-dump-post">
-                                    <h1>{publicacao.displayName}</h1>
+                                    {USER_DOC && USER_DOC.displayName ? <>
+                                        <div className="dump-top-info-user">
+                                            <a href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                                <img src={USER_DOC.photoURL} />
+                                                <div className="rightside_user_information">
+                                                    <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                                    <p>@{USER_DOC.username}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </> : <></>}
                                     <label className="time-display-dump">{datefilepost}</label>
                                 </div>
                             </div>
@@ -553,31 +661,31 @@ export default function PostDetails() {
                                 <p>{publicacao.legenda}</p>
                             </div>
                             <div className="btns-inner">
-                                    {isLiked ?
-                                        <>
-                                            <button></button>
-                                            <div className='dump-like-action-button'>
-                                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
+                                {isLiked ?
+                                    <>
+                                        <button></button>
+                                        <div className='dump-like-action-button'>
+                                            <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
 
-                                            </div>
+                                        </div>
 
-                                        </>
-                                        :
-                                        <>
-                                            <div className='dump-like-action-button'>
-                                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
+                                    </>
+                                    :
+                                    <>
+                                        <div className='dump-like-action-button'>
+                                            <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
 
-                                            </div>
+                                        </div>
 
-                                        </>
-                                    }
-                                    <div className='likes-card-box'>
-                                    </div>
-                                    {isSaved ?
-                                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                                        :
-                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                    </>
+                                }
+                                <div className='likes-card-box'>
                                 </div>
+                                {isSaved ?
+                                    <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                    :
+                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                            </div>
                             <div className="button-remove">
                                 {auth.currentUser ?
                                     publicacao.email == auth.currentUser.email ?
