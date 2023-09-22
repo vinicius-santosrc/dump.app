@@ -20,7 +20,10 @@ if (auth.currentUser) {
     currentUserID = auth.currentUser.uid; // Replace with the current user's ID
 }
 
+
+
 export default function IndexPageFollowing() {
+    const [length, setlength] = useState(null)
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
 
@@ -71,6 +74,7 @@ export default function IndexPageFollowing() {
                 const filteredAndCleanedPosts = filteredPosts.filter((post) => post !== null);
 
                 setPosts(filteredAndCleanedPosts);
+                setlength(filteredAndCleanedPosts.length)
             }
         } catch (error) {
             console.log('error: ', error);
@@ -122,7 +126,7 @@ export default function IndexPageFollowing() {
 
             <div className="dump-feed-posts">
 
-                {auth.currentUser  && PostsFollowing.length >= 1 ?
+                {auth.currentUser && PostsFollowing && length > 0 ?
                     <>
                         <PostingPhoto
 
@@ -163,11 +167,13 @@ export default function IndexPageFollowing() {
                     </>
                     :
                     <div className="dump-dont-account-following">
+                        <LoadingContent />
                         <img src="./static/media/undraw_fireworks_re_2xi7.svg"/>
                         <h1>Seja bem vindo(a) ao Dump</h1>
                         <p>Siga pessoas para acessar essa aba</p>
                         <button onClick={gotosearch}>Começar</button>
-                    </div>}
+                    </div>
+                    }
 
 
             </div>
