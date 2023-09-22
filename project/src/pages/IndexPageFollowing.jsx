@@ -29,7 +29,7 @@ export default function IndexPageFollowing() {
     })
 
     const [postsRealtime, setPosts] = useState([]);
-    const [userPostUID, setuserPostUID ] = useState(null)
+    const [userPostUID, setuserPostUID] = useState(null)
 
     const getPosts = async () => {
 
@@ -56,20 +56,20 @@ export default function IndexPageFollowing() {
 
                 const posts = response.documents;
 
-                
+
                 const filteredPosts = await Promise.all(posts.map(async (post) => {
                     const users = await databases.listDocuments(
                         "64f9329a26b6d59ade09",
                         "64f93be88eee8bb83ec3"
                     );
                     const userPostUID = users.documents.find((user) => user.email === post.email)?.uid;
-                
+
                     return followingUsers.includes(userPostUID) ? post : null;
                 }));
-                
+
                 // Filtrar posts nulos (posts que não estão sendo seguidos pelo usuário)
                 const filteredAndCleanedPosts = filteredPosts.filter((post) => post !== null);
-                
+
                 setPosts(filteredAndCleanedPosts);
             }
         } catch (error) {
@@ -107,6 +107,10 @@ export default function IndexPageFollowing() {
     useEffect(() => {
         user()
     })
+
+    function gotosearch() {
+        window.location.href = window.location.origin + "/search"
+    }
     //document.querySelector('.loading').style.display = 'none'   
     return (
 
@@ -118,42 +122,52 @@ export default function IndexPageFollowing() {
 
             <div className="dump-feed-posts">
 
-                <PostingPhoto
+                {auth.currentUser || postsRealtime == '[]' ?
+                    <>
+                        <PostingPhoto
 
-                />
-                {
-                    PostsFollowing.map((p) => {
-                        return (
-                            <Posts
-                                id={p.$id}
-                                datepost={p.$createdAt}
-                                email={p.email}
-                                displayName={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.displayName
-                                })}
-                                photoURL={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.photoURL
-                                })}
-                                username={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.username
-                                })}
-                                fotopostada={p.filePost}
-                                descricao={p.legenda}
-                                timestamp={p.timestamp}
-                                isthisverifiqued={
-                                    users.documents.filter(e => e.email == p.email).map((u) => {
-                                        return u.isthisverifiqued
-                                    })
+                        />
+                        {
+                            PostsFollowing.map((p) => {
+                                return (
+                                    <Posts
+                                        id={p.$id}
+                                        datepost={p.$createdAt}
+                                        email={p.email}
+                                        displayName={users.documents.filter(e => e.email == p.email).map((u) => {
+                                            return u.displayName
+                                        })}
+                                        photoURL={users.documents.filter(e => e.email == p.email).map((u) => {
+                                            return u.photoURL
+                                        })}
+                                        username={users.documents.filter(e => e.email == p.email).map((u) => {
+                                            return u.username
+                                        })}
+                                        fotopostada={p.filePost}
+                                        descricao={p.legenda}
+                                        timestamp={p.timestamp}
+                                        isthisverifiqued={
+                                            users.documents.filter(e => e.email == p.email).map((u) => {
+                                                return u.isthisverifiqued
+                                            })
 
-                                }
-                                userisfollowing={p.following}
-                            />
-                        )
-                    }, [])
+                                        }
+                                        userisfollowing={p.following}
+                                    />
+                                )
+                            }, [])
 
-                }
-                <LoadingContent />
-                <EndOfPage />
+                        }
+                        <LoadingContent />
+                        <EndOfPage />
+                    </>
+                    :
+                    <div className="dump-dont-account-following">
+                        <img src="./static/media/undraw_fireworks_re_2xi7.svg"/>
+                        <h1>Seja bem vindo(a) ao Dump</h1>
+                        <p>Siga pessoas para acessar essa aba</p>
+                        <button onClick={gotosearch}>Começar</button>
+                    </div>}
 
 
             </div>

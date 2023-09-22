@@ -143,7 +143,7 @@ body {
 
 .option-view:hover {
     background-color: rgba(217, 217, 217, 0.624);
-    
+
 }
 
 @keyframes abrircurtidas {
@@ -260,15 +260,15 @@ body {
     padding: 5px 0px;
 }
 
-.LeftsideRedirect a{
+.LeftsideRedirect a {
     text-decoration: none;
 }
 
-.option-view a{
+.option-view a {
     text-decoration: none;
 }
 
-.option-view a#selectedview{
+.option-view a#selectedview {
     text-decoration: 1px underline blueviolet;
 }
 
@@ -334,12 +334,12 @@ body {
 
 .btns-inner {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     padding: 10px 0px;
 }
 
 .btns-inner button {
-    font-size: 1rem;
+    font-size: 1.3rem;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -358,7 +358,7 @@ body {
     position: fixed;
     bottom: 50px;
     padding: 00px 10px;
-    width: 330px;
+    width: 270px;
     cursor: pointer;
 }
 
@@ -392,6 +392,44 @@ body {
 .account-div-flexbox img {
     width: 4rem;
     border-radius: 100%;
+}
+
+.dump-dont-account-following {
+    padding: 10px 30px;
+    text-align: center;
+}
+
+.dump-dont-account-following img {
+    width: 300px;
+    margin: auto;
+    text-align: center;
+}
+
+.dump-dont-account-following h1 {
+    text-align: left;
+    font-size: 1.4rem;
+}
+
+.dump-dont-account-following p {
+    text-align: left;
+    font-size: 1rem;
+
+}
+
+.dump-dont-account-following button {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    padding: 10px 50px;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 500ms;
+}
+.dump-dont-account-following button:hover {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
 }
 
 .account-off-div-flexbox {
@@ -774,11 +812,15 @@ body {
 .dump-post-bottom-desc {
     display: flex;
     align-items: center;
-
 }
 
 .dump-post-bottom-desc p {
     font-size: 0.8rem;
+}
+
+.bottom-desc {
+    padding: 10px 0px;
+    font-size: 1rem;
 }
 
 .createnewpost-middle {
@@ -1276,10 +1318,13 @@ body {
 }
 
 .dump-post-show-pc .dump-post-topimage img {
-    width: 450px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     margin: auto;
     text-align: center;
 }
+
 
 .dump-post-show-pc .dump-post-header-show a {
     color: black;
@@ -1399,10 +1444,16 @@ body {
 }
 
 .dump-post-img-inner {
-    display: flex;
+    display: block;
     justify-content: center;
     gap: 20px;
-
+    padding: 80px 0px;
+    width: 650px;
+    margin: auto
+}
+.dump-top-info-user a {
+    color: black;
+    text-decoration: none;
 }
 
 .dump-post-options-background {
@@ -1416,8 +1467,23 @@ body {
     background-color: rgba(0, 0, 0, 0.266);
 }
 
+.button-right-side button{
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem
+}
+
 .dump-post-options #cancel, .dump-post-options-compartilhar #cancel {
     color: red;
+}
+
+.header-posts {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    align-items: center;
 }
 
 .dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {
@@ -1629,21 +1695,37 @@ body {
 
 }
 
-.dump-post-liked{
+.dump-post-liked {
     color: red !important;
 }
 
-.dump-top-info-user a {
-    text-decoration: none;
-    color: black;
+.dump-top-info-user {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
+    text-decoration: none;
 }
 
+.dump-leftside-info-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: black;
+}
 
-.dump-top-info-user a img{
+.info-user-dump-post {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dump-top-info-user a img {
     width: 3rem;
+}
+
+.dump-top-info-user {
+    display: flex;
 }
 
 .rightside_user_information {
@@ -1669,6 +1751,7 @@ body {
     align-items: center;
     margin-bottom: 10px;
 }
+
 .dump-user-search h2 {
     font-size: 1rem;
 }
@@ -1782,7 +1865,7 @@ body {
 
 .top-dump-user-current {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     flex-wrap: nowrap;
@@ -1795,12 +1878,20 @@ body {
     border-radius: 100%;
 }
 
+.top-dump-user-current {
+    align-items: center;
+}
+
 .top-dump-user-current .right-side-dump-current input {
     background-color: transparent;
     color: black;
     border: none;
     font-size: 1rem;
     outline: none;
+}
+
+.flexbox-dump-btn {
+    text-decoration: none;
 }
 
 .top-dump-user-current .right-side-dump-current button {
@@ -1821,11 +1912,45 @@ body {
     border: 1px solid black;
 }
 
+.top-dump-user-current .left-side-dump-current {
+
+    align-items: center;
+    gap: 5px;
+    display: flex;
+}
+
+.top-dump-user-current .left-side-dump-current input {
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.top-dump-user-current .left-side-dump-current button {
+    padding: 5px 20px;
+    color: white;
+    background: black;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid black;
+    transition: 500ms;
+}
+
+.top-dump-user-current .left-side-dump-current button:hover {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+
 
 
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
         display: block;
+        width: 100%;
     }
 
     .dump-post-show-pc {
@@ -1885,13 +2010,13 @@ body {
         border-bottom: 1px solid rgb(222, 222, 222);
         transition: 500ms;
         top: 0;
-        
+
     }
 
     .inputheader {
         width: 50%;
         padding: 5px 20px;
-        
+
     }
 
     .top-header-mobile img {
@@ -1954,7 +2079,7 @@ body {
         transform: scale(1.07);
     }
 
-    
+
 
 
     .rightsideheader {
@@ -2114,13 +2239,13 @@ body {
 
     }
 
-    .nav-bar-mobile a i{
+    .nav-bar-mobile a i {
         color: black;
         opacity: 1;
         font-style: normal;
     }
 
-    .nav-bar-mobile a#selected i{
+    .nav-bar-mobile a#selected i {
         opacity: 1;
         color: blueviolet;
     }
@@ -2222,6 +2347,11 @@ body {
         font-size: 1.0rem;
         cursor: pointer;
         padding: 0px;
+    }
+
+    .dump-dont-account-following {
+        padding: 10px 00px;
+        text-align: center;
     }
 
 
@@ -2907,7 +3037,7 @@ body {
     .dump-user-search {
         width: 100%;
         padding: 1px 10px;
-        
+
     }
 
     .dump-user-search a {
@@ -3155,23 +3285,24 @@ body {
         gap: 5px;
         flex-wrap: wrap;
     }
-    
+
     .dump-user-posts-search img {
         width: 110px;
         height: 110px;
         object-fit: cover;
     }
-    
+
     .dump-user-posts-search img:hover {
         filter: brightness(0.8)
     }
-    
+
     .filters-search h2 {
         padding: 20px 0;
     }
 
     .dump-top-info-user {
         margin: 10px 0px;
+
     }
 
     .dump-header-flexible {

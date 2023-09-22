@@ -353,7 +353,7 @@ export default function Posts(props) {
     }
 
     var datepost = new Date(props.datepost)
-    var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
+    var datefilepost = `${datepost.getMonth()}`
 
     return (
         <div className="dump-post">

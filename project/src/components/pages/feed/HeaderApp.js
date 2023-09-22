@@ -304,10 +304,10 @@ export default function HeaderFeed() {
                                 {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'} className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i><span>Dumps Salvos</span></a> : <></>}
                             </div>
                             <div className="LeftsideRedirect">
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Salvos' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><i className="fa-regular fa-user"></i><span>Perfil</span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Perfil' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><i className="fa-regular fa-user"></i><span>Perfil</span></a> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="PublicarButton" title='Criar publicação'><span>Publicar</span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <a className="PublicarButton" title='Criar publicação'><span>Publicar</span></a> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -362,20 +362,33 @@ export default function HeaderFeed() {
                     </div>
                 </div>
                 <div className='dump-header-flexible'>
-                    {window.location.pathname == '/' ? <h1>Página Inicial</h1> : <></>}
-                    <div className='buttons-change-view'>
-                        <div className='option-view' >
-                            <a href={window.location.pathname == '/' ? '#' : window.location.origin + '/'} id={window.location.pathname == '/' ? 'selectedview' : ''}>
-                                Para você
-                            </a>
-                        </div>
-                        <div className='option-view'>
-                            <a href={window.location.pathname == '/following' ? '#' : window.location.origin + '/following'} id={window.location.pathname == '/following' ? 'selectedview' : ''}>
-                                Seguindo
-                            </a>
-                        </div>
+                    {window.location.pathname == '/' || window.location.pathname == '/following' ?
+                        <>
+                            <h1>Página Inicial</h1>
+                            <div className='buttons-change-view'>
+                                <div className='option-view' >
+                                    <a href={window.location.pathname == '/' ? '#' : window.location.origin + '/'} id={window.location.pathname == '/' ? 'selectedview' : ''}>
+                                        Para você
+                                    </a>
+                                </div>
+                                <div className='option-view'>
+                                    <a href={window.location.pathname == '/following' ? '#' : window.location.origin + '/following'} id={window.location.pathname == '/following' ? 'selectedview' : ''}>
+                                        Seguindo
+                                    </a>
+                                </div>
 
-                    </div>
+                            </div>
+                        </>
+                        : <></>}
+                    {(window.location.href).includes("posts") ?
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <h1>Post</h1>
+                            </div>
+
+                        </>
+                        : <></>}
                 </div>
                 <div className="App-Header-Feed-RightSide rightsideheader">
                     <a onClick={openCurtidas}>
@@ -425,17 +438,18 @@ export default function HeaderFeed() {
                     </div> : ''
                 }
                 {window.location.pathname == '/following' ?
-                     <div className='bottom-header-mobile'>
-                     <div className='option-feed-show'>
-                         <a href={window.location.origin}>Para você</a>
-                     </div>
-                     <div className='option-feed-show'>
-                         <a id='selected'>Seguindo</a>
-                     </div>
+                    <div className='bottom-header-mobile'>
+                        <div className='option-feed-show'>
+                            <a href={window.location.origin}>Para você</a>
+                        </div>
+                        <div className='option-feed-show'>
+                            <a id='selected'>Seguindo</a>
+                        </div>
 
-                 </div> : ''
-                 }
-                
+                    </div> : ''
+                }
+
+
             </header>
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>

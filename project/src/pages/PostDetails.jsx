@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
 import { Query } from "appwrite";
+import HeaderFeed from "../components/pages/feed/HeaderApp";
+import Suggestions from "../components/pages/feed/Suggestions";
 
 
 export default function PostDetails() {
@@ -58,6 +60,29 @@ export default function PostDetails() {
     useEffect(() => {
         window.addEventListener('DOMContentLoaded', checkDumpLikes())
         window.addEventListener('DOMContentLoaded', checkDumpSaves())
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 2000);
+
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 4000);
+
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 6000);
+
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 8000);
+        setTimeout(() => {
+            checkDumpLikes()
+            checkDumpSaves()
+        }, 10000);
     }, [])
 
 
@@ -92,10 +117,10 @@ export default function PostDetails() {
         }
     }
     useEffect(() => {
-        if (auth.currentUser && publicacao.email != undefined) {
-            PostUserGet()
+        if (publicacao && publicacao.email) {
+            PostUserGet();
         }
-    })
+    }, [publicacao]);
 
     async function checkDumpSaves() {
 
@@ -335,7 +360,7 @@ export default function PostDetails() {
     }
 
     var datepost = new Date(publicacao.$createdAt)
-    var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
+    var datefilepost = `${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()} * ${datepost.toLocaleDateString()}`
 
     function open_options_post() {
         document.querySelector(".dump-post-options-background").style.display = 'block'
@@ -436,6 +461,11 @@ export default function PostDetails() {
 
     async function PostUserGet() {
 
+        if (!publicacao || !publicacao.email) {
+            console.log('Publicacao não está definida ou não tem uma propriedade "email"');
+            return;
+        }
+
         await databases.listDocuments(
             '64f9329a26b6d59ade09',
             USERSIDDATABASE
@@ -445,19 +475,28 @@ export default function PostDetails() {
                     setUserAt(response)
                 })
             })
-        getuseratual()
+        await getuseratual()
     }
 
     async function getuseratual() {
-        await databases.listDocuments(
-            DB_UID,
-            USERSIDDATABASE
-        )
-            .then((response) => {
-                response.documents.filter((r => r.email == auth.currentUser.email)).map((res) => {
-                    SetUserAtual(res)
-                })
-            })
+        try {
+            // Verifique se o usuário está autenticado antes de acessar sua propriedade 'email'
+            const user = auth.currentUser;
+            if (user) {
+                // Obtenha informações do usuário
+                const response = await databases.listDocuments(
+                    DB_UID,
+                    USERSIDDATABASE
+                );
+                response.documents.filter((r) => r.email === user.email).map((res) => {
+                    SetUserAtual(res);
+                });
+            } else {
+                console.log('Usuário não autenticado');
+            }
+        } catch (error) {
+            console.error('Erro ao obter informações do usuário:', error);
+        }
     }
 
     async function publish_comment() {
@@ -469,25 +508,25 @@ export default function PostDetails() {
                 COL_UID,
                 publicacaoId
             );
-        
+
             // Verifique se 'comments' é um objeto ou inicialize-o como um objeto vazio
             const comments = typeof userDocument.comments === 'object' ? userDocument.comments : {};
-        
+
             const newCommentKey = Date.now(); // Usar um carimbo de data/hora como chave única
             const newComment = {
                 comment: inputComment.value,
                 uid: targetUserId
             };
-        
+
             comments[newCommentKey] = newComment; // Adicione o novo objeto 'newComment' com a chave única
-        
+
             await databases.updateDocument(
                 DB_UID,
                 COL_UID,
                 publicacaoId, {
                 comments: comments, // Atualize 'comments' com o novo objeto
             });
-        
+
             alert('Você comentou com sucesso!');
 
         } catch (error) {
@@ -495,11 +534,146 @@ export default function PostDetails() {
         }
     }
 
+    function errorsemuser() {
+        alert('Entre para curtir e salvar fotos.')
+    }
+
     return (
         <>
-            <div className="dump-post-show-pc">
-                <div className="dump-post-options-background"></div>
-                <div className="dump-post-show">
+            <>
+                <div className="dump-post-show-pc">
+                    <div className="dump-post-options-background"></div>
+                    <div className="dump-post-show">
+                        <div className="dump-post-show">
+                            <HeaderFeed />
+                            <div className="dump-post-options">
+                                <div className="select-post-options">
+                                    <a onClick={compartilhar}>Compartilhar</a>
+                                </div>
+                                <div className="select-post-options">
+                                    <a id="copylink" onClick={copiarlink}>Copiar link</a>
+                                </div>
+                                <div className="select-post-options">
+                                    <a onClick={closepopups} id="cancel">Fechar</a>
+                                </div>
+                            </div>
+                            <div className="compartilhar-options">
+                                <div className="dump-post-options-compartilhar">
+                                    <h4>Compartilhar:</h4>
+                                    <div className="select-post-options">
+                                        <button id="whatsapp-btn" onClick={compartilhar_whatsapp}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                                    </div>
+                                    <div className="select-post-options">
+                                        <a onClick={closepopups} id="cancel">Cancelar</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="dump-post-img-inner">
+                                <div className="flex-dump-info-image">
+                                    <div className="info-user-dump-post">
+                                        {USER_DOC && USER_DOC.displayName ? <>
+                                            <a className="flexbox-dump-btn" href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                                <div className="dump-top-info-user">
+
+                                                    <div className="dump-leftside-info-user">
+                                                        <img src={USER_DOC.photoURL} />
+                                                        <div className="rightside_user_information">
+                                                            <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                                            <p>@{USER_DOC.username}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="button-right-side">
+                                                        <button onClick={open_options_post}><i className="fa-solid fa-ellipsis"></i></button>
+                                                    </div>
+
+                                                </div>
+                                            </a>
+                                        </> : <></>}
+
+
+                                        <div className="bottom-desc">
+                                            {USER_DOC && USER_DOC.displayName ? <p>{publicacao.legenda}</p> : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="dump-post-topimage">
+                                    <img src={publicacao.filePost} />
+                                </div>
+                                <label className="time-display-dump">{datefilepost}</label>
+                                <div className="dump-post-middle-bottom-img">
+
+                                    {UserAtual ?
+                                        <div className="btns-inner">
+                                            {isLiked ?
+                                                <>
+                                                    <button></button>
+                                                    <div className='dump-like-action-button'>
+                                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                                        <p>{NumberOfLikes}</p>
+                                                    </div>
+
+                                                </>
+                                                :
+                                                <>
+                                                    <div className='dump-like-action-button'>
+                                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                                        <p>{NumberOfLikes}</p>
+                                                    </div>
+
+                                                </>
+                                            }
+                                            <div className='likes-card-box'>
+                                            </div>
+                                            {isSaved ?
+                                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                                :
+                                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                        </div>
+                                        :
+                                        <div className="btns-inner">
+                                            <div className='dump-like-action-button'>
+                                                <button alt="Curtir" onClick={errorsemuser}><i className="fa-regular fa-heart"></i> </button>
+                                                <p>{NumberOfLikes}</p>
+                                            </div>
+                                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                                        </div>
+                                        }
+
+                                    <section className="comments-section">
+                                        <h2>Comentários</h2>
+                                        <div className="top-dump-user-current">
+                                            {UserAtual ?
+                                                <div className="left-side-dump-current">
+                                                    <img src={UserAtual.photoURL} />
+                                                    <input id="comment-input" placeholder="Escreva seu comentário"></input></div>
+                                                : ''}
+                                            <div className="right-side-dump-current">
+
+                                                <button onClick={publish_comment}>COMENTAR</button>
+                                            </div>
+                                        </div>
+                                        <div className="comments-of-dump">
+
+                                        </div>
+                                    </section>
+                                </div>
+                                <div className="button-remove">
+                                    {auth.currentUser ?
+                                        publicacao.email == auth.currentUser.email ?
+                                            <button onClick={deletepublic}>EXCLUIR</button>
+                                            :
+                                            ''
+                                        :
+                                        ''}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="dump-post-show-mobile">
+                    <div onClick={closepopups} className="dump-post-options-background"></div>
                     <div className="dump-post-show">
                         <div className="dump-post-header-show">
                             <a href='javascript:history.back()'><i className="fa-solid fa-chevron-left"></i></a>
@@ -553,153 +727,60 @@ export default function PostDetails() {
                                     <p>{publicacao.legenda}</p>
                                 </div>
                                 <div className="btns-inner">
-                                    {isLiked ?
+                                    {auth.currentUser ?
                                         <>
-                                            <button></button>
-                                            <div className='dump-like-action-button'>
-                                                <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
-                                                <p>{NumberOfLikes}</p>
-                                            </div>
+                                            {isLiked ?
+                                                <>
+                                                    <button></button>
+                                                    <div className='dump-like-action-button'>
+                                                        <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
 
+                                                    </div>
+
+                                                </>
+                                                :
+                                                <>
+                                                    <div className='dump-like-action-button'>
+                                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
+
+                                                    </div>
+
+                                                </>
+                                            }
+                                            <div className='likes-card-box'>
+                                            </div>
+                                            {isSaved ?
+                                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                                :
+                                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
                                         </>
                                         :
                                         <>
                                             <div className='dump-like-action-button'>
-                                                <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                                <button alt="Curtir" onClick={errorsemuser}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
                                                 <p>{NumberOfLikes}</p>
                                             </div>
-
+                                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
                                         </>
                                     }
-                                    <div className='likes-card-box'>
-                                    </div>
-                                    {isSaved ?
-                                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                                        :
-                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
-                                </div>
-                                <section className="comments-section">
-                                    <h2>Comentários</h2>
-                                    <div className="top-dump-user-current">
-                                        {UserAtual ? <img src={UserAtual.photoURL} /> : ''}
-                                        <div className="right-side-dump-current">
-                                            <input id="comment-input" placeholder="Escreva seu comentário"></input>
-                                            <button onClick={publish_comment}>COMENTAR</button>
-                                        </div>
-                                    </div>
-                                    <div className="comments-of-dump">
 
-                                    </div>
-                                </section>
-                            </div>
-                            <div className="button-remove">
-                                {auth.currentUser ?
-                                    publicacao.email == auth.currentUser.email ?
-                                        <button onClick={deletepublic}>EXCLUIR</button>
+                                </div>
+                                <div className="button-remove">
+                                    {auth.currentUser ?
+                                        publicacao.email == auth.currentUser.email ?
+                                            <button onClick={deletepublic}>EXCLUIR</button>
+                                            :
+                                            ''
                                         :
-                                        ''
-                                    :
-                                    ''}
+                                        ''}
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </div>
-            <div className="dump-post-show-mobile">
-                <div onClick={closepopups} className="dump-post-options-background"></div>
-                <div className="dump-post-show">
-                    <div className="dump-post-header-show">
-                        <a href='javascript:history.back()'><i className="fa-solid fa-chevron-left"></i></a>
-                        <img src='../static/media/dumplogo.f3r818ht813gh78t13t.webp' />
-                        <label onClick={open_options_post}><i className="fa-solid fa-ellipsis"></i></label>
-                    </div>
-                    <div className="dump-post-options">
-                        <div className="select-post-options">
-                            <a onClick={compartilhar}>Compartilhar</a>
-                        </div>
-                        <div className="select-post-options">
-                            <a id="copylink" onClick={copiarlink}>Copiar link</a>
-                        </div>
-                        <div className="select-post-options">
-                            <a onClick={closepopups} id="cancel">Fechar</a>
-                        </div>
-                    </div>
-                    <div className="compartilhar-options">
-                        <div className="dump-post-options-compartilhar">
-                            <h4>Compartilhar:</h4>
-                            <div className="select-post-options">
-                                <button id="whatsapp-btn" onClick={compartilhar_whatsapp}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
-                            </div>
-                            <div className="select-post-options">
-                                <a onClick={closepopups} id="cancel">Cancelar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="dump-post-img-inner">
-                        <div className="dump-post-topimage">
-                            <img src={publicacao.filePost} />
-                        </div>
-                        <div className="dump-post-middle-bottom-img">
-                            <div className="flex-dump-info-image">
-                                <div className="info-user-dump-post">
-                                    {USER_DOC && USER_DOC.displayName ? <>
-                                        <div className="dump-top-info-user">
-                                            <a href={window.location.origin + '/user/' + USER_DOC.$id}>
-                                                <img src={USER_DOC.photoURL} />
-                                                <div className="rightside_user_information">
-                                                    <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
-                                                    <p>@{USER_DOC.username}</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </> : <></>}
-                                    <label className="time-display-dump">{datefilepost}</label>
-                                </div>
-                            </div>
-                            <div className="bottom-desc">
-                                <p>{publicacao.legenda}</p>
-                            </div>
-                            <div className="btns-inner">
-                                {isLiked ?
-                                    <>
-                                        <button></button>
-                                        <div className='dump-like-action-button'>
-                                            <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
-
-                                        </div>
-
-                                    </>
-                                    :
-                                    <>
-                                        <div className='dump-like-action-button'>
-                                            <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
-
-                                        </div>
-
-                                    </>
-                                }
-                                <div className='likes-card-box'>
-                                </div>
-                                {isSaved ?
-                                    <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                                    :
-                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
-                            </div>
-                            <div className="button-remove">
-                                {auth.currentUser ?
-                                    publicacao.email == auth.currentUser.email ?
-                                        <button onClick={deletepublic}>EXCLUIR</button>
-                                        :
-                                        ''
-                                    :
-                                    ''}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+                <Suggestions />
+            </>
         </>
     );
 }
