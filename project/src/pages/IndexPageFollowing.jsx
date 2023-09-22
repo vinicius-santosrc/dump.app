@@ -15,44 +15,81 @@ import Dailys from "../components/pages/feed/Dailys";
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 
-export default function Feed() {
+let currentUserID
+if (auth.currentUser) {
+    currentUserID = auth.currentUser.uid; // Replace with the current user's ID
+}
 
-
-    const [postsRealtime, setPosts] = useState([])
-    const getPosts = async () => {
-        try {
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                '64f93c1c40d294e4f379',
-                [
-                    Query.limit(150),
-                    Query.orderDesc("$createdAt"),
-
-                ],
-            )
-
-                .then((res) => {
-
-                    setPosts(res.documents)
-
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
-        } catch (error) {
-            console.log('error: ', error)
-        }
-    }
-    useEffect(() => {
-        HideLoading();
-    })
-    let PostsFollowing = postsRealtime
-
+export default function IndexPageFollowing() {
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
 
     useEffect(() => {
+        HideLoading();
+    })
+
+    const [postsRealtime, setPosts] = useState([]);
+    const [userPostUID, setuserPostUID ] = useState(null)
+
+    const getPosts = async () => {
+
+        try {
+            if (auth.currentUser) {
+                const currentUserID = auth.currentUser.uid;
+
+                // Obtenha a lista de usuários que o usuário atual está seguindo
+                const following = await databases.getDocument(
+                    "64f9329a26b6d59ade09",
+                    "64f93be88eee8bb83ec3",
+                    currentUserID,
+                );
+                const followingUsers = following.following || [];
+
+                const response = await databases.listDocuments(
+                    '64f9329a26b6d59ade09',
+                    "64f93c1c40d294e4f379",
+                    [
+                        Query.orderDesc("$createdAt"),
+                        Query.limit(150)
+                    ]
+                );
+
+                const posts = response.documents;
+
+                
+                const filteredPosts = await Promise.all(posts.map(async (post) => {
+                    const users = await databases.listDocuments(
+                        "64f9329a26b6d59ade09",
+                        "64f93be88eee8bb83ec3"
+                    );
+                    const userPostUID = users.documents.find((user) => user.email === post.email)?.uid;
+                
+                    return followingUsers.includes(userPostUID) ? post : null;
+                }));
+                
+                // Filtrar posts nulos (posts que não estão sendo seguidos pelo usuário)
+                const filteredAndCleanedPosts = filteredPosts.filter((post) => post !== null);
+                
+                setPosts(filteredAndCleanedPosts);
+            }
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    };
+
+    let PostsFollowing = postsRealtime
+
+    useEffect(() => {
         getPosts()
+        setTimeout(() => {
+            getPosts()
+        }, 3000);
+        setTimeout(() => {
+            getPosts()
+        }, 5000);
+        setTimeout(() => {
+            getPosts()
+        }, 7000);
     }, [])
 
     const user = async () => {
@@ -85,7 +122,7 @@ export default function Feed() {
 
                 />
                 {
-                    postsRealtime.map((p) => {
+                    PostsFollowing.map((p) => {
                         return (
                             <Posts
                                 id={p.$id}

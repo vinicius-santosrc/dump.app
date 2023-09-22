@@ -205,7 +205,7 @@ export default function Posts(props) {
                                 })
                             })
                     )
-                    
+
                 } catch (error) {
                     console.error('Erro ao buscar o valor de toUid_Send:', error);
                 }
@@ -239,198 +239,201 @@ export default function Posts(props) {
                 });
 
         } catch (error) {
-        console.error('Erro ao seguir o usuário:', error);
+            console.error('Erro ao seguir o usuário:', error);
+        }
     }
-}
 
-async function unlikethisphoto() {
-    try {
-        const userDocument = await databases.getDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId);
+    async function unlikethisphoto() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
 
-        const likes = userDocument.likes || [];
+            const likes = userDocument.likes || [];
 
-        if (!likes.includes(targetUserId)) {
+            if (!likes.includes(targetUserId)) {
+
+                checkDumpLikes()
+                return;
+            }
+
+            const likesUpdated = likes.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                likes: likesUpdated,
+            });
 
             checkDumpLikes()
-            return;
+
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
         }
-
-        const likesUpdated = likes.filter((id) => id !== targetUserId);
-
-        await databases.updateDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId, {
-            likes: likesUpdated,
-        });
-
-        checkDumpLikes()
-
-
-    } catch (error) {
-        console.error('Erro ao parar de seguir o usuário:', error);
     }
-}
 
-/** SALVAR DUMP ATUAL */
+    /** SALVAR DUMP ATUAL */
 
-async function savedump() {
-    try {
-        const userDocument = await databases.getDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId);
+    async function savedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
 
-        const saves = userDocument.saves || [];
+            const saves = userDocument.saves || [];
 
-        if (saves.includes(targetUserId)) {
+            if (saves.includes(targetUserId)) {
+
+                checkDumpSaves()
+                return;
+            }
+
+            saves.push(targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: saves,
+            });
+
+
 
             checkDumpSaves()
-            return;
+
+        } catch (error) {
+            console.error('Erro ao seguir o usuário:', error);
         }
-
-        saves.push(targetUserId);
-
-        await databases.updateDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId, {
-            saves: saves,
-        });
-
-
-
-        checkDumpSaves()
-
-    } catch (error) {
-        console.error('Erro ao seguir o usuário:', error);
     }
-}
-async function unsavedump() {
-    try {
-        const userDocument = await databases.getDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId);
+    async function unsavedump() {
+        try {
+            const userDocument = await databases.getDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId);
 
-        const saves = userDocument.saves || [];
+            const saves = userDocument.saves || [];
 
-        if (!saves.includes(targetUserId)) {
+            if (!saves.includes(targetUserId)) {
+
+                checkDumpSaves()
+                return;
+            }
+
+            const savesUpdated = saves.filter((id) => id !== targetUserId);
+
+            await databases.updateDocument(
+                DB_UID,
+                COL_UID,
+                publicacaoId, {
+                saves: savesUpdated,
+            });
+
 
             checkDumpSaves()
-            return;
+
+        } catch (error) {
+            console.error('Erro ao parar de seguir o usuário:', error);
         }
-
-        const savesUpdated = saves.filter((id) => id !== targetUserId);
-
-        await databases.updateDocument(
-            DB_UID,
-            COL_UID,
-            publicacaoId, {
-            saves: savesUpdated,
-        });
-
-
-        checkDumpSaves()
-
-    } catch (error) {
-        console.error('Erro ao parar de seguir o usuário:', error);
     }
-}
 
-const userId = 'auth.currentUser.uid'
-const textoComentario = document.querySelector("#comments-dump-photo")
+    const userId = 'auth.currentUser.uid'
+    const textoComentario = document.querySelector("#comments-dump-photo")
 
-function gotoPost() {
-    window.location.href = `${window.location.origin}/posts/${props.id}`
-}
+    function gotoPost() {
+        window.location.href = `${window.location.origin}/posts/${props.id}`
+    }
 
-function errorsemuser() {
-    alert('Entre para curtir e salvar fotos.')
-}
+    function errorsemuser() {
+        alert('Entre para curtir e salvar fotos.')
+    }
 
-var datepost = new Date(props.datepost)
-var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
+    var datepost = new Date(props.datepost)
+    var datefilepost = `${datepost.toLocaleDateString()} as ${datepost.getHours()}:${datepost.getMinutes()}:${datepost.getSeconds()}`
 
-return (
-    <div className="dump-post">
-        <div className="dump-post-header" onClick={gotouser}>
-            <img src={props.photoURL} />
-            <div className="dump-post-header-rightside">
+    return (
+        <div className="dump-post">
+            <div className="dump-post-header" onClick={gotouser}>
+                <img src={props.photoURL} />
+                <div className="dump-post-header-rightside">
+                    <div>
+                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
+                        <p>@{props.username}</p>
+                    </div>
+
+                </div>
                 <div>
-                    <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
-                    <p>@{props.username}</p>
+                    <label className="time-display-dump">{datefilepost}</label>
+                </div>
+            </div>
+            <div className="dump-post-photo">
+                <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+            </div>
+            <div className="dump-post-bottom">
+
+                <div className="btns-dump-comments">
+
+                    {auth.currentUser ?
+                        <>
+                            {isLiked ?
+                                <>
+                                    <button></button>
+                                    <div className='dump-like-action-button'>
+                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                        <p>{NumberOfLikes}</p>
+                                    </div>
+
+                                </>
+                                :
+                                <>
+                                    <div className='dump-like-action-button'>
+                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
+                                        <p>{NumberOfLikes}</p>
+                                    </div>
+
+                                </>
+                            }
+                            <div className='likes-card-box'>
+                            </div>
+                            {isSaved ?
+                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                :
+                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                        </>
+                        :
+                        <>
+                            <div className='dump-like-action-button'>
+                                <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
+                                <p>{NumberOfLikes}</p>
+                            </div>
+                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                        </>}
+
+
+
+
                 </div>
 
             </div>
-        </div>
-        <div className="dump-post-photo">
-            <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
-        </div>
-        <div className="dump-post-bottom">
-            <label className="time-display-dump">{datefilepost}</label>
-            <div className="btns-dump-comments">
-
-                {auth.currentUser ?
-                    <>
-                        {isLiked ?
-                            <>
-                                <button></button>
-                                <div className='dump-like-action-button'>
-                                    <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
-                                    <p>{NumberOfLikes}</p>
-                                </div>
-
-                            </>
-                            :
-                            <>
-                                <div className='dump-like-action-button'>
-                                    <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
-                                    <p>{NumberOfLikes}</p>
-                                </div>
-
-                            </>
-                        }
-                        <div className='likes-card-box'>
-                        </div>
-                        {isSaved ?
-                            <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                            :
-                            <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
-                    </>
-                    :
-                    <>
-                        <div className='dump-like-action-button'>
-                            <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
-                            <p>{NumberOfLikes}</p>
-                        </div>
-                        <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
-                    </>}
-
-
-
-
+            <div className="dump-post-bottom-desc">
+                <p><b>@{props.username}</b>: {props.descricao}</p>
             </div>
+            <div>
+                <a className="dump-comments-post">
+                    <div>
+                        <button>VER COMENTÁRIOS</button>
+                    </div>
+                    <div className='comments-photo'>
+                        <Comments />
+                    </div>
 
-        </div>
-        <div className="dump-post-bottom-desc">
-            <p><b>@{props.username}</b>: {props.descricao}</p>
-        </div>
-        <div>
-            <a className="dump-comments-post">
-                <div>
-                    <button>VER COMENTÁRIOS</button>
-                </div>
-                <div className='comments-photo'>
-                    <Comments />
-                </div>
-
-            </a>
-        </div>
-    </div >
-)
+                </a>
+            </div>
+        </div >
+    )
 
 }

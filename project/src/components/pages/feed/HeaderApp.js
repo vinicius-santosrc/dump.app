@@ -288,23 +288,26 @@ export default function HeaderFeed() {
                     <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
-                            <div className="LeftsideRedirect" onClick={gotoHomePage}>
-                                <a className="Redirect" title='Página Inicial' id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i> Página Inicial</a>
+                            <div className="LeftsideRedirect">
+                                <a className="Redirect" href={window.location.origin} title='Página Inicial' id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i><span>Página Inicial</span></a>
                             </div>
-                            <div className="LeftsideRedirect" onClick={gotoSearch}>
-                                <a className="Redirect" title='Pesquisar' id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i> Pesquisar</a>
+                            <div className="LeftsideRedirect" >
+                                <a href={window.location.origin + '/search'} className="Redirect" title='Pesquisar' id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i><span>Pesquisar</span></a>
                             </div>
                             <div className="LeftsideRedirect" onClick={openCurtidas}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i> Notificações</a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i><span>Notificações</span></a> : ''}
                             </div>
-                            <div className="LeftsideRedirect" onClick={''}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i> Mensagens</a> : ''}
+                            <div className="LeftsideRedirect">
+                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/messages/inbox'} className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i><span>Mensagens</span></a> : ''}
                             </div>
-                            <div className="LeftsideRedirect" onClick={gotoSaves}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i> Salvos</a> : <></>}
+                            <div className="LeftsideRedirect">
+                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'} className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i><span>Dumps Salvos</span></a> : <></>}
+                            </div>
+                            <div className="LeftsideRedirect">
+                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Salvos' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><i className="fa-regular fa-user"></i><span>Perfil</span></a> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect PublicarButton" title='Criar publicação'><i className="fa-solid fa-square-plus"></i> Publicar</a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <a className="PublicarButton" title='Criar publicação'><span>Publicar</span></a> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -362,12 +365,12 @@ export default function HeaderFeed() {
                     {window.location.pathname == '/' ? <h1>Página Inicial</h1> : <></>}
                     <div className='buttons-change-view'>
                         <div className='option-view' >
-                            <a id='selectedview'>
+                            <a href={window.location.pathname == '/' ? '#' : window.location.origin + '/'} id={window.location.pathname == '/' ? 'selectedview' : ''}>
                                 Para você
                             </a>
                         </div>
                         <div className='option-view'>
-                            <a>
+                            <a href={window.location.pathname == '/following' ? '#' : window.location.origin + '/following'} id={window.location.pathname == '/following' ? 'selectedview' : ''}>
                                 Seguindo
                             </a>
                         </div>
@@ -403,7 +406,7 @@ export default function HeaderFeed() {
                             <a id='selected'>Para você</a>
                         </div>
                         <div className='option-feed-show'>
-                            <a>Seguindo</a>
+                            <a href={window.location.origin + "/following"}>Seguindo</a>
                         </div>
 
                     </div> : ''}
@@ -421,9 +424,21 @@ export default function HeaderFeed() {
 
                     </div> : ''
                 }
+                {window.location.pathname == '/following' ?
+                     <div className='bottom-header-mobile'>
+                     <div className='option-feed-show'>
+                         <a href={window.location.origin}>Para você</a>
+                     </div>
+                     <div className='option-feed-show'>
+                         <a id='selected'>Seguindo</a>
+                     </div>
+
+                 </div> : ''
+                 }
+                
             </header>
             <nav className='nav-bar-mobile'>
-                <a onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison && ID_ACCOUNT_I ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
                 {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}

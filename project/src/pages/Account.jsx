@@ -56,7 +56,7 @@ export default function Account() {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
-                [Query.limit(100),
+                [Query.limit(150),
                 Query.orderDesc("$createdAt")])
 
                 .catch((e) => {

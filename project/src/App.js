@@ -19,6 +19,7 @@ import AccountMentions from './pages/AccountMentions';
 import EditMyProfile from './pages/EditMyProfile';
 import SearchPage from './pages/SearchPage';
 import SaveDumpsPage from './pages/SaveDumpsPage';
+import IndexPageFollowing from './pages/IndexPageFollowing';
 
 function App() {
   const [i_ison, setUserOn] = useState('')
@@ -37,6 +38,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Feed />} />
+          <Route path='/following' element={<IndexPageFollowing />} />
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
           <Route path='/posts/:idPost' element={<PostDetails />} />

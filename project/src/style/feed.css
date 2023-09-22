@@ -33,7 +33,7 @@ body {
     align-items: center;
     position: fixed;
     padding: 10px 0;
-    margin: 0 200px;
+    margin: 0 330px;
     z-index: 1;
 }
 
@@ -217,10 +217,6 @@ body {
     color: black;
 }
 
-.App-Header-Feed a:hover {
-    transform: scale(1.1);
-}
-
 .LeftSidePageHeader {
     position: fixed;
     z-index: 2;
@@ -249,10 +245,11 @@ body {
 .PublicarButton {
     background-color: blueviolet;
     color: white !important;
-    padding: 10px 50px !important;
+    padding: 10px 70px !important;
     width: 100% !important;
     border-radius: 10px;
     transition: 500ms;
+    gap: 5px;
 }
 
 .PublicarButton:hover {
@@ -260,7 +257,26 @@ body {
 }
 
 .LeftsideRedirect {
-    margin-bottom: 2vh;
+    padding: 5px 0px;
+}
+
+.LeftsideRedirect a{
+    text-decoration: none;
+}
+
+.option-view a{
+    text-decoration: none;
+}
+
+.option-view a#selectedview{
+    text-decoration: 1px underline blueviolet;
+}
+
+.Redirect {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
 }
 
 .dump-posts-saved-flex {
@@ -392,6 +408,7 @@ body {
     margin: auto;
     width: 650px;
     margin-bottom: 30px;
+    padding: 10px;
 }
 
 .dump-post-header {
@@ -411,7 +428,7 @@ body {
 }
 
 .dump-post-header img {
-    width: 3rem;
+    width: 2.5rem;
     border-radius: 100%;
 }
 
@@ -424,19 +441,23 @@ body {
 }
 
 .dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe {
-    width: 600px;
-    height: 500px;
+    width: 100%;
+
+    height: 100%;
     object-fit: contain;
     margin-top: 10px;
     border-radius: 0px;
     cursor: pointer;
     z-index: -1;
-
+    border-radius: 20px;
 }
 
 .dump-feed-posts {
     padding: 150px 0;
-
+    width: 650px;
+    margin: auto;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
 }
 
 .dump-post-bottom {
@@ -557,19 +578,21 @@ body {
 
 .card-suggestios-block {
     position: fixed;
-    margin: 145px 200px;
+    margin: 90px 200px;
     top: 0;
     right: 0;
 }
 
 .Card-Suggestions {
-    background-color: #eaeaea;
+    background-color: transparent;
     padding: 0px;
     border-radius: 15px;
     width: 360px;
     margin-bottom: 1vh;
     font-size: 0.7rem;
 }
+
+
 
 .bottom-suggest-users {
     padding: 15px;
@@ -1931,6 +1954,8 @@ body {
         transform: scale(1.07);
     }
 
+    
+
 
     .rightsideheader {
         display: flex;
@@ -1988,8 +2013,7 @@ body {
 
     .dump-post-photo img, .dump-post-photo iframe {
         width: 100%;
-        height: 488px;
-
+        height: 100%;
         margin-top: 10px;
         border-radius: 10px;
         cursor: pointer;
@@ -2004,7 +2028,11 @@ body {
     }
 
     .dump-feed-posts {
-        padding: 120px 0;
+        padding: 130px 0;
+        width: 100%;
+        margin: auto;
+        border-left: transparent;
+        border-right: transparent;
     }
 
     .dump-post-bottom {
