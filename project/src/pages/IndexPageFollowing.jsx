@@ -122,7 +122,7 @@ export default function IndexPageFollowing() {
 
             <div className="dump-feed-posts">
 
-                {auth.currentUser || postsRealtime == '[]' ?
+                {auth.currentUser  && PostsFollowing.length >= 1 ?
                     <>
                         <PostingPhoto
 
