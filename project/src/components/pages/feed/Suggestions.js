@@ -34,7 +34,7 @@ export default function Suggestions() {
     
     let FirstUsers = Users.slice(0, 5)
 
-    const version = '0.5.2'
+    const version = '0.5.3'
 
     return(
         <div className='card-suggestios-block'>

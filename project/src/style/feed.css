@@ -1642,6 +1642,7 @@ body {
     justify-content: left;
     gap: 20px;
     align-items: center;
+    padding: 5px 0px;
 }
 
 .dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {

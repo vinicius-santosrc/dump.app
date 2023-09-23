@@ -675,11 +675,7 @@ export default function PostDetails() {
                 <div className="dump-post-show-mobile">
                     <div onClick={closepopups} className="dump-post-options-background"></div>
                     <div className="dump-post-show">
-                        <div className="dump-post-header-show">
-                            <a href='javascript:history.back()'><i className="fa-solid fa-chevron-left"></i></a>
-                            <img src='../static/media/dumplogo.f3r818ht813gh78t13t.webp' />
-                            <label onClick={open_options_post}><i className="fa-solid fa-ellipsis"></i></label>
-                        </div>
+                        <HeaderFeed />
                         <div className="dump-post-options">
                             <div className="select-post-options">
                                 <a onClick={compartilhar}>Compartilhar</a>

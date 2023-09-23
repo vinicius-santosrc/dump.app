@@ -447,7 +447,7 @@ export default function HeaderFeed(props) {
                 </div>
             </header>
             <header className='dump-mobile-header'>
-                {(window.location.href).includes("user") || (window.location.href).includes("saves") ? <></> :
+                {(window.location.href).includes("user") || (window.location.href).includes("saves") || (window.location.href).includes("posts") ? <></> :
                     <div className='top-header-mobile'>
                         <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
                         <div className="top-header-mobile-icons-rightside rightsideheadermobile">
@@ -518,6 +518,20 @@ export default function HeaderFeed(props) {
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Dumps Salvos</h1>
                                     <p>{props.savesuername}</p>
+                                </div>
+                            </div>
+                        </>)
+                    :
+
+                    <></>}
+                {(window.location.href).includes("posts") ?
+                    (
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>Post</h1>
+
                                 </div>
                             </div>
                         </>)
