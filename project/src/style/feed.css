@@ -113,10 +113,25 @@ body {
 
 }
 
-.dump-header-flexible h1 {
+.dump-header-flexible-messagens {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.649);
+    width: 70%;
+    justify-content: center;
+    margin: 0 580px;
+    padding: 10px;
+    z-index: 2;
+}
+
+.dump-header-flexible h1, .dump-header-flexible-messagens h1 {
     font-size: 1.4rem;
     font-weight: 600;
 }
+
 
 .buttons-change-view {
     display: flex;
@@ -291,7 +306,7 @@ body {
     gap: 10px;
     width: auto;
     text-align: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .dump-posts-saved-flex {
@@ -1197,6 +1212,57 @@ body {
     display: none;
 }
 
+.inbox-dump-page {
+    padding: 100px 0px;
+    width: 100%;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    margin: 0 580px;
+    display: flex;
+    justify-content: left;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.inbox-content-contacts {
+    padding: 20px;
+    width: 470px;
+
+}
+
+
+
+.inbox-content-contacts button {
+    background-color: blueviolet;
+    padding: 10px 15px;
+    color: white;
+    margin: auto;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    transition: 500ms;
+
+}
+
+.inbox-content-contacts button:hover {
+    background-color: rgb(148, 70, 222);
+}
+
+
+
+.inbox-content-chat {
+    width: 670px;
+    padding: 100px 0px;
+    height: 100vh;
+    overflow-y: auto;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1
+}
+
+
+
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
 
@@ -1285,7 +1351,7 @@ body {
     .dump-header-flexible {
         width: 58%;
         margin: 0 90px;
-        border-bottom: 1px solid #e7e7e7 ;
+        border-bottom: 1px solid #e7e7e7;
     }
 
 
@@ -1386,6 +1452,8 @@ body {
         padding: 0px 15px;
     }
 
+
+
     .leftside-account {
         display: block;
     }
@@ -1416,6 +1484,49 @@ body {
         object-fit: cover;
         transition: 500ms;
     }
+
+    .Redirect {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: auto;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .dump-header-flexible-messagens {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        backdrop-filter: blur(30px);
+        background: rgba(255, 255, 255, 0.649);
+        width: 100%;
+        justify-content: center;
+        margin: 0 90px;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    .dump-header-flexible h1, .dump-header-flexible-messagens h1 {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    .inbox-dump-page {
+        padding: 100px 0px;
+        width: 100%;
+        border-left: 1px solid #e1e1e1;
+        border-right: 1px solid #e1e1e1;
+        margin: 0 90px;
+        display: flex;
+        justify-content: left;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+
+
 }
 
 .loading-wrap {
@@ -1678,6 +1789,15 @@ body {
     gap: 20px;
     align-items: center;
     padding: 5px 0px;
+}
+
+.header-posts-msg {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    align-items: center;
+    padding: 2px 0px;
+
 }
 
 .dump-post-options .select-post-options, .dump-post-options-compartilhar .select-post-options {
@@ -3526,5 +3646,54 @@ body {
     .header-posts i {
         font-size: 1.1rem;
         color: black;
+    }
+
+    .inbox-dump-page {
+        padding: 100px 0px;
+        width: 100%;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        margin: 0 0px;
+        display: block;
+        justify-content: left;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .inbox-content-contacts {
+        padding: 20px;
+        width: 100%;
+    
+    }
+    
+    
+    
+    .inbox-content-contacts button {
+        background-color: blueviolet;
+        padding: 10px 15px;
+        color: white;
+        margin: auto;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 10px;
+        border: none;
+        margin-top: 10px;
+        transition: 500ms;
+    
+    }
+    
+    .inbox-content-contacts button:hover {
+        background-color: rgb(148, 70, 222);
+    }
+    
+    
+    
+    .inbox-content-chat {
+        width: 100%;
+        padding: 100px 0px;
+        height: 100vh;
+        overflow-y: auto;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent
     }
 }

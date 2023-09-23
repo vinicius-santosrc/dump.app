@@ -298,7 +298,7 @@ export default function HeaderFeed(props) {
                                 {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i><span>Notificações</span></a> : ''}
                             </div>
                             <div className="LeftsideRedirect">
-                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/messages/inbox'} className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i><span>Mensagens</span></a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/messages/inbox'} id={window.location.pathname == '/messages/inbox' ? 'selected' : ''} className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i><span>Mensagens</span></a> : ''}
                             </div>
                             <div className="LeftsideRedirect">
                                 {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'} className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i><span>Dumps Salvos</span></a> : <></>}
@@ -364,6 +364,15 @@ export default function HeaderFeed(props) {
                         </div>
                     </div>
                 </div>
+                {(window.location.href).includes("inbox") ?
+                    <div className='dump-header-flexible-messagens'>
+                        <div className='header-posts-msg'>
+                            <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                            <h1>Mensagens</h1>
+                        </div>
+
+                    </div>
+                    : <></>}
                 <div className='dump-header-flexible'>
                     {window.location.pathname == '/' || window.location.pathname == '/following' ?
                         <>
@@ -415,6 +424,7 @@ export default function HeaderFeed(props) {
 
                         </>
                         : <></>}
+
                     {(window.location.href).includes("user") ?
                         <>
                             <div className='header-posts'>
