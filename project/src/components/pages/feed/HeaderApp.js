@@ -309,6 +309,9 @@ export default function HeaderFeed(props) {
                             <div className="LeftsideRedirect" onClick={createnewpost}>
                                 {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <a className="PublicarButton" title='Criar publicação'><span>Publicar</span></a> : <></>}
                             </div>
+                            <div className="LeftsideRedirect" onClick={createnewpost}>
+                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <a className="PublicarButtoniPad" title='Criar publicação'><span><i className="fa-solid fa-feather"></i></span></a> : <></>}
+                            </div>
 
                             <div className="account-div">
                                 {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid ?
