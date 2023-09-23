@@ -106,7 +106,7 @@ body {
     right: 0;
     backdrop-filter: blur(30px);
     background: rgba(255, 255, 255, 0.649);
-    width: 650px;
+    width: 750px;
     justify-content: center;
     margin: 0 auto;
     padding: 10px;
@@ -222,7 +222,7 @@ body {
     z-index: 2;
     top: 90px;
     font-size: 1.6rem;
-    width: 300px;
+    width: 250px;
 }
 
 .LeftSidePageHeader a {
@@ -287,7 +287,11 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    width: 100%;
+    width: 750px;
+    margin: auto;
+    padding: 100px 0px;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
 }
 
 .dump-posts-saved a {
@@ -296,8 +300,8 @@ body {
 }
 
 .dump-posts-saved img {
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 200px;
     object-fit: cover;
     transition: 500ms;
 }
@@ -309,14 +313,14 @@ body {
 .dump-posts-saved-empty {
     text-align: center;
     justify-content: center;
-    background-color: #dedede;
+    background-color: transparent;
     padding: 10px 250px;
-    border-radius: 10px;
+    border-radius: 0px;
 }
 
 .dump-posts-saved-empty img {
-    width: 250px;
-    height: 250px;
+    width: 230px;
+    height: 230px;
     object-fit: contain;
     margin: auto;
     text-align: center;
@@ -325,13 +329,13 @@ body {
 .dump-posts-saved-empty h2 {
     text-align: left;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .dump-posts-saved-empty p {
     text-align: left;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: rgb(103, 103, 103);
 }
 
@@ -359,7 +363,7 @@ body {
 
 .account-div {
     position: fixed;
-    bottom: 50px;
+    bottom: 30px;
     padding: 00px 10px;
     width: 270px;
     cursor: pointer;
@@ -372,12 +376,12 @@ body {
 
 .account-div h3 {
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .account-div p {
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
 }
 
 .account-div:hover {
@@ -393,7 +397,7 @@ body {
 }
 
 .account-div-flexbox img {
-    width: 4rem;
+    width: 3rem;
     border-radius: 100%;
 }
 
@@ -410,12 +414,12 @@ body {
 
 .dump-dont-account-following h1 {
     text-align: left;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .dump-dont-account-following p {
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.8rem;
 
 }
 
@@ -429,6 +433,7 @@ body {
     cursor: pointer;
     transition: 500ms;
 }
+
 .dump-dont-account-following button:hover {
     background-color: white;
     border: 1px solid black;
@@ -1036,8 +1041,9 @@ body {
 }
 
 .dump-account-page {
-    width: 1000px;
-    margin: auto;
+    width: 650px;
+    margin: 0 auto;
+    padding: 150px 0;
 
 }
 
@@ -1068,9 +1074,14 @@ body {
 }
 
 .leftside-account {
-    display: flex;
+    display: block;
     align-items: center;
     gap: 10px;
+
+}
+
+.middle-bottom-account-top {
+    color: #818181;
 }
 
 .rightside-account {
@@ -1111,6 +1122,8 @@ body {
 .rightside-account .btns-links {
     display: flex;
     gap: 10px;
+    text-align: center;
+    justify-content: center;
 }
 
 .leftside-account h1 {
@@ -1212,7 +1225,7 @@ body {
         padding: 0px 0px;
     }
 
-    .account-div h3{
+    .account-div h3 {
         font-size: 0.8rem;
     }
 
@@ -1220,19 +1233,42 @@ body {
         font-size: 0.7rem;
     }
 
-    .dump-feed-posts {
-        width: 670px;
-        margin: 0 90px;
-    }
 
     .LeftSidePageHeader {
         width: 40px;
     }
 
-    .Redirect span{
+    .Redirect span {
         display: none;
     }
 
+    .dump-account-page {
+        width: 58%;
+        margin: 0 90px;
+
+        border: 1px solid rgb(231, 231, 231);
+    }
+
+    .dump-header-flexible {
+        width: 49%;
+        margin: 0 90px;
+    }
+
+
+
+    .btns-links {
+        text-align: center;
+        justify-content: center;
+    }
+
+
+    .dump-feed-posts {
+        padding: 150px 0;
+        width: 58%;
+        margin: 0 90px;
+        border-left: 1px solid #ebebeb;
+        border-right: 1px solid #ebebeb;
+    }
 
 
 
@@ -1261,7 +1297,7 @@ body {
         font-size: 0.8rem;
     }
 
-    .Card-Suggestions h1{
+    .Card-Suggestions h1 {
         font-size: 1rem;
     }
 
@@ -1269,10 +1305,7 @@ body {
         width: 280px;
     }
 
-    .dump-header-flexible {
-        width: 670px;
-        margin: 0 90px;
-    }
+
 
     .card-user-sg-rightside h1 {
         font-size: 0.8rem;
@@ -1302,6 +1335,51 @@ body {
         border-bottom: 1px solid #bab9b9;
         padding: 10px;
         text-align: center;
+    }
+
+    .dump-account-infos {
+        padding: 0px 10px;
+    }
+
+    .accountheader p {
+        color: gray;
+        font-size: 0.9rem;
+    }
+
+    .header-posts i {
+        font-size: 1.3rem;
+        padding: 0px 15px;
+    }
+
+    .leftside-account {
+        display: block;
+    }
+
+    .dump-search-page {
+        width: 58% !important;
+        margin: 0 90px !important;
+        padding: 150px 10px !important;
+        border-left: 1px solid #ebebeb;
+        border-right: 1px solid #ebebeb;
+    }
+
+    .dump-posts-saved-flex {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 58%;
+        margin: 0 90px;
+        padding: 100px 0px;
+        border-left: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+    }
+
+    .dump-posts-saved img {
+        width: 230px;
+        height: 130px;
+        object-fit: cover;
+        transition: 500ms;
     }
 }
 
@@ -1530,6 +1608,7 @@ body {
     width: 650px;
     margin: auto
 }
+
 .dump-top-info-user a {
     color: black;
     text-decoration: none;
@@ -1546,7 +1625,7 @@ body {
     background-color: rgba(0, 0, 0, 0.266);
 }
 
-.button-right-side button{
+.button-right-side button {
     background-color: transparent;
     color: black;
     border: none;
@@ -1713,7 +1792,9 @@ body {
 .dump-search-page {
     width: 750px;
     margin: auto;
-    padding: 150px 0;
+    padding: 150px 20px;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
 
 }
 
@@ -2062,7 +2143,7 @@ body {
         position: relative;
     }
 
-    
+
 
     .App-Header-Feed {
         display: flex;
@@ -2794,6 +2875,7 @@ body {
     .dump-account-page {
         width: 100%;
         margin: auto;
+        padding: 70px 0px;
 
     }
 
@@ -2824,7 +2906,7 @@ body {
     }
 
     .leftside-account {
-        display: flex;
+        display: block;
         align-items: center;
         gap: 10px;
     }
@@ -3274,6 +3356,7 @@ body {
         flex-wrap: wrap;
         gap: 10px;
         width: 100%;
+        border: none;
     }
 
     .dump-posts-saved a {
@@ -3388,5 +3471,18 @@ body {
 
     .dump-header-flexible {
         display: none;
+    }
+
+    .header-posts h1 {
+        font-size: 1rem;
+    }
+
+    .header-posts p {
+        font-size: 0.8rem;
+    }
+
+    .header-posts i {
+        font-size: 1.1rem;
+        color: black;
     }
 }

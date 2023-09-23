@@ -8,6 +8,8 @@ import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
 import { Ring } from '@uiball/loaders'
 import Swal from 'sweetalert2'
+import HeaderFeed from "../components/pages/feed/HeaderApp";
+import Suggestions from "../components/pages/feed/Suggestions";
 
 
 export default function Account() {
@@ -20,8 +22,25 @@ export default function Account() {
     const userUID = auth.currentUser
     const [isFollowing, setIsFollow] = useState(null)
     const [listofFollowers, setListOfFollowers] = useState("")
+    const [diadecriacao, setdiadecriacao] = useState(null)
+
+    const MesesDoAno = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ]
 
 
+    let Data
     useEffect(() => {
         HideLoading()
         databases.getDocument(
@@ -31,6 +50,11 @@ export default function Account() {
         )
             .then((response) => {
                 SetAccount(response)
+                Data = new Date(response.$createdAt)
+                let Mes = Data.getMonth()
+                let Dia = Data.getDate()
+                let year = Data.getFullYear()
+                setdiadecriacao(`${Dia} de ${MesesDoAno[Mes]} de ${year}`)
             })
             .catch((e) => {
                 console.log(e)
@@ -336,8 +360,8 @@ export default function Account() {
             //REMOVER SEGUINDO DO USUARIO ATUAL
 
             const userDocumentATUAL = await databases.getDocument('64f9329a26b6d59ade09',
-             '64f93be88eee8bb83ec3',
-              targetUserId);
+                '64f93be88eee8bb83ec3',
+                targetUserId);
 
             const following = userDocumentATUAL.following || [];
 
@@ -394,9 +418,14 @@ export default function Account() {
 
 
 
+
     return (
         <>
-            <HeaderAccount />
+            <HeaderFeed
+                username={ID_ACCOUNT_I.displayName}
+                dumps={nofposts}
+            />
+            <Suggestions />
             <div className="photosizePLUS">
                 <img alt={`Foto de perfil de @${ID_ACCOUNT_I.username}`} src={ID_ACCOUNT_I.photoURL} />
             </div>
@@ -431,9 +460,15 @@ export default function Account() {
                                             :
                                             <>
                                                 {isFollowing ?
-                                                    <button title='Seguindo' onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+                                                    <>
+                                                        <button title='Seguindo' onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+                                                        <button><i className="fa-solid fa-inbox"></i></button>
+                                                    </>
                                                     :
-                                                    <button title='Seguir' onClick={followUser}>Seguir</button>
+                                                    <>
+                                                        <button title='Seguir' onClick={followUser}>Seguir</button>
+                                                        <button><i className="fa-solid fa-inbox"></i></button>
+                                                    </>
                                                 }
 
                                             </>
@@ -446,7 +481,8 @@ export default function Account() {
                                                 color="black"
                                             />
                                         </button>
-                                        <button><i className="fa-solid fa-inbox"></i></button>
+
+
 
                                     </>
                                     :
@@ -489,6 +525,10 @@ export default function Account() {
                     <div className="middle-account-top">
                         <p>{ID_ACCOUNT_I.bio}</p>
                         <a className="link_above" href={ID_ACCOUNT_I.link_above} target="_blank">{ID_ACCOUNT_I.link_above}</a>
+                    </div>
+                    <div className="middle-bottom-account-top">
+
+                        <p><i className="fa-solid fa-calendar-days"></i> Entrou em {diadecriacao}</p>
                     </div>
                 </div>
                 <div className="dumps-of-user">

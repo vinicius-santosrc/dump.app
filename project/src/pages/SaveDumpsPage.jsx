@@ -4,13 +4,16 @@ import databases from "../lib/appwrite"
 import { auth } from "../lib/firebase"
 import { Query } from "appwrite"
 import HeaderSaves from "../components/HeaderSaves"
+import HeaderFeed from "../components/pages/feed/HeaderApp"
+import Suggestions from "../components/pages/feed/Suggestions"
 
 export default function SaveDumpsPage() {
     const [Saves, setSaves] = useState(null)
     const [USER_LOG, setUSERATUAL] = useState(null)
     const [COLLECTIONfiltered, setCOLLECTIONfiltered] = useState(null)
+    const [usersaves, setusersaves] = useState(null)
 
-    
+
 
     async function getPostsSaved() {
         const DB_UID = '64f9329a26b6d59ade09'
@@ -26,6 +29,7 @@ export default function SaveDumpsPage() {
                 if (auth.currentUser) {
                     USER_UID = auth.currentUser.uid
                 }
+
 
                 setSaves(response.documents.filter(e => e.saves.includes(USER_UID)).map((r) => {
                     return (
@@ -52,6 +56,26 @@ export default function SaveDumpsPage() {
                     )
                 }
 
+
+            })
+
+        
+
+    }
+
+    function getusersave() {
+        databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3"
+        )
+            .then((res) => {
+                let USER_UID
+                if (auth.currentUser) {
+                    USER_UID = auth.currentUser.uid
+                }
+                res.documents.filter(e => e.uid == USER_UID).map((response) => {
+                    setusersaves(response)
+                })
             })
     }
 
@@ -71,6 +95,18 @@ export default function SaveDumpsPage() {
         setInterval(() => {
             getPostsSaved()
         }, 6000);
+
+        getusersave()
+        setInterval(() => {
+            getusersave()
+        }, 2000);
+        setInterval(() => {
+            getusersave()
+        }, 4000);
+        setInterval(() => {
+            getusersave()
+        }, 6000);
+
     }, [])
 
     function changeInfoPage() {
@@ -80,7 +116,8 @@ export default function SaveDumpsPage() {
 
     return (
         <>
-            <HeaderSaves />
+            <HeaderFeed savesuername={usersaves ? "@" + usersaves.username : ''} />
+            <Suggestions />
             <div className="dump-posts-saved-flex">
                 {Saves}
             </div>

@@ -210,7 +210,7 @@ function fecharCurtidas() {
 
 }
 
-export default function HeaderFeed() {
+export default function HeaderFeed(props) {
     const [i_ison, setUserOn] = useState('')
     const SignWithGoogle = () => {
         signInWithPopup(auth, provider).then((i) => {
@@ -380,11 +380,58 @@ export default function HeaderFeed() {
                             </div>
                         </>
                         : <></>}
+                    {window.location.pathname == '/search' ?
+                        <>
+                            <h1>Pesquisar</h1>
+                            <div className='buttons-change-view'>
+                                <div className='option-view' >
+                                    <a id='selectedview'>
+                                        Tudo
+                                    </a>
+                                </div>
+                                <div className='option-view'>
+                                    <a>
+                                        Pessoas
+                                    </a>
+                                </div>
+                                <div className='option-view'>
+                                    <a>
+                                        Posts
+                                    </a>
+                                </div>
+
+                            </div>
+                        </>
+                        : <></>}
                     {(window.location.href).includes("posts") ?
                         <>
                             <div className='header-posts'>
                                 <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
                                 <h1>Post</h1>
+                            </div>
+
+                        </>
+                        : <></>}
+                    {(window.location.href).includes("user") ?
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>{props.username}</h1>
+                                    <p>{props.dumps} dumps</p>
+                                </div>
+                            </div>
+
+                        </>
+                        : <></>}
+                    {(window.location.href).includes("saves") ?
+                        <>
+                            <div className='header-posts'>
+
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>Dumps Salvos</h1>
+                                    <p>{props.savesuername}</p>
+                                </div>
                             </div>
 
                         </>
@@ -400,19 +447,20 @@ export default function HeaderFeed() {
                 </div>
             </header>
             <header className='dump-mobile-header'>
-                <div className='top-header-mobile'>
-                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
-                    <div className="top-header-mobile-icons-rightside rightsideheadermobile">
-                        <a onClick={openCurtidas}>
-                            <i className="fa-regular fa-heart"></i>
-                        </a>
-                        <a href={window.location.origin + '/messages/inbox'}>
-                            <i className="fa-regular fa-comment-dots"></i>
-                        </a>
-                        {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
-                        {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
-                    </div>
-                </div>
+                {(window.location.href).includes("user") || (window.location.href).includes("saves") ? <></> :
+                    <div className='top-header-mobile'>
+                        <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
+                        <div className="top-header-mobile-icons-rightside rightsideheadermobile">
+                            <a onClick={openCurtidas}>
+                                <i className="fa-regular fa-heart"></i>
+                            </a>
+                            <a href={window.location.origin + '/messages/inbox'}>
+                                <i className="fa-regular fa-comment-dots"></i>
+                            </a>
+                            {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
+                            {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
+                        </div>
+                    </div>}
                 {window.location.pathname == '/' ?
                     <div className='bottom-header-mobile'>
                         <div className='option-feed-show'>
@@ -448,9 +496,37 @@ export default function HeaderFeed() {
 
                     </div> : ''
                 }
+                {(window.location.href).includes("user") ?
+                    (
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>{props.username}</h1>
+                                    <p>{props.dumps} dumps</p>
+                                </div>
+                            </div>
+                        </>)
+                    :
+
+                    <></>}
+                {(window.location.href).includes("saves") ?
+                    (
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>Dumps Salvos</h1>
+                                    <p>{props.savesuername}</p>
+                                </div>
+                            </div>
+                        </>)
+                    :
+
+                    <></>}
 
 
-            </header>
+            </header >
             <nav className='nav-bar-mobile'>
                 <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>

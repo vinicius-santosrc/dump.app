@@ -6,6 +6,7 @@ import databases from "../lib/appwrite"
 import HeaderFeed from "../components/pages/feed/HeaderApp"
 
 import axios from 'axios';
+import Suggestions from "../components/pages/feed/Suggestions"
 
 export default function SearchPage() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
@@ -169,6 +170,7 @@ export default function SearchPage() {
     return (
         <>
             <HeaderFeed />
+            <Suggestions />
             <div className="dump-search-page">
                 <div className="dump-input-top">
                     <input type="text"

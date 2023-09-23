@@ -371,7 +371,9 @@ export default function Posts(props) {
                 </div>
             </div>
             <div className="dump-post-photo">
-                <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+                <a href={window.location.origin + '/posts/' + props.id} >
+                    <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+                </a>
             </div>
             <div className="dump-post-bottom">
 
