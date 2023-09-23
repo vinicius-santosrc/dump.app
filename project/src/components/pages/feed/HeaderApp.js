@@ -327,7 +327,7 @@ export default function HeaderFeed() {
                                 {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid ?
                                     <a title='Sua conta' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
                                         {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
-                                        <div>
+                                        <div className='leftside-account-dump-index'>
                                             {ID_ACCOUNT_I.displayName ?
                                                 <div className='top-show-account'>
                                                     <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
@@ -345,7 +345,7 @@ export default function HeaderFeed() {
                                     :
                                     <div className="account-off-div-flexbox" title='Fazer login'>
                                         <i className="fa-solid fa-right-to-bracket"></i>
-                                        <div onClick={gotoLoginPage}>
+                                        <div className='right-side-enter-account' onClick={gotoLoginPage}>
                                             <h3 className="currentuser-displayname">
                                                 Faça seu login
                                             </h3>

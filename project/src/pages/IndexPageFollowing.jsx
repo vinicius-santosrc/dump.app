@@ -116,6 +116,23 @@ export default function IndexPageFollowing() {
         window.location.href = window.location.origin + "/search"
     }
     //document.querySelector('.loading').style.display = 'none'   
+
+    if (auth.currentUser) {
+        if (auth.currentUser && PostsFollowing && length > 0) {
+            window.addEventListener("DOMContentLoaded", () => {
+                document.querySelector(".dump-dont-account-following").style.display = 'none'
+            }
+            )
+        }
+        else {
+            window.addEventListener("DOMContentLoaded", () => {
+                document.querySelector(".loading-posts-dump-in-bottom").style.display = 'none'
+                document.querySelector(".content-dont-account").style.display = 'block'
+            }
+            )
+        }
+    }
+
     return (
 
         <div className="App-Feed feedposts">
@@ -168,12 +185,14 @@ export default function IndexPageFollowing() {
                     :
                     <div className="dump-dont-account-following">
                         <LoadingContent />
-                        <img src="./static/media/undraw_fireworks_re_2xi7.svg"/>
-                        <h1>Seja bem vindo(a) ao Dump</h1>
-                        <p>Siga pessoas para acessar essa aba</p>
-                        <button onClick={gotosearch}>Começar</button>
+                        <div className="content-dont-account">
+                            <img src="./static/media/undraw_fireworks_re_2xi7.svg" />
+                            <h1>Seja bem vindo(a) ao Dump</h1>
+                            <p>Siga pessoas para acessar essa aba</p>
+                            <button onClick={gotosearch}>Começar</button>
+                        </div>
                     </div>
-                    }
+                }
 
 
             </div>

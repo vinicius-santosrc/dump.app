@@ -222,7 +222,7 @@ body {
     z-index: 2;
     top: 90px;
     font-size: 1.6rem;
-    width: 350px;
+    width: 300px;
 }
 
 .LeftSidePageHeader a {
@@ -258,6 +258,8 @@ body {
 
 .LeftsideRedirect {
     padding: 5px 0px;
+    text-align: center;
+    justify-content: center;
 }
 
 .LeftsideRedirect a {
@@ -276,7 +278,8 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 80%;
+    width: auto;
+    text-align: center;
 }
 
 .dump-posts-saved-flex {
@@ -1166,6 +1169,10 @@ body {
     }
 }
 
+.content-dont-account {
+    display: none;
+}
+
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
 
@@ -1174,10 +1181,59 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        padding: 40px 0;
+        padding: 20px 0;
         margin: 0 25px;
         animation: scrolldown 0.3 ease-in-out;
     }
+
+    .right-side-enter-account {
+        display: none;
+    }
+
+    .App-Header-Feed img {
+        width: 3rem;
+    }
+
+
+    .PublicarButton {
+        display: none;
+    }
+
+    .leftside-account-dump-index {
+        display: none;
+    }
+
+    .account-div-flexbox img {
+        width: 3rem;
+    }
+
+    .account-div {
+        width: auto;
+        padding: 0px 0px;
+    }
+
+    .account-div h3{
+        font-size: 0.8rem;
+    }
+
+    .account-div p {
+        font-size: 0.7rem;
+    }
+
+    .dump-feed-posts {
+        width: 670px;
+        margin: 0 90px;
+    }
+
+    .LeftSidePageHeader {
+        width: 40px;
+    }
+
+    .Redirect span{
+        display: none;
+    }
+
+
 
 
     .rightsideheader {
@@ -1188,8 +1244,14 @@ body {
     }
 
     .card-suggestios-block {
-        margin: 145px 25px;
+        margin: 145px 10px;
     }
+
+    .LeftSidePageHeader a {
+        font-size: 1.6rem;
+    }
+
+
 
     .Card-Suggestions {
         width: 250px;
@@ -1199,8 +1261,25 @@ body {
         font-size: 0.8rem;
     }
 
+    .Card-Suggestions h1{
+        font-size: 1rem;
+    }
+
     .curtidaspage-dump {
         width: 280px;
+    }
+
+    .dump-header-flexible {
+        width: 670px;
+        margin: 0 90px;
+    }
+
+    .card-user-sg-rightside h1 {
+        font-size: 0.8rem;
+    }
+
+    .card-user-sg-rightside p {
+        font-size: 0.7rem;
     }
 
     .card-user-sg button {
@@ -1208,7 +1287,7 @@ body {
     }
 
     .dump-post {
-        width: 500px;
+        width: 700px;
     }
 
     .loading-posts-dump-in-bottom {
@@ -1982,6 +2061,8 @@ body {
         margin: 0 30px;
         position: relative;
     }
+
+    
 
     .App-Header-Feed {
         display: flex;
