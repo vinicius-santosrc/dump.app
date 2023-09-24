@@ -1277,6 +1277,7 @@ body {
         border-radius: 20px;
     }
 
+
     .App-Header-Feed {
         display: flex;
         justify-content: space-between;
@@ -1523,6 +1524,11 @@ body {
         justify-content: left;
         height: 100vh;
         overflow-y: auto;
+    }
+
+    .dump-post-img-inner {
+        width: 58% !important;
+        margin: 0px 90px !important;
     }
 
 
@@ -3659,15 +3665,15 @@ body {
         height: 100vh;
         overflow-y: auto;
     }
-    
+
     .inbox-content-contacts {
         padding: 20px;
         width: 100%;
-    
+
     }
-    
-    
-    
+
+
+
     .inbox-content-contacts button {
         background-color: blueviolet;
         padding: 10px 15px;
@@ -3679,15 +3685,15 @@ body {
         border: none;
         margin-top: 10px;
         transition: 500ms;
-    
+
     }
-    
+
     .inbox-content-contacts button:hover {
         background-color: rgb(148, 70, 222);
     }
-    
-    
-    
+
+
+
     .inbox-content-chat {
         width: 100%;
         padding: 100px 0px;
