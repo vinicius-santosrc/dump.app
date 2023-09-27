@@ -246,6 +246,32 @@ export default function Account() {
         }
     }
 
+    async function sendNotification(PHOTO_REL, USERPUBLIC) {
+        try {
+            const NOTIFICATION_UID = '64fd4c66a7628f81bde8'
+            await databases.createDocument(
+                DB_UID,
+                NOTIFICATION_UID,
+                ID.unique(),
+                {
+                    TO_UID: USERPUBLIC,
+                    SENDER_UID: auth.currentUser.uid,
+                    SENDER_PIC: "https://a.com.br",
+                    SENDER_USERNAME: "",
+                    SENDER_NAME: "",
+                    ACTION: "follow",
+                    PHOTO_REL: 'asdasdasd',
+                    desc: ''
+
+                }
+            )
+            alert('NOTIFICATION ENVIADA')
+
+        }
+        catch {
+            alert('NOTIFICATION NÃO ENVIADA')
+        }
+    }
 
 
     // Função para verificar se um usuário segue outro
@@ -309,6 +335,7 @@ export default function Account() {
             });
 
             ButtonActionProfile()
+            sendNotification('', ID_ACCOUNT)
 
             Swal.fire({
                 position: 'top-end',

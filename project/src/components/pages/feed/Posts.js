@@ -156,6 +156,33 @@ export default function Posts(props) {
 
     /** CURTIR DUMP ATUAL */
 
+    async function sendNotification(PHOTO_REL, USERPUBLIC) {
+        try {
+            const NOTIFICATION_UID = '64fd4c66a7628f81bde8'
+            await databases.createDocument(
+                DB_UID,
+                NOTIFICATION_UID,
+                ID.unique(),
+                {
+                    TO_UID: USERPUBLIC,
+                    SENDER_UID: auth.currentUser.uid,
+                    SENDER_PIC: "https://a.com.br",
+                    SENDER_USERNAME: "",
+                    SENDER_NAME: "",
+                    ACTION: "like",
+                    PHOTO_REL: PHOTO_REL,
+                    desc: ''
+
+                }
+            )
+            alert('NOTIFICATION ENVIADA')
+
+        }
+        catch {
+            alert('NOTIFICATION NÃO ENVIADA')
+        }
+    }
+
     const [toUid_Send, setTOUID] = useState('')
     const [UserAtual, SetUserAtual] = useState('')
 
@@ -191,52 +218,31 @@ export default function Posts(props) {
 
             checkDumpLikes()
 
-            const fetchToUid = async () => {
-                try {
-                    await databases.listDocuments(
-                        await databases.listDocuments(
-                            DB_UID,
-                            USERS_DOC,
-                        )
-                            .then(response => {
-                                response.documents.filter(r => r.email == props.email).map((e) => {
-                                    setTOUID(e.uid)
-                                    return e.uid
-                                })
-                            })
-                    )
-
-                } catch (error) {
-                    console.error('Erro ao buscar o valor de toUid_Send:', error);
-                }
-            };
 
             const NOT_DOC = '64fd4c66a7628f81bde8'
             const USERS_DOC = '64f93be88eee8bb83ec3'
 
-            fetchToUid()
-                .then(async () => {
-                    const uuid = require('uuid');
-                    if (!toUid_Send) {
-                        console.error('O valor de toUid_Send é inválido ou vazio.');
-                    } else {
-                        // Agora, você pode criar o documento com segurança.
-                        await databases.createDocument(
-                            DB_UID,
-                            NOT_DOC,
-                            uuid.v4(),
-                            {
-                                TO_UID: toUid_Send,
-                                SENDER_UID: SENDERUID,
-                                SENDER_PIC: props.photoURL,
-                                SENDER_USERNAME: props.username,
-                                SENDER_NAME: props.displayName,
-                                PHOTO_REL: props.id,
-                                ACTION: 'like'
-                            }
-                        );
-                    }
-                });
+            try {
+
+                await databases.listDocuments(
+                    DB_UID,
+                    USERS_DOC,
+                )
+                    .then(response => {
+                        response.documents.filter(r => r.email == props.email).map((e) => {
+                            sendNotification(publicacaoId, e.$id)
+                        })
+                    })
+
+
+            } catch (error) {
+                console.error('Erro ao buscar o valor de toUid_Send:', error);
+            }
+
+
+
+
+
 
         } catch (error) {
             console.error('Erro ao seguir o usuário:', error);

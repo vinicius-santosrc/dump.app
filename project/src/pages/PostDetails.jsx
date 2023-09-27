@@ -103,6 +103,33 @@ export default function PostDetails() {
         }, 10000);
     }, [])
 
+    async function sendNotification(PHOTO_REL, type, desc) {
+        try {
+            const NOTIFICATION_UID = '64fd4c66a7628f81bde8'
+            await databases.createDocument(
+                DB_ID,
+                NOTIFICATION_UID,
+                ID.unique(),
+                {
+                    TO_UID: userPub,
+                    SENDER_UID: auth.currentUser.uid,
+                    SENDER_PIC: "https://a.com.br",
+                    SENDER_USERNAME: "",
+                    SENDER_NAME: "",
+                    ACTION: type,
+                    PHOTO_REL: PHOTO_REL,
+                    desc: desc 
+
+                }
+            )
+            alert('NOTIFICATION ENVIADA')
+
+        }
+        catch {
+            alert('NOTIFICATION NÃO ENVIADA')
+        }
+    }
+
 
     async function checkDumpLikes() {
 
@@ -531,6 +558,7 @@ export default function PostDetails() {
 
     async function publish_comment() {
         let inputComment = document.querySelector("#comment-input")
+        let inputCommentMobile = document.querySelector(".mobiletopcurrent #comment-input")
 
 
         if (inputComment.value == '') {
@@ -557,6 +585,54 @@ export default function PostDetails() {
                         'Você comentou.',
                         'success'
                     )
+                    sendNotification(idPost, 'comment' ,inputComment.value)
+                    inputComment.value = ''
+
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Algo deu errado!',
+                    })
+                })
+
+        }
+
+
+
+    }
+
+    async function publish_comment_mobile() {
+        let inputComment = document.querySelector("#comment-input")
+        let inputCommentMobile = document.querySelector(".mobiletopcurrent #comment-input")
+
+
+        if (inputCommentMobile.value == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Escreva um comentário.',
+            })
+        }
+        else {
+            await databases.createDocument(
+                DB_ID,
+                COMMENTS_UID,
+                ID.unique(),
+                {
+                    public_ref: idPost,
+                    comment: inputCommentMobile.value,
+                    DUMPID_USER: auth.currentUser.uid
+                }
+            )
+                .then(() => {
+                    Swal.fire(
+                        'Sucesso!',
+                        'Você comentou.',
+                        'success'
+                    )
+                    sendNotification(idPost, 'comment', inputCommentMobile.value)
                     inputComment.value = ''
 
                 })
@@ -568,8 +644,6 @@ export default function PostDetails() {
                     })
                 })
         }
-
-
 
     }
 
@@ -947,7 +1021,7 @@ export default function PostDetails() {
                                         :
                                         `Comentários(${comments_length})`
                                     }</h2>
-                                    <div className="top-dump-user-current">
+                                    <div className="top-dump-user-current mobiletopcurrent">
                                         {UserAtual ?
                                             <>
                                                 <div className="left-side-dump-current">
@@ -956,7 +1030,7 @@ export default function PostDetails() {
                                                 </div>
                                                 <div className="right-side-dump-current">
 
-                                                    <button onClick={publish_comment}>COMENTAR</button>
+                                                    <button onClick={publish_comment_mobile}>COMENTAR</button>
                                                 </div>
                                             </>
                                             : ''}

@@ -80,45 +80,34 @@ export default function Feed() {
             <HeaderFeed />
 
             <div className="dump-feed-posts">
-
-                <PostingPhoto
-
-                />
-                {
+                <PostingPhoto />
+                {postsRealtime && postsRealtime.length > 0 && users ? (
                     postsRealtime.map((p) => {
+                        const userDocument = users.documents.find((e) => e.email === p.email);
+                        const displayName = userDocument ? userDocument.displayName : '';
+                        const photoURL = userDocument ? userDocument.photoURL : '';
+                        const username = userDocument ? userDocument.username : '';
+                        const isVerified = userDocument ? userDocument.isthisverifiqued : false;
+
                         return (
                             <Posts
                                 id={p.$id}
                                 datepost={p.$createdAt}
                                 email={p.email}
-                                displayName={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.displayName
-                                })}
-                                photoURL={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.photoURL
-                                })}
-                                username={users.documents.filter(e => e.email == p.email).map((u) => {
-                                    return u.username
-                                })}
+                                displayName={displayName}
+                                photoURL={photoURL}
+                                username={username}
                                 fotopostada={p.filePost}
                                 descricao={p.legenda}
                                 timestamp={p.timestamp}
-                                isthisverifiqued={
-                                    users.documents.filter(e => e.email == p.email).map((u) => {
-                                        return u.isthisverifiqued
-                                    })
-
-                                }
+                                isthisverifiqued={isVerified}
                                 userisfollowing={p.following}
                             />
-                        )
-                    }, [])
-
-                }
+                        );
+                    })
+                ) : null}
                 <LoadingContent />
                 <EndOfPage />
-
-
             </div>
             <Suggestions />
             <CreatePost />

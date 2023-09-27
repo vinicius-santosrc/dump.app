@@ -66,7 +66,7 @@ function CurtidasList() {
                     USER_COL,
                     notification.SENDER_UID
                 )
-                    .then(sender => {
+                    .then((sender) => {
                         getNoty(sender)
                     })
 
@@ -137,35 +137,83 @@ function CurtidasList() {
 
                         return (
 
-                            <div className='curtida-user-dump'>
-                                <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
-                                    <div className='curtida-index'>
-                                        <i className="fa-solid fa-heart fa-beat-fade"></i>
-                                    </div>
-                                    <div className='leftsidecontent-alert'>
-                                        <img src={sender.photoURL} />
-                                        <div className='content-name-curtida'>
-                                            <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
-                                            <label>{datahoje == datanotcriadacomparar ?
-                                                'Hoje' :
-                                                `${diadoPost} de ${MesesDoAno[mesdoPost]} `
-                                            }</label>
-                                        </div>
+                            <>
+                                {not.ACTION == 'like'
+                                    ?
+                                    <div className='curtida-user-dump'>
+                                        <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                   
+                                            <div className='leftsidecontent-alert'>
+                                                <img src={sender.photoURL} />
+                                                <div className='content-name-curtida'>
+                                                    <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+                                                </div>
 
+                                            </div>
+                                            <div className='contentalert'>
+                                                <p>curtiu sua publicação'</p>
+                                                <label>{datahoje == datanotcriadacomparar ?
+                                                    'Hoje' :
+                                                    `${diadoPost} de ${MesesDoAno[mesdoPost]} `
+                                                }</label>
+                                            </div>
+                                            <div className='post_rel_content'>
+                                                <img src={null} />
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div className='contentalert'>
-                                        <p>{not.ACTION == 'like' ? 'curtiu sua publicação' :
+                                    :
+                                    <>
+                                        {not.ACTION == 'comment' ?
+                                            <div className='curtida-user-dump'>
+                                                <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                
+                                                    <div className='leftsidecontent-alert'>
+                                                        <img src={sender.photoURL} />
+                                                        <div className='content-name-curtida'>
+                                                            <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div className='contentalert'>
+                                                        <p>comentou em seu dump: {not.desc}</p>
+                                                        <label>{datahoje == datanotcriadacomparar ?
+                                                            'Hoje' :
+                                                            `${diadoPost} de ${MesesDoAno[mesdoPost]} `
+                                                        }</label>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            :
                                             <>
                                                 {not.ACTION == 'follow' ?
-                                                    'começou a seguir você'
+                                                    <div className='curtida-user-dump'>
+                                                        <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                                                            <div className='leftsidecontent-alert'>
+                                                                <img src={sender.photoURL} />
+                                                                <div className='content-name-curtida'>
+                                                                    <h2>{sender.username} {sender.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div className='contentalert'>
+                                                                <p>começou a seguir você.</p>
+                                                                <label>{datahoje == datanotcriadacomparar ?
+                                                                    'Hoje' :
+                                                                    `${diadoPost} de ${MesesDoAno[mesdoPost]} `
+                                                                }</label>
+                                                            </div>
+                                                        </a>
+                                                    </div>
                                                     :
-                                                    ''
+                                                    ""
                                                 }
                                             </>
-                                        }</p>
-                                    </div>
-                                </a>
-                            </div>
+                                        }
+                                    </>}</>
+
                         )
 
 

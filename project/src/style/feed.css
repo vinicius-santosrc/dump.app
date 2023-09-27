@@ -206,6 +206,29 @@ body {
     border-bottom: 1px solid rgb(225, 225, 225);
 }
 
+.curtida-user-dump a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    flex-wrap: wrap;
+
+}
+
+
+.contentalert {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.contentalert label {
+    color: rgb(158, 158, 158);
+}
+
 .curtidas-null-dump {
     padding: 10px;
     margin: auto;
@@ -1626,6 +1649,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: nowrap;
 }
 
 .leftsidecontent-alert h2 {
