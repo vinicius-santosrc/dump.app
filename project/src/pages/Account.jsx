@@ -265,11 +265,11 @@ export default function Account() {
 
                 }
             )
-            alert('NOTIFICATION ENVIADA')
+ 
 
         }
         catch {
-            alert('NOTIFICATION NÃO ENVIADA')
+
         }
     }
 

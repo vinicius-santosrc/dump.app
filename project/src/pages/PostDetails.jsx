@@ -122,11 +122,11 @@ export default function PostDetails() {
 
                 }
             )
-            alert('NOTIFICATION ENVIADA')
+          
 
         }
         catch {
-            alert('NOTIFICATION NÃO ENVIADA')
+            
         }
     }
 

@@ -175,11 +175,11 @@ export default function Posts(props) {
 
                 }
             )
-            alert('NOTIFICATION ENVIADA')
+
 
         }
         catch {
-            alert('NOTIFICATION NÃO ENVIADA')
+
         }
     }
 
