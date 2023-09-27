@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { HideLoading } from "../components/Loading";
 import { useParams } from "react-router-dom";
 import databases from "../lib/appwrite";
-import { Query } from "appwrite";
+import { ID, Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
 import { Ring } from '@uiball/loaders'

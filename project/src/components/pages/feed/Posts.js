@@ -4,7 +4,7 @@ import { auth, provider, signInWithPopup, app, db, database } from '../../../lib
 import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } from 'firebase/firestore'
 import UserPerfil from './UserPerfil';
 import databases from '../../../lib/appwrite';
-import { Query } from 'appwrite';
+import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
 
 export default function Posts(props) {
