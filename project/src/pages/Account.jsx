@@ -260,7 +260,7 @@ export default function Account() {
                     SENDER_USERNAME: "",
                     SENDER_NAME: "",
                     ACTION: "follow",
-                    PHOTO_REL: 'asdasdasd',
+                    PHOTO_REL: 'asdasdasds',
                     desc: ''
 
                 }
