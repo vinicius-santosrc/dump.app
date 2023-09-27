@@ -352,8 +352,23 @@ export default function Posts(props) {
         alert('Entre para curtir e salvar fotos.')
     }
 
+    const MesesDoAno = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ]
+
     var datepost = new Date(props.datepost)
-    var datefilepost = `${datepost.getMonth()}`
+    var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
 
     return (
         <div className="dump-post">
@@ -422,18 +437,25 @@ export default function Posts(props) {
 
             </div>
             <div className="dump-post-bottom-desc">
-                <p><b>@{props.username}</b>: {props.descricao}</p>
+                {props.descricao ?
+                    <p><b>@{props.username}</b>: {props.descricao}</p>
+                    :
+                    ''
+                }
+
             </div>
             <div>
-                <a className="dump-comments-post">
-                    <div>
-                        <button>VER COMENTÁRIOS</button>
-                    </div>
-                    <div className='comments-photo'>
-                        <Comments />
-                    </div>
+                {
+                    <a className="dump-comments-post">
+                        <div>
+                            <button>VER COMENTÁRIOS</button>
+                        </div>
+                        <div className='comments-photo'>
+                            <Comments />
+                        </div>
 
-                </a>
+                    </a>
+                }
             </div>
         </div >
     )

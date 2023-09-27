@@ -5,7 +5,7 @@ import databases from "../lib/appwrite";
 import { useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
-import { Query } from "appwrite";
+import { ID, Query } from "appwrite";
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
 
@@ -16,10 +16,18 @@ export default function PostDetails() {
     const [publicacaoId, setPublicaoId] = useState(null)
     const [userPub, setUserPub] = useState(null)
     const [USER_DOC, setUserAt] = useState(null)
+    const [user_comment_set, setuser_comment_set] = useState(null)
+    const [comments_length, setcomments_length] = useState(null)
+
+    const [Comments_Dump, SetComments_Dump] = useState([]);
 
     const USERSIDDATABASE = '64f93be88eee8bb83ec3'
 
 
+
+    const DB_ID = '64f9329a26b6d59ade09'
+    const COMMENTS_UID = "65136577656a75010795"
+    const USERS_UID = "64f93be88eee8bb83ec3"
 
     useEffect(() => {
         HideLoading()
@@ -44,6 +52,16 @@ export default function PostDetails() {
     if (auth.currentUser) {
         targetUserId = auth.currentUser.uid;
     }
+
+    useEffect(() => {
+        comments_of_dump()
+            .then((commentsData) => {
+                SetComments_Dump(commentsData);
+            })
+            .catch((error) => {
+                // Handle error appropriately
+            });
+    }, []);
 
 
 
@@ -119,6 +137,18 @@ export default function PostDetails() {
     useEffect(() => {
         if (publicacao && publicacao.email) {
             PostUserGet();
+            setTimeout(() => {
+                comments_of_dump();
+            }, 2000);
+            setTimeout(() => {
+                comments_of_dump();
+            }, 5000);
+            setTimeout(() => {
+                comments_of_dump();
+            }, 8000);
+            setTimeout(() => {
+                comments_of_dump();
+            }, 10000);
         }
     }, [publicacao]);
 
@@ -502,43 +532,168 @@ export default function PostDetails() {
     async function publish_comment() {
         let inputComment = document.querySelector("#comment-input")
 
-        try {
-            const userDocument = await databases.getDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId
-            );
 
-            // Verifique se 'comments' é um objeto ou inicialize-o como um objeto vazio
-            const comments = typeof userDocument.comments === 'object' ? userDocument.comments : {};
-
-            const newCommentKey = Date.now(); // Usar um carimbo de data/hora como chave única
-            const newComment = {
-                comment: inputComment.value,
-                uid: targetUserId
-            };
-
-            comments[newCommentKey] = newComment; // Adicione o novo objeto 'newComment' com a chave única
-
-            await databases.updateDocument(
-                DB_UID,
-                COL_UID,
-                publicacaoId, {
-                comments: comments, // Atualize 'comments' com o novo objeto
-            });
-
-            alert('Você comentou com sucesso!');
-
-        } catch (error) {
-            console.error('Erro ao comentar:', error);
+        if (inputComment.value == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Escreva um comentário.',
+            })
         }
+        else {
+            await databases.createDocument(
+                DB_ID,
+                COMMENTS_UID,
+                ID.unique(),
+                {
+                    public_ref: idPost,
+                    comment: inputComment.value,
+                    DUMPID_USER: auth.currentUser.uid
+                }
+            )
+                .then(() => {
+                    Swal.fire(
+                        'Sucesso!',
+                        'Você comentou.',
+                        'success'
+                    )
+                    inputComment.value = ''
+
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Algo deu errado!',
+                    })
+                })
+        }
+
+
+
     }
 
+
+    async function DeleteComment(commentToDelete) {
+        await databases.deleteDocument(
+            DB_ID,
+            COMMENTS_UID,
+            commentToDelete.$id
+        )
+            .then(() => {
+                Swal.fire(
+                    'Sucesso!',
+                    'Você excluiu seu comentário.',
+                    'success'
+                )
+
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algo deu errado!',
+                })
+            })
+        comments_of_dump()
+    }
+
+    async function comments_of_dump() {
+        try {
+            const res = await databases.listDocuments(
+                DB_ID,
+                COMMENTS_UID,
+                [
+                    Query.orderDesc("$createdAt")
+                ]
+            );
+
+
+            const comments = res.documents.filter((r) => r.public_ref === idPost);
+
+            const commentsData = [];
+
+            for (const response of comments) {
+                const user = await databases.getDocument(DB_ID, USERS_UID, response.DUMPID_USER);
+                commentsData.push({ response, user });
+            }
+
+            setcomments_length(commentsData.length)
+
+            return commentsData;
+        } catch (error) {
+            console.error('Erro ao buscar comentários:', error);
+            return [];
+        }
+
+    }
+
+    const MesesDoAno = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ]
+
+
+
+    function CommentComponent({ commentData }) {
+        const { response, user } = commentData;
+
+        const handleDeleteClick = () => {
+            DeleteComment(response); // Passa o objeto de comentário para a função de exclusão
+        };
+
+        if (user) {
+            let date = new Date(response.$createdAt)
+            return (
+                <div className="comment-dump-user">
+                    <div className="left-side-content-user">
+                        <img alt="Avatar Usuário" src={user.photoURL} />
+                    </div>
+                    <div className="right-side-comment-content">
+                        <div className="top-right-side-user">
+                            <h2>{user.displayName} {user.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
+                        </div>
+                        <div className="middle-right-side-comment">
+                            <p>{response.comment}</p>
+                        </div>
+                        <div className="bottom-right-side-comment">
+                            <label>{date.getDate() + " de " + MesesDoAno[date.getMonth()]}</label>
+                            {auth.currentUser ?
+                                <>
+                                    {user.uid == auth.currentUser.uid ?
+                                        <label onClick={handleDeleteClick}>Excluir</label>
+                                        :
+                                        ""}
+                                </>
+                                :
+                                ""
+                            }
+                        </div>
+                    </div>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
     function errorsemuser() {
         alert('Entre para curtir e salvar fotos.')
     }
 
+
+
     return (
+
         <>
             <>
                 <div className="dump-post-show-pc">
@@ -638,35 +793,51 @@ export default function PostDetails() {
                                             </div>
                                             <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
                                         </div>
-                                        }
+                                    }
+
+                                    <div className="button-remove">
+                                        {auth.currentUser ?
+                                            publicacao.email == auth.currentUser.email ?
+                                                <button onClick={deletepublic}>EXCLUIR</button>
+                                                :
+                                                ''
+                                            :
+                                            ''}
+                                    </div>
 
                                     <section className="comments-section">
-                                        <h2>Comentários</h2>
+                                        <h2>{comments_length <= 0 ?
+                                            "Nenhum comentário"
+                                            :
+                                            `Comentários(${comments_length})`
+                                        }</h2>
                                         <div className="top-dump-user-current">
                                             {UserAtual ?
-                                                <div className="left-side-dump-current">
-                                                    <img src={UserAtual.photoURL} />
-                                                    <input id="comment-input" placeholder="Escreva seu comentário"></input></div>
+                                                <>
+                                                    <div className="left-side-dump-current">
+                                                        <img src={UserAtual.photoURL} />
+                                                        <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                    </div>
+                                                    <div className="right-side-dump-current">
+
+                                                        <button onClick={publish_comment}>COMENTAR</button>
+                                                    </div>
+                                                </>
                                                 : ''}
-                                            <div className="right-side-dump-current">
 
-                                                <button onClick={publish_comment}>COMENTAR</button>
-                                            </div>
                                         </div>
-                                        <div className="comments-of-dump">
 
+                                        <div className="comments-of-dump">
+                                            {Comments_Dump.map((commentData, index) => (
+                                                <CommentComponent
+                                                    key={index}
+                                                    commentData={commentData}
+                                                />
+                                            ))}
                                         </div>
                                     </section>
                                 </div>
-                                <div className="button-remove">
-                                    {auth.currentUser ?
-                                        publicacao.email == auth.currentUser.email ?
-                                            <button onClick={deletepublic}>EXCLUIR</button>
-                                            :
-                                            ''
-                                        :
-                                        ''}
-                                </div>
+
                             </div>
 
                         </div>
@@ -770,6 +941,37 @@ export default function PostDetails() {
                                         :
                                         ''}
                                 </div>
+                                <section className="comments-section">
+                                    <h2>{comments_length <= 0 ?
+                                        "Nenhum comentário"
+                                        :
+                                        `Comentários(${comments_length})`
+                                    }</h2>
+                                    <div className="top-dump-user-current">
+                                        {UserAtual ?
+                                            <>
+                                                <div className="left-side-dump-current">
+                                                    <img src={UserAtual.photoURL} />
+                                                    <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                </div>
+                                                <div className="right-side-dump-current">
+
+                                                    <button onClick={publish_comment}>COMENTAR</button>
+                                                </div>
+                                            </>
+                                            : ''}
+
+                                    </div>
+
+                                    <div className="comments-of-dump">
+                                        {Comments_Dump.map((commentData, index) => (
+                                            <CommentComponent
+                                                key={index}
+                                                commentData={commentData}
+                                            />
+                                        ))}
+                                    </div>
+                                </section>
                             </div>
                         </div>
 

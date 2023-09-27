@@ -1261,8 +1261,39 @@ body {
     border-right: 1px solid #e1e1e1
 }
 
+.comment-dump-user {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.comment-dump-user img{
+    border-radius: 100%;
+    width: 3rem;
+}
+
+.comment-dump-user h2 {
+    font-size: 0.9rem;
+}
+
+.comment-dump-user p {
+    font-size: 0.8rem;
+}
 
 
+.comment-dump-user label {
+    font-size: 0.8rem;
+    color: rgb(108, 106, 106);
+}
+
+.bottom-right-side-comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
 
