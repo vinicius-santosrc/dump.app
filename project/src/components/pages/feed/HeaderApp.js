@@ -98,10 +98,12 @@ function CurtidasList() {
         await databases.listDocuments(
             "64f9329a26b6d59ade09",
             "64fd4c66a7628f81bde8",
-            [Query.orderDesc("$createdAt")]
+            [
+                Query.orderDesc("$createdAt")
+            ]
         )
             .then(res => {
-                if (res.documents.filter(e => e.TO_UID == CurrentUserId).length == 0) {
+                if (res.documents.filter(e => e.TO_UID == CurrentUserId).length <= 0) {
                     setNot(
                         <div className='curtidas-null-dump'>
                             <img src="../static/media/undraw_void_-3-ggu.svg" />

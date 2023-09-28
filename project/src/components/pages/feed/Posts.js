@@ -452,13 +452,11 @@ export default function Posts(props) {
             </div>
             <div>
                 {
-                    <a className="dump-comments-post">
+                    <a href={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
                         <div>
                             <button>VER COMENTÁRIOS</button>
                         </div>
-                        <div className='comments-photo'>
-                            <Comments />
-                        </div>
+
 
                     </a>
                 }

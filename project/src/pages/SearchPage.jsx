@@ -7,6 +7,7 @@ import HeaderFeed from "../components/pages/feed/HeaderApp"
 
 import axios from 'axios';
 import Suggestions from "../components/pages/feed/Suggestions"
+import { Query } from "appwrite"
 
 export default function SearchPage() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
@@ -102,7 +103,11 @@ export default function SearchPage() {
 
         await databases.listDocuments(
             DB_ID,
-            COLLECTION_ID
+            COLLECTION_ID,
+            [
+                Query.limit(300),
+                Query.orderDesc("$createdAt")
+            ]
         )
             .then((e) => {
                 setSearchPeople(e.documents.filter(e => e.username.includes((inputsearch.value).toLowerCase())).slice(0, 6).map((i) => {
@@ -145,7 +150,11 @@ export default function SearchPage() {
 
             await databases.listDocuments(
                 DB_ID,
-                POSTS_ID
+                POSTS_ID,
+                [
+                    Query.limit(300),
+                    Query.orderDesc("$createdAt")
+                ]
             )
                 .then((r) => {
                     setPublicoes(r.documents.filter(r => r.legenda.includes((inputsearch.value).toLowerCase())).slice(0, 6).map((i) => {

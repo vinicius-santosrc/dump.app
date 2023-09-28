@@ -118,15 +118,15 @@ export default function PostDetails() {
                     SENDER_NAME: "",
                     ACTION: type,
                     PHOTO_REL: PHOTO_REL,
-                    desc: desc 
+                    desc: desc
 
                 }
             )
-          
+
 
         }
         catch {
-            
+
         }
     }
 
@@ -246,39 +246,10 @@ export default function PostDetails() {
 
             const NOT_DOC = '64fd4c66a7628f81bde8'
             const USERS_DOC = '64f93be88eee8bb83ec3'
-            await databases.listDocuments(
-                DB_UID,
-                USERS_DOC,
-                [Query.equal('email', publicacao.email.email)])
-                .then(response => {
-                    response.documents.map((e) => {
-                        setTOUID(e.uid)
-                    })
-                })
-            await databases.listDocuments(
-                DB_UID,
-                USERS_DOC,
-                [Query.equal('email', auth.currentUser.email)])
-                .then((response) => {
-                    SetUserAtual(response.documents)
-                })
 
 
-            const uuid = require('uuid');
-            await databases.createDocument(
-                DB_UID,
-                NOT_DOC,
-                uuid.v4(),
-                {
-                    TO_UID: toUid_Send,
-                    SENDER_UID: SENDERUID,
-                    SENDER_PIC: 'https://a.com.br',
-                    SENDER_USERNAME: '',
-                    SENDER_NAME: '',
-                    PHOTO_REL: publicacao.$id,
-                    ACTION: 'like'
-                }
-            )
+            sendNotification(publicacaoId, 'like', '')
+
 
 
         } catch (error) {
@@ -585,7 +556,7 @@ export default function PostDetails() {
                         'Você comentou.',
                         'success'
                     )
-                    sendNotification(idPost, 'comment' ,inputComment.value)
+                    sendNotification(idPost, 'comment', inputComment.value)
                     inputComment.value = ''
 
                 })

@@ -218,6 +218,19 @@ body {
 
 }
 
+.dump-comments-post {
+    text-align: right;
+}
+
+.dump-comments-post button{
+    background: none;
+    color: black;
+    cursor: pointer;
+    border: none;
+    font-size: 0.8rem;
+
+}
+
 
 .contentalert {
     display: flex;
@@ -1237,7 +1250,7 @@ body {
 
 .inbox-dump-page {
     padding: 100px 0px;
-    width: 100%;
+    width: 1200px;
     border-left: 1px solid #e1e1e1;
     border-right: 1px solid #e1e1e1;
     margin: 0 580px;
@@ -1247,10 +1260,67 @@ body {
     overflow-y: auto;
 }
 
+.unselected-dump-chat {
+    text-align: center;
+}
+
+.unselected-dump-chat img {
+    width: 20rem;
+    pointer-events: none;
+}
+
 .inbox-content-contacts {
     padding: 20px;
     width: 470px;
 
+}
+
+.header-chat-content-inbox-dump {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.header-chat-content-inbox-dump button {
+    background-color: transparent;
+    font-size: 1rem;
+    color: black;
+    border: none;
+    cursor: pointer;
+    transition: 500ms;
+}
+.header-chat-content-inbox-dump button:hover {
+    color: #9446de;
+}
+
+.info-chat-inbox-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.info-chat-inbox-header img {
+    width: 3rem;
+    border-radius: 100%;
+}
+
+.info-chat-inbox-header h1 {
+    font-size: 0.8rem;
+}
+
+.right-chat-inbox-header {
+    align-items: center;
+}
+
+.info-chat-inbox-header p {
+    font-size: 0.7rem;
+}
+
+.left-side-chat-top-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 
@@ -1277,7 +1347,7 @@ body {
 
 .inbox-content-chat {
     width: 670px;
-    padding: 100px 0px;
+    padding: 20px 10px;
     height: 100vh;
     overflow-y: auto;
     border-left: 1px solid #e1e1e1;
@@ -2323,7 +2393,40 @@ body {
     border: 1px solid black;
 }
 
+.users-show-select {
+    display: block;
+    margin: 10px;
 
+}
+
+.users-show-select li {
+    cursor: pointer;
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+}
+
+.dump-user- {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.dump-user- h2 {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.dump-user- p {
+    font-size: 0.8rem;
+    color: rgb(92, 92, 92);
+}
+
+.users-show-select li img {
+    border-radius: 100%;
+    width: 3rem;
+}
 
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
@@ -2613,7 +2716,8 @@ body {
         padding-bottom: 40px;
         font-size: 1.5rem;
         margin: 0 -30px;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.646);
+        backdrop-filter: blur(10px);
         border-top: 1px solid rgb(199, 199, 199);
         z-index: 20;
 
