@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import { ID, Query } from "appwrite";
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
+import { Ring } from "@uiball/loaders";
 
 
 export default function PostDetails() {
@@ -382,7 +383,14 @@ export default function PostDetails() {
         return (
             <>
 
-                <div>Carregando...</div>
+                <div className="loading-wrapper">
+                    <Ring
+                        size={40}
+                        lineWeight={5}
+                        speed={2}
+                        color="black"
+                    />
+                </div>
             </>
         );
     }

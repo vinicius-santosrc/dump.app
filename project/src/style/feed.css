@@ -1,3 +1,24 @@
+:root {
+    --bg-color: white;
+    --text-color: black;
+    --border-gray: #ebebeb;
+    --principal-color: #994ae2;
+    --card-sug-back: transparent;
+    --blur-back: rgba(255, 255, 255, 0.649);
+
+}
+
+html.dark-mode {
+    --bg-color: black;
+    --text-color: white;
+    --border-gray: #3d3d3d;
+    --principal-color: #994ae2;
+    --hover: rgb(95, 95, 95);
+    --card-sug-back: #16181c;
+    --blur-back: rgba(8, 8, 8, 0.649);
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +30,7 @@
 body {
     margin: 0 0px;
     position: relative;
+    background-color: var(--bg-color);
 }
 
 .loading-btn {
@@ -69,9 +91,9 @@ body {
     z-index: 1;
     width: 560px;
     height: 100%;
-    background-color: white;
+    background-color: var(--bg-color);
     padding: 10px;
-    border-left: 1px solid rgb(217, 217, 217);
+    border-left: 1px solid var(--border-gray);
     display: none;
     animation: abrircurtidas 0.5s ease-in-out;
 }
@@ -105,12 +127,14 @@ body {
     left: 0;
     right: 0;
     backdrop-filter: blur(30px);
-    background: rgba(255, 255, 255, 0.649);
+    background: var(--blur-back);
     width: 650px;
     justify-content: center;
     margin: 0 auto;
     padding: 10px;
-
+    border-left: 1px solid var(--border-gray);
+    border-right: 1px solid var(--border-gray);
+    border-bottom: 1px solid var(--border-gray);
 }
 
 .dump-header-flexible-messagens {
@@ -119,17 +143,21 @@ body {
     left: 0;
     right: 0;
     backdrop-filter: blur(30px);
-    background: rgba(255, 255, 255, 0.649);
+    background: var(--blur-back);
     width: 70%;
     justify-content: center;
     margin: 0 580px;
     padding: 10px;
     z-index: 2;
+    border-left: 1px solid var(--border-gray);
+    border-right: 1px solid var(--border-gray);
+    border-bottom: 1px solid var(--border-gray);
 }
 
 .dump-header-flexible h1, .dump-header-flexible-messagens h1 {
     font-size: 1.4rem;
     font-weight: 600;
+    color: var(--text-color)
 }
 
 
@@ -157,7 +185,7 @@ body {
 }
 
 .option-view:hover {
-    background-color: rgba(217, 217, 217, 0.624);
+    background-color: var(--card-sug-back);
 
 }
 
@@ -186,6 +214,7 @@ body {
 
 .curtidasheader h2 {
     cursor: default;
+    color: var(--text-color);
 }
 
 .curtidasheader button {
@@ -194,6 +223,7 @@ body {
     font-size: 1rem;
     border: none;
     cursor: pointer;
+    color: var(--text-color);
 }
 
 .curtida-user-dump {
@@ -222,9 +252,9 @@ body {
     text-align: right;
 }
 
-.dump-comments-post button{
+.dump-comments-post button {
     background: none;
-    color: black;
+    color: var(--text-color);
     cursor: pointer;
     border: none;
     font-size: 0.8rem;
@@ -265,7 +295,7 @@ body {
     font-size: 1.9rem;
     transition: 500ms;
     cursor: pointer;
-    color: black;
+    color: var(--text-color);
 }
 
 .LeftSidePageHeader {
@@ -289,7 +319,7 @@ body {
 }
 
 .LeftSidePageHeader a:hover {
-    background-color: #ebebeb;
+    background-color: var(--border-gray);
     border-radius: 10px;
 }
 
@@ -301,6 +331,18 @@ body {
     border-radius: 10px;
     transition: 500ms;
     gap: 5px;
+}
+
+.loading-posts-dump-in-bottom svg circle {
+    stroke: var(--text-color);
+}
+
+.sugg-card-beta h1 {
+    color: var(--text-color);
+}
+
+.sugg-card-beta p {
+    color: var(--text-color);
 }
 
 .PublicarButtoniPad {
@@ -350,7 +392,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    width: 750px;
+    width: 650px;
     margin: auto;
     padding: 100px 0px;
     border-left: 1px solid #dedede;
@@ -371,6 +413,11 @@ body {
 
 .dump-posts-saved img:hover {
     filter: brightness(0.7);
+}
+
+.dump-post a {
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .dump-posts-saved-empty {
@@ -435,20 +482,27 @@ body {
 .account-div a {
     text-decoration: none;
     font-size: 0.7rem;
+    color: var(--text-color);
 }
 
 .account-div h3 {
     text-decoration: none;
     font-size: 1rem;
+    color: var(--text-color);
 }
 
 .account-div p {
     text-decoration: none;
     font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.account-div i {
+    color: var(--text-color);
 }
 
 .account-div:hover {
-    background-color: #ebebeb;
+    background-color: var(--card-sug-back);
     border-radius: 20px;
     cursor: pointer;
 }
@@ -529,6 +583,7 @@ body {
 
 .dump-post-header h3 {
     font-size: 0.9rem;
+    color: var(--text-color)
 }
 
 .dump-post-header p {
@@ -564,8 +619,8 @@ body {
     padding: 150px 0;
     width: 650px;
     margin: auto;
-    border-left: 1px solid #ebebeb;
-    border-right: 1px solid #ebebeb;
+    border-left: 1px solid var(--border-gray);
+    border-right: 1px solid var(--border-gray);
 }
 
 .dump-post-bottom {
@@ -615,7 +670,7 @@ body {
     cursor: pointer;
     background: none;
     border: none;
-    color: black;
+    color: var(--text-color);
 }
 
 .top-show-account {
@@ -689,10 +744,59 @@ body {
     margin: 90px 200px;
     top: 0;
     right: 0;
+    overflow-y: auto;
+    height: 90%;
+    padding-bottom: 50px;
+}
+
+.dumpplus_inner_btn {
+    background-color: var(--principal-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    transition: 500ms;
+    margin: 10px 0px;
+    font-weight: 700;
+}
+
+.footernav-sug {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+}
+
+.footernav-sug a {
+    text-decoration: none;
+    color: rgb(94, 94, 94);
+}
+
+
+.dumpplus_inner_btn:hover {
+    background: white;
+    color: black;
+}
+
+.dump-most-avaliated {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.dumprated img {
+    width: 100%;
+    transition: 500ms;
+}
+
+.dumprated img:hover {
+    filter: brightness(0.8);
 }
 
 .Card-Suggestions {
-    background-color: transparent;
+    background-color: var(--card-sug-back);
     padding: 0px;
     border-radius: 15px;
     width: 360px;
@@ -710,7 +814,7 @@ body {
 .bottom-suggest-users button {
     border: none;
     background-color: transparent;
-    color: blue;
+    color: var(--principal-color);
     font-size: 0.9rem;
     cursor: pointer;
 }
@@ -721,6 +825,10 @@ body {
 
 .header-sugg {
     padding: 15px;
+}
+
+.header-sugg h1 {
+    color: var(--text-color)
 }
 
 .card-user-sg img {
@@ -767,14 +875,16 @@ body {
 
 .leftside-perfil h1 {
     font-size: 1rem;
+    color: var(--text-color)
 }
 
 .leftside-perfil h1:hover {
-    text-decoration: underline black;
+    text-decoration: underline var(--text-color);
 }
 
 .leftside-perfil p {
     font-size: 0.7rem;
+    color: var(--border-gray)
 }
 
 .createneewpost-card {
@@ -782,11 +892,12 @@ body {
     top: 25%;
     left: 25%;
     right: 25%;
-    background-color: white;
+    background-color: var(--bg-color);
     padding: 20px;
     z-index: 4;
     border-radius: 10px;
     display: none;
+    border: 1px solid var(--border-gray);
 }
 
 .background-posts {
@@ -805,7 +916,7 @@ body {
 }
 
 .header-createnewpost {
-    border-bottom: 1px solid rgb(194, 194, 194);
+    border-bottom: 1px solid var(--border-gray);
     font-size: 1.5rem;
     margin-bottom: 2vh;
     display: flex;
@@ -817,6 +928,7 @@ body {
 .header-createnewpost h2 {
     font-size: 1.3rem;
     text-align: center;
+    color: var(--text-color);
 }
 
 
@@ -853,7 +965,7 @@ body {
 }
 
 .loading {
-    background-color: white;
+    background-color: var(--bg-color);
     width: 100%;
     height: 100%;
     z-index: 20;
@@ -867,6 +979,10 @@ body {
     width: 250px;
     margin-top: 40vh;
     margin-bottom: 40vh;
+}
+
+.bottom-loading p {
+    color: var(--text-color);
 }
 
 .current-user-page {
@@ -964,6 +1080,14 @@ body {
     margin-top: 1vh;
     outline: none;
     border: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: var(--text-color);
+    background-color: var(--card-sug-back);
+}
+
+.previewdesc-top p, .previewdesc-top h2 {
+    color: var(--text-color);
 }
 
 .messages-app {
@@ -1004,6 +1128,10 @@ body {
 .dump-profile-cap {
     width: 100%;
     height: 300px;
+}
+
+.accountheader p{
+    color: var(--border-gray);
 }
 
 .dump-profile-cap img {
@@ -1190,6 +1318,11 @@ body {
 
 .leftside-account h1 {
     font-size: 1.2rem;
+    color: var(--text-color)
+}
+
+.leftside-account p {
+    color: var(--text-color)
 }
 
 .leftside-account img {
@@ -1207,18 +1340,19 @@ body {
 
 .top-account button {
     padding: 10px 40px;
-    background-color: black;
+    background-color: var(--bg-color);
     border: none;
     border-radius: 10px;
-    color: white;
-    border: 1px solid black;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
     transition: 500ms;
 }
 
 .top-account button:hover {
     cursor: pointer;
-    background-color: transparent;
-    color: black;
+    background-color: var(--principal-color);
+    color: var(--text-color);
+    border: 1px solid var(--principal-color);
 }
 
 .leftside-account p {
@@ -1284,13 +1418,22 @@ body {
 .header-chat-content-inbox-dump button {
     background-color: transparent;
     font-size: 1rem;
-    color: black;
+    color: var(--text-color);
     border: none;
     cursor: pointer;
     transition: 500ms;
 }
+
 .header-chat-content-inbox-dump button:hover {
     color: #9446de;
+}
+
+.unselected-dump-chat h2 {
+    color: var(--text-color);
+}
+
+.unselected-dump-chat p {
+    color: var(--text-color);
 }
 
 .info-chat-inbox-header {
@@ -1321,6 +1464,7 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
+    
 }
 
 
@@ -1336,11 +1480,19 @@ body {
     border: none;
     margin-top: 10px;
     transition: 500ms;
-
+    
 }
 
 .inbox-content-contacts button:hover {
     background-color: rgb(148, 70, 222);
+}
+
+.inbox-content-contacts h1 {
+    color: var(--text-color);
+}
+
+.inbox-content-contacts p {
+    color: var(--text-color);
 }
 
 
@@ -1363,7 +1515,7 @@ body {
     margin: 20px 0px;
 }
 
-.comment-dump-user img{
+.comment-dump-user img {
     border-radius: 100%;
     width: 3rem;
 }
@@ -1452,10 +1604,12 @@ body {
 
     .account-div h3 {
         font-size: 0.8rem;
+        color: var(--text-color);
     }
 
     .account-div p {
         font-size: 0.7rem;
+        color: var(--text-color);
     }
 
 
@@ -1477,7 +1631,7 @@ body {
     .dump-header-flexible {
         width: 58%;
         margin: 0 90px;
-        border-bottom: 1px solid #e7e7e7;
+        border-bottom: 1px solid var(--border-gray);
     }
 
 
@@ -1492,8 +1646,8 @@ body {
         padding: 150px 0;
         width: 58%;
         margin: 0 90px;
-        border-left: 1px solid #ebebeb;
-        border-right: 1px solid #ebebeb;
+        border-left: 1px solid var(--border-gray);
+        border-right: 1px solid var(--border-gray);
     }
 
 
@@ -1638,6 +1792,8 @@ body {
         font-size: 1.4rem;
         font-weight: 600;
     }
+
+    
 
     .inbox-dump-page {
         padding: 100px 0px;
@@ -1959,6 +2115,16 @@ body {
     width: 5rem;
 }
 
+.dump-already-login h1{
+    color: var(--text-color)
+}
+
+
+.dump-already-login p{
+    color: var(--text-color)
+}
+
+
 .selecttypeofpublic {
     width: 400px;
     padding: 0px;
@@ -1975,11 +2141,12 @@ body {
     padding: 10px 60px;
     cursor: pointer;
     border-radius: 10px;
+    color: var(--text-color);
 }
 
 .selecttypeofpublic label#selected {
-    background-color: rgb(0, 0, 0);
-    color: white;
+    background-color: var(--text-color);
+    color: var(--bg-color);
 }
 
 .dump-edit-my-profile {
@@ -2051,6 +2218,18 @@ body {
     display: none;
 }
 
+.step1postcreate {
+    color: var(--text-color);
+}
+
+.content-name-curtida h2{
+    color: var(--text-color)
+}
+
+.contentalert p{
+    color:var(--text-color)
+}
+
 .btn-bottom-profile {
     margin: 30px 0px;
     gap: 10px;
@@ -2078,12 +2257,16 @@ body {
 }
 
 .dump-search-page {
-    width: 750px;
+    width: 650px;
     margin: auto;
     padding: 150px 20px;
-    border-left: 1px solid #ebebeb;
-    border-right: 1px solid #ebebeb;
+    border-left: 1px solid var(--border-gray);
+    border-right: 1px solid var(--border-gray);
 
+}
+
+.dump-user-posts-search a {
+    color: var(--text-color);
 }
 
 .dump-input-top {
@@ -2104,8 +2287,9 @@ body {
 .dump-input-top button {
     color: white;
     padding: 10px 30px;
-    border: 1px solid black;
-    background-color: black;
+    border: 1px solid var(--principal-color);
+    ;
+    background-color: var(--principal-color);
     cursor: pointer;
     transition: 500ms;
 }
@@ -2202,10 +2386,12 @@ body {
 
 .dump-user-search h2 {
     font-size: 1rem;
+    color: var(--text-color);
 }
 
 .dump-user-search p {
     font-size: 0.9rem;
+    color: var(--border-gray);
 }
 
 .buttons-radio {
@@ -2416,11 +2602,20 @@ body {
 .dump-user- h2 {
     font-size: 0.9rem;
     font-weight: 700;
+    color: var(--text-color);
+}
+
+.info-content-chat-inbox-header h3 {
+    color: var(--text-color);
+}
+
+.info-content-chat-inbox-header p {
+    color: var(--border-gray)
 }
 
 .dump-user- p {
     font-size: 0.8rem;
-    color: rgb(92, 92, 92);
+    color: var(--border-gray);
 }
 
 .users-show-select li img {
@@ -2487,10 +2682,10 @@ body {
         position: fixed;
         z-index: 3;
         padding: 5px 20px;
-        background: rgba(255, 255, 255, 0.786);
+        background: var(--blur-back);
         width: 100%;
         margin: 0 -30px;
-        border-bottom: 1px solid rgb(222, 222, 222);
+        border-bottom: 1px solid var(--border-gray);
         transition: 500ms;
         top: 0;
 
@@ -2529,15 +2724,15 @@ body {
 
     .bottom-header-mobile a {
         font-weight: 600;
-        color: black;
+        color: var(--text-color);
         font-size: 1rem;
     }
 
     .bottom-header-mobile a#selected {
-        background-color: black;
+        background-color: var(--principal-color);
         padding: 4px 15px;
         border-radius: 10px;
-        color: white;
+        color: var(--text-color);
     }
 
     .rightsideheadermobile {
@@ -2576,7 +2771,7 @@ body {
         font-size: 1.7rem;
         transition: 500ms;
         cursor: pointer;
-        color: black;
+        color: var(--text-color);
 
     }
 
@@ -2716,22 +2911,22 @@ body {
         padding-bottom: 40px;
         font-size: 1.5rem;
         margin: 0 -30px;
-        background-color: rgba(255, 255, 255, 0.646);
+        background-color: var(--blur-back);
         backdrop-filter: blur(10px);
-        border-top: 1px solid rgb(199, 199, 199);
+        border-top: 1px solid var(--border-gray);
         z-index: 20;
 
     }
 
     .nav-bar-mobile a i {
-        color: black;
+        color: var(--text-color);
         opacity: 1;
         font-style: normal;
     }
 
     .nav-bar-mobile a#selected i {
         opacity: 1;
-        color: blueviolet;
+        color: var(--principal-color);
     }
 
     .nav-bar-mobile img {
@@ -2749,7 +2944,7 @@ body {
         left: 0;
         right: 0;
         margin: auto;
-        background-color: white;
+        background-color: var(--bg-color);
         padding: 20px 10px;
         z-index: 20;
         border-radius: 0px;
@@ -3024,9 +3219,9 @@ body {
         z-index: 19;
         width: 100%;
         height: 100%;
-        background-color: white;
+        background-color: var(--bg-color);
         padding: 10px;
-        border-left: 1px solid rgb(217, 217, 217);
+        border-left: 1px solid var(--border-gray);
         display: none;
         animation: abrircurtidas 0.3s ease-in-out;
     }
@@ -3438,6 +3633,24 @@ body {
         display: none;
     }
 
+    .loading {
+        background-color: var(--bg-color);
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+        position: fixed;
+        display: block;
+        text-align: center;
+        left: 0;
+    }
+
+    .loading img {
+        margin: auto;
+        width: 250px;
+        margin-top: 40vh;
+        margin-bottom: 40vh;
+    }
+
     .btn-bottom-profile {
         margin: 30px auto;
         gap: 10px;
@@ -3505,8 +3718,8 @@ body {
     }
 
     .dump-input-top button:hover {
-        background-color: white;
-        color: black;
+        background-color: var(--text-color);
+        border: 1x solid var(--bg-color);
     }
 
     .filters-search {

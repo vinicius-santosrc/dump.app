@@ -15,7 +15,10 @@ import Dailys from "../components/pages/feed/Dailys";
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 
+const limit = 250;
+
 export default function Feed() {
+
 
 
     const [postsRealtime, setPosts] = useState([])
@@ -25,14 +28,14 @@ export default function Feed() {
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
                 [
-                    Query.limit(150),
+                    Query.limit(limit),
+
                     Query.orderDesc("$createdAt"),
 
                 ],
             )
 
                 .then((res) => {
-
                     setPosts(res.documents)
 
                 })
@@ -46,6 +49,13 @@ export default function Feed() {
     useEffect(() => {
         HideLoading();
     })
+
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            getPosts();
+        }
+    });
+
     let PostsFollowing = postsRealtime
 
     const [users, Setusersdb] = useState()
@@ -73,13 +83,13 @@ export default function Feed() {
     //document.querySelector('.loading').style.display = 'none'   
     return (
 
-        <div className="App-Feed feedposts">
+        <section aria-label="Timeline da página inicial" tabindex="0" role="main" className="App-Feed feedposts dark-mode">
 
             <UserPerfil />
             <Messages />
             <HeaderFeed />
 
-            <div className="dump-feed-posts">
+            <main className="dump-feed-posts">
                 <PostingPhoto />
                 {postsRealtime && postsRealtime.length > 0 && users ? (
                     postsRealtime.map((p) => {
@@ -87,6 +97,7 @@ export default function Feed() {
                         const displayName = userDocument ? userDocument.displayName : '';
                         const photoURL = userDocument ? userDocument.photoURL : '';
                         const username = userDocument ? userDocument.username : '';
+                        const uid = userDocument ? userDocument.uid : "";
                         const isVerified = userDocument ? userDocument.isthisverifiqued : false;
 
                         return (
@@ -102,16 +113,17 @@ export default function Feed() {
                                 timestamp={p.timestamp}
                                 isthisverifiqued={isVerified}
                                 userisfollowing={p.following}
+                                uid_user={uid}
                             />
                         );
                     })
                 ) : null}
                 <LoadingContent />
                 <EndOfPage />
-            </div>
+            </main>
             <Suggestions />
             <CreatePost />
-        </div>
+        </section>
     )
 }
 

@@ -378,19 +378,21 @@ export default function Posts(props) {
 
     return (
         <div className="dump-post">
-            <div className="dump-post-header" onClick={gotouser}>
-                <img src={props.photoURL} />
-                <div className="dump-post-header-rightside">
-                    <div>
-                        <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
-                        <p>@{props.username}</p>
-                    </div>
+            <a href={window.location.origin + "/user/" + props.uid_user}>
+                <div className="dump-post-header">
+                    <img src={props.photoURL} />
+                    <div className="dump-post-header-rightside">
+                        <div>
+                            <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
+                            <p>@{props.username}</p>
+                        </div>
 
+                    </div>
+                    <div>
+                        <label className="time-display-dump">{datefilepost}</label>
+                    </div>
                 </div>
-                <div>
-                    <label className="time-display-dump">{datefilepost}</label>
-                </div>
-            </div>
+            </a>
             <div className="dump-post-photo">
                 <a href={window.location.origin + '/posts/' + props.id} >
                     <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />

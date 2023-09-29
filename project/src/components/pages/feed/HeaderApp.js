@@ -144,7 +144,7 @@ function CurtidasList() {
                                     ?
                                     <div className='curtida-user-dump'>
                                         <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
-                   
+
                                             <div className='leftsidecontent-alert'>
                                                 <img src={sender.photoURL} />
                                                 <div className='content-name-curtida'>
@@ -169,7 +169,7 @@ function CurtidasList() {
                                         {not.ACTION == 'comment' ?
                                             <div className='curtida-user-dump'>
                                                 <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
-                
+
                                                     <div className='leftsidecontent-alert'>
                                                         <img src={sender.photoURL} />
                                                         <div className='content-name-curtida'>
@@ -260,8 +260,11 @@ function fecharCurtidas() {
 
 }
 
+
+
 export default function HeaderFeed(props) {
     const [i_ison, setUserOn] = useState('')
+
     const SignWithGoogle = () => {
         signInWithPopup(auth, provider).then((i) => {
         })
@@ -297,7 +300,7 @@ export default function HeaderFeed(props) {
 
             })
             .catch((e) => {
-                console.log(e)
+
             })
 
     }
@@ -329,11 +332,15 @@ export default function HeaderFeed(props) {
     }
 
 
+
+    
+
+
     return (
 
         <>
             <div onClick={closeaccountoptions} className='background-button'></div>
-            <header className="App-Header-Feed FeedHeader">
+            <header aria-live="polite" role='navigation' className="App-Header-Feed FeedHeader">
                 <div className="App-Header-Feed-LeftSide leftsideheader">
                     <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
                     <div>
@@ -390,9 +397,9 @@ export default function HeaderFeed(props) {
                                                     }
                                                 </div>
                                                 :
-                                                <h3>$Name</h3>
+                                                <h3></h3>
                                             }
-                                            {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p>@$username</p>}
+                                            {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p></p>}
                                         </div>
                                     </div></a>
                                     :
@@ -415,7 +422,7 @@ export default function HeaderFeed(props) {
                     </div>
                 </div>
                 {(window.location.href).includes("inbox") ?
-                    <div className='dump-header-flexible-messagens'>
+                    <div aria-live="polite" role='navigation' className='dump-header-flexible-messagens'>
                         <div className='header-posts-msg'>
                             <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
                             <h1>Mensagens</h1>
@@ -423,7 +430,7 @@ export default function HeaderFeed(props) {
 
                     </div>
                     : <></>}
-                <div className='dump-header-flexible'>
+                <div aria-live="polite" role='navigation' className='dump-header-flexible'>
                     {window.location.pathname == '/' || window.location.pathname == '/following' ?
                         <>
                             <h1>Página Inicial</h1>
@@ -509,7 +516,7 @@ export default function HeaderFeed(props) {
                     </a>
                 </div>
             </header>
-            <header className='dump-mobile-header'>
+            <header aria-live="polite" role='navigation' className='dump-mobile-header'>
                 {(window.location.href).includes("user") || (window.location.href).includes("saves") || (window.location.href).includes("posts") ? <></> :
                     <div className='top-header-mobile'>
                         <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
@@ -604,7 +611,7 @@ export default function HeaderFeed(props) {
 
 
             </header >
-            <nav className='nav-bar-mobile'>
+            <nav aria-live="polite" role='navigation' className='nav-bar-mobile'>
                 <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
                 <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison && ID_ACCOUNT_I ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}

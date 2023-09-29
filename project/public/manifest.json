@@ -1,5 +1,7 @@
 {
   "short_name": "Dump",
+  "categories":["social","news","magazines"],
+  "description":"Poste tudo que você quiser.",
   "name": "Dump",
   "icons": [
     {

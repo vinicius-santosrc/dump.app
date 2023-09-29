@@ -1,15 +1,18 @@
-import { Momentum } from '@uiball/loaders'
+import { Momentum, Ring } from '@uiball/loaders'
 
 
 export default function LoadingContent() {
-    return(
+    return (
         <div className="loading-posts-dump-in-bottom loading-wrapper-bottom">
-            <Momentum 
-            size={40}
-            speed={1.1} 
-            color="black" 
+            <Ring
+                size={40}
+                lineWeight={5}
+                speed={2}
+                color="black"
             />
         </div>
+
+
     )
 }
 
