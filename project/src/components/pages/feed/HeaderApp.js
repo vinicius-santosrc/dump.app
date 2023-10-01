@@ -331,9 +331,15 @@ export default function HeaderFeed(props) {
         document.querySelector(".background-button").style.display = 'none'
     }
 
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").classList.add('dark-mode')
+    } else {
+        document.querySelector("html").classList.remove('dark-mode')
+    }
 
 
-    
+
+
 
 
     return (
@@ -342,7 +348,7 @@ export default function HeaderFeed(props) {
             <div onClick={closeaccountoptions} className='background-button'></div>
             <header aria-live="polite" role='navigation' className="App-Header-Feed FeedHeader">
                 <div className="App-Header-Feed-LeftSide leftsideheader">
-                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
+                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
                             <div className="LeftsideRedirect">
@@ -519,7 +525,7 @@ export default function HeaderFeed(props) {
             <header aria-live="polite" role='navigation' className='dump-mobile-header'>
                 {(window.location.href).includes("user") || (window.location.href).includes("saves") || (window.location.href).includes("posts") ? <></> :
                     <div className='top-header-mobile'>
-                        <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.webp"} alt="Logo Dump" />
+                        <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
                         <div className="top-header-mobile-icons-rightside rightsideheadermobile">
                             <a onClick={openCurtidas}>
                                 <i className="fa-regular fa-heart"></i>
@@ -631,7 +637,13 @@ export default function HeaderFeed(props) {
 
 
                 </div>
-                {i_ison ? <CurtidasList /> : <></>}
+                {i_ison ? <CurtidasList /> : <>
+                    <div className='curtidas-null-dump'>
+                        <img src="../static/media/undraw_void_-3-ggu.svg" />
+                        <h2>Nada por aqui.</h2>
+                        <p>Aqui aparecerão suas notificações.</p>
+                    </div>
+                </>}
             </div>
         </>
     )

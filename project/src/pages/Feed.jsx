@@ -14,8 +14,9 @@ import EndOfPage from "../components/pages/feed/EndOfPage";
 import Dailys from "../components/pages/feed/Dailys";
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
+import CardFeedStart from "../components/pages/feed/CardFeedStart";
 
-const limit = 250;
+const limit = 5;
 
 export default function Feed() {
 
@@ -88,9 +89,9 @@ export default function Feed() {
             <UserPerfil />
             <Messages />
             <HeaderFeed />
-
             <main className="dump-feed-posts">
                 <PostingPhoto />
+                <CardFeedStart />
                 {postsRealtime && postsRealtime.length > 0 && users ? (
                     postsRealtime.map((p) => {
                         const userDocument = users.documents.find((e) => e.email === p.email);

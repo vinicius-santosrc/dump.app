@@ -377,7 +377,7 @@ export default function Posts(props) {
     var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
 
     return (
-        <div className="dump-post">
+        <article  className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
             <a href={window.location.origin + "/user/" + props.uid_user}>
                 <div className="dump-post-header">
                     <img src={props.photoURL} />
@@ -386,11 +386,15 @@ export default function Posts(props) {
                             <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
                             <p>@{props.username}</p>
                         </div>
+                        
 
                     </div>
                     <div>
                         <label className="time-display-dump">{datefilepost}</label>
                     </div>
+                </div>
+                <div className='descriptionofdump'>
+                    <p>{props.descricao ? props.descricao : ""}</p>
                 </div>
             </a>
             <div className="dump-post-photo">
@@ -444,14 +448,7 @@ export default function Posts(props) {
                 </div>
 
             </div>
-            <div className="dump-post-bottom-desc">
-                {props.descricao ?
-                    <p><b>@{props.username}</b>: {props.descricao}</p>
-                    :
-                    ''
-                }
-
-            </div>
+            
             <div>
                 {
                     <a href={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
@@ -463,7 +460,7 @@ export default function Posts(props) {
                     </a>
                 }
             </div>
-        </div >
+        </article >
     )
 
 }

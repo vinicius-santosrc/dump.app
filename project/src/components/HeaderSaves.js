@@ -1,4 +1,9 @@
 export default function HeaderSaves() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").classList.add('dark-mode')
+    } else {
+        document.querySelector("html").classList.remove('dark-mode')
+    }
     return (
         <>
             <div className="dump-post-show-pc">

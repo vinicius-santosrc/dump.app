@@ -46,7 +46,7 @@ export default function Suggestions() {
                 collectionId,
                 [
                     Query.orderDesc("likes"),
-                    Query.limit(6)
+                    Query.limit(4)
                 ]);
 
             // Exibir os documentos na ordem decrescente de "likes"

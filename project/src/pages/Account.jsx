@@ -95,16 +95,16 @@ export default function Account() {
                     const nofpots = res.documents.filter(r => r.email == ID_ACCOUNT_I.email).length
                     setNumberofPosts(nofpots)
 
-                    setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u) => {
+                    setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u, i) => {
                         function gotoPostSelect() {
                             window.location.href = `${window.location.origin}/posts/${u.$id}`
                         }
 
                         return (
                             <>
-                                <div className="dump-user-account" onClick={gotoPostSelect}>
-                                    <img className="dump-image-show" alt={u.legenda} src={u.filePost} />
-                                </div>
+                                <article title={`${u.legenda}`} className="dump-user-account" id={u.$id} tabIndex={0} role="article" onClick={gotoPostSelect}>
+                                    <img className="dump-image-show" alt={u.legenda} id={`D${i}Pid_` + u.$id}  src={u.filePost} />
+                                </article>
                             </>
                         )
                     }))
@@ -114,7 +114,7 @@ export default function Account() {
                 })
         }
         getPostsofUser()
-    })
+    }, [ID_ACCOUNT_I])
 
 
     function gotomentions() {
@@ -298,7 +298,7 @@ export default function Account() {
             const followers = userDocument.followers || [];
 
             if (followers.includes(targetUserId)) {
-                alert('você já está seguindo')
+                alert('Você já está seguindo')
                 voltarbotoes()
                 return;
             }
@@ -467,7 +467,7 @@ export default function Account() {
                 <div className="dump-account-background">
 
                 </div>
-                <div className="dump-account-infos">
+                <header className="dump-account-infos">
 
                     <div className="top-account">
 
@@ -557,9 +557,9 @@ export default function Account() {
 
                         <p><i className="fa-solid fa-calendar-days"></i> Entrou em {diadecriacao}</p>
                     </div>
-                </div>
+                </header>
                 <div className="dumps-of-user">
-                    <div className="selecttypeofpublic">
+                    <section className="selecttypeofpublic">
                         {window.location.pathname == `/user/${ID_ACCOUNT_I.uid}/mentions` ?
 
                             <>
@@ -572,7 +572,7 @@ export default function Account() {
                                 <label onClick={gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
                             </>
                         }
-                    </div>
+                    </section>
                     {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
                         <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
                             <>
@@ -584,7 +584,7 @@ export default function Account() {
                         :
                         <></>
                     }
-                    <div className="dumps-account-user-show">
+                    <section className="dumps-account-user-show">
 
 
                         {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
@@ -608,7 +608,7 @@ export default function Account() {
 
 
 
-                    </div>
+                    </section>
                 </div>
             </div>
             <nav className='nav-bar-mobile'>
