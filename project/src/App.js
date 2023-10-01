@@ -21,8 +21,20 @@ import SearchPage from './pages/SearchPage';
 import SaveDumpsPage from './pages/SaveDumpsPage';
 import IndexPageFollowing from './pages/IndexPageFollowing';
 
+
 function App() {
   const [i_ison, setUserOn] = useState('')
+
+
+
+
+
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.querySelector("html").classList.add('dark-mode')
+  } else {
+    document.querySelector("html").classList.remove('dark-mode')
+  }
+
 
 
   useEffect(() => {

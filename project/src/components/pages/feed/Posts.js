@@ -56,6 +56,8 @@ export default function Posts(props) {
         targetUserId = auth.currentUser.uid;
     }
 
+
+
     /** VERIFICAÇÃO DUMP ATUAL */
 
     const [isLiked, setLike] = useState(null)
@@ -64,39 +66,33 @@ export default function Posts(props) {
     const [ListOfLikes, setListOfLikes] = useState(null)
     const [NumberOfLikes, setNumberOfLikes] = useState(null)
 
+    const [useratual, setuseratual] = useState(null)
+
+    let ID_ACCOUNT
+    if (auth.currentUser) {
+        ID_ACCOUNT = auth.currentUser.uid
+    }
 
     useEffect(() => {
-        window.addEventListener('DOMContentLoaded', checkDumpLikes())
-        window.addEventListener('DOMContentLoaded', checkDumpSaves())
-        setTimeout(() => {
+        if (ID_ACCOUNT) {
+            // Adicione event listeners apenas uma vez
             checkDumpLikes()
             checkDumpSaves()
-        }, 2000);
-        setTimeout(() => {
+        }
+        // Certifique-se de remover os event listeners quando o componente for desmontado
+        return () => {
             checkDumpLikes()
             checkDumpSaves()
-        }, 5000);
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 10000);
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 7000);
-        window.addEventListener("pageshow", checkDumpLikes())
-        window.addEventListener("pageshow", checkDumpSaves())
+        };
 
-        window.addEventListener("loadeddata", checkDumpLikes())
-        window.addEventListener("loadeddata", checkDumpSaves())
-
-        window.addEventListener("loadedmetadata", checkDumpLikes())
-        window.addEventListener("loadedmetadata", checkDumpSaves())
-
-    }, [])
+    }, []);
 
 
     async function checkDumpLikes() {
+
+        while (!targetUserId) {
+            await new Promise(resolve => setTimeout(resolve, 100)); // Aguarde 100ms
+        }
 
         try {
             // Obtenha o documento do usuário
@@ -127,6 +123,10 @@ export default function Posts(props) {
     }
 
     async function checkDumpSaves() {
+
+        while (!targetUserId) {
+            await new Promise(resolve => setTimeout(resolve, 100)); // Aguarde 100ms
+        }
 
         try {
             // Obtenha o documento do usuário
@@ -382,7 +382,7 @@ export default function Posts(props) {
                 <div className="dump-post-header">
                     <img src={props.photoURL} />
                     <div className="dump-post-header-rightside">
-                        <div>
+                        <div className='information-user-dump-post'>
                             <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
                             <p>@{props.username}</p>
                         </div>
@@ -397,11 +397,11 @@ export default function Posts(props) {
                     <p>{props.descricao ? props.descricao : ""}</p>
                 </div>
             </a>
-            <div className="dump-post-photo">
+            <aside className="dump-post-photo">
                 <a href={window.location.origin + '/posts/' + props.id} >
-                    <img onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+                    <img id={`D-IG-${props.id}-filePost`} draggable="true" onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
                 </a>
-            </div>
+            </aside>
             <div className="dump-post-bottom">
 
                 <div className="btns-dump-comments">
@@ -426,12 +426,13 @@ export default function Posts(props) {
 
                                 </>
                             }
-                            <div className='likes-card-box'>
-                            </div>
                             {isSaved ?
                                 <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
                                 :
                                 <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+
+                            <button onClick={() => window.location.href = window.location.origin + '/posts/' + props.id}><i className="fa-regular fa-comment"></i></button>
+
                         </>
                         :
                         <>

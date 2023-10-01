@@ -12,6 +12,8 @@
     --principal-color: #994ae2;
     --card-sug-back: transparent;
     --blur-back: rgba(255, 255, 255, 0.649);
+    --another-gray: rgb(54, 54, 54);
+    --background-logo: transparent;
 
 }
 
@@ -23,7 +25,10 @@ html.dark-mode {
     --hover: rgb(95, 95, 95);
     --card-sug-back: #16181c;
     --blur-back: rgba(8, 8, 8, 0.649);
+    --another-gray: rgb(154, 154, 154);
+    --background-logo: white;
 }
+
 
 .auth-content {
     margin: auto;
@@ -50,17 +55,18 @@ html.dark-mode {
     font-size: 3rem;
     text-align: left;
     margin: 2rem 0;
+    color: var(--text-color);
 }
 
-.btns-signup button{
-    border: 1px solid black;
-    color: black;
+.btns-signup button {
+    border: 1px solid var(--text-color);
+    color: var(--bg-color);
     width: 300px;
     height: 40px;
     border-radius: 50px;
     margin-bottom: 10px;
     cursor: pointer;
-    background-color: transparent;
+    background-color: var(--text-color);
     align-items: center;
     font-weight: 600;
     font-size: 0.9rem;
@@ -79,6 +85,10 @@ html.dark-mode {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.another h2 {
+    color: var(--text-color);
 }
 
 .another .line {
@@ -106,7 +116,7 @@ html.dark-mode {
     color: black;
 }
 
-.signup-btns-mail #signup{
+.signup-btns-mail #signup {
     width: 90%;
     padding: 10px;
     font-weight: 700;
@@ -124,7 +134,7 @@ html.dark-mode {
     background-color: white;
     border: 1px solid;
     color: black;
-    
+
 }
 
 .forgetpass {
@@ -148,7 +158,7 @@ html.dark-mode {
     height: 300px;
 }
 
-.dump-already-login  a {
+.dump-already-login a {
     text-decoration: none;
     margin-top: 10px;
 }
@@ -159,7 +169,7 @@ html.dark-mode {
     color: var(--text-color);
     text-decoration: none;
     cursor: pointer;
-    
+
     transition: 500ms;
 }
 
@@ -181,25 +191,25 @@ html.dark-mode {
         align-items: center;
         justify-content: space-between;
     }
-    
+
     .auth-content img {
         width: 100%;
         height: 90vw;
         object-fit: cover;
     }
-    
+
     .right-side-auth-content {
         text-align: center;
         margin: auto;
     }
-    
+
     .right-side-auth-content header h1 {
         font-size: 2.6rem;
         text-align: left;
         margin: 2rem 1rem;
     }
-    
-    .btns-signup button{
+
+    .btns-signup button {
         border: 1px solid black;
         color: black;
         width: 300px;
@@ -212,14 +222,14 @@ html.dark-mode {
         font-weight: 600;
         font-size: 0.9rem;
     }
-    
+
     .btns-signup button img {
         width: 17px;
         height: 17px;
         margin-right: 5px;
         object-fit: contain;
     }
-    
+
     .another {
         margin: auto;
         text-align: center;
@@ -227,22 +237,22 @@ html.dark-mode {
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .another .line {
         width: 100%;
         margin: 0 3rem;
         background-color: rgb(34, 34, 34);
         height: 1.5px;
     }
-    
+
     .right-side-auth-content form {
         display: block;
     }
-    
+
     .signup-btns-mail {
         margin: 2rem 0;
     }
-    
+
     .signup-btns-mail input {
         width: 90%;
         padding: 15px 20px;
@@ -252,8 +262,8 @@ html.dark-mode {
         outline: none;
         color: black;
     }
-    
-    .signup-btns-mail #signup{
+
+    .signup-btns-mail #signup {
         width: 90%;
         padding: 10px;
         font-weight: 700;
@@ -266,19 +276,19 @@ html.dark-mode {
         cursor: pointer;
         transition: 500ms;
     }
-    
+
     .signup-btns-mail #signup:hover {
         background-color: white;
         border: 1px solid;
         color: black;
-        
+
     }
-    
+
     .forgetpass {
         margin-top: 3rem;
         color: gray;
     }
-    
+
     .forgetpass a {
         color: rgb(11, 185, 185);
         text-decoration: 1px line aqua;
@@ -289,34 +299,34 @@ html.dark-mode {
         width: 100%;
         text-align: center;
     }
-    
+
     .dump-already-login img {
         width: 100%;
         height: 300px;
     }
-    
-    .dump-already-login  a {
+
+    .dump-already-login a {
         text-decoration: none;
         margin-top: 10px;
     }
-    
+
     .dump-already-login .button-back {
         padding: 10px;
         background-color: var(--principal-color);
         color: var(--text-color);
         text-decoration: none;
         cursor: pointer;
-  
+
         transition: 500ms;
     }
-    
+
     .dump-already-login .button-back:hover {
         background-color: white;
         color: black;
     }
-    
+
     .dump-already-login .button-back label {
         cursor: pointer;
     }
-    
+
 }

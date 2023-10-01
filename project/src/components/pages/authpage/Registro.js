@@ -4,22 +4,44 @@ import '../../../style/authpage.css'
 
 
 /* FIREBASE IMPORTS*/
-import { auth, provider, signInWithPopup, app, database } from '../../../lib/firebase';
+import { auth, auth2, provider, signInWithPopup, app, database } from '../../../lib/firebase';
 import firebase from "firebase/compat/app"
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 function AuthPageComponentRegistro() {
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
+
     const [userdb, Setuserdb] = useState('')
     const [i_ison, setUserOn] = useState('')
-    const SignWithGoogle = async () => {
+
+
+    function SignWithEmail(email, password) {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(`Usuário criado: `, userCredential.user)
+            })
+            .catch((e) => {
+                document.querySelector(".handle-message-error").style.display = 'block'
+                document.querySelector(".handle-message-error span").innerHTML = e.message
+                setInterval(() => {
+                    document.querySelector(".handle-message-error").style.display = 'none'
+                }, 8000);
+            })
+
+
+    }
+
+    const SignWithGoogle = async (e) => {
         signInWithPopup(auth, provider).then((i) => {
             const username = (i.user.displayName).toLocaleLowerCase().replace(/ /g, '')
 
 
             const userId = i.user.uid; // Substitua pelo ID do usuário atual
             const collectionId = '64f93be88eee8bb83ec3'; // Substitua com o ID da coleção onde deseja armazenar os documentos do usuário
-            const searchQuery = `uid=${userId}`;
 
             try {
 
@@ -107,31 +129,51 @@ function AuthPageComponentRegistro() {
                                     <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" />
                                     Entrar com o Google</button>
                             </div>
-                            <div className="btn-apple-providar-authentication xf3 cged vdh4 bda2">
-                                <button>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png" />
-                                    Entrar com Apple
-                                </button>
-                            </div>
+
                         </div>
                         <div className="another">
                             <div className="line"></div>
                             <h2>OU</h2>
                             <div className="line"></div>
                         </div>
+                        <div className='handle-message-error'>
+                            <h2>Ops...</h2>
+                            <p>Ocorreu um erro inesperado que afetou na criação de sua conta.</p>
+                            <label>Erro: <span></span></label>
+                        </div>
+                        <div className='handle-message-preencha-error'>
+                            <h2>Erro!</h2>
+                            <p>Preencha todos os dados.</p>
+                        </div>
                         <form className="signup-btns-mail">
                             <div>
-                                <input id="name" placeholder="Nome" max={12}></input>
+                                <input
+                                    id="name"
+                                    placeholder="Nome"
+                                    onChange={e => setName(e.target.value)}
+                                    max={20} />
                             </div>
                             <div>
-                                <input type="email" id="email" placeholder="E-mail" />
+                                <input
+                                    type="email"
+                                    id="email"
+                                    onChange={e => setEmail(e.target.value)}
+                                    placeholder="E-mail"
+                                />
                             </div>
                             <div>
-                                <input type="password" id="password" min={6} max={15} placeholder="Senha"></input>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={e => setPassword(e.target.value)}
+                                    min={6}
+                                    max={15}
+                                    placeholder="Senha" />
+
                             </div>
                             <div>
                                 <div>
-                                    <button type="submit" id="signup">Criar conta</button>
+                                    <button type="button" onClick={SignWithEmail} id="signup">Criar conta</button>
                                 </div>
                             </div>
                             <div className="forgetpass">
@@ -145,7 +187,7 @@ function AuthPageComponentRegistro() {
     }
     else {
         return (
-            
+
             <div className='dump-already-login'>
                 <img src='../static/media/undraw_young_and_happy_hfpe.svg' />
                 <h1>Você já está logado</h1>

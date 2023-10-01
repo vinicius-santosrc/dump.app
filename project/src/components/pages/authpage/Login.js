@@ -39,12 +39,7 @@ function ComponentLogin() {
                                     <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" /> 
                                     Entrar com o Google</button>
                             </div>
-                            <div className="btn-apple-providar-authentication xf3 cged vdh4 bda2">
-                                <button>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png" />
-                                    Entrar com Apple
-                                    </button>
-                            </div>
+                            
                         </div>
                         <div className="another">
                             <div className="line"></div>

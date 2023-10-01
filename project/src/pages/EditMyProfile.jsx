@@ -5,6 +5,8 @@ import { auth } from "../lib/firebase";
 import { updateProfile } from "firebase/auth";
 import databases from "../lib/appwrite";
 import { Ring } from '@uiball/loaders'
+import HeaderFeed from "../components/pages/feed/HeaderApp";
+import Suggestions from "../components/pages/feed/Suggestions";
 
 
 
@@ -150,7 +152,7 @@ export default function EditMyProfile() {
                     // Verificar o tamanho da nova imagem
                     const novaTamanhoKB = Math.round(novaImagem.length / 1024);
 
-                    
+
                     if (novaTamanhoKB <= tamanhoMaxKB) {
                         // Exibir a nova imagem
                         const novaImagemElemento = new Image();
@@ -180,7 +182,8 @@ export default function EditMyProfile() {
         <>
             {auth.currentUser ?
                 <>
-                    <HeaderAccount />
+                    <HeaderFeed />
+
                     <div className="loading-inner">
 
 
@@ -191,17 +194,15 @@ export default function EditMyProfile() {
                             color="black"
                         />
                     </div>
-                    <div className="sucess-message-top">
-                        <h1>Sucesso</h1>
-                        <p>Você salvou as informações</p>
-                    </div>
-                    <div className="error-message-top">
-                        <h1>Erro</h1>
-                        <p>As informações não foram salvas</p>
-                    </div>
+
                     <div className="dump-edit-my-profile">
-                        <div className="spacer-title">
-                            <h2>Editar perfil</h2>
+                        <div className="sucess-message-top">
+                            <h1>Sucesso</h1>
+                            <p>Você salvou as informações</p>
+                        </div>
+                        <div className="error-message-top">
+                            <h1>Erro</h1>
+                            <p>As informações não foram salvas</p>
                         </div>
                         <div className="card-edit-profile">
                             <div className="flex-card-image">

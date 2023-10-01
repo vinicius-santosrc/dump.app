@@ -103,7 +103,7 @@ export default function Account() {
                         return (
                             <>
                                 <article title={`${u.legenda}`} className="dump-user-account" id={u.$id} tabIndex={0} role="article" onClick={gotoPostSelect}>
-                                    <img className="dump-image-show" alt={u.legenda} id={`D${i}Pid_` + u.$id}  src={u.filePost} />
+                                    <img className="dump-image-show" alt={u.legenda} id={`D${i}Pid_` + u.$id} src={u.filePost} />
                                 </article>
                             </>
                         )
@@ -265,7 +265,7 @@ export default function Account() {
 
                 }
             )
- 
+
 
         }
         catch {
@@ -573,42 +573,79 @@ export default function Account() {
                             </>
                         }
                     </section>
-                    {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
-                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
-                            <>
-                                <label id="youraccountislocked">Sua conta está privada.</label>
-                            </>
-                            :
-                            <></>
-                        }</>
-                        :
-                        <></>
-                    }
-                    <section className="dumps-account-user-show">
+                    {(window.location.href).includes("/mentions") ?
+                        <section className="dumps-account-user-show">
+                            {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
+                                    <>
+                                        <div className="null-mentions-of-user">
+                                            <img alt="Menções" draggable="false" src="/static/media/undraw_mention_re_k5xc.svg" />
+                                            <h1>Nada por aqui...</h1>
+                                            <p>Aqui apareceram as menções de {ID_ACCOUNT_I.displayName}</p>
+                                        </div>
+                                    </>
+                                    :
+                                    <div className="private-account">
+                                        <i className="fa-solid fa-lock"></i>
+                                        <p>
+                                            Conta privada
+                                        </p>
+                                        <p>Para acessar as menções, siga @{ID_ACCOUNT_I.username}.</p>
+                                    </div>
 
-
-                        {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
-                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
-                                <>
-                                    {USERS_POSTS}
-                                </>
+                                }</>
                                 :
-                                <div className="private-account">
-                                    <i className="fa-solid fa-lock"></i>
-                                    <p>
-                                        Conta privada
-                                    </p>
-                                    <p>Para acessar seus dumps, siga esse usuário.</p>
-                                </div>
+                                <>
+                                    <div className="null-mentions-of-user">
+                                        <img alt="Menções" draggable="false" src="/static/media/undraw_mention_re_k5xc.svg" />
+                                        <h1>Nada por aqui...</h1>
+                                        <p>Aqui apareceram as menções de {ID_ACCOUNT_I.displayName}</p>
+                                    </div>
+                                </>
+                            }
 
-                            }</>
-                            :
-                            <>{USERS_POSTS}</>
-                        }
+                        </section>
+                        :
+                        <>
+                            {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
+                                    <>
+                                        <label id="youraccountislocked">Sua conta está privada.</label>
+                                    </>
+                                    :
+                                    <></>
+                                }</>
+                                :
+                                <></>
+                            }
+                            <section className="dumps-account-user-show">
+
+
+                                {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                    <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
+                                        <>
+                                            {USERS_POSTS}
+                                        </>
+                                        :
+                                        <div className="private-account">
+                                            <i className="fa-solid fa-lock"></i>
+                                            <p>
+                                                Conta privada
+                                            </p>
+                                            <p>Para acessar seus dumps, siga @{ID_ACCOUNT_I.username}.</p>
+                                        </div>
+
+                                    }</>
+                                    :
+                                    <>{USERS_POSTS}</>
+                                }
+                            </section>
+                        </>
+                    }
 
 
 
-                    </section>
+
                 </div>
             </div>
             <nav className='nav-bar-mobile'>

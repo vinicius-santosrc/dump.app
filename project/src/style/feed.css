@@ -31,6 +31,8 @@ html.dark-mode {
 
 }
 
+
+
 body {
     margin: 0 0px;
     position: relative;
@@ -50,6 +52,42 @@ body {
     border-radius: 10px;
     padding: 10px;
     border: 1px solid gray;
+}
+
+.followers-card p {
+    color: var(--text-color);
+}
+
+.handle-message-error, .handle-message-preencha-error {
+    background-color: red;
+    color: white;
+
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 10px;
+    text-align: left;
+    padding: 10px;
+    display: none;
+}
+
+.null-mentions-of-user {
+    text-align: center;
+    pointer-events: none;
+}
+
+.null-mentions-of-user img {
+    width: 15rem;
+    padding: 10px 0px;
+    
+}
+
+.dumps-account-user-show h1, .dumps-account-user-show p{
+    color: var(--text-color);
+    cursor: default;
+}
+
+.spacer-title h2, .spacer-title p {
+    color: var(--text-color);
 }
 
 
@@ -283,6 +321,10 @@ body {
     padding: 10px;
     margin: auto;
     text-align: center;
+}
+
+.curtidas-null-dump h2, .curtidas-null-dump p {
+    color: var(--text-color);
 }
 
 .curtidas-null-dump img {
@@ -678,6 +720,7 @@ body {
 
 .btns-dump-comments {
     align-items: center;
+    
     display: flex;
     gap: 10px;
 }
@@ -1378,10 +1421,10 @@ body {
 
 .top-account button {
     padding: 10px 40px;
-    background-color: var(--bg-color);
+    background-color: var(--text-color);
     border: none;
     border-radius: 10px;
-    color: var(--text-color);
+    color: var(--bg-color);
     border: 1px solid var(--text-color);
     transition: 500ms;
 }
@@ -1577,6 +1620,7 @@ body {
     align-items: center;
     gap: 10px;
 }
+
 
 @media screen and (max-width: 1780px) and (min-width: 900px) {
 
@@ -2190,8 +2234,9 @@ body {
 }
 
 .dump-edit-my-profile {
-    width: 800px;
-    margin: 30px auto;
+    width: 650px;
+    margin: 0 auto;
+    padding: 90px 0 !important;
 }
 
 .card-edit-profile {
@@ -2235,7 +2280,7 @@ body {
 
 .sucess-message-top {
     background-color: rgb(4, 185, 4);
-    width: 800px;
+    width: 100%;
     margin: auto;
     color: white;
     padding: 10px;
@@ -2246,7 +2291,7 @@ body {
 
 .error-message-top {
     background-color: rgb(185, 28, 4);
-    width: 800px;
+    width: 100%;
     margin: auto;
     color: white;
     padding: 10px;
@@ -2256,6 +2301,12 @@ body {
 
 .loading-wrapper {
     display: none;
+
+}
+
+.loading-wrapper svg circle{
+    color: var(--text-color) !important;
+    fill: var(--text-color);
 }
 
 .step1postcreate {
@@ -2535,6 +2586,7 @@ body {
 
 .filters-search h2 {
     padding: 20px 0;
+    color: var(--text-color);
 }
 
 .top-dump-user-current {
@@ -2924,14 +2976,14 @@ body {
         margin: auto;
         text-align: center;
         width: 100%;
-        justify-content: right;
-        padding: 3px;
+        justify-content: left;
+        gap: 10px;
         border-radius: 10px;
     }
 
     .btns-dump-comments button {
         padding: 0px;
-        font-size: 1.3rem;
+        font-size: 1.6rem;
         cursor: pointer;
         background: none;
         border: none;
@@ -3551,18 +3603,18 @@ body {
 
     .top-account button {
         padding: 5px 20px;
-        background-color: black;
+        background-color: var(--text-color);
         border: none;
         border-radius: 10px;
-        color: white;
-        border: 1px solid black;
+        color: var(--bg-color);
+        border: 1px solid var(--principal-color);
         transition: 500ms;
     }
 
     .top-account button:hover {
         cursor: pointer;
         background-color: transparent;
-        color: black;
+        color: var(--text-color);
 
     }
 
@@ -3618,6 +3670,7 @@ body {
     .dump-edit-my-profile {
         width: 100%;
         margin: 30px auto;
+        padding: 40px 10px !important;
     }
 
     .card-edit-profile {
@@ -3737,7 +3790,7 @@ body {
     .dump-search-page {
         width: 100%;
         margin: auto;
-        padding: 120px 0;
+        padding: 120px 20px;
         border: none;
         border-left: none;
         border-right: none;

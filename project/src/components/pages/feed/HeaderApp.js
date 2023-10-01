@@ -331,11 +331,7 @@ export default function HeaderFeed(props) {
         document.querySelector(".background-button").style.display = 'none'
     }
 
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").classList.add('dark-mode')
-    } else {
-        document.querySelector("html").classList.remove('dark-mode')
-    }
+
 
 
 
@@ -512,6 +508,17 @@ export default function HeaderFeed(props) {
 
                         </>
                         : <></>}
+                    {(window.location.href).includes("accounts/edit") ?
+                        <>
+                            <div className='header-posts'>
+                            <a href={auth.currentUser ? window.location.origin + "/user/" + auth.currentUser.uid : ""}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>Editar perfil</h1>
+                                </div>
+                            </div>
+
+                        </>
+                        : <></>}
                 </div>
                 <div className="App-Header-Feed-RightSide rightsideheader">
                     <a onClick={openCurtidas}>
@@ -523,7 +530,7 @@ export default function HeaderFeed(props) {
                 </div>
             </header>
             <header aria-live="polite" role='navigation' className='dump-mobile-header'>
-                {(window.location.href).includes("user") || (window.location.href).includes("saves") || (window.location.href).includes("posts") ? <></> :
+                {(window.location.href).includes("user") || (window.location.href).includes("saves") || (window.location.href).includes("edit") || (window.location.href).includes("posts") ? <></> :
                     <div className='top-header-mobile'>
                         <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
                         <div className="top-header-mobile-icons-rightside rightsideheadermobile">
@@ -607,6 +614,20 @@ export default function HeaderFeed(props) {
                                 <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Post</h1>
+
+                                </div>
+                            </div>
+                        </>)
+                    :
+
+                    <></>}
+                    {(window.location.href).includes("accounts/edit") ?
+                    (
+                        <>
+                            <div className='header-posts'>
+                                <a href={window.location.origin + "/user/" + auth.currentUser.uid}><i className="fa-solid fa-arrow-left"></i></a>
+                                <div className='right-side-header-posts accountheader'>
+                                    <h1>Editar perfil</h1>
 
                                 </div>
                             </div>
