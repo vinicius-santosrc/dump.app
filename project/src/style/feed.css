@@ -37,6 +37,7 @@ body {
     margin: 0 0px;
     position: relative;
     background-color: var(--bg-color);
+
 }
 
 .loading-btn {
@@ -78,10 +79,10 @@ body {
 .null-mentions-of-user img {
     width: 15rem;
     padding: 10px 0px;
-
+    
 }
 
-.dumps-account-user-show h1, .dumps-account-user-show p {
+.dumps-account-user-show h1, .dumps-account-user-show p{
     color: var(--text-color);
     cursor: default;
 }
@@ -99,7 +100,6 @@ body {
     padding: 10px 0;
     margin: 0 330px;
     z-index: 1;
-
 }
 
 .dump-mobile-header {
@@ -721,7 +721,7 @@ body {
 
 .btns-dump-comments {
     align-items: center;
-
+    
     display: flex;
     gap: 10px;
 }
@@ -851,7 +851,7 @@ body {
     justify-content: space-between;
     gap: 10px;
     margin-top: 10px;
-
+    
 }
 
 .dumprated img {
@@ -1212,7 +1212,7 @@ body {
     height: 300px;
 }
 
-.accountheader p {
+.accountheader p{
     color: var(--another-gray);
 }
 
@@ -1546,7 +1546,7 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-
+    
 }
 
 
@@ -1562,7 +1562,7 @@ body {
     border: none;
     margin-top: 10px;
     transition: 500ms;
-
+    
 }
 
 .inbox-content-contacts button:hover {
@@ -1876,7 +1876,7 @@ body {
         font-weight: 600;
     }
 
-
+    
 
     .inbox-dump-page {
         padding: 100px 0px;
@@ -2200,12 +2200,12 @@ body {
     width: 5rem;
 }
 
-.dump-already-login h1 {
+.dump-already-login h1{
     color: var(--text-color)
 }
 
 
-.dump-already-login p {
+.dump-already-login p{
     color: var(--text-color)
 }
 
@@ -2305,7 +2305,7 @@ body {
 
 }
 
-.loading-wrapper svg circle {
+.loading-wrapper svg circle{
     color: var(--text-color) !important;
     fill: var(--text-color);
 }
@@ -2314,12 +2314,12 @@ body {
     color: var(--text-color);
 }
 
-.content-name-curtida h2 {
+.content-name-curtida h2{
     color: var(--text-color)
 }
 
-.contentalert p {
-    color: var(--text-color)
+.contentalert p{
+    color:var(--text-color)
 }
 
 .btn-bottom-profile {
@@ -2750,7 +2750,6 @@ body {
     body {
         margin: 0 0px;
         position: relative;
-        
     }
 
 
@@ -2766,7 +2765,6 @@ body {
         margin: 0 0;
         transition: 500ms;
         display: none;
-
     }
 
     .dump-mobile-header {
@@ -2783,9 +2781,7 @@ body {
         border-bottom: 1px solid var(--border-gray);
         transition: 500ms;
         top: 0;
-        padding: env(safe-area-inset-bottom , 20px);
-        margin: env(safe-area-inset-right);
-        height: env(safe-area-inset-top);        
+
     }
 
     .inputheader {
