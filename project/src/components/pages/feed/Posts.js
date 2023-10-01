@@ -377,7 +377,7 @@ export default function Posts(props) {
     var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
 
     return (
-        <article  className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
+        <article className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
             <a href={window.location.origin + "/user/" + props.uid_user}>
                 <div className="dump-post-header">
                     <img src={props.photoURL} />
@@ -386,7 +386,7 @@ export default function Posts(props) {
                             <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
                             <p>@{props.username}</p>
                         </div>
-                        
+
 
                     </div>
                     <div>
@@ -440,6 +440,12 @@ export default function Posts(props) {
                                 <p>{NumberOfLikes}</p>
                             </div>
                             <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                            <a href={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
+                                <div>
+                                    <button><i className="fa-regular fa-comment"></i></button>
+                                </div>
+                            </a>
+
                         </>}
 
 
@@ -448,18 +454,7 @@ export default function Posts(props) {
                 </div>
 
             </div>
-            
-            <div>
-                {
-                    <a href={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
-                        <div>
-                            <button>VER COMENTÁRIOS</button>
-                        </div>
 
-
-                    </a>
-                }
-            </div>
         </article >
     )
 
