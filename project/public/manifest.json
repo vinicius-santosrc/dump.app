@@ -1,8 +1,30 @@
 {
-  "short_name": "Dump",
-  "categories":["social","news","magazines"],
-  "description":"Poste tudo que você quiser.",
   "name": "Dump",
+  "short_name": "Dump",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen"
+  ],
+  "categories": [
+    "social",
+    "news",
+    "magazines"
+  ],
+  "description": "Poste tudo que você quiser.",
+  "launch_handler": {
+    "client_mode": [
+      "focus-existing",
+      "auto"
+    ]
+  },
+  "lang": "pt",
+  "orientation": "any",
+  "dir": "auto",
+  "handle_links": "auto",
+  "id": "dump-application",
+  "edge_side_panel": {
+    "preferred_width": 445
+  },
   "icons": [
     {
       "src": "favicon.ico",
