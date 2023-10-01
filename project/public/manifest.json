@@ -5,6 +5,7 @@
   "display_override": [
     "fullscreen"
   ],
+  
   "categories": [
     "social",
     "news",
@@ -43,6 +44,6 @@
     }
   ],
   "start_url": ".",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }
