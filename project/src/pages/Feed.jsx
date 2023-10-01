@@ -16,7 +16,7 @@ import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
 
-const limit = 5;
+const limit = 150;
 
 export default function Feed() {
 
