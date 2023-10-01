@@ -2246,6 +2246,10 @@ body {
     border-radius: 10px;
 }
 
+.comments-section h2 {
+    color: var(--text-color);
+}
+
 .spacer-title {
     margin: 10px 0px;
 }
@@ -2720,6 +2724,15 @@ body {
     .dump-post-img-inner {
         display: block;
         width: 100%;
+        padding: 50px 20px;
+    }
+
+    .comments-section {
+        margin-bottom: 100px;
+    }
+
+    .comments-section h2 {
+        color: var(--text-color);
     }
 
     .dump-post-show-pc {
