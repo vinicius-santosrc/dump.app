@@ -74,6 +74,7 @@ export default function PostDetails() {
     const [ListOfSaves, setListOfSaves] = useState(null)
     const [ListOfLikes, setListOfLikes] = useState(null)
     const [NumberOfLikes, setNumberOfLikes] = useState(null)
+    const [NumberOfSaves, setNumberOfSaves] = useState(null)
 
 
     useEffect(() => {
@@ -144,6 +145,7 @@ export default function PostDetails() {
 
             setListOfLikes(user.likes)
             setNumberOfLikes(user.likes.length)
+            setNumberOfSaves(user.saves.length)
 
 
             const likes = user.likes || [];
@@ -156,6 +158,8 @@ export default function PostDetails() {
                 setLike(false)
                 return false;
             }
+
+
         } catch (error) {
             setLike(false)
             console.log(error)
@@ -710,7 +714,9 @@ export default function PostDetails() {
             return (
                 <div className="comment-dump-user">
                     <div className="left-side-content-user">
-                        <img alt="Avatar Usuário" src={user.photoURL} />
+                        <a href={window.location.origin + "/user/" + user.$id}>
+                            <img alt="Avatar Usuário" src={user.photoURL} />
+                        </a>
                     </div>
                     <div className="right-side-comment-content">
                         <div className="top-right-side-user">
@@ -817,7 +823,7 @@ export default function PostDetails() {
                                                 <>
                                                     <button></button>
                                                     <div className='dump-like-action-button'>
-                                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
+                                                        <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
                                                         <p>{NumberOfLikes}</p>
                                                     </div>
 
@@ -834,9 +840,17 @@ export default function PostDetails() {
                                             <div className='likes-card-box'>
                                             </div>
                                             {isSaved ?
-                                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+
+                                                <div className='dump-like-action-button'>
+                                                    <button className="dump-post-saved" onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                                    <p>{NumberOfSaves}</p>
+                                                </div>
                                                 :
-                                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                                <div className='dump-like-action-button'>
+                                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>
+                                                        <p>{NumberOfSaves}</p>
+                                                    </div>
+                                            }
                                         </div>
                                         :
                                         <div className="btns-inner">
@@ -859,17 +873,17 @@ export default function PostDetails() {
                                     </div>
 
                                     <section className="comments-section">
-                                        <h2>{comments_length <= 0 ?
-                                            "Nenhum comentário"
-                                            :
-                                            `Comentários(${comments_length})`
-                                        }</h2>
+
                                         <div className="top-dump-user-current">
                                             {UserAtual ?
                                                 <>
                                                     <div className="left-side-dump-current">
                                                         <img src={UserAtual.photoURL} />
-                                                        <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                        <div>
+                                                            <label>Respondendo para <a href={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</a></label>
+                                                            <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                        </div>
+
                                                     </div>
                                                     <div className="right-side-dump-current">
 
@@ -923,37 +937,45 @@ export default function PostDetails() {
                             </div>
                         </div>
                         <div className="dump-post-img-inner">
-                            <div className="dump-post-topimage">
-                                <img src={publicacao.filePost} />
-                            </div>
-                            <div className="dump-post-middle-bottom-img">
-                                <div className="flex-dump-info-image">
-                                    <div className="info-user-dump-post">
-                                        {USER_DOC && USER_DOC.displayName ? <>
-                                            <div className="dump-top-info-user">
-                                                <a href={window.location.origin + '/user/' + USER_DOC.$id}>
+                            <div className="flex-dump-info-image">
+                                <div className="info-user-dump-post">
+                                    {USER_DOC && USER_DOC.displayName ? <>
+                                        <div className="dump-top-info-user">
+                                            <a href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                                <div className="left-side-inner-profile-dump">
                                                     <img src={USER_DOC.photoURL} />
-                                                    <div className="rightside_user_information">
+                                                    <div>
                                                         <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
                                                         <p>@{USER_DOC.username}</p>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        </> : <></>}
-                                        <label className="time-display-dump">{datefilepost}</label>
-                                    </div>
+                                                </div>
+                                                <div className="rightside_user_information">
+
+
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </> : <></>}
+
                                 </div>
-                                <div className="bottom-desc">
-                                    <p>{publicacao.legenda}</p>
-                                </div>
+                            </div>
+                            <div className="bottom-desc">
+                                <p>{publicacao.legenda}</p>
+                            </div>
+                            <div className="dump-post-topimage">
+                                <img src={publicacao.filePost} />
+                            </div>
+                            <label className="time-display-dump">{datefilepost}</label>
+                            <div className="dump-post-middle-bottom-img">
+
                                 <div className="btns-inner">
                                     {auth.currentUser ?
                                         <>
                                             {isLiked ?
                                                 <>
-                                                    <button></button>
+
                                                     <div className='dump-like-action-button'>
-                                                        <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> {NumberOfLikes}</button>
+                                                        <button className="dump-post-liked" alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> <span>{NumberOfLikes}</span></button>
 
                                                     </div>
 
@@ -961,8 +983,7 @@ export default function PostDetails() {
                                                 :
                                                 <>
                                                     <div className='dump-like-action-button'>
-                                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> {NumberOfLikes}</button>
-
+                                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> <span>{NumberOfLikes}</span></button>
                                                     </div>
 
                                                 </>
@@ -970,9 +991,16 @@ export default function PostDetails() {
                                             <div className='likes-card-box'>
                                             </div>
                                             {isSaved ?
-                                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                                <div className='dump-like-action-button'>
+                                                    <button className="dump-post-saved" onClick={unsavedump}><i className="fa-solid fa-bookmark"></i> <span>{NumberOfSaves}</span></button>
+                                                </div>
+
                                                 :
-                                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                                <div className='dump-like-action-button'>
+                                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i> <span>{NumberOfSaves}</span></button>
+                                                </div>
+                                            }
+
                                         </>
                                         :
                                         <>
@@ -995,17 +1023,16 @@ export default function PostDetails() {
                                         ''}
                                 </div>
                                 <section className="comments-section">
-                                    <h2>{comments_length <= 0 ?
-                                        "Nenhum comentário"
-                                        :
-                                        `Comentários(${comments_length})`
-                                    }</h2>
                                     <div className="top-dump-user-current mobiletopcurrent">
                                         {UserAtual ?
                                             <>
                                                 <div className="left-side-dump-current">
                                                     <img src={UserAtual.photoURL} />
-                                                    <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                    <div>
+                                                        <label>Respondendo para <a href={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</a></label>
+                                                        <input id="comment-input" placeholder="Escreva seu comentário"></input>
+                                                    </div>
+
                                                 </div>
                                                 <div className="right-side-dump-current">
 

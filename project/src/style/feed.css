@@ -502,7 +502,9 @@ body {
 .btns-inner {
     display: flex;
     gap: 10px;
-    padding: 10px 0px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--border-gray);
+    border-bottom: 1px solid var(--border-gray);
 }
 
 .btns-inner button {
@@ -514,7 +516,7 @@ body {
 }
 
 .btns-inner button i {
-    color: var(--text-color);
+    color: var(--another-gray);
 }
 
 .btns-inner button:nth-child(1):hover {
@@ -732,7 +734,7 @@ body {
     cursor: pointer;
     background: none;
     border: none;
-    color: var(--text-color);
+    color: var(--another-gray);
 }
 
 .top-show-account {
@@ -799,10 +801,17 @@ body {
 .dump-like-action-button {
     display: flex;
     align-items: center;
+    gap: 10px;
+    color: var(--another-gray);
 }
 
 .dump-like-action-button p {
-    color: var(--text-color);
+    color: var(--another-gray);
+    font-size: 0.8rem;
+}
+
+.dump-like-action-button span {
+    color: var(--another-gray);
 }
 
 .card-suggestios-block {
@@ -1078,12 +1087,19 @@ body {
 
 .dump-post-bottom-desc p {
     font-size: 0.8rem;
-    color: var(--text-color);
+    color: var(--text-color) !important;
 }
+
+
 
 .bottom-desc {
     padding: 10px 0px;
     font-size: 1rem;
+}
+
+.bottom-desc p {
+    color: var(--text-color) !important;
+    font-size: 1.2rem !important;
 }
 
 .descriptionofdump {
@@ -1594,7 +1610,15 @@ body {
     justify-content: left;
     gap: 10px;
     align-items: center;
-    margin: 20px 0px;
+    margin: 00px 0px;
+    border-top: 1px solid var(--border-gray);
+    padding: 15px;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.comment-dump-user:hover {
+    background-color: var(--hover)
 }
 
 .comment-dump-user img {
@@ -1607,7 +1631,8 @@ body {
 }
 
 .comment-dump-user p {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    color: var(--text-color);
 }
 
 
@@ -1989,6 +2014,7 @@ body {
 
 .dump-post-show-pc .dump-post-topimage {
     text-align: center;
+    padding: 0px 20px;
 }
 
 .dump-post-show-pc .dump-post-topimage img {
@@ -1997,6 +2023,7 @@ body {
     object-fit: contain;
     margin: auto;
     text-align: center;
+    border-radius: 20px;
 }
 
 
@@ -2016,6 +2043,7 @@ body {
 .dump-post-show-pc .time-display-dump {
     color: rgb(158, 158, 158);
     font-weight: 400;
+    margin: 10px 20px;
 }
 
 .dump-post-options, .dump-post-options-compartilhar {
@@ -2123,7 +2151,9 @@ body {
     gap: 20px;
     padding: 80px 0px;
     width: 650px;
-    margin: auto
+    margin: auto;
+    border-left: 1px solid var(--border-gray);
+    border-right: 1px solid var(--border-gray);
 }
 
 .dump-top-info-user a {
@@ -2157,7 +2187,7 @@ body {
 .header-posts {
     display: flex;
     justify-content: left;
-    gap: 20px;
+    gap: 40px;
     align-items: center;
     padding: 5px 0px;
 }
@@ -2181,7 +2211,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-
+    padding: 0px 20px;
 }
 
 
@@ -2248,7 +2278,8 @@ body {
 
 .comments-section h2 {
     color: var(--text-color);
-}
+    font-size: 1rem;
+}B
 
 .spacer-title {
     margin: 10px 0px;
@@ -2424,7 +2455,11 @@ body {
 }
 
 .dump-post-liked {
-    color: red !important;
+    color: var(--principal-color) !important;
+}
+
+.dump-post-liked i {
+    color: var(--principal-color) !important;
 }
 
 .dump-top-info-user {
@@ -2602,6 +2637,7 @@ body {
     flex-wrap: nowrap;
     width: 100%;
     margin: 10px 0px;
+    padding: 0px 20px;
 }
 
 .top-dump-user-current img {
@@ -2617,7 +2653,7 @@ body {
     background-color: transparent;
     color: black;
     border: none;
-    font-size: 1rem;
+    font-size: 1.3rem;
     outline: none;
 }
 
@@ -2628,45 +2664,53 @@ body {
 .top-dump-user-current .right-side-dump-current button {
     padding: 5px 20px;
     color: white;
-    background: black;
+    background: var(--principal-color);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    border: 1px solid black;
+    border: 1px solid var(--principal-color);
     transition: 500ms;
 }
 
-.top-dump-user-current .right-side-dump-current button:hover {
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-}
 
 .top-dump-user-current .left-side-dump-current {
 
     align-items: center;
-    gap: 5px;
+    gap: 12px;
     display: flex;
 }
+
+
 
 .top-dump-user-current .left-side-dump-current input {
     background-color: transparent;
     color: var(--text-color);
     border: none;
-    font-size: 1rem;
+    font-size: 1.3rem;
     outline: none;
+    width: 400px;
+}
+
+.left-side-dump-current {
+    color: var(--another-gray);
+}
+
+.left-side-dump-current a {
+    color: var(--principal-color);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .top-dump-user-current .left-side-dump-current button {
     padding: 5px 20px;
     color: white;
-    background: black;
+    background: var(--principal-color);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    border: 1px solid black;
+    border: 1px solid var(--principal-color);
     transition: 500ms;
 }
 
@@ -2724,7 +2768,8 @@ body {
     .dump-post-img-inner {
         display: block;
         width: 100%;
-        padding: 50px 20px;
+        padding: 50px 0px;
+        border: none;
     }
 
     .comments-section {
@@ -2787,11 +2832,11 @@ body {
         align-items: center;
         position: fixed;
         z-index: 3;
-        padding: 5px 20px;
+        padding: 8px 20px;
         background: var(--blur-back);
         width: 100%;
         margin: 0 0px;
-        border-bottom: 1px solid var(--border-gray);
+        border-bottom: none;
         transition: 500ms;
         top: 0;
 
@@ -2801,6 +2846,18 @@ body {
         width: 50%;
         padding: 5px 20px;
 
+    }
+
+    .left-side-inner-profile-dump {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .bottom-desc p {
+        color: var(--text-color) !important;
+        font-size: 1.2rem !important;
+        padding: 0px 20px;
     }
 
     .top-header-mobile img:nth-child(1) {
@@ -2841,7 +2898,7 @@ body {
         background-color: var(--principal-color);
         padding: 4px 15px;
         border-radius: 10px;
-        color: var(--text-color);
+        color: white;
     }
 
     .rightsideheadermobile {
@@ -2993,6 +3050,7 @@ body {
         justify-content: left;
         gap: 10px;
         border-radius: 10px;
+        margin-left: 50px;
     }
 
     .btns-dump-comments button {
@@ -3030,13 +3088,14 @@ body {
 
     .nav-bar-mobile a i {
         color: var(--text-color);
-        opacity: 1;
+        opacity: 0.6;
         font-style: normal;
+        padding: 5px 0px;
     }
 
     .nav-bar-mobile a#selected i {
         opacity: 1;
-        color: var(--principal-color);
+        border-bottom: 3px solid var(--principal-color);
     }
 
     .nav-bar-mobile img {
@@ -3085,6 +3144,15 @@ body {
         border-bottom: 1px solid rgb(194, 194, 194);
         font-size: 1.2rem;
         margin-bottom: 5vh;
+    }
+
+    .top-dump-user-current .left-side-dump-current input {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+
+    .top-dump-user-current .left-side-dump-current label {
+        font-size: 0.7rem;
     }
 
     .createnewpost-middle {
@@ -3383,11 +3451,14 @@ body {
     }
 
     .dump-post-show-mobile .dump-post-topimage {
-        width: 100%;
+
+        margin: 0px 20px;
     }
 
     .dump-post-show-mobile .dump-post-topimage img {
         width: 100%;
+        border-radius: 20px;
+        
     }
 
     .dump-post-show-mobile .dump-post-header-show a {
@@ -3397,6 +3468,7 @@ body {
     .dump-post-show-mobile .flex-dump-info-image img {
         width: 3rem;
         border-radius: 100%;
+        border: 0.5px solid gray;
     }
 
     .PublicarButtoniPad {
@@ -3406,6 +3478,7 @@ body {
     .dump-post-show-mobile .time-display-dump {
         color: rgb(158, 158, 158);
         font-weight: 400;
+        padding: 10px 20px;
     }
 
     .dump-post-options, .dump-post-options-compartilhar {
@@ -3481,7 +3554,7 @@ body {
         display: flex;
         align-items: center;
         gap: 10px;
-
+        padding: 0px 20px;
     }
 
     .dump-post-show-mobile .flex-dump-info-image h1 {
@@ -4064,7 +4137,7 @@ body {
 
     .btns-inner {
         display: flex;
-        justify-content: right;
+        justify-content: left;
         gap: 5px;
         padding: 10px 0px;
     }
@@ -4131,7 +4204,7 @@ body {
     }
 
     .header-posts h1 {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .header-posts p {

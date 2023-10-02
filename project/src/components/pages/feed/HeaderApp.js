@@ -511,7 +511,7 @@ export default function HeaderFeed(props) {
                     {(window.location.href).includes("accounts/edit") ?
                         <>
                             <div className='header-posts'>
-                            <a href={auth.currentUser ? window.location.origin + "/user/" + auth.currentUser.uid : ""}><i className="fa-solid fa-arrow-left"></i></a>
+                                <a href={auth.currentUser ? window.location.origin + "/user/" + auth.currentUser.uid : ""}><i className="fa-solid fa-arrow-left"></i></a>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Editar perfil</h1>
                                 </div>
@@ -621,7 +621,7 @@ export default function HeaderFeed(props) {
                     :
 
                     <></>}
-                    {(window.location.href).includes("accounts/edit") ?
+                {(window.location.href).includes("accounts/edit") ?
                     (
                         <>
                             <div className='header-posts'>
@@ -639,7 +639,10 @@ export default function HeaderFeed(props) {
 
             </header >
             <nav aria-live="polite" role='navigation' className='nav-bar-mobile'>
-                <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                <div>
+                    <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                </div>
+
                 <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
                 {i_ison && ID_ACCOUNT_I ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
                 {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}

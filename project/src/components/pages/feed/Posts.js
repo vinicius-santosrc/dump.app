@@ -65,6 +65,7 @@ export default function Posts(props) {
     const [ListOfSaves, setListOfSaves] = useState(null)
     const [ListOfLikes, setListOfLikes] = useState(null)
     const [NumberOfLikes, setNumberOfLikes] = useState(null)
+    const [NumberOfSaves, setNumberOfSaves] = useState(null)
 
     const [useratual, setuseratual] = useState(null)
 
@@ -103,6 +104,7 @@ export default function Posts(props) {
 
             setListOfLikes(user.likes)
             setNumberOfLikes(user.likes.length)
+            setNumberOfSaves(user.saves.length)
 
 
             const likes = user.likes || [];
@@ -410,7 +412,7 @@ export default function Posts(props) {
                         <>
                             {isLiked ?
                                 <>
-                                    <button></button>
+
                                     <div className='dump-like-action-button'>
                                         <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
                                         <p>{NumberOfLikes}</p>
@@ -427,9 +429,17 @@ export default function Posts(props) {
                                 </>
                             }
                             {isSaved ?
-                                <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                <div className='dump-like-action-button'>
+                                    <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
+                                    <p>{NumberOfSaves}</p>
+                                </div>
+
                                 :
-                                <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>}
+                                <div className='dump-like-action-button'>
+                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>
+                                    <p>{NumberOfSaves}</p>
+                                </div>
+                            }
 
                             <button onClick={() => window.location.href = window.location.origin + '/posts/' + props.id}><i className="fa-regular fa-comment"></i></button>
 
