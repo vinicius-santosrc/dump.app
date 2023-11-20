@@ -6,6 +6,7 @@ import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
+import { Link } from 'react-router-dom';
 
 export default function Suggestions() {
     const [DumpsMaisAvaliados, setDumpsMaisAvaliados] = useState(null)
@@ -55,9 +56,9 @@ export default function Suggestions() {
             setDumpsMaisAvaliados(posts.map((post) => {
                 return (
                     <div className='dump-highest-rated dumprated '>
-                        <a href={window.location.origin + "/posts/" + post.$id} rel='noopener noreferrer nofollow'>
+                        <Link to={window.location.origin + "/posts/" + post.$id} rel='noopener noreferrer nofollow'>
                             <img id={post.$id} title={post.legenda} alt={post.legenda} src={post.filePost} />
-                        </a>
+                        </Link>
                     </div>
                 )
 
@@ -124,19 +125,19 @@ export default function Suggestions() {
             </div>
             <div className="Card-Suggestions">
                 <nav aria-label='Rodapé' className='footer-suggestions-content footernav-sug'>
-                    <a href={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow'>
+                    <Link to={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow'>
                         <span>Política de Privacidade</span>
-                    </a>
+                    </Link>
                     
-                    <a href={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow' >
+                    <Link to={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow' >
                         <span>Acessibilidade</span>
-                    </a>
-                    <a href={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow' >
+                    </Link>
+                    <Link to={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow' >
                         <span>Desenvolvedores</span>
-                    </a>
-                    <a href={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow'>
+                    </Link>
+                    <Link to={window.location.origin} dir='ltr' target='_blank' rel='noopener noreferrer nofollow'>
                         <span>©{year} Dump</span>
-                    </a>
+                    </Link>
                 </nav>
 
             </div>

@@ -6,6 +6,7 @@ import UserPerfil from './UserPerfil';
 import databases from '../../../lib/appwrite';
 import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
 
 export default function Posts(props) {
 
@@ -380,7 +381,7 @@ export default function Posts(props) {
 
     return (
         <article className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
-            <a href={window.location.origin + "/user/" + props.uid_user}>
+            <Link to={window.location.origin + "/user/" + props.uid_user}>
                 <div className="dump-post-header">
                     <img src={props.photoURL} />
                     <div className="dump-post-header-rightside">
@@ -398,11 +399,11 @@ export default function Posts(props) {
                 <div className='descriptionofdump'>
                     <p>{props.descricao ? props.descricao : ""}</p>
                 </div>
-            </a>
+            </Link>
             <aside className="dump-post-photo">
-                <a href={window.location.origin + '/posts/' + props.id} >
+                <Link to={window.location.origin + '/posts/' + props.id} >
                     <img id={`D-IG-${props.id}-filePost`} draggable="true" onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
-                </a>
+                </Link>
             </aside>
             <div className="dump-post-bottom">
 
@@ -451,11 +452,11 @@ export default function Posts(props) {
                                 <p>{NumberOfLikes}</p>
                             </div>
                             <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
-                            <a href={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
+                            <Link to={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
                                 <div>
                                     <button><i className="fa-regular fa-comment"></i></button>
                                 </div>
-                            </a>
+                            </Link>
 
                         </>}
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { HideLoading } from "../components/Loading";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import databases from "../lib/appwrite";
 import { ID, Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
@@ -551,7 +551,7 @@ export default function Account() {
                     </div>
                     <div className="middle-account-top">
                         <p>{ID_ACCOUNT_I.bio}</p>
-                        <a className="link_above" href={ID_ACCOUNT_I.link_above} target="_blank">{ID_ACCOUNT_I.link_above}</a>
+                        <Link className="link_above" to={ID_ACCOUNT_I.link_above} target="_blank">{ID_ACCOUNT_I.link_above}</Link>
                     </div>
                     <div className="middle-bottom-account-top">
 
@@ -649,10 +649,10 @@ export default function Account() {
                 </div>
             </div>
             <nav className='nav-bar-mobile'>
-                <a onClick={gotoHomePage}><i className="fa-solid fa-house"></i></a>
-                <a href={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></a>
-                {i_ison ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
-                {i_ison ? <a onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                <Link onClick={gotoHomePage}><i className="fa-solid fa-house"></i></Link>
+                <Link to={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></Link>
+                {i_ison ? <Link to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
+                {i_ison ? <Link onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></Link> : <><Link to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
             </nav>
         </>
     )

@@ -4,6 +4,7 @@ import '../../../style/authpage.css'
 
 /* FIREBASE IMPORTS*/
 import { auth, provider, signInWithPopup, app } from '../../../lib/firebase';
+import { Link } from 'react-router-dom';
 
 function ComponentLogin() {
   const [i_ison, setUserOn] = useState('')
@@ -59,7 +60,7 @@ function ComponentLogin() {
                                 </div>
                             </div>
                             <div className="forgetpass">
-                                <p>Não tem uma conta? <a href="./signup">Inscreva-se</a></p>
+                                <p>Não tem uma conta? <Link to="./signup">Inscreva-se</Link></p>
                             </div>
                         </form>
                     </div>

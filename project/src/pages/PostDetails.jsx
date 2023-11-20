@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { HideLoading } from "../components/Loading";
 import databases from "../lib/appwrite";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
 import { ID, Query } from "appwrite";
@@ -714,9 +714,10 @@ export default function PostDetails() {
             return (
                 <div className="comment-dump-user">
                     <div className="left-side-content-user">
-                        <a href={window.location.origin + "/user/" + user.$id}>
+                        
+                        <Link to={window.location.origin + "/user/" + user.$id}>
                             <img alt="Avatar Usuário" src={user.photoURL} />
-                        </a>
+                        </Link>
                     </div>
                     <div className="right-side-comment-content">
                         <div className="top-right-side-user">
@@ -762,13 +763,13 @@ export default function PostDetails() {
                             <HeaderFeed />
                             <div className="dump-post-options">
                                 <div className="select-post-options">
-                                    <a onClick={compartilhar}>Compartilhar</a>
+                                    <Link onClick={compartilhar}>Compartilhar</Link>
                                 </div>
                                 <div className="select-post-options">
-                                    <a id="copylink" onClick={copiarlink}>Copiar link</a>
+                                    <Link id="copylink" onClick={copiarlink}>Copiar link</Link>
                                 </div>
                                 <div className="select-post-options">
-                                    <a onClick={closepopups} id="cancel">Fechar</a>
+                                    <Link onClick={closepopups} id="cancel">Fechar</Link>
                                 </div>
                             </div>
                             <div className="compartilhar-options">
@@ -778,7 +779,7 @@ export default function PostDetails() {
                                         <button id="whatsapp-btn" onClick={compartilhar_whatsapp}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
                                     </div>
                                     <div className="select-post-options">
-                                        <a onClick={closepopups} id="cancel">Cancelar</a>
+                                        <Link onClick={closepopups} id="cancel">Cancelar</Link>
                                     </div>
                                 </div>
                             </div>
@@ -787,7 +788,7 @@ export default function PostDetails() {
                                 <div className="flex-dump-info-image">
                                     <div className="info-user-dump-post">
                                         {USER_DOC && USER_DOC.displayName ? <>
-                                            <a className="flexbox-dump-btn" href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                            <Link className="flexbox-dump-btn" to={window.location.origin + '/user/' + USER_DOC.$id}>
                                                 <div className="dump-top-info-user">
 
                                                     <div className="dump-leftside-info-user">
@@ -802,7 +803,7 @@ export default function PostDetails() {
                                                     </div>
 
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </> : <></>}
 
 
@@ -880,7 +881,7 @@ export default function PostDetails() {
                                                     <div className="left-side-dump-current">
                                                         <img src={UserAtual.photoURL} />
                                                         <div>
-                                                            <label>Respondendo para <a href={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</a></label>
+                                                            <label>Respondendo para <Link to={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</Link></label>
                                                             <input id="comment-input" placeholder="Escreva seu comentário"></input>
                                                         </div>
 
@@ -916,13 +917,13 @@ export default function PostDetails() {
                         <HeaderFeed />
                         <div className="dump-post-options">
                             <div className="select-post-options">
-                                <a onClick={compartilhar}>Compartilhar</a>
+                                <Link onClick={compartilhar}>Compartilhar</Link>
                             </div>
                             <div className="select-post-options">
-                                <a id="copylink" onClick={copiarlink}>Copiar link</a>
+                                <Link id="copylink" onClick={copiarlink}>Copiar link</Link>
                             </div>
                             <div className="select-post-options">
-                                <a onClick={closepopups} id="cancel">Fechar</a>
+                                <Link onClick={closepopups} id="cancel">Fechar</Link>
                             </div>
                         </div>
                         <div className="compartilhar-options">
@@ -932,7 +933,7 @@ export default function PostDetails() {
                                     <button id="whatsapp-btn" onClick={compartilhar_whatsapp}><i className="fa-brands fa-whatsapp"></i> WhatsApp</button>
                                 </div>
                                 <div className="select-post-options">
-                                    <a onClick={closepopups} id="cancel">Cancelar</a>
+                                    <Link onClick={closepopups} id="cancel">Cancelar</Link>
                                 </div>
                             </div>
                         </div>
@@ -941,7 +942,7 @@ export default function PostDetails() {
                                 <div className="info-user-dump-post">
                                     {USER_DOC && USER_DOC.displayName ? <>
                                         <div className="dump-top-info-user">
-                                            <a href={window.location.origin + '/user/' + USER_DOC.$id}>
+                                            <Link to={window.location.origin + '/user/' + USER_DOC.$id}>
                                                 <div className="left-side-inner-profile-dump">
                                                     <img src={USER_DOC.photoURL} />
                                                     <div>
@@ -953,7 +954,7 @@ export default function PostDetails() {
 
 
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </> : <></>}
 
@@ -1029,7 +1030,7 @@ export default function PostDetails() {
                                                 <div className="left-side-dump-current">
                                                     <img src={UserAtual.photoURL} />
                                                     <div>
-                                                        <label>Respondendo para <a href={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</a></label>
+                                                        <label>Respondendo para <Link to={window.location.origin + "/user/" + USER_DOC.$id}>@{USER_DOC.username}</Link></label>
                                                         <input id="comment-input" placeholder="Escreva seu comentário"></input>
                                                     </div>
 

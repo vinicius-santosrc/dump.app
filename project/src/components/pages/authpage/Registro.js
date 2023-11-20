@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app"
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 function AuthPageComponentRegistro() {
     const [name, setName] = useState(null)
@@ -192,11 +193,11 @@ function AuthPageComponentRegistro() {
                 <img src='../static/media/undraw_young_and_happy_hfpe.svg' />
                 <h1>Você já está logado</h1>
                 <p>Agora, aproveite o máximo da nossa aplicação.</p>
-                <a href={window.location.origin}>
+                <Link to={window.location.origin}>
                     <div className='button-back'>
                         <label>Voltar</label>
                     </div>
-                </a>
+                </Link>
             </div>
         )
 

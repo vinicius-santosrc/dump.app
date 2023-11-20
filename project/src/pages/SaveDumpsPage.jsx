@@ -6,6 +6,7 @@ import { Query } from "appwrite"
 import HeaderSaves from "../components/HeaderSaves"
 import HeaderFeed from "../components/pages/feed/HeaderApp"
 import Suggestions from "../components/pages/feed/Suggestions"
+import { Link } from "react-router-dom"
 
 export default function SaveDumpsPage() {
     const [Saves, setSaves] = useState(null)
@@ -34,10 +35,10 @@ export default function SaveDumpsPage() {
                 setSaves(response.documents.filter(e => e.saves.includes(USER_UID)).map((r) => {
                     return (
                         <div className="dump-posts-saved" id={r.$id}>
-                            <a href={window.location.origin + '/posts/' + r.$id}>
+                            <Link to={window.location.origin + '/posts/' + r.$id}>
                                 <img src={r.filePost} />
                                 <p>{r.legenda != '' ? r.legenda : 'Sem legenda'}</p>
-                            </a>
+                            </Link>
                         </div>
                     )
                 }))

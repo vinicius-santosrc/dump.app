@@ -17,17 +17,7 @@
 
 }
 
-html.dark-mode {
-    --bg-color: black;
-    --text-color: white;
-    --border-gray: #3d3d3d;
-    --principal-color: #994ae2;
-    --hover: rgb(95, 95, 95);
-    --card-sug-back: #16181c;
-    --blur-back: rgba(8, 8, 8, 0.649);
-    --another-gray: rgb(154, 154, 154);
-    --background-logo: white;
-}
+
 
 
 .auth-content {

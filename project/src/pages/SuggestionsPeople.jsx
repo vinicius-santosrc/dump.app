@@ -8,6 +8,7 @@ import HeaderFeed from "../components/pages/feed/HeaderApp"
 import axios from 'axios';
 import Suggestions from "../components/pages/feed/Suggestions"
 import { Query } from "appwrite"
+import { Link } from "react-router-dom"
 
 export default function SuggestionsPeople() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
@@ -113,13 +114,13 @@ export default function SuggestionsPeople() {
                 setSearchPeople(e.documents.filter(e => e.username.includes((inputsearch.value).toLowerCase())).slice(0, 6).map((i) => {
                     return (
                         <div className="dump-user-search">
-                            <a href={window.location.origin + '/user/' + i.uid}>
+                            <Link to={window.location.origin + '/user/' + i.uid}>
                                 <img src={i.photoURL} />
                                 <div className="rightside-dump-user-search">
                                     <h2>{i.displayName} {i.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h2>
                                     <p>@{i.username}</p>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                     )
                 }
@@ -160,9 +161,9 @@ export default function SuggestionsPeople() {
                     setPublicoes(r.documents.filter(r => r.legenda.includes((inputsearch.value).toLowerCase())).slice(0, 6).map((i) => {
                         return (
                             <div className="dump-user-posts-search">
-                                <a href={window.location.origin + "/posts/" + i.$id}>
+                                <Link to={window.location.origin + "/posts/" + i.$id}>
                                     <img src={i.filePost} />
-                                </a>
+                                </Link>
                             </div>
                         )
                     }
@@ -204,10 +205,10 @@ export default function SuggestionsPeople() {
 
             </div>
             <nav className='nav-bar-mobile'>
-                <a onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
-                <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
-                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
-                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                <Link onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></Link>
+                <Link to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
+                {i_ison && ID_ACCOUNT_I ? <Link to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
+                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <Link to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></Link> : <><Link to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
             </nav>
         </>
 

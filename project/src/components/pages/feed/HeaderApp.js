@@ -9,6 +9,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from "firebase/compat/app"
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
+import { Link } from 'react-router-dom';
 
 function gotoHome() {
     window.location.href = window.location.origin
@@ -39,7 +40,7 @@ const gotomyprofile = () => {
     .get()
     .then(s => {
         s.docs.map(yourprofile => {
-            window.location.href=window.location.origin + '#/?user=' + yourprofile.data().username
+            window.location.to=window.location.origin + '#/?user=' + yourprofile.data().username
         })
     })*/
 }
@@ -143,7 +144,7 @@ function CurtidasList() {
                                 {not.ACTION == 'like'
                                     ?
                                     <div className='curtida-user-dump'>
-                                        <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                                        <Link  to={window.location.origin + '/posts/' + not.PHOTO_REL}>
 
                                             <div className='leftsidecontent-alert'>
                                                 <img src={sender.photoURL} />
@@ -162,13 +163,13 @@ function CurtidasList() {
                                             <div className='post_rel_content'>
                                                 <img src={null} />
                                             </div>
-                                        </a>
+                                        </Link>
                                     </div>
                                     :
                                     <>
                                         {not.ACTION == 'comment' ?
                                             <div className='curtida-user-dump'>
-                                                <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                                                <Link  to={window.location.origin + '/posts/' + not.PHOTO_REL}>
 
                                                     <div className='leftsidecontent-alert'>
                                                         <img src={sender.photoURL} />
@@ -185,13 +186,13 @@ function CurtidasList() {
                                                             `${diadoPost} de ${MesesDoAno[mesdoPost]} `
                                                         }</label>
                                                     </div>
-                                                </a>
+                                                </Link>
                                             </div>
                                             :
                                             <>
                                                 {not.ACTION == 'follow' ?
                                                     <div className='curtida-user-dump'>
-                                                        <a href={window.location.origin + '/posts/' + not.PHOTO_REL}>
+                                                        <Link  to={window.location.origin + '/posts/' + not.PHOTO_REL}>
                                                             <div className='leftsidecontent-alert'>
                                                                 <img src={sender.photoURL} />
                                                                 <div className='content-name-curtida'>
@@ -207,7 +208,7 @@ function CurtidasList() {
                                                                     `${diadoPost} de ${MesesDoAno[mesdoPost]} `
                                                                 }</label>
                                                             </div>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                     :
                                                     ""
@@ -348,28 +349,28 @@ export default function HeaderFeed(props) {
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
                             <div className="LeftsideRedirect">
-                                <a className="Redirect" href={window.location.origin} title='Página Inicial' id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i><span>Página Inicial</span></a>
+                                <Link  className="Redirect" to={window.location.origin} title='Página Inicial' id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i><span>Página Inicial</span></Link>
                             </div>
                             <div className="LeftsideRedirect" >
-                                <a href={window.location.origin + '/search'} className="Redirect" title='Pesquisar' id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i><span>Pesquisar</span></a>
+                                <Link  to={window.location.origin + '/search'} className="Redirect" title='Pesquisar' id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i><span>Pesquisar</span></Link>
                             </div>
                             <div className="LeftsideRedirect" onClick={openCurtidas}>
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i><span>Notificações</span></a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <Link  className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i><span>Notificações</span></Link> : ''}
                             </div>
                             <div className="LeftsideRedirect">
-                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/messages/inbox'} id={window.location.pathname == '/messages/inbox' ? 'selected' : ''} className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i><span>Mensagens</span></a> : ''}
+                                {i_ison && ID_ACCOUNT_I ? <Link  to={window.location.origin + '/messages/inbox'} id={window.location.pathname == '/messages/inbox' ? 'selected' : ''} className="Redirect" title='Mensagens'><i className="fa-regular fa-comment-dots"></i><span>Mensagens</span></Link> : ''}
                             </div>
                             <div className="LeftsideRedirect">
-                                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'} className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i><span>Dumps Salvos</span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <Link  to={window.location.origin + '/saves'} className="Redirect" title='Salvos'><i className="fa-solid fa-bookmark"></i><span>Dumps Salvos</span></Link> : <></>}
                             </div>
                             <div className="LeftsideRedirect">
-                                {i_ison && ID_ACCOUNT_I ? <a className="Redirect" title='Perfil' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><i className="fa-regular fa-user"></i><span>Perfil</span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I ? <Link  className="Redirect" title='Perfil' to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><i className="fa-regular fa-user"></i><span>Perfil</span></Link> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <a className="PublicarButton" title='Criar publicação'><span>Publicar</span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <Link  className="PublicarButton" title='Criar publicação'><span>Publicar</span></Link> : <></>}
                             </div>
                             <div className="LeftsideRedirect" onClick={createnewpost}>
-                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <a className="PublicarButtoniPad" title='Criar publicação'><span><i className="fa-solid fa-feather"></i></span></a> : <></>}
+                                {i_ison && ID_ACCOUNT_I && window.location.pathname == '/' || window.location.pathname == '/following' ? <Link  className="PublicarButtoniPad" title='Criar publicação'><span><i className="fa-solid fa-feather"></i></span></Link> : <></>}
                             </div>
 
                             <div className="account-div">
@@ -387,7 +388,7 @@ export default function HeaderFeed(props) {
                                     <></>
                                 }
                                 {i_ison && ID_ACCOUNT_I && auth.currentUser && auth.currentUser.uid ?
-                                    <a title='Sua conta' href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
+                                    <Link  title='Sua conta' to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
                                         {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
                                         <div className='leftside-account-dump-index'>
                                             {ID_ACCOUNT_I.displayName ?
@@ -403,7 +404,7 @@ export default function HeaderFeed(props) {
                                             }
                                             {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p></p>}
                                         </div>
-                                    </div></a>
+                                    </div></Link>
                                     :
                                     <div className="account-off-div-flexbox" title='Fazer login'>
                                         <i className="fa-solid fa-right-to-bracket"></i>
@@ -426,7 +427,7 @@ export default function HeaderFeed(props) {
                 {(window.location.href).includes("inbox") ?
                     <div aria-live="polite" role='navigation' className='dump-header-flexible-messagens'>
                         <div className='header-posts-msg'>
-                            <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                            <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                             <h1>Mensagens</h1>
                         </div>
 
@@ -438,14 +439,14 @@ export default function HeaderFeed(props) {
                             <h1>Página Inicial</h1>
                             <div className='buttons-change-view'>
                                 <div className='option-view' >
-                                    <a href={window.location.pathname == '/' ? '#' : window.location.origin + '/'} id={window.location.pathname == '/' ? 'selectedview' : ''}>
+                                    <Link  to={window.location.pathname == '/' ? '#' : window.location.origin + '/'} id={window.location.pathname == '/' ? 'selectedview' : ''}>
                                         Para você
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className='option-view'>
-                                    <a href={window.location.pathname == '/following' ? '#' : window.location.origin + '/following'} id={window.location.pathname == '/following' ? 'selectedview' : ''}>
+                                    <Link  to={window.location.pathname == '/following' ? '#' : window.location.origin + '/following'} id={window.location.pathname == '/following' ? 'selectedview' : ''}>
                                         Seguindo
-                                    </a>
+                                    </Link>
                                 </div>
 
                             </div>
@@ -456,19 +457,19 @@ export default function HeaderFeed(props) {
                             <h1>Pesquisar</h1>
                             <div className='buttons-change-view'>
                                 <div className='option-view' >
-                                    <a id='selectedview'>
+                                    <Link  id='selectedview'>
                                         Tudo
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className='option-view'>
-                                    <a>
+                                    <Link >
                                         Pessoas
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className='option-view'>
-                                    <a>
+                                    <Link >
                                         Posts
-                                    </a>
+                                    </Link>
                                 </div>
 
                             </div>
@@ -477,7 +478,7 @@ export default function HeaderFeed(props) {
                     {(window.location.href).includes("posts") ?
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <h1>Post</h1>
                             </div>
 
@@ -487,7 +488,7 @@ export default function HeaderFeed(props) {
                     {(window.location.href).includes("user") ?
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>{props.username}</h1>
                                     <p>{props.dumps} dumps</p>
@@ -511,7 +512,7 @@ export default function HeaderFeed(props) {
                     {(window.location.href).includes("accounts/edit") ?
                         <>
                             <div className='header-posts'>
-                                <a href={auth.currentUser ? window.location.origin + "/user/" + auth.currentUser.uid : ""}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={auth.currentUser ? window.location.origin + "/user/" + auth.currentUser.uid : ""}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Editar perfil</h1>
                                 </div>
@@ -521,12 +522,12 @@ export default function HeaderFeed(props) {
                         : <></>}
                 </div>
                 <div className="App-Header-Feed-RightSide rightsideheader">
-                    <a onClick={openCurtidas}>
+                    <Link  onClick={openCurtidas}>
                         <i className="fa-regular fa-heart"></i>
-                    </a>
-                    <a href="">
+                    </Link>
+                    <Link  to="">
                         <i className="fa-regular fa-comment-dots"></i>
-                    </a>
+                    </Link>
                 </div>
             </header>
             <header aria-live="polite" role='navigation' className='dump-mobile-header'>
@@ -534,12 +535,12 @@ export default function HeaderFeed(props) {
                     <div className='top-header-mobile'>
                         <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
                         <div className="top-header-mobile-icons-rightside rightsideheadermobile">
-                            <a onClick={openCurtidas}>
+                            <Link  onClick={openCurtidas}>
                                 <i className="fa-regular fa-heart"></i>
-                            </a>
-                            <a href={window.location.origin + '/messages/inbox'}>
+                            </Link>
+                            <Link  to={window.location.origin + '/messages/inbox'}>
                                 <i className="fa-regular fa-comment-dots"></i>
-                            </a>
+                            </Link>
                             {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
                             {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
                         </div>
@@ -547,23 +548,23 @@ export default function HeaderFeed(props) {
                 {window.location.pathname == '/' ?
                     <div className='bottom-header-mobile'>
                         <div className='option-feed-show'>
-                            <a id='selected'>Para você</a>
+                            <Link  id='selected'>Para você</Link>
                         </div>
                         <div className='option-feed-show'>
-                            <a href={window.location.origin + "/following"}>Seguindo</a>
+                            <Link  to={window.location.origin + "/following"}>Seguindo</Link>
                         </div>
 
                     </div> : ''}
                 {window.location.pathname == '/search' ?
                     <div className='bottom-header-mobile'>
                         <div className='option-feed-show'>
-                            <a id='selected'>Tudo</a>
+                            <Link  id='selected'>Tudo</Link>
                         </div>
                         <div className='option-feed-show'>
-                            <a>Pessoas</a>
+                            <Link >Pessoas</Link>
                         </div>
                         <div className='option-feed-show'>
-                            <a>Publicações</a>
+                            <Link >Publicações</Link>
                         </div>
 
                     </div> : ''
@@ -571,10 +572,10 @@ export default function HeaderFeed(props) {
                 {window.location.pathname == '/following' ?
                     <div className='bottom-header-mobile'>
                         <div className='option-feed-show'>
-                            <a href={window.location.origin}>Para você</a>
+                            <Link  to={window.location.origin}>Para você</Link>
                         </div>
                         <div className='option-feed-show'>
-                            <a id='selected'>Seguindo</a>
+                            <Link  id='selected'>Seguindo</Link>
                         </div>
 
                     </div> : ''
@@ -583,7 +584,7 @@ export default function HeaderFeed(props) {
                     (
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>{props.username}</h1>
                                     <p>{props.dumps} dumps</p>
@@ -597,7 +598,7 @@ export default function HeaderFeed(props) {
                     (
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Dumps Salvos</h1>
                                     <p>{props.savesuername}</p>
@@ -611,7 +612,7 @@ export default function HeaderFeed(props) {
                     (
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Post</h1>
 
@@ -625,7 +626,7 @@ export default function HeaderFeed(props) {
                     (
                         <>
                             <div className='header-posts'>
-                                <a href={window.location.origin + "/user/" + auth.currentUser.uid}><i className="fa-solid fa-arrow-left"></i></a>
+                                <Link  to={window.location.origin + "/user/" + auth.currentUser.uid}><i className="fa-solid fa-arrow-left"></i></Link>
                                 <div className='right-side-header-posts accountheader'>
                                     <h1>Editar perfil</h1>
 
@@ -640,13 +641,13 @@ export default function HeaderFeed(props) {
             </header >
             <nav aria-live="polite" role='navigation' className='nav-bar-mobile'>
                 <div>
-                    <a onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></a>
+                    <Link  onClick={gotoHomePage} id={window.location.pathname == '/' || window.location.pathname == '/following' ? 'selected' : ''}><i className="fa-solid fa-house"></i></Link>
                 </div>
 
-                <a href={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></a>
-                {i_ison && ID_ACCOUNT_I ? <a onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></a> : <></>}
-                {i_ison && ID_ACCOUNT_I ? <a href={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></a> : ''}
-                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <a href={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></a> : <><a href="./accounts/signup"><i className="fa-solid fa-circle-user"></i></a></>}
+                <Link  to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
+                {i_ison && ID_ACCOUNT_I ? <Link  onClick={createnewpost}><i className="fa-solid fa-square-plus"></i></Link> : <></>}
+                {i_ison && ID_ACCOUNT_I ? <Link  to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
+                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <Link  to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></Link> : <><Link  to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
             </nav>
             <div className='curtidaspage-dump'>
                 <div className='curtidasheader'>

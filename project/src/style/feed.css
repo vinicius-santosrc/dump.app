@@ -2818,6 +2818,7 @@ body {
         align-items: center;
         position: fixed;
         padding: 5px 0;
+        
         background: white;
         width: 100%;
         margin: 0 0;
@@ -2839,6 +2840,7 @@ body {
         border-bottom: none;
         transition: 500ms;
         top: 0;
+        padding-top: 50px;
 
     }
 
@@ -2998,7 +3000,7 @@ body {
     }
 
     .dump-feed-posts {
-        padding: 95px 0;
+        padding: 135px 0;
         width: 100%;
         margin: 0 auto;
         border-left: transparent;
@@ -3402,7 +3404,7 @@ body {
         width: 100%;
         height: 100%;
         background-color: var(--bg-color);
-        padding: 10px;
+        padding: 40px 10px;
         border-left: 1px solid var(--border-gray);
         display: none;
         animation: abrircurtidas 0.3s ease-in-out;
@@ -3585,7 +3587,7 @@ body {
     .dump-account-page {
         width: 100%;
         margin: auto;
-        padding: 70px 0px;
+        padding: 110px 0px;
 
     }
 
@@ -3877,7 +3879,7 @@ body {
     .dump-search-page {
         width: 100%;
         margin: auto;
-        padding: 120px 20px;
+        padding: 160px 20px;
         border: none;
         border-left: none;
         border-right: none;
@@ -4088,6 +4090,7 @@ body {
         gap: 10px;
         width: 100%;
         border: none;
+        padding: 130px 0px;
     }
 
     .dump-posts-saved a {
