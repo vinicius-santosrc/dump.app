@@ -19,31 +19,7 @@ function createnewpost() {
     document.querySelector('.createneewpost-card').style.display = 'block';
     document.querySelector('.background-posts').style.display = 'block';
 }
-const gotomyprofile = () => {
 
-    const getprofile = async () => {
-
-        await databases.listDocuments(
-            "64f9329a26b6d59ade09",
-            "64f93be88eee8bb83ec3"
-        ).then((res) => {
-            res.documents.filter(a => a.uid == auth.currentUser.uid).map((r) => {
-                window.location.href = `${window.location.origin}/user/${r.$id}`
-            })
-        })
-    }
-    getprofile()
-
-    /*database
-    .collection('users')
-    .where('uid' , '==', auth.currentUser.uid)
-    .get()
-    .then(s => {
-        s.docs.map(yourprofile => {
-            window.location.to=window.location.origin + '#/?user=' + yourprofile.data().username
-        })
-    })*/
-}
 
 
 function CurtidasList() {

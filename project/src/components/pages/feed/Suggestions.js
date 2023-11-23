@@ -88,14 +88,7 @@ export default function Suggestions() {
                     <p>Essa aplicação está na versão beta e está propicia a mudanças no sistema, design e nas informações.</p>
                 </div>
             </div>
-            <div className="Card-Suggestions">
-                <div className='sugg-card-beta'>
-                    <h1>Principais Dumps</h1>
-                    <div className='dump-most-avaliated'>
-                        {DumpsMaisAvaliados}
-                    </div>
-                </div>
-            </div>
+            
             <div className="Card-Suggestions">
                 <div className='header-sugg'>
                     <h1>Quem seguir</h1>

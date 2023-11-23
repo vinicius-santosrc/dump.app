@@ -16,13 +16,17 @@ import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
 
-const limit = 150;
+let limit = 200;
+let limitposts = 5
+// Defina uma variável para controlar se os posts adicionais já foram carregados
+let postsCarregados = false;
 
 export default function Feed() {
 
 
 
     const [postsRealtime, setPosts] = useState([])
+    const [postsJSON, setPostsJSON] = useState([])
     const getPosts = async () => {
         try {
             await databases.listDocuments(
@@ -38,6 +42,7 @@ export default function Feed() {
 
                 .then((res) => {
                     setPosts(res.documents)
+                    setPostsJSON(res.documents.slice(0, 5))
 
                 })
                 .catch((e) => {
@@ -52,10 +57,32 @@ export default function Feed() {
     })
 
     window.addEventListener('scroll', () => {
+
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            getPosts();
+            limitposts += 5
+
+            setPostsJSON(postsRealtime.slice(0, limitposts))
         }
+
     });
+
+
+
+
+
+    // Verifique se o usuário chegou no final da página e se os posts ainda não foram carregados
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !postsCarregados) {
+        // Aumente o limite de posts e atualize a lista
+        limitposts += 5;
+        setPostsJSON(postsRealtime.slice(0, limitposts));
+
+        // Marque os posts como carregados
+        postsCarregados = true;
+    }
+    else {
+        // Defina uma variável para controlar se os posts adicionais já foram carregados
+        postsCarregados = false;
+    }
 
     let PostsFollowing = postsRealtime
 
@@ -92,8 +119,8 @@ export default function Feed() {
             <main className="dump-feed-posts">
                 <PostingPhoto />
                 <CardFeedStart />
-                {postsRealtime && postsRealtime.length > 0 && users ? (
-                    postsRealtime.map((p) => {
+                {postsJSON && postsJSON.length > 0 && users ? (
+                    postsJSON.map((p) => {
                         const userDocument = users.documents.find((e) => e.email === p.email);
                         const displayName = userDocument ? userDocument.displayName : '';
                         const photoURL = userDocument ? userDocument.photoURL : '';
