@@ -64,6 +64,7 @@ export default function Feed() {
             setPostsJSON(postsRealtime.slice(0, limitposts))
         }
 
+
     });
 
 
@@ -91,6 +92,7 @@ export default function Feed() {
 
     useEffect(() => {
         getPosts()
+        document.title = "Dump"
     }, [])
 
     const user = async () => {
@@ -141,6 +143,7 @@ export default function Feed() {
                                 timestamp={p.timestamp}
                                 isthisverifiqued={isVerified}
                                 userisfollowing={p.following}
+                                likes={p.likes}
                                 uid_user={uid}
                             />
                         );

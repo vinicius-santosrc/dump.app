@@ -172,7 +172,12 @@ export default function Account() {
     if (!ID_ACCOUNT_I) {
         return (
             <>
-                <Header />
+
+                <HeaderFeed
+                    username={ID_ACCOUNT_I ? ID_ACCOUNT_I.displayName : ""}
+                    dumps={nofposts}
+                />
+                <Suggestions />
                 <div className="loading-inner">
                     <Ring
                         size={40}

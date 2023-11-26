@@ -123,6 +123,30 @@ body {
     transform: scale(1.07);
 }
 
+.Dump-Likes-Header-Box {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: var(--text-color);
+    
+    border-bottom: 1px solid var(--another-gray);
+}
+
+.Dump-Likes-Header-Box button {
+    background: transparent;
+    outline: none;
+    border: none;
+    color: var(--text-color);
+    transition: 500ms;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.Dump-Likes-Header-Box button:hover {
+    scale: 0.95;
+}
+
 
 .rightsideheader {
     display: flex;
@@ -663,9 +687,9 @@ body {
 }
 
 .dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe {
-    width: 50%;
+    width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 60%;
     max-height: 100%;
     object-fit: contain;
     margin-top: 10px;
@@ -674,7 +698,12 @@ body {
     z-index: -1;
     border-radius: 20px;
     border: 1px solid var(--border-gray);
+    transition: 500ms;
 
+}
+
+.dump-post-photo img:active {
+    scale: 0.97;
 }
 
 .dump-feed-posts {
@@ -721,24 +750,47 @@ body {
 
 .btns-dump-comments {
     align-items: center;
-    
     display: flex;
     gap: 10px;
 }
 
 .btns-dump-comments button {
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 1.3rem;
     cursor: pointer;
     background: none;
     border: none;
     color: var(--another-gray);
+    transition: 300ms;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btns-dump-comments button:hover {
+    scale: 0.9;
+    border-radius: 5px;
+    background: rgba(128, 128, 128, 0.207);
 }
 
 .top-show-account {
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.Dump-Likes-Post-ShowBox {
+    position: fixed;
+    border: 1px solid lightgray;
+    z-index: 2;
+    background-color: var(--bg-color);
+    width: 600px;
+    height: 700px;
+    margin: auto;
+    border-radius: 10px;
+    top: 10%;
+    left: 0;
+    right: 0;
 }
 
 .top-show-account i {
@@ -881,6 +933,8 @@ body {
     width: 360px;
     margin-bottom: 1vh;
     font-size: 0.7rem;
+
+    
 }
 
 
@@ -916,6 +970,26 @@ body {
     height: 50px
 }
 
+.Card-Suggestions-Users a {
+    text-decoration: none
+}
+
+.LoaderContent {
+    margin: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.backgroundCurtidas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200vh;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.515);
+}
+
 .card-user-sg {
     display: flex;
     align-items: center;
@@ -923,6 +997,7 @@ body {
     width: 100%;
     font-size: 0.6rem;
     gap: 10px;
+    text-decoration: none;
     background-color: transparent;
     padding: 10px 20px;
     margin-top: 1vh;
@@ -2429,6 +2504,21 @@ body {
     color: black;
 }
 
+.Dump-Button-Likes-Show-Wrapper {
+    padding: 10px 0px;
+    display: flex;
+    margin-right: 50px;
+    justify-content: right;
+}
+
+.Dump-Btn-Likes-Show{
+    background: transparent;
+    color: var(--another-gray);
+    border: none;
+    cursor: pointer;
+    
+}
+
 .filters-search {
     margin: auto;
     text-align: left;
@@ -2981,7 +3071,7 @@ body {
     }
 
     .dump-post-photo img, .dump-post-photo iframe {
-        width: 80%;
+        width: 90%;
         height: 100%;
         margin-top: 10px;
         border-radius: 10px;
@@ -3006,7 +3096,7 @@ body {
 
     .dump-post-bottom {
         display: flex;
-        justify-content: space-between;
+        justify-content: left;
     }
 
     .dump-comments-post {
@@ -4264,5 +4354,32 @@ body {
         overflow-y: auto;
         border-left: 1px solid transparent;
         border-right: 1px solid transparent
+    }
+
+    .backgroundCurtidas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 200vh;
+        z-index: -6;
+        background: rgba(0, 0, 0, 0.515);
+    }
+    
+    .Dump-Likes-Post-ShowBox {
+        z-index: 30;
+        width: 100%;
+        bottom: 0;
+        animation: openmenulikes 0.5s ease-out;
+
+    }
+
+    @keyframes openmenulikes {
+        0% {
+            bottom: -150vh
+        }
+        100% {
+
+        }
     }
 }

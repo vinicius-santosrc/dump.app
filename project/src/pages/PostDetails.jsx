@@ -376,17 +376,12 @@ export default function PostDetails() {
     }
     usergoto()
 
-    function gotoUserPage() {
 
-        window.location.href = `${window.location.origin}/user/${userPub}`
-
-
-    }
 
     if (!publicacao) {
         return (
             <>
-
+                <HeaderFeed />
                 <div className="loading-wrapper">
                     <Ring
                         size={40}
@@ -714,7 +709,7 @@ export default function PostDetails() {
             return (
                 <div className="comment-dump-user">
                     <div className="left-side-content-user">
-                        
+
                         <Link to={window.location.origin + "/user/" + user.$id}>
                             <img alt="Avatar Usuário" src={user.photoURL} />
                         </Link>
@@ -848,9 +843,9 @@ export default function PostDetails() {
                                                 </div>
                                                 :
                                                 <div className='dump-like-action-button'>
-                                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>
-                                                        <p>{NumberOfSaves}</p>
-                                                    </div>
+                                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>
+                                                    <p>{NumberOfSaves}</p>
+                                                </div>
                                             }
                                         </div>
                                         :

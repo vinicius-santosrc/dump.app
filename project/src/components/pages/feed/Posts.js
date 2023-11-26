@@ -7,12 +7,21 @@ import databases from '../../../lib/appwrite';
 import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
+import { Ring } from '@uiball/loaders';
+import { tailChase } from 'ldrs'
+
+tailChase.register()
+
+
 
 export default function Posts(props) {
 
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     const [currentpostuser, setUserPostProfile] = useState('')
+    const [LikesCurrent, setLikesCurrent] = useState([])
+    const [likesBox, setlikesBox] = useState(false)
+
     function gotouser() {
 
         const getUserUrl = async () => {
@@ -379,95 +388,168 @@ export default function Posts(props) {
     var datepost = new Date(props.datepost)
     var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
 
+    function showLikesOfThatPublic(p) {
+        console.log(p.likes);
+        const likes = p.likes;
+        setlikesBox(true);
+
+        const fetchLikesData = async () => {
+            const likesData = await Promise.all(
+                likes.map((e) =>
+                    databases.getDocument("64f9329a26b6d59ade09", "64f93be88eee8bb83ec3", e)
+                )
+            );
+
+            setLikesCurrent(
+                likesData.map((r) => (
+                    <div className="card-user-sg" id={r.$id} key={r.someUniqueKey}>
+                        <Link to={window.location.origin + "/user/" + r.$id}>
+                            <div className='leftside-perfil'>
+                                <img src={r.photoURL} />
+                                <div className='card-user-sg-rightside'>
+                                    <h1>{r.displayName}</h1>
+                                    <p>@{r.username}</p>
+                                </div>
+                            </div>
+                        </Link>
+
+                    </div>
+                ))
+            );
+        };
+
+        fetchLikesData();
+    }
+
+
     return (
-        <article className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
-            <Link to={window.location.origin + "/user/" + props.uid_user}>
-                <div className="dump-post-header">
-                    <img src={props.photoURL} />
-                    <div className="dump-post-header-rightside">
-                        <div className='information-user-dump-post'>
-                            <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
-                            <p>@{props.username}</p>
+        <>
+            {likesBox ?
+                <div className='Dump-Likes-Post-ShowBox'>
+                <div onClick={() => setlikesBox(false)} className='backgroundCurtidas'></div>
+                    <div className='Dump-Likes-Header-Box'>
+                        <div className='HeaderLeft'>
+                            <h2>Curtidas</h2>
                         </div>
-
-
+                        <div className='ButtonCloseLikes'>
+                            <button onClick={() => { setlikesBox(false) }}><span><i className="fa-solid fa-xmark"></i></span></button>
+                        </div>
                     </div>
-                    <div>
-                        <label className="time-display-dump">{datefilepost}</label>
-                    </div>
-                </div>
-                <div className='descriptionofdump'>
-                    <p>{props.descricao ? props.descricao : ""}</p>
-                </div>
-            </Link>
-            <aside className="dump-post-photo">
-                <Link to={window.location.origin + '/posts/' + props.id} >
-                    <img id={`D-IG-${props.id}-filePost`} draggable="true" onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
-                </Link>
-            </aside>
-            <div className="dump-post-bottom">
-
-                <div className="btns-dump-comments">
-
-                    {auth.currentUser ?
+                    {LikesCurrent != '' ?
                         <>
-                            {isLiked ?
-                                <>
-
-                                    <div className='dump-like-action-button'>
-                                        <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i> </button>
-                                        <p>{NumberOfLikes}</p>
-                                    </div>
-
-                                </>
-                                :
-                                <>
-                                    <div className='dump-like-action-button'>
-                                        <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i> </button>
-                                        <p>{NumberOfLikes}</p>
-                                    </div>
-
-                                </>
-                            }
-                            {isSaved ?
-                                <div className='dump-like-action-button'>
-                                    <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i></button>
-                                    <p>{NumberOfSaves}</p>
-                                </div>
-
-                                :
-                                <div className='dump-like-action-button'>
-                                    <button onClick={savedump}><i className="fa-regular fa-bookmark"></i></button>
-                                    <p>{NumberOfSaves}</p>
-                                </div>
-                            }
-
-                            <button onClick={() => window.location.href = window.location.origin + '/posts/' + props.id}><i className="fa-regular fa-comment"></i></button>
-
+                        
+                            <div className='Card-Suggestions-Users'>
+                                {LikesCurrent}
+                            </div>
                         </>
                         :
-                        <>
-                            <div className='dump-like-action-button'>
-                                <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
-                                <p>{NumberOfLikes}</p>
+                        <div className='LoaderContent'>
+
+
+                            <l-tail-chase
+                                size="40"
+                                speed="1.75"
+                                color="gray"
+                            ></l-tail-chase>
+                        </div>
+
+                    }
+                </div>
+                :
+                null
+            }
+            <article className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
+                <Link to={window.location.origin + "/user/" + props.uid_user}>
+                    <div className="dump-post-header">
+                        <img src={props.photoURL} />
+                        <div className="dump-post-header-rightside">
+                            <div className='information-user-dump-post'>
+                                <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
+                                <p>@{props.username}</p>
                             </div>
-                            <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
-                            <Link to={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
-                                <div>
-                                    <button><i className="fa-regular fa-comment"></i></button>
+
+
+                        </div>
+                        <div>
+                            <label className="time-display-dump">{datefilepost}</label>
+                        </div>
+                    </div>
+                    <div className='descriptionofdump'>
+                        <p>{props.descricao ? props.descricao : ""}</p>
+                    </div>
+                </Link>
+                <aside className="dump-post-photo">
+                    <Link to={window.location.origin + '/posts/' + props.id} >
+                        <img id={`D-IG-${props.id}-filePost`} draggable="true" onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
+                    </Link>
+                </aside>
+                <div className='Dump-Button-Likes-Show-Wrapper'>
+                    <button onClick={() => { showLikesOfThatPublic(props) }} className='Dump-Btn-Likes-Show'>Ver curtidas</button>
+                </div>
+                <div className="dump-post-bottom">
+
+                    <div className="Dump-Buttons-Wrapper-Post btns-dump-comments">
+
+                        {auth.currentUser ?
+                            <>
+                                {isLiked ?
+                                    <>
+
+                                        <div className='dump-like-action-button'>
+                                            <button alt="Descurtir" onClick={unlikethisphoto}><i className="fa-solid fa-heart"></i><p>{NumberOfLikes}</p> </button>
+
+                                        </div>
+
+                                    </>
+                                    :
+                                    <>
+                                        <div className='dump-like-action-button'>
+                                            <button alt="Curtir" onClick={likethepost}><i className="fa-regular fa-heart"></i><p>{NumberOfLikes}</p> </button>
+
+                                        </div>
+
+                                    </>
+                                }
+                                {isSaved ?
+                                    <div className='dump-like-action-button'>
+                                        <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i><p>{NumberOfSaves}</p></button>
+
+                                    </div>
+
+                                    :
+                                    <div className='dump-like-action-button'>
+                                        <button onClick={savedump}><i className="fa-regular fa-bookmark"></i><p>{NumberOfSaves}</p></button>
+
+                                    </div>
+                                }
+
+                                <button onClick={() => window.location.href = window.location.origin + '/posts/' + props.id}><i className="fa-regular fa-comment"></i></button>
+
+                            </>
+                            :
+                            <>
+                                <div className='dump-like-action-button'>
+                                    <button onClick={errorsemuser} alt="Curtir"><i className="fa-regular fa-heart"></i> </button>
+                                    <p>{NumberOfLikes}</p>
                                 </div>
-                            </Link>
+                                <button onClick={errorsemuser}><i className="fa-regular fa-bookmark"></i></button>
+                                <Link to={window.location.origin + '/posts/' + props.id} className="dump-comments-post">
+                                    <div>
+                                        <button><i className="fa-regular fa-comment"></i></button>
+                                    </div>
+                                </Link>
 
-                        </>}
+                            </>}
 
 
 
+
+                    </div>
 
                 </div>
 
-            </div>
-
-        </article >
+            </article >
+        </>
     )
 
 }
