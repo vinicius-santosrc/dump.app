@@ -96,14 +96,13 @@ export default function Account() {
                     setNumberofPosts(nofpots)
 
                     setPostsofUser(res.documents.filter(r => r.email == ID_ACCOUNT_I.email).map((u, i) => {
-                        function gotoPostSelect() {
-                            window.location.href = `${window.location.origin}/posts/${u.$id}`
-                        }
 
                         return (
                             <>
-                                <article title={`${u.legenda}`} className="dump-user-account" id={u.$id} tabIndex={0} role="article" onClick={gotoPostSelect}>
-                                    <img className="dump-image-show" alt={u.legenda} id={`D${i}Pid_` + u.$id} src={u.filePost} />
+                                <article title={`${u.legenda}`} className="dump-user-account" id={u.$id} tabIndex={0} role="article">
+                                    <Link to={window.location.origin + "/posts/" + u.$id}>
+                                        <img className="dump-image-show" alt={u.legenda} id={`D${i}Pid_` + u.$id} src={u.filePost} />
+                                    </Link>
                                 </article>
                             </>
                         )
@@ -459,7 +458,17 @@ export default function Account() {
             />
             <Suggestions />
             <div className="photosizePLUS">
-                <img alt={`Foto de perfil de @${ID_ACCOUNT_I.username}`} src={ID_ACCOUNT_I.photoURL} />
+                {ID_ACCOUNT_I ?
+                    <img alt={`Foto de perfil de @${ID_ACCOUNT_I.username}`} src={ID_ACCOUNT_I.photoURL} />
+                    :
+                    <div className="imageNull">
+                        <svg width="304" height="304" viewBox="0 0 304 304" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="304" height="304" fill="#D4D4D4" />
+                            <path d="M266.816 304C266.816 278.274 270.14 253.602 248.556 235.411C226.973 217.22 182.25 207 151.726 207C121.203 207 74.2665 217.22 52.683 235.411C31.0996 253.602 36.6367 278.274 36.6367 304L151.726 304H266.816Z" fill="white" />
+                            <circle cx="151.5" cy="128.5" r="78.5" fill="white" />
+                        </svg>
+                    </div>
+                }
             </div>
             <div className="BACKGROUND-CLOSE" onClick={closeimageprofile}>
                 <div className="button-close-profile-image">

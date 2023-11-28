@@ -793,17 +793,42 @@ export default function PostDetails() {
                                                             <p>@{USER_DOC.username}</p>
                                                         </div>
                                                     </div>
+
                                                     <div className="button-right-side">
                                                         <button onClick={open_options_post}><i className="fa-solid fa-ellipsis"></i></button>
                                                     </div>
 
                                                 </div>
                                             </Link>
-                                        </> : <></>}
+                                        </>
+                                            :
+                                            <div className="dump-top-info-user dump-loading-user">
+                                                <Link className="flexbox-dump-btn">
+                                                    <div className="dump-leftside-info-user">
+                                                        <svg width="304" height="304" viewBox="0 0 304 304" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="304" height="304" fill="#D4D4D4" />
+                                                            <path d="M266.816 304C266.816 278.274 270.14 253.602 248.556 235.411C226.973 217.22 182.25 207 151.726 207C121.203 207 74.2665 217.22 52.683 235.411C31.0996 253.602 36.6367 278.274 36.6367 304L151.726 304H266.816Z" fill="white" />
+                                                            <circle cx="151.5" cy="128.5" r="78.5" fill="white" />
+                                                        </svg>
+
+
+                                                        <div className="NullContentLoading-flex">
+                                                            <div className="NullContentLoading">
+
+                                                            </div>
+                                                            <div className="NullContentLoading"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="rightside_user_information">
+
+
+                                                    </div>
+                                                </Link>
+                                            </div>}
 
 
                                         <div className="bottom-desc">
-                                            {USER_DOC && USER_DOC.displayName ? <p>{publicacao.legenda}</p> : ''}
+                                            <p>{publicacao.legenda}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -951,7 +976,31 @@ export default function PostDetails() {
                                                 </div>
                                             </Link>
                                         </div>
-                                    </> : <></>}
+                                    </>
+                                        :
+                                        <div className="dump-top-info-user dump-loading-user">
+                                            <Link>
+                                                <div className="left-side-inner-profile-dump">
+                                                    <svg width="304" height="304" viewBox="0 0 304 304" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <rect width="304" height="304" fill="#D4D4D4" />
+                                                        <path d="M266.816 304C266.816 278.274 270.14 253.602 248.556 235.411C226.973 217.22 182.25 207 151.726 207C121.203 207 74.2665 217.22 52.683 235.411C31.0996 253.602 36.6367 278.274 36.6367 304L151.726 304H266.816Z" fill="white" />
+                                                        <circle cx="151.5" cy="128.5" r="78.5" fill="white" />
+                                                    </svg>
+
+
+                                                    <div className="NullContentLoading-flex">
+                                                        <div className="NullContentLoading">
+
+                                                        </div>
+                                                        <div className="NullContentLoading"></div>
+                                                    </div>
+                                                </div>
+                                                <div className="rightside_user_information">
+
+
+                                                </div>
+                                            </Link>
+                                        </div>}
 
                                 </div>
                             </div>

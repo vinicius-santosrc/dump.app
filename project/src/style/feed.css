@@ -87,6 +87,15 @@ body {
     cursor: default;
 }
 
+.loading-inner {
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 150px;
+}
+
 .spacer-title h2, .spacer-title p {
     color: var(--text-color);
 }
@@ -2107,8 +2116,9 @@ body {
     cursor: pointer;
 }
 
-.dump-post-show-pc .flex-dump-info-image img {
+.dump-post-show-pc .flex-dump-info-image img, .flex-dump-info-image svg {
     width: 3rem;
+    height: 3rem;
     border-radius: 100%;
 }
 
@@ -2851,6 +2861,46 @@ body {
     width: 3rem;
 }
 
+.dump-post-show-mobile .flex-dump-info-image svg {
+    border: none;
+}
+
+.dump-loading-user {
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.NullContentLoading-flex {
+    display: block;
+    
+}
+
+.NullContentLoading {
+    background-color: #dddddd;
+    width: 150px;
+    height: 15px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.NullContentLoading:nth-child(1) {
+    width: 100px;
+}
+
+
 @media screen and (max-width: 900px) {
     .dump-post-img-inner {
         display: block;
@@ -3555,10 +3605,49 @@ body {
         color: black;
     }
 
-    .dump-post-show-mobile .flex-dump-info-image img {
+    .dump-post-show-mobile .flex-dump-info-image img, .dump-post-show-mobile .flex-dump-info-image svg {
         width: 3rem;
+        height: 3rem;
         border-radius: 100%;
         border: 0.5px solid gray;
+    }
+    .dump-post-show-mobile .flex-dump-info-image svg {
+        border: none;
+    }
+
+    .dump-loading-user {
+        animation: loading 1s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.3;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .NullContentLoading-flex {
+        display: block;
+        
+    }
+
+    .NullContentLoading {
+        background-color: #dddddd;
+        width: 150px;
+        height: 15px;
+        margin-bottom: 5px;
+        border-radius: 10px;
+    }
+
+    .NullContentLoading:nth-child(1) {
+        width: 100px;
     }
 
     .PublicarButtoniPad {
