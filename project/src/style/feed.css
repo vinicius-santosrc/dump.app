@@ -664,6 +664,8 @@ body {
 
 .account-div-flexbox img {
     width: 3rem;
+    height: 3rem;
+    object-fit: cover;
     border-radius: 100%;
     background-color: transparent;
     padding: 0;
@@ -745,6 +747,8 @@ body {
 
 .dump-post-header img {
     width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
     border-radius: 100%;
 }
 
@@ -1038,7 +1042,8 @@ body {
 .card-user-sg img {
     border-radius: 100%;
     width: 50px;
-    height: 50px
+    height: 50px;
+    object-fit: cover;
 }
 
 .Card-Suggestions-Users a {
@@ -1569,6 +1574,8 @@ body {
 
 .leftside-account img {
     width: 6rem;
+    height: 6rem;
+    object-fit: cover;
     border-radius: 100%;
     cursor: pointer;
 }
@@ -1768,6 +1775,8 @@ body {
 .comment-dump-user img {
     border-radius: 100%;
     width: 3rem;
+    height: 3rem;
+    object-fit: cover;
 }
 
 .comment-dump-user h2 {
@@ -1847,6 +1856,8 @@ body {
 
     .account-div-flexbox img {
         width: 3rem;
+        height: 3rem;
+        object-fit: cover;
     }
 
     .account-div {
@@ -2188,6 +2199,7 @@ body {
 .dump-post-show-pc .flex-dump-info-image img, .flex-dump-info-image svg {
     width: 3rem;
     height: 3rem;
+    object-fit: cover;
     border-radius: 100%;
 }
 
@@ -2814,6 +2826,8 @@ body {
 
 .top-dump-user-current img {
     width: 3rem;
+    height: 3rem;
+    object-fit: cover;
     border-radius: 100%;
 }
 
@@ -3203,6 +3217,7 @@ body {
 
     .dump-post-header img {
         width: 2.4rem;
+        height: 2.4rem;
         border-radius: 100%;
     }
 
@@ -3262,6 +3277,7 @@ body {
 
     .leftside-comment-dump img {
         width: 2rem;
+        height: 2rem;
         border-radius: 100%;
     }
 
@@ -3947,6 +3963,8 @@ body {
 
     .leftside-account img {
         width: 4rem;
+        height: 4rem;
+        object-fit: cover;
         border-radius: 100%;
     }
 
