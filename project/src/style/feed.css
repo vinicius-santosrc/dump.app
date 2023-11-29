@@ -177,9 +177,71 @@ body {
     animation: abrircurtidas 0.5s ease-in-out;
 }
 
+.NotificationsContent-Page--content {
+    width: 560px;
+    margin: auto;
+    padding: 100px 0px;
+}
+
+.DumpNotification´-Wrapper--item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 300ms;
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+.DumpNotification´-Wrapper--item:active {
+    scale: 0.98;
+}
+
+.DumpNotification--InfoContent img, .DumpNotification--InfoContent svg {
+    width: 4.5rem;
+    
+    height: 4.5rem;
+    object-fit: cover;
+    pointer-events: none;
+    border-radius: 100%;
+    border: 1px solid lightgray
+}
+
+.DumpNotificationRedirect {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+#toSEE {
+    border-top: 2px solid var(--principal-color);
+
+}
+
+#SEEN {
+    border-top: 2px solid var(--another-gray);
+
+}
+
+.DumpNotificationPHOTOREL img{
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.DumpNotification--InfoContent {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
 .verifyaccount {
     color: rgb(88, 209, 249);
     cursor: pointer;
+}
+
+.ListNotifications {
+    margin: 10px 0px;
 }
 
 .showcurtidas {
@@ -661,7 +723,7 @@ body {
     width: 650px;
     margin-bottom: 30px;
     padding: 10px;
-    border-top: 1px solid rgb(128, 128, 128);
+    border-top: 1px solid var(--border-gray);
 }
 
 .dump-post-header {
@@ -1907,6 +1969,13 @@ body {
         text-align: center;
     }
 
+    .NotificationsContent-Page--content {
+        width: 600px;
+        margin: 0px 90px;
+        padding: 100px 0px;
+    }
+
+
     .dump-account-infos {
         padding: 0px 10px;
     }
@@ -2319,6 +2388,12 @@ body {
 
 .dump-already-login p{
     color: var(--text-color)
+}
+
+.nullQuad {
+    width: 4rem;
+    height: 4rem;
+    background: #d4d4d4;
 }
 
 
@@ -3061,6 +3136,21 @@ body {
     .App-Header-Feed img:hover {
         transform: scale(1.07);
     }
+
+    .NotificationsContent-Page--content {
+        width: 100%
+    }
+
+    .DumpNotificationPHOTOREL img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .DumpNotification--InfoContent img, .DumpNotification--InfoContent svg {
+        width: 4rem;
+        height: 4rem;
+    }
+
 
 
 
@@ -4347,9 +4437,7 @@ body {
 
     .button-remove button {
         padding: 7px 30px;
-        border-radius: 10px;
         border: none;
-        background-color: #e1e1e1;
     }
 
 
@@ -4471,4 +4559,21 @@ body {
 
         }
     }
+
+    #toSEE {
+        border-top: 1px solid var(--border-gray);
+        border-left: 1px solid var(--principal-color);
+    
+    }
+    
+    #SEEN {
+        border-top: 1px solid var(--border-gray);
+        border-left: 1px solid var(--another-gray);
+    
+    }
+
+    .NotificationsContent-Page--content {
+        padding: 140px 20px;
+    }
+    
 }

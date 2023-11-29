@@ -20,6 +20,7 @@ import EditMyProfile from './pages/EditMyProfile';
 import SearchPage from './pages/SearchPage';
 import SaveDumpsPage from './pages/SaveDumpsPage';
 import IndexPageFollowing from './pages/IndexPageFollowing';
+import Notifications from './pages/Notifications';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
           <Route path='/search' element={<SearchPage />} />
           <Route path='/accounts/edit' element={<EditMyProfile />} />
           <Route path='/saves' element={<SaveDumpsPage />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
 
       </BrowserRouter>

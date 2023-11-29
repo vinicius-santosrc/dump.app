@@ -80,30 +80,8 @@ export default function PostDetails() {
     useEffect(() => {
         window.addEventListener('DOMContentLoaded', checkDumpLikes())
         window.addEventListener('DOMContentLoaded', checkDumpSaves())
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 2000);
 
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 4000);
-
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 6000);
-
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 8000);
-        setTimeout(() => {
-            checkDumpLikes()
-            checkDumpSaves()
-        }, 10000);
-    }, [])
+    })
 
     async function sendNotification(PHOTO_REL, type, desc) {
         try {
@@ -886,7 +864,7 @@ export default function PostDetails() {
                                     <div className="button-remove">
                                         {auth.currentUser ?
                                             publicacao.email == auth.currentUser.email ?
-                                                <button onClick={deletepublic}>EXCLUIR</button>
+                                                <button onClick={deletepublic}>EXCLUIR ESSE DUMP</button>
                                                 :
                                                 ''
                                             :
@@ -1061,7 +1039,7 @@ export default function PostDetails() {
                                 <div className="button-remove">
                                     {auth.currentUser ?
                                         publicacao.email == auth.currentUser.email ?
-                                            <button onClick={deletepublic}>EXCLUIR</button>
+                                            <button onClick={deletepublic}>EXCLUIR ESSE DUMP</button>
                                             :
                                             ''
                                         :

@@ -341,6 +341,10 @@ export default function Account() {
             ButtonActionProfile()
             sendNotification('', ID_ACCOUNT)
 
+            // ENVIAR NOTIFICAÇÃO SEGUINDO PARA USUÁRIO
+
+            
+
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
