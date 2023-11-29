@@ -53,7 +53,7 @@ export default function Notifications() {
         async function getNotifications() {
             setLoadingNotifications(true)
             try {
-                const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.orderDesc("$createdAt", Query.equal("TO_UID", i_ison.uid))]);
+                const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.equal("TO_UID", i_ison.uid), Query.orderDesc("$createdAt")]);
 
 
                 const notifications = res.documents.map(async (notification) => {
