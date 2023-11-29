@@ -2757,6 +2757,7 @@ body {
 .photosizePLUS img {
     width: 430px;
     height: 430px;
+    object-fit: cover;
     margin: auto;
     border-radius: 100%;
     position: relative;
@@ -3097,6 +3098,8 @@ body {
 
     .rightsideheadermobile img {
         width: 40px;
+        height: 40px;
+        object-fit: cover;
         border-radius: 100%;
     }
 
@@ -3345,6 +3348,8 @@ body {
 
     .nav-bar-mobile img {
         width: 2rem;
+        height: 2rem;
+        object-fit: cover;
         border-radius: 100%;
         border: 1px dashed rgb(209, 116, 255);
     }
@@ -4289,6 +4294,7 @@ body {
     .photosizePLUS img {
         width: 240px;
         height: 240px;
+        object-fit: cover;
         margin: auto;
         border-radius: 100%;
         position: relative;
