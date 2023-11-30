@@ -53,13 +53,16 @@ export default function Notifications() {
         async function getNotifications() {
             setLoadingNotifications(true)
             try {
-                const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.equal("TO_UID", i_ison.uid), Query.orderDesc("$createdAt")]);
+                const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.limit(100), Query.equal("TO_UID", i_ison.uid), Query.orderDesc("$createdAt")]);
 
 
                 const notifications = res.documents.map(async (notification) => {
                     const r = await databases.getDocument("64f9329a26b6d59ade09", "64f93be88eee8bb83ec3", notification.SENDER_UID);
 
+                    const photosBD = await databases.listDocuments(DB_UID, "64f93c1c40d294e4f379", [Query.limit(200)])
+
                     const photoREL = await databases.getDocument(DB_UID, "64f93c1c40d294e4f379", notification.PHOTO_REL);
+
 
                     async function seenChange() {
                         try {
@@ -93,18 +96,17 @@ export default function Notifications() {
                     const Day = date.getDate()
                     const Mounth = date.getMonth()
                     const Year = date.getFullYear()
-                    setLoadingNotifications(false)
                     return (
 
 
 
-                        <Link onClick={seenChange} className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL.$id}>
+                        <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL.$id}>
                             <div className="DumpNotification´-Wrapper--item" key={notification.id} id={notification.SEEN ? "SEEN" : "toSEE"}>
 
                                 <div className="DumpNotification--InfoContent">
                                     <img src={r.photoURL} alt="" />
                                     <div className="DumpNotInfo">
-                                        <p><b>@{r.username}</b> {notification.ACTION == "like" ? "curtiu seu dump" : "comentou em seu dump"}</p>
+                                        <p><b>@{r.username}</b> {notification.ACTION == "like" ? "curtiu seu dump" : <span>comentou em seu dump: {notification.desc}</span>}</p>
                                         <p>{Day} de {MesesDoAno[Mounth]} de {Year}</p>
 
                                     </div>
@@ -116,9 +118,12 @@ export default function Notifications() {
                             </div>
                         </Link>
                     );
+
+
                 });
 
                 const resolvedNotifications = await Promise.all(notifications);
+                setLoadingNotifications(false)
                 setlistLikes(resolvedNotifications);
             } catch (error) {
                 console.error("Error fetching notifications:", error);

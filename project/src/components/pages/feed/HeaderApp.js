@@ -380,17 +380,19 @@ export default function HeaderFeed(props) {
                                         </div>
                                     </div></Link>
                                     :
-                                    <div className="account-off-div-flexbox" title='Fazer login'>
-                                        <i className="fa-solid fa-right-to-bracket"></i>
-                                        <div className='right-side-enter-account' onClick={gotoLoginPage}>
-                                            <h3 className="currentuser-displayname">
-                                                Faça seu login
-                                            </h3>
-                                            <p className="currentuser-id">
-                                                Entre agora para o dump
-                                            </p>
+                                    <Link to={window.location.origin + "/accounts/login"}>
+                                        <div className="account-off-div-flexbox" title='Fazer login'>
+                                            <i className="fa-solid fa-right-to-bracket"></i>
+                                            <div className='right-side-enter-account'>
+                                                <h3 className="currentuser-displayname">
+                                                    Faça seu login
+                                                </h3>
+                                                <p className="currentuser-id">
+                                                    Entre agora para o dump
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 }
 
                             </div>
@@ -509,6 +511,7 @@ export default function HeaderFeed(props) {
                 <div className="App-Header-Feed-RightSide rightsideheader">
                     <Link to={window.location.origin + "/notifications"}>
                         <i className="fa-regular fa-heart"></i>
+                        <label className='notification-show'></label>
                     </Link>
 
                 </div>
@@ -520,8 +523,9 @@ export default function HeaderFeed(props) {
                         <div className="top-header-mobile-icons-rightside rightsideheadermobile">
                             <Link to={window.location.origin + "/notifications"}>
                                 <i className="fa-regular fa-heart"></i>
+                                <label className='notification-show'></label>
                             </Link>
-                           
+
                             {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
                             {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
                         </div>

@@ -2688,6 +2688,15 @@ body {
     gap: 10px;
 }
 
+.notification-show {
+    position: absolute;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: red;
+}
+
 .dump-user-search img {
     border-radius: 100%;
     width: 4rem;
@@ -2826,9 +2835,10 @@ body {
 }
 
 .top-dump-user-current img {
-    width: 3rem;
-    height: 3rem;
+    width: 3rem !important;
+    height: 3rem !important;
     object-fit: cover;
+
     border-radius: 100%;
 }
 
@@ -3721,6 +3731,7 @@ body {
         height: 3rem;
         border-radius: 100%;
         border: 0.5px solid gray;
+        object-fit: cover;
     }
     .dump-post-show-mobile .flex-dump-info-image svg {
         border: none;
