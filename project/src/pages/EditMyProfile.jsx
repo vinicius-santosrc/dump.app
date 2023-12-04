@@ -182,7 +182,7 @@ export default function EditMyProfile() {
         <>
             {auth.currentUser ?
                 <>
-                    <HeaderFeed />
+                   
 
                     <div className="loading-inner">
 

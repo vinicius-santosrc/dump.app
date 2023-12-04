@@ -139,7 +139,7 @@ export default function IndexPageFollowing() {
 
             <UserPerfil />
             <Messages />
-            <HeaderFeed />
+
 
             <div className="dump-feed-posts">
 

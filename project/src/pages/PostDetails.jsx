@@ -359,7 +359,7 @@ export default function PostDetails() {
     if (!publicacao) {
         return (
             <>
-                <HeaderFeed />
+                
                 <div className="loading-wrapper">
                     <Ring
                         size={40}
@@ -733,7 +733,7 @@ export default function PostDetails() {
                     <div className="dump-post-options-background"></div>
                     <div className="dump-post-show">
                         <div className="dump-post-show">
-                            <HeaderFeed />
+                            
                             <div className="dump-post-options">
                                 <div className="select-post-options">
                                     <Link onClick={compartilhar}>Compartilhar</Link>
@@ -912,7 +912,7 @@ export default function PostDetails() {
                 <div className="dump-post-show-mobile">
                     <div onClick={closepopups} className="dump-post-options-background"></div>
                     <div className="dump-post-show">
-                        <HeaderFeed />
+                        
                         <div className="dump-post-options">
                             <div className="select-post-options">
                                 <Link onClick={compartilhar}>Compartilhar</Link>

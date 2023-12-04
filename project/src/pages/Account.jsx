@@ -172,10 +172,7 @@ export default function Account() {
         return (
             <>
 
-                <HeaderFeed
-                    username={ID_ACCOUNT_I ? ID_ACCOUNT_I.displayName : ""}
-                    dumps={nofposts}
-                />
+
                 <Suggestions />
                 <div className="loading-inner">
                     <Ring
@@ -456,10 +453,6 @@ export default function Account() {
 
     return (
         <>
-            <HeaderFeed
-                username={ID_ACCOUNT_I.displayName}
-                dumps={nofposts}
-            />
             <Suggestions />
             <div className="photosizePLUS">
                 {ID_ACCOUNT_I ?

@@ -170,7 +170,7 @@ export default function Notifications() {
 
     return (
         <>
-            <HeaderFeed />
+
             <div className="NotificationsContent-Page--content">
                 <section className="Notifications">
                     <div className="NotificationsHeader">

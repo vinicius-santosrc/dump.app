@@ -117,7 +117,7 @@ export default function SaveDumpsPage() {
 
     return (
         <>
-            <HeaderFeed savesuername={usersaves ? "@" + usersaves.username : ''} />
+            
             <Suggestions />
             <div className="dump-posts-saved-flex">
                 {Saves}

@@ -179,7 +179,7 @@ export default function SuggestionsPeople() {
 
     return (
         <>
-            <HeaderFeed />
+       
             <Suggestions />
             <div className="dump-search-page">
                 <div className="dump-input-top">

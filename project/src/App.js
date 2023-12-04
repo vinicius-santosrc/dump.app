@@ -21,6 +21,8 @@ import SearchPage from './pages/SearchPage';
 import SaveDumpsPage from './pages/SaveDumpsPage';
 import IndexPageFollowing from './pages/IndexPageFollowing';
 import Notifications from './pages/Notifications';
+import Story from './pages/Story';
+import HeaderFeed from './components/pages/feed/HeaderApp';
 
 
 function App() {
@@ -47,8 +49,11 @@ function App() {
   return (
 
     <div className="App">
+
       <Loading />
+
       <BrowserRouter>
+      <HeaderFeed />
         <Routes>
           <Route path='/' element={<Feed />} />
           <Route path='/following' element={<IndexPageFollowing />} />
@@ -62,6 +67,7 @@ function App() {
           <Route path='/accounts/edit' element={<EditMyProfile />} />
           <Route path='/saves' element={<SaveDumpsPage />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/stories/:STORY_ID" element={<Story />} />
         </Routes>
 
       </BrowserRouter>

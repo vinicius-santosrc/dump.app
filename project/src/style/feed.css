@@ -2697,15 +2697,126 @@ body {
     background-color: red;
 }
 
+.Dump-Story-Content {
+    justify-content: center;
+    align-items: center;
+    transition: 600ms;
+    cursor: pointer;
+    text-align: center;
+    width: 110px;
+}
+
+.Dump-Stories-Flexbox {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.Dump-Story-Content img{
+    width: 80px;
+    border-radius: 100%;
+    height: 80px;
+    
+    padding: 3px;
+    object-fit: cover;
+    
+    transition: 1000ms;
+    text-align: center;
+}
+
+.Dump-Story-Content img {
+    background: linear-gradient(100deg, var(--principal-color), rgb(91, 107, 248) 70%);
+}
+
+.Dumps-Stories-Box-Showcase h2, .Dump-Username-Content p {
+    color: var(--text-color);
+}
+
+.Dump-Story-Content a {
+    text-decoration: none;
+}
+
+.Dump-Story-Content:active {
+    scale: 0.85;
+}
+
 .dump-user-search img {
     border-radius: 100%;
     width: 4rem;
+}
+
+.Dump-Page-Story-Dump-Bg {
+    background: #141414;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1
 }
 
 .dump-user-search {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.Dump-Story-Actual {
+    width: 25vw;
+    height: 92vh;
+    text-align: center;
+    margin: 3vh auto;
+    justify-content: center;
+    position: relative;
+}
+
+.Dump-Button-wrapper a {
+    background: transparent;
+    font-size: 30px;
+    outline: none;
+    color: white;
+    border: none;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    border-radius: 100%;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+}
+
+.Dump-Story-Bottom {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    padding: 10px;
+}
+
+
+.story-content img {
+    width: 25vw;
+    height: 92vh;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.Dump-User-LeftSide a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+}
+
+.Dump-User-LeftSide img {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
 }
 
 .dump-user-search h2 {

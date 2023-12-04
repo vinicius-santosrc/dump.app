@@ -15,6 +15,7 @@ import Dailys from "../components/pages/feed/Dailys";
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
+import Stories from "../components/pages/feed/Stories";
 
 let limit = 200;
 let limitposts = 5
@@ -117,8 +118,8 @@ export default function Feed() {
 
             <UserPerfil />
             <Messages />
-            <HeaderFeed />
             <main className="dump-feed-posts">
+                <Stories />
                 <PostingPhoto />
                 <CardFeedStart />
                 {postsJSON && postsJSON.length > 0 && users ? (

@@ -179,7 +179,7 @@ export default function SearchPage() {
 
     return (
         <>
-            <HeaderFeed />
+ 
             <Suggestions />
             <div className="dump-search-page">
                 <div className="dump-input-top">

@@ -86,7 +86,7 @@ export default function Inbox() {
 
     return (
         <>
-            <HeaderFeed />
+
 
             <div className="inbox-dump-page">
 

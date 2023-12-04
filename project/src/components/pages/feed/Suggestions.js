@@ -52,7 +52,7 @@ export default function Suggestions() {
 
             // Exibir os documentos na ordem decrescente de "likes"
             const posts = response.documents;
-            console.log('Posts ordenados por likes (decrescente):');
+        
             setDumpsMaisAvaliados(posts.map((post) => {
                 return (
                     <div className='dump-highest-rated dumprated '>
@@ -82,12 +82,7 @@ export default function Suggestions() {
                     <button className='dumpplus_inner_btn dumpplusbtn'>Inscrever-se</button>
                 </div>
             </div>
-            <div className="Card-Suggestions">
-                <div className='sugg-card-beta'>
-                    <h1>Versão {version}</h1>
-                    <p>Essa aplicação está na versão beta e está propicia a mudanças no sistema, design e nas informações.</p>
-                </div>
-            </div>
+
             
             <div className="Card-Suggestions">
                 <div className='header-sugg'>
@@ -102,6 +97,7 @@ export default function Suggestions() {
                                 <div className="card-user-sg" onClick={gotouser}>
                                     <Suggestions_User
                                         photo={user.photoURL}
+                                        uid={user.id}
                                         displayname={user.displayName}
                                         username={user.username}
                                         isthisverifiqued={user.isthisverifiqued}
