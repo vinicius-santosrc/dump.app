@@ -70,9 +70,9 @@ export default function CreatePost() {
                         alert("SUCESS DUMP")
 
                     })
-                    .catch(() => {
+                    .catch((err) => {
        
-                        console.log("Erro ao publicar o dump: ", error)
+                        console.log("Erro ao publicar o dump: ", err)
                     })
             }
             if (DumpOption == 'STORY') {
