@@ -11,7 +11,7 @@ import { Query } from "appwrite";
 import PostingPhoto from "../components/pages/feed/PostingPhoto";
 import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
-import Dailys from "../components/pages/feed/Dailys";
+
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
@@ -154,7 +154,7 @@ export default function Feed() {
                 <EndOfPage />
             </main>
             <Suggestions />
-            <CreatePost />
+            
         </section>
     )
 }

@@ -23,37 +23,32 @@ import IndexPageFollowing from './pages/IndexPageFollowing';
 import Notifications from './pages/Notifications';
 import Story from './pages/Story';
 import HeaderFeed from './components/pages/feed/HeaderApp';
+import CreatePost from './components/pages/feed/CreatePost';
 
 
 function App() {
-  const [i_ison, setUserOn] = useState('')
-
-
-
-
-
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.querySelector("html").classList.add('dark-mode')
-  } else {
-    document.querySelector("html").classList.remove('dark-mode')
-  }
-
-
+  const [i_ison, setUserOn] = useState('');
+  const [HeaderShow, setHeaderShow] = useState(null);
 
   useEffect(() => {
-
-    auth.onAuthStateChanged(function (u) {
-      setUserOn(u)
-    })
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.querySelector("html").classList.add('dark-mode');
+    } else {
+      document.querySelector("html").classList.remove('dark-mode');
+    }
   })
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function (u) {
+      setUserOn(u);
+    });
+  }, []);
+
   return (
-
     <div className="App">
-
       <Loading />
-
       <BrowserRouter>
-      <HeaderFeed />
+        <HeaderFeed />
         <Routes>
           <Route path='/' element={<Feed />} />
           <Route path='/following' element={<IndexPageFollowing />} />
@@ -68,12 +63,12 @@ function App() {
           <Route path='/saves' element={<SaveDumpsPage />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/stories/:STORY_ID" element={<Story />} />
+          <Route path="/posts/create" element={<CreatePost />} />
         </Routes>
-
       </BrowserRouter>
+      
     </div>
   );
-
 }
 
 export default App;

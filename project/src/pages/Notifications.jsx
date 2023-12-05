@@ -6,10 +6,11 @@ import databases from "../lib/appwrite";
 import { Query } from "appwrite";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import UserGet from "../lib/user";
 
 export default function Notifications() {
 
-    const [UserAtual, SetUserAtual] = useState(null);
+    const UserAtual = UserGet()
 
     const DB_UID = '64f9329a26b6d59ade09';
     const COL_UID = '64f93c1c40d294e4f379';
@@ -26,32 +27,12 @@ export default function Notifications() {
     })
 
 
-    async function getuseratual() {
-        try {
-            // Verifique se o usuário está autenticado antes de acessar sua propriedade 'email'
-            const user = auth.currentUser;
-            if (user) {
-                // Obtenha informações do usuário
-                const response = await databases.listDocuments(
-                    DB_UID,
-                    USERSIDDATABASE
-                );
-                response.documents.filter((r) => r.email === user.email).map((res) => {
-                    SetUserAtual(res);
-                });
-            } else {
-                console.log('Usuário não autenticado');
-            }
-        } catch (error) {
-            console.error('Erro ao obter informações do usuário:', error);
-        }
-    }
+
 
     useEffect(() => {
+        setLoadingNotifications(true)
         HideLoading()
-        getuseratual()
         async function getNotifications() {
-            setLoadingNotifications(true)
             try {
                 const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.limit(100), Query.equal("TO_UID", i_ison.uid), Query.orderDesc("$createdAt")]);
 

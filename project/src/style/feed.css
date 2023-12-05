@@ -538,8 +538,7 @@ body {
     width: 650px;
     margin: auto;
     padding: 100px 0px;
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
+
 }
 
 .dump-posts-saved a {
@@ -782,7 +781,7 @@ body {
 }
 
 .dump-feed-posts {
-    padding: 150px 0;
+    padding: 130px 0;
     width: 650px;
     margin: auto;
 
@@ -1088,6 +1087,13 @@ body {
 
 }
 
+.dump-edit-my-profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
 .card-user-sg button {
     background-color: white;
     padding: 5px 15px;
@@ -1118,22 +1124,20 @@ body {
 }
 
 .createneewpost-card {
-    position: fixed;
-    top: 25%;
-    left: 25%;
-    right: 25%;
+    position: relative;
     background-color: var(--bg-color);
     padding: 20px;
+    width: 650px;
+    margin: auto;
     z-index: 4;
     border-radius: 10px;
-    display: none;
-    border: 1px solid var(--border-gray);
+
 }
 
 .background-posts {
     width: 100%;
     height: 100%;
-    display: none;
+
     top: 0;
     left: 0;
     position: fixed;
@@ -1148,11 +1152,18 @@ body {
 .header-createnewpost {
     border-bottom: 1px solid var(--border-gray);
     font-size: 1.5rem;
-    margin-bottom: 2vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
+}
+
+.Top-Dump-Story {
+    display: flex;
+    justify-content: left;
+    width: 25vw;
+    margin: auto;
+    gap: 5px;
 }
 
 .header-createnewpost h2 {
@@ -1171,6 +1182,14 @@ body {
     pointer-events: none;
 }
 
+.Story-Length-Content {
+    margin: 10px 0px;
+    height: 7px;
+    width: 100%;
+    background-color: gray;
+    border-radius: 10px;
+}
+
 .createnewpost-middle input.imagechanger {
     background-color: rgb(130, 51, 219);
     padding: 10px;
@@ -1178,6 +1197,37 @@ body {
     border-radius: 10px;
     color: white;
     cursor: pointer;
+    display: none;
+}
+
+.Buttons-Change-Option {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: auto;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.Buttons-Change-Option button {
+    background: white;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 3px 20px;
+    transition: 300ms;
+    border-radius: 10px;
+    color: black;
+}
+
+.Buttons-Change-Option button#selected {
+    background: var(--principal-color);
+    border: 1px solid var(--principal-color);
+    color: white;
+}
+
+.Buttons-Change-Option button:active {
+    scale: 0.95;
 }
 
 .dump-comments-post {
@@ -1303,17 +1353,26 @@ body {
     text-align: left;
     justify-content: left;
     gap: 10px;
-    width: 100%;
+
 }
 
 .previewdesc-top img {
-    width: 3.5rem;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
     border-radius: 100%;
 
 }
 
 .createnewpost-middle {
-    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--border-gray);
+    text-align: left;
+}
+
+.createnewpost-middle {
+    display: block;
 }
 
 .right-side-previewimage {
@@ -1815,6 +1874,31 @@ body {
         border-radius: 20px;
     }
 
+    .Dump-Story-Actual {
+        width: 100% !important;
+    }
+
+    .Top-Dump-Story {
+        width: 100%;
+        padding: 0px 10px;
+    }
+
+    .story-content img {
+        width: 50vw !important;
+    }
+
+    .createneewpost-card {
+        position: relative;
+        background-color: var(--bg-color);
+        padding: 20px;
+        width: 650px;
+        margin: 0px 80px;
+        z-index: 4;
+        border-radius: 10px;
+    
+    }
+    
+
 
     .App-Header-Feed {
         display: flex;
@@ -1888,7 +1972,7 @@ body {
         width: 58%;
         margin: 0 90px;
 
-        border: 1px solid #e7e7e7;
+        
     }
 
     .dump-header-flexible {
@@ -2023,8 +2107,7 @@ body {
         width: 58%;
         margin: 0 90px;
         padding: 100px 0px;
-        border-left: 1px solid #dedede;
-        border-right: 1px solid #dedede;
+
     }
 
     .dump-posts-saved img {
@@ -2745,6 +2828,8 @@ body {
 .dump-user-search img {
     border-radius: 100%;
     width: 4rem;
+    height: 4rem;
+    object-fit: cover;
 }
 
 .Dump-Page-Story-Dump-Bg {
@@ -2754,7 +2839,12 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1
+    z-index: 100;
+}
+
+.Dump-Page-Story-Dump {
+    z-index: 200;
+    position: relative;
 }
 
 .dump-user-search {
@@ -2767,9 +2857,13 @@ body {
     width: 25vw;
     height: 92vh;
     text-align: center;
-    margin: 3vh auto;
+    margin: 0vh auto;
     justify-content: center;
     position: relative;
+}
+
+#daily-selected {
+    background-color: white;
 }
 
 .Dump-Button-wrapper a {
@@ -2785,13 +2879,22 @@ body {
     width: 50px;
     cursor: pointer;
     height: 50px;
+    text-shadow: 0px 0px 15px black;
 }
+
+.dump-loading-content svg{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+}
+
 
 .Dump-Story-Bottom {
     position: absolute;
     bottom: 0;
     color: white;
     padding: 10px;
+    text-shadow: 0px 0px 15px black;
 }
 
 
@@ -3034,6 +3137,11 @@ body {
 
 }
 
+#labelpostINPUT {
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
 .users-show-select li {
     cursor: pointer;
     border-bottom: 1px solid gray;
@@ -3116,7 +3224,7 @@ body {
     .dump-post-img-inner {
         display: block;
         width: 100%;
-        padding: 90px 0px;
+        padding: 140px 0px;
         border: none;
     }
 
@@ -3180,7 +3288,7 @@ body {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        z-index: 3;
+        z-index: 30;
         padding: 8px 20px;
         background: var(--blur-back);
         width: 100%;
@@ -3366,7 +3474,7 @@ body {
     }
 
     .dump-feed-posts {
-        padding: 135px 0;
+        padding: 105px 0;
         width: 100%;
         margin: 0 auto;
         border-left: transparent;
@@ -3476,20 +3584,15 @@ body {
     }
 
     .createneewpost-card {
-        position: fixed;
+        position: relative;
         width: 100%;
         height: 100%;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
         margin: auto;
         background-color: var(--bg-color);
-        padding: 20px 10px;
-        padding-top: 60px;
+        padding: 20px 20px;
+        margin-top: 100px;
         z-index: 20;
         border-radius: 0px;
-        display: none;
         overflow: auto;
     }
 
@@ -3515,7 +3618,6 @@ body {
     .header-createnewpost {
         border-bottom: 1px solid rgb(194, 194, 194);
         font-size: 1.2rem;
-        margin-bottom: 5vh;
     }
 
     .top-dump-user-current .left-side-dump-current input {
@@ -3534,7 +3636,7 @@ body {
 
     .createnewpost-middle img {
         width: 100%;
-        margin: auto;
+        margin: 0;
         margin-bottom: 0vh;
         pointer-events: none;
     }
@@ -3573,13 +3675,24 @@ body {
     }
 
     .bottom-card-post button {
-        background-color: transparent;
-        color: blueviolet;
+        background: blueviolet;
+        color: white;
         font-weight: 600;
         border: none;
-        font-size: 1.0rem;
+        font-size: 1.1rem;
         cursor: pointer;
-        padding: 0px;
+        border-radius: 10px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .Dumps-Stories-Box-Showcase {
+        padding: 10px;
+    }
+
+    .Dumps-Stories-Box-Showcase h2 {
+        padding: 10px 5px;
+        font-size: 18px;
     }
 
     .dump-dont-account-following {
@@ -3587,6 +3700,17 @@ body {
         text-align: center;
     }
 
+    .Dump-Story-Actual {
+        width: 100%;
+        height: 100%;
+    }
+
+    .story-content img {
+        width: 100%;
+        height: 90vh;
+    }
+
+    
 
     .alert {
         background-color: red;
@@ -3613,11 +3737,12 @@ body {
         justify-content: left;
         text-align: left;
         gap: 10px;
-        width: 100px;
+        
     }
 
     .previewdesc-top img {
-        width: 3.5rem;
+        width: 70px;
+        height: 70px;
         border-radius: 100%;
 
     }
@@ -3630,7 +3755,7 @@ body {
 
     .descriptionphoto {
         width: 100%;
-        padding-bottom: 200px;
+        padding-bottom: 150px;
         margin-top: 1vh;
         outline: none;
         border: none;
@@ -3942,6 +4067,11 @@ body {
         }
     }
 
+    .Top-Dump-Story {
+        width: 100%;
+        padding: 0px 10px;
+    }
+
     .dump-post-options-background {
         width: 100vw;
         height: 100vh;
@@ -4171,7 +4301,14 @@ body {
     .dump-edit-my-profile {
         width: 100%;
         margin: 30px auto;
-        padding: 40px 10px !important;
+        padding: 90px 10px !important;
+    }
+
+    .dump-edit-my-profile img {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        object-fit: cover;
     }
 
     .card-edit-profile {
@@ -4363,6 +4500,7 @@ body {
     .dump-user-search img {
         border-radius: 100%;
         width: 3rem;
+        height: 3rem;
     }
 
     .rightside-dump-user-search {

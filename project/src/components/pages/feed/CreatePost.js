@@ -6,13 +6,13 @@ import { reauthenticateWithRedirect } from 'firebase/auth';
 import firebase from "firebase/compat/app"
 import databases from '../../../lib/appwrite';
 import { Query, ID } from 'appwrite';
+import UserGet from '../../../lib/user';
 
 export default function CreatePost() {
-    function ErroPostDump() {
-        document.querySelector(".seending-pic-dump").style.display = 'none';
-        document.querySelector(".error-upload-photo").style.display = 'flex';
-        document.querySelector(".seending-pic-dump-left-side").innerHTML = `<img src=${filePost}></img>`
-    }
+
+    const [DumpOption, setDumpOption] = useState("POST");
+
+
     const user = auth.currentUser
 
     const [desc, setDesc] = useState("");
@@ -29,10 +29,7 @@ export default function CreatePost() {
         };
 
         if (filePost) {
-            document.querySelector(".seending-pic-dump").style.display = 'flex'
-
-            document.querySelector(".seending-pic-dump img").setAttribute("src", filePost)
-            document.querySelector(".sucess-upload-photo img").setAttribute("src", filePost)
+            
             const upload = storage
 
                 .ref(`posts/${idpost}`)
@@ -44,7 +41,7 @@ export default function CreatePost() {
                 "state_change",
                 null,
                 (err) => {
-                    ErroPostDump()
+                    console.log("Erro ao publicar o dump", err)
                 },
                 () => {
                     storage
@@ -59,74 +56,92 @@ export default function CreatePost() {
         }
 
         const postthis = (url) => {
-            databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
-                filePost: url,
-                legenda: desc,
-                displayName: user.displayName,
-                username: (user.displayName).toLocaleLowerCase(),
-                email: user.email,
-                photoURL: user.photoURL,
-                uid: auth.currentUser.uid
-            })
-                .then(() => {
-                    document.querySelector(".seending-pic-dump").style.display = 'none'
-                    document.querySelector(".sucess-upload-photo").style.display = 'flex'
-                    setInterval(() => {
-                        document.querySelector(".sucess-upload-photo").style.display = 'none'
-                    }, 10000)
+            if (DumpOption == 'POST') {
+                databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
+                    filePost: url,
+                    legenda: desc,
+                    displayName: user.displayName,
+                    username: (user.displayName).toLocaleLowerCase(),
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    uid: auth.currentUser.uid
+                })
+                    .then(() => {
+                        alert("SUCESS DUMP")
 
-                })
-                .catch(() => {
-                    ErroPostDump()
-                })
+                    })
+                    .catch(() => {
+       
+                        console.log("Erro ao publicar o dump: ", error)
+                    })
+            }
+            if (DumpOption == 'STORY') {
+                databases.createDocument(
+                    "64f9329a26b6d59ade09",
+                    "656e15735dbeae5aef50",
+                    ID.unique(),
+                    {
+                        content_story: url,
+                        created_by: auth.currentUser.uid
+                    }
+                )
+                    .then((sucess) => {
+                        alert("SUCESS STORY")
+                    })
+                    .catch(error => {
+           
+                        console.log("Erro ao publicar o story dump: ", error)
+                    })
+            }
+
         }
 
         setDesc("");
-        closepoppups();
+
     };
 
     const handleImage = (e) => {
         const reader = new FileReader();
-    
+
         if (e.target.files[0]) {
             const file = e.target.files[0];
             reader.readAsDataURL(file);
-            document.querySelector(".svg-logo-create").style.display = "none";
+
             document.querySelector(".imagechanger").style.display = 'none';
             document.querySelector(".descriptionphoto").style.display = 'block';
-            document.querySelector(".step1postcreate").style.display = 'none';
+
             document.querySelector(".previewdesc").style.display = 'block';
             document.querySelector(".bottom-card-post").style.display = 'block';
         }
-    
+
         reader.onload = (readerEvent) => {
             const originalImageDataUrl = readerEvent.target.result;
-    
+
             // Reduzir a qualidade para 40% e tamanho em KB
             const qualidadeAlvo = 40; // Qualidade desejada (40%)
             const tamanhoMaxKB = 10000; // Tamanho máximo em KB
-    
+
             const img = new Image();
             img.src = originalImageDataUrl;
-    
+
             img.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
                 const largura = img.width;
                 const altura = img.height;
-    
+
                 canvas.width = largura;
                 canvas.height = altura;
-    
+
                 context.drawImage(img, 0, 0, largura, altura);
-    
+
                 // Converter para uma nova imagem com qualidade reduzida
                 const novaQualidade = qualidadeAlvo / 100;
                 const novaImagem = canvas.toDataURL('image/jpeg', novaQualidade);
-    
+
                 // Verificar o tamanho da nova imagem
                 const novaTamanhoKB = Math.round(novaImagem.length / 1024);
-    
+
                 if (novaTamanhoKB <= tamanhoMaxKB) {
                     // Salvar a imagem reduzida no state ou fazer o que for necessário
                     setFilePost(novaImagem);
@@ -141,18 +156,19 @@ export default function CreatePost() {
 
 
     function closepoppups() {
-        document.querySelector('.createneewpost-card').style.display = 'none';
-        document.querySelector('.background-posts').style.display = 'none';
         removeFile()
         document.querySelector('.imagechanger').value = ''
         document.querySelector(".svg-logo-create").style.display = "block"
         document.querySelector(".imagechanger").style.display = 'block'
         document.querySelector(".descriptionphoto").style.display = 'none'
-        document.querySelector(".step1postcreate").style.display = 'block'
+
         document.querySelector(".previewdesc").style.display = 'none'
         document.querySelector(".bottom-card-post").style.display = 'none'
 
     }
+
+    const userATUAL = UserGet()
+
     return (
         <>
             <div className='loading-wrap'>
@@ -160,36 +176,38 @@ export default function CreatePost() {
 
                 </div>
             </div>
-            <div className="background-posts" onClick={closepoppups}></div>
             <div className="createneewpost-card">
                 <div className="header-createnewpost">
-                    <i onClick={closepoppups} className="fa-solid fa-chevron-left"></i>
-                    <h2>Nova publicação</h2>
-                    <div className='bottom-card-post'>
-                        <button onClick={HandlePost}>Publicar</button>
-                    </div>
+                    <h2><i className="fa-solid fa-square-plus"></i> Criar um Dump</h2>
+                </div>
+                <div className='Buttons-Change-Option'>
+                    <button className='Button-Change' onClick={() => { setDumpOption('POST') }} id={DumpOption == 'POST' ? 'selected' : ''}><span>PUBLICAÇÃO</span></button>
+                    <button className='Button-Change' onClick={() => { setDumpOption('STORY') }} id={DumpOption == 'STORY' ? 'selected' : ''}><span>STORY</span></button>
                 </div>
                 <div className="createnewpost-middle">
+                    <h2><i className="fa-solid fa-image"></i> Adicione sua imagem</h2>
                     <div className='left-side-preview'>
-                        <img src="../../../static/media/posting_photo_re_plk8.svg" className='svg-logo-create' />
+                        <label id='labelpostINPUT' htmlFor='postINPUT'>Clique aqui para enviar sua foto</label>
                         {filePost && (
                             <img className='previewimage' src={filePost} />
                         )}
                     </div>
                     <div className='right-side-previewimage'>
-                        <p className='step1postcreate'>Selecione uma foto/vídeo</p>
-                        <input className='imagechanger' type="file" onChange={handleImage}>
+                        <input id='postINPUT' name="postINPUT" className='imagechanger' type="file" onChange={handleImage}>
                         </input>
                         <div className='previewdesc'>
                             <div className='previewdesc-top'>
-                                <img src={auth.currentUser.photoURL} />
-                                <p>{auth.currentUser.displayName}</p>
+                                <img src={userATUAL ? userATUAL.photoURL : ""} />
+                                <p>{userATUAL ? userATUAL.displayName : ""}</p>
                             </div>
                             <div>
                                 <input type='text' placeholder='Escreva um comentário' max={2000} className='descriptionphoto' value={desc} onChange={((e) => setDesc(e.target.value))}></input>
                             </div>
                             <div className='alert'>
                                 <p>Insira uma descrição para sua publicação.</p>
+                            </div>
+                            <div className='bottom-card-post'>
+                                <button onClick={HandlePost}><span>Publicar</span></button>
                             </div>
                         </div>
 
