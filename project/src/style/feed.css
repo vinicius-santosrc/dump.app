@@ -2801,6 +2801,24 @@ body {
     width: 100%;
 }
 
+.Dump-Story-Disabled {
+    position: fixed;
+    filter: blur(1);
+    width: 25vw;
+    background: #141414cb;
+    height: 100%;
+    
+}
+
+.Dump-Story-Disabled h2 {
+    color: white;
+    top: 40%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
 .Dump-Story-Content img{
     width: 80px;
     border-radius: 100%;

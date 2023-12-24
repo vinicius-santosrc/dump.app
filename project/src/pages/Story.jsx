@@ -5,6 +5,7 @@ import databases from "../lib/appwrite";
 import UserGet from "../lib/user";
 import { Query } from "appwrite";
 
+
 let jsonStories = [];
 let indexStory = 0
 
@@ -15,10 +16,10 @@ export default function Story() {
     const [dataUser, setDataUser] = useState(null);
     const [storysAnother, setstorysAnother] = useState([]);
     const [anotherStories, setanotherStories] = useState([]);
-    
+
     const [timerContent, settimerContent] = useState(10)
 
-    
+
 
     async function getStory() {
         try {
@@ -33,7 +34,7 @@ export default function Story() {
         }
     }
 
-    
+
 
     async function getAnotherStorys() {
         try {
@@ -51,10 +52,10 @@ export default function Story() {
                     setanotherStories(res.documents.map((str) => {
                         const datastory = new Date(str.$createdAt)
                         const dataatual = new Date()
-                        if(datastory.getDate() == dataatual.getDate() && datastory.getMonth() == dataatual.getMonth() && datastory.getFullYear() == dataatual.getFullYear()) {
+                        if (datastory.getDate() == dataatual.getDate() && datastory.getMonth() == dataatual.getMonth() && datastory.getFullYear() == dataatual.getFullYear()) {
                             return (
                                 <div className="Story-Length-Content" id={str.$id == story.$id ? "daily-selected " + timerContent + "%" : null} key={story.$id}>
-                                    <h1>Daily indisponível</h1>
+                                    
                                 </div>
                             )
                         }
@@ -85,14 +86,15 @@ export default function Story() {
                     window.location.href = window.location.origin + `/stories/${jsonStories[indexStory + 1]}`;
                 } else {
                     // Se não houver mais dailys, redirecione para alguma outra página sem atualizar a atual
-                    
+                    window.location.href = window.location.origin
+
                 }
             }
         }, 1000);
     }
 
     useEffect(() => {
-    
+
         HideLoading();
         getStory();
         getAnotherStorys();
@@ -187,7 +189,44 @@ export default function Story() {
         );
     }
     else {
-        <h2>Esse daily está indisponível</h2>
+        return (
+
+            <>
+                <div className="Dump-Page-Story-Dump-Bg"></div>
+                <div className="Dump-Page-Story-Dump">
+                    <div className="Top-Dump-Story">
+                        {anotherStories}
+                    </div>
+                    <div className="Dump-Story-Actual">
+                        <div className="Dump-Story-Top">
+                            <div className="Dump-Button-wrapper">
+                                <Link to={window.location.origin} className="Dump-Button-Close"><span><i className="fa-solid fa-xmark"></i></span></Link>
+                            </div>
+                            <div className="Dump-Story-Disabled">
+                                <h2>Esse daily está indisponível</h2>
+                            </div>
+                            
+                            <div className="Dump-Story-Bottom">
+                            <div className="Dump-User-LeftSide">
+                                {dataUser ?
+                                    <Link to={window.location.origin + "/user/" + dataUser.$id}>
+                                        <img src={dataUser.photoURL} />
+                                        <div className="Dump-User-Content">
+                                            <h2>{dataUser.displayName}</h2>
+                                            <p>@{dataUser.username}</p>
+                                        </div>
+                                    </Link>
+                                    :
+                                    null
+                                }
+
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
     }
 
 }
