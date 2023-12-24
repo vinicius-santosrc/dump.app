@@ -125,7 +125,7 @@ export default function HeaderFeed(props) {
                                         </div>
                                     </div></Link>
                                     :
-                                    <Link to={window.location.origin + "/accounts/login"}>
+                                    <Link to={window.location.origin + "/accounts/signup"}>
                                         <div className="account-off-div-flexbox" title='Fazer login'>
                                             <i className="fa-solid fa-right-to-bracket"></i>
                                             <div className='right-side-enter-account'>
@@ -191,7 +191,7 @@ export default function HeaderFeed(props) {
                     :
 
                     <Link id={window.location.pathname.includes('/user') ? 'selected' : ''} to={window.location.origin + "/accounts/signup"}>
-                        <img src={null} />
+                        <i className="fa-solid fa-right-to-bracket"></i>
                     </Link>
 
                 }

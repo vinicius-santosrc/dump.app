@@ -174,7 +174,7 @@ function AuthPageComponentRegistro() {
                             </div>
                             <div>
                                 <div>
-                                    <button type="button" onClick={SignWithEmail} id="signup">Criar conta</button>
+                                    <button type="button" onClick={SignWithEmail} id="signup">Indisponível</button>
                                 </div>
                             </div>
                             <div className="forgetpass">
