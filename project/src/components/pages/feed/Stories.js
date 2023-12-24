@@ -22,6 +22,10 @@ export default function Stories() {
     const [anotherStories, setAnotherStories] = useState([]);
 
     useEffect(() => {
+        if (!account) {
+            return; // Adicione uma verificação de autenticação
+        }
+
         setLoading(true)
         const getStoryComponents = async () => {
             try {
@@ -39,13 +43,15 @@ export default function Stories() {
                         continue; // Pula dailys próprias
                     }
 
-                    if (Date(story.$createdAt).getDate() != new Date().getDate() && Date(story.$createdAt).getMonth() != new Date().getMonth() && Date(story.$createdAt).getFullYear() != new Date().getFullYear()) {
-                        
-                        return
-                    }
 
                     if (processedUsers.has(story.created_by)) {
-                        continue; // Se o usuário já foi processado, pula este story
+                        continue; // Se o usuário já foi processado, pula este daily
+                    }
+
+                    const datastory = new Date(story.$createdAt)
+                    const dataatual = new Date()
+                    if (datastory.getDate() != dataatual.getDate() || datastory.getMonth() != dataatual.getMonth() || datastory.getFullYear() != dataatual.getFullYear()) {
+                        continue // Se o dia for diferente do daily, pula este daily
                     }
 
                     const userResponse = await databases.getDocument(
@@ -88,7 +94,7 @@ export default function Stories() {
         };
 
         getStoryComponents();
-    }, [USER_ATUAL]); // Empty dependency array to run once on mount
+    }, [account, USER_ATUAL]); // Empty dependency array to run once on mount
 
     function LoadingStorys() {
         return (
@@ -140,7 +146,12 @@ export default function Stories() {
                     </div>
                 </>
                 :
-                <>{anotherStories}</>
+                <>
+                    <h2>Dailys</h2>
+                    <div className="Dump-Stories-Flexbox">
+                        {anotherStories}
+                    </div>
+                </>
             }
 
 

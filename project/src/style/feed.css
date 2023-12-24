@@ -2797,6 +2797,10 @@ body {
     overflow-x: scroll;
 }
 
+.Dumps-Stories-Box-Showcase {
+    width: 100%;
+}
+
 .Dump-Story-Content img{
     width: 80px;
     border-radius: 100%;

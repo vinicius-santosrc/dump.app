@@ -54,7 +54,7 @@ export default function Story() {
                         if(datastory.getDate() == dataatual.getDate() && datastory.getMonth() == dataatual.getMonth() && datastory.getFullYear() == dataatual.getFullYear()) {
                             return (
                                 <div className="Story-Length-Content" id={str.$id == story.$id ? "daily-selected " + timerContent + "%" : null} key={story.$id}>
-    
+                                    <h1>Daily indisponível</h1>
                                 </div>
                             )
                         }
@@ -92,6 +92,7 @@ export default function Story() {
     }
 
     useEffect(() => {
+    
         HideLoading();
         getStory();
         getAnotherStorys();
@@ -148,7 +149,6 @@ export default function Story() {
     else {
         isTrueStory = false
     }
-
 
     if (isTrueStory) {
         return (
