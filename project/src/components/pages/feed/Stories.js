@@ -30,37 +30,38 @@ export default function Stories() {
                     "656e15735dbeae5aef50", // STORIES ID
                     [Query.orderDesc("$createdAt")]
                 );
-        
+
                 const processedUsers = new Set(); // Conjunto para rastrear usuários processados
                 const stories = [];
-        
+
                 for (const story of response.documents) {
                     if (story.created_by === auth.currentUser.uid) {
-                        continue; // Pula histórias próprias
+                        continue; // Pula dailys próprias
                     }
 
-                    if(new Date(story.$createdAt).getDate() != new Date().getDate() && new Date(story.$createdAt).getMonth() != new Date().getMonth() && new Date(story.$createdAt).getFullYear() != new Date().getFullYear()) {
+                    if (Date(story.$createdAt).getDate() != new Date().getDate() && Date(story.$createdAt).getMonth() != new Date().getMonth() && Date(story.$createdAt).getFullYear() != new Date().getFullYear()) {
+                        
                         return
                     }
-        
+
                     if (processedUsers.has(story.created_by)) {
                         continue; // Se o usuário já foi processado, pula este story
                     }
-        
+
                     const userResponse = await databases.getDocument(
                         "64f9329a26b6d59ade09",
                         "64f93be88eee8bb83ec3",
                         story.created_by
                     );
-        
+
                     if (!USER_ATUAL.following.includes(story.created_by)) {
                         continue; // Se o usuário não está sendo seguido, pula este story
                     }
-        
+
                     processedUsers.add(story.created_by); // Adiciona o usuário ao conjunto de usuários processados
-        
+
                     setLoading(false);
-        
+
                     stories.push(
                         <div className="Dump-Story-Content" key={story.documentId}>
                             <Link to={window.location.origin + `/stories/${story.$id}`}>
@@ -78,7 +79,7 @@ export default function Stories() {
                         </div>
                     );
                 }
-        
+
                 setAnotherStories(stories);
             } catch (error) {
                 setLoading(false);
@@ -123,22 +124,26 @@ export default function Stories() {
     return (
 
         <section className="Dumps-Stories-Box-Showcase" >
-            <h2>Dailys</h2>
-            <div className="Dump-Stories-Flexbox">
-                
-                {Loading ?
-                    <>
-                        <LoadingStorys />
-                        <LoadingStorys />
-                        <LoadingStorys />
-                        <LoadingStorys />
-                    </>
 
-                    :
-                    <>{anotherStories}</>
-                }
 
-            </div>
+            {Loading ?
+                <>
+                    <h2>Dailys</h2>
+                    <div className="Dump-Stories-Flexbox">
+                        <>
+                            <LoadingStorys />
+                            <LoadingStorys />
+                            <LoadingStorys />
+                            <LoadingStorys />
+                        </>
+
+                    </div>
+                </>
+                :
+                <>{anotherStories}</>
+            }
+
+
 
         </section>
     );
