@@ -60,7 +60,7 @@ function ComponentLogin() {
                                 </div>
                             </div>
                             <div className="forgetpass">
-                                <p>Não tem uma conta? <Link to="./signup">Inscreva-se</Link></p>
+                                <p>Não tem uma conta? <Link to="../accounts/signup">Inscreva-se</Link></p>
                             </div>
                         </form>
                     </div>
