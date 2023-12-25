@@ -4,6 +4,8 @@ import { HideLoading } from "../components/Loading";
 import databases from "../lib/appwrite";
 import UserGet from "../lib/user";
 import { Query } from "appwrite";
+import LoadingContent from "../components/pages/feed/LoadingContent";
+import LoadingContentWhite from "../components/pages/feed/LoadingContentWhite";
 
 
 let jsonStories = [];
@@ -17,11 +19,14 @@ export default function Story() {
     const [storysAnother, setstorysAnother] = useState([]);
     const [anotherStories, setanotherStories] = useState([]);
 
-    const [timerContent, settimerContent] = useState(10)
+    const [timerContent, settimerContent] = useState(10);
+
+    const [Loading, setLoading] = useState(false)
 
 
 
     async function getStory() {
+        setLoading(true);
         try {
             const response = await databases.getDocument(
                 "64f9329a26b6d59ade09",
@@ -29,7 +34,9 @@ export default function Story() {
                 STORY_ID
             );
             setStory(response);
+            setLoading(false);
         } catch (error) {
+            setLoading(false)
             console.error("Error fetching daily:", error);
         }
     }
@@ -37,6 +44,7 @@ export default function Story() {
 
 
     async function getAnotherStorys() {
+        setLoading(true)
         try {
             await databases.listDocuments(
                 "64f9329a26b6d59ade09",
@@ -60,10 +68,12 @@ export default function Story() {
                             )
                         }
                     }))
+                    setLoading(false)
                 })
         }
         catch (err) {
             console.log("Erro ao pegar outros dailys: ", err)
+            setLoading(false)
         }
     }
 
@@ -86,7 +96,7 @@ export default function Story() {
                     window.location.href = window.location.origin + `/stories/${jsonStories[indexStory + 1]}`;
                 } else {
                     // Se não houver mais dailys, redirecione para alguma outra página sem atualizar a atual
-                    window.location.href = window.location.origin
+                    
 
                 }
             }
@@ -100,6 +110,7 @@ export default function Story() {
         getAnotherStorys();
         timerStory();
     }, [account]);
+
 
     // Function to render different content based on the type
     const renderContent = () => {
@@ -203,7 +214,7 @@ export default function Story() {
                                 <Link to={window.location.origin} className="Dump-Button-Close"><span><i className="fa-solid fa-xmark"></i></span></Link>
                             </div>
                             <div className="Dump-Story-Disabled">
-                                <h2>Esse daily está indisponível</h2>
+                                {Loading ? <h2><LoadingContentWhite /></h2> : <h2>Esse daily está indisponível</h2>}
                             </div>
                             
                             <div className="Dump-Story-Bottom">

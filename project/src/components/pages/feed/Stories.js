@@ -20,6 +20,8 @@ export default function Stories() {
 
 
     const [anotherStories, setAnotherStories] = useState([]);
+    const [yourDaily, setYourDaily] = useState(null)
+
 
     useEffect(() => {
         if (!account) {
@@ -27,7 +29,9 @@ export default function Stories() {
         }
 
         setLoading(true)
+
         const getStoryComponents = async () => {
+
             try {
                 const response = await databases.listDocuments(
                     "64f9329a26b6d59ade09", // DATABASE ID
@@ -37,28 +41,53 @@ export default function Stories() {
 
                 const processedUsers = new Set(); // Conjunto para rastrear usuários processados
                 const stories = [];
+                let userResponse; // Declare a variável fora do loo
 
                 for (const story of response.documents) {
-                    if (story.created_by === auth.currentUser.uid) {
-                        continue; // Pula dailys próprias
-                    }
-
-
-                    if (processedUsers.has(story.created_by)) {
-                        continue; // Se o usuário já foi processado, pula este daily
-                    }
-
-                    const datastory = new Date(story.$createdAt)
-                    const dataatual = new Date()
-                    if (datastory.getDate() != dataatual.getDate() || datastory.getMonth() != dataatual.getMonth() || datastory.getFullYear() != dataatual.getFullYear()) {
-                        continue // Se o dia for diferente do daily, pula este daily
-                    }
 
                     const userResponse = await databases.getDocument(
                         "64f9329a26b6d59ade09",
                         "64f93be88eee8bb83ec3",
                         story.created_by
                     );
+
+                    const datastory = new Date(story.$createdAt)
+                    const dataatual = new Date()
+                    if (datastory.getDate() != dataatual.getDate() || datastory.getMonth() != dataatual.getMonth() || datastory.getFullYear() != dataatual.getFullYear()) {
+                        continue // Se o dia for diferente do daily, pula este daily
+                    }
+                    const StoryYours = () => {
+                        return story.created_by === auth.currentUser.uid
+                    }
+
+                    if(StoryYours() ) {
+                        setYourDaily(
+                            <div className="Dump-Story-Content" key={story.documentId}>
+                                <Link to={window.location.origin + `/stories/${story.$id}`}>
+                                    <div className="Dump-Image-Profile">
+                                        <img src={userResponse.photoURL} alt="Profile" />
+                                    </div>
+                                    <div className="Dump-Username-Content">
+                                        <p>Seu daily</p>
+                                    </div>
+                                </Link>
+                            </div>
+                        );
+
+                        continue;
+                    } // Se o daily for do usuário, adiciona como seu Daily
+                    
+                    if (!USER_ATUAL || !USER_ATUAL.following.includes(story.created_by)) {                        
+                        continue;
+
+                    }
+
+                    if (processedUsers.has(story.created_by)) {
+                        continue; // Se o usuário já foi processado, pula este daily
+                    }
+
+                    
+                    
 
                     if (!USER_ATUAL.following.includes(story.created_by)) {
                         continue; // Se o usuário não está sendo seguido, pula este story
@@ -149,6 +178,21 @@ export default function Stories() {
                 <>
                     <h2>Dailys</h2>
                     <div className="Dump-Stories-Flexbox">
+
+                        {yourDaily ? (
+                            <>{yourDaily}</>
+                        ) : (
+                            <div className="Dump-Story-Content">
+                                <Link to={window.location.origin + `/posts/create`}>
+                                    <div className="Dump-Image-Profile">
+                                        <img src={USER_ATUAL ? USER_ATUAL.photoURL : null} alt="Profile" />
+                                    </div>
+                                    <div className="Dump-Username-Content">
+                                        <p><b>Adicionar Daily</b></p>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
                         {anotherStories}
                     </div>
                 </>
