@@ -75,12 +75,12 @@ export default function Stories() {
                         );
 
                         continue;
-                    } // Se o daily for do usuário, adiciona como seu Daily
-                    
+                    } // Se o daily for do usuário, adiciona como seu Daily e pula.
+
                     if (!USER_ATUAL || !USER_ATUAL.following.includes(story.created_by)) {                        
                         continue;
 
-                    }
+                    } // Se o usuário não segue o criador do story, pula.
 
                     if (processedUsers.has(story.created_by)) {
                         continue; // Se o usuário já foi processado, pula este daily
@@ -95,7 +95,7 @@ export default function Stories() {
 
                     processedUsers.add(story.created_by); // Adiciona o usuário ao conjunto de usuários processados
 
-                    setLoading(false);
+                   
 
                     stories.push(
                         <div className="Dump-Story-Content" key={story.documentId}>
@@ -114,7 +114,7 @@ export default function Stories() {
                         </div>
                     );
                 }
-
+                setLoading(false);
                 setAnotherStories(stories);
             } catch (error) {
                 setLoading(false);

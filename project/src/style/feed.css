@@ -1123,6 +1123,12 @@ body {
     color: var(--another-gray)
 }
 
+.Options-Daily-Content {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 .createneewpost-card {
     position: relative;
     background-color: var(--bg-color);
@@ -2789,10 +2795,61 @@ body {
     width: 110px;
 }
 
+.ShowOptionsStory {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.795);
+    height: 100vh;
+    width: 100vw;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+.ItensOptions {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    background: white;
+
+    border-radius: 10px;
+    margin: auto;
+    width: 20vw;
+    list-style: none;
+}
+
+.ItensOptions li {
+    list-style: none;
+}
+
+.ItensOptions ul button{
+    background: white;
+    
+    border: 1px solid lightgray;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 0px 0px 10px 10px;
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.HeaderOptions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+
+.HeaderOptions h2 {
+    color: black;
+    font-size: 20px;
+}
+
 .Dump-Stories-Flexbox {
     display: flex;
     justify-content: left;
-    gap: 10px;
+
     width: 100%;
     overflow-x: scroll;
 }
@@ -2914,10 +2971,23 @@ body {
 
 .Dump-Story-Bottom {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     bottom: 0;
+    width: 25vw;
     color: white;
     padding: 10px;
+    align-items: center;
     text-shadow: 0px 0px 15px black;
+}
+
+.Dump-User-RightSide button {
+    padding: 5px;
+    font-size: 22px;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 
@@ -4848,6 +4918,14 @@ body {
         overflow-y: auto;
         border-left: 1px solid transparent;
         border-right: 1px solid transparent
+    }
+
+    .Dump-Story-Bottom {
+        width: 100%
+    }
+
+    .ItensOptions {
+        width: 90%;
     }
 
     .backgroundCurtidas {

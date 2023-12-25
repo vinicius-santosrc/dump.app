@@ -75,13 +75,7 @@ export default function Suggestions() {
 
     return (
         <div className='card-suggestios-block'>
-            <div className="Card-Suggestions">
-                <div className='sugg-card-beta'>
-                    <h1>Seja DUMP+</h1>
-                    <p>Conclua os requisitos para obter o selo de verificado.</p>
-                    <button className='dumpplus_inner_btn dumpplusbtn'>Inscrever-se</button>
-                </div>
-            </div>
+           
 
             
             <div className="Card-Suggestions">

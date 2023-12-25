@@ -6,6 +6,8 @@ import UserGet from "../lib/user";
 import { Query } from "appwrite";
 import LoadingContent from "../components/pages/feed/LoadingContent";
 import LoadingContentWhite from "../components/pages/feed/LoadingContentWhite";
+import { auth } from "../lib/firebase";
+import Swal from "sweetalert2";
 
 
 let jsonStories = [];
@@ -21,7 +23,8 @@ export default function Story() {
 
     const [timerContent, settimerContent] = useState(10);
 
-    const [Loading, setLoading] = useState(false)
+    const [Loading, setLoading] = useState(false);
+    const [ShowOptions, setShowOptions] = useState(false)
 
 
 
@@ -54,8 +57,15 @@ export default function Story() {
                 .then((res) => {
 
                     setstorysAnother(res.documents.map((r) => {
-                        jsonStories.push(r.$id)
-                        return r.$id;
+                        const datastory = new Date(r.$createdAt)
+                        const dataatual = new Date()
+                        if (datastory.getDate() != dataatual.getDate() || datastory.getMonth() != dataatual.getMonth() || datastory.getFullYear() != dataatual.getFullYear()) {
+                            return r.$id// Se o dia for diferente do daily, pula este daily
+                        }
+                        else {
+                            jsonStories.push(r.$id)
+                            return r.$id;
+                        }
                     }))
                     setanotherStories(res.documents.map((str) => {
                         const datastory = new Date(str.$createdAt)
@@ -63,7 +73,7 @@ export default function Story() {
                         if (datastory.getDate() == dataatual.getDate() && datastory.getMonth() == dataatual.getMonth() && datastory.getFullYear() == dataatual.getFullYear()) {
                             return (
                                 <div className="Story-Length-Content" id={str.$id == story.$id ? "daily-selected " + timerContent + "%" : null} key={story.$id}>
-                                    
+
                                 </div>
                             )
                         }
@@ -80,12 +90,12 @@ export default function Story() {
     function timerStory() {
         let segundos = 10;
         settimerContent(segundos)
-        console.log()
+
         // Atualizar o contador a cada segundo
         const intervalId = setInterval(function () {
             segundos--;
             settimerContent(segundos)
-
+            console.log(segundos)
             // Verificar se o contador chegou a zero
             if (segundos === 0) {
                 // Limpar o intervalo e realizar a ação desejada quando o contador atingir zero
@@ -96,7 +106,7 @@ export default function Story() {
                     window.location.href = window.location.origin + `/stories/${jsonStories[indexStory + 1]}`;
                 } else {
                     // Se não houver mais dailys, redirecione para alguma outra página sem atualizar a atual
-                    
+
 
                 }
             }
@@ -139,6 +149,35 @@ export default function Story() {
         }
     }
 
+    async function DeleteDaily() {
+        try {
+            Swal.fire({
+                title: "Você deseja excluir seu Daily?",
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: "Excluir",
+                denyButtonText: `Cancelar`
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    databases.deleteDocument(
+                        "64f9329a26b6d59ade09",
+                        "64f93be88eee8bb83ec3",
+                        story.id
+                    )
+                        .then((res) => {
+                            Swal.fire("Daily excluído!", "Daily excluído com sucesso.", "success");
+                        })
+
+                } else if (result.isDenied) {
+
+                }
+            });
+        }
+        catch (error) {
+
+        }
+    }
 
 
     useEffect(() => {
@@ -182,9 +221,10 @@ export default function Story() {
                             <div className="Dump-User-LeftSide">
                                 {dataUser ?
                                     <Link to={window.location.origin + "/user/" + dataUser.$id}>
+
                                         <img src={dataUser.photoURL} />
                                         <div className="Dump-User-Content">
-                                            <h2>{dataUser.displayName}</h2>
+                                            <h2>{dataUser.id == auth.currentUser.uid ? "Seu daily" : dataUser.displayName}</h2>
                                             <p>@{dataUser.username}</p>
                                         </div>
                                     </Link>
@@ -193,6 +233,35 @@ export default function Story() {
                                 }
 
                             </div>
+                            {dataUser ? <>
+                                {dataUser.$id === auth.currentUser.uid ?
+                                    <>
+                                        <div className="Dump-User-RightSide">
+                                            <button onClick={() => setShowOptions(!ShowOptions)}><span><i className="fa-solid fa-ellipsis"></i></span></button>
+                                        </div>
+                                        <>
+                                            {ShowOptions ?
+                                                <div className="ShowOptionsStory" onClick={() => setShowOptions(!ShowOptions)}>
+                                                    <div className="ItensOptions">
+                                                        <div className="HeaderOptions">
+                                                            <span></span>
+                                                            <h2>Daily</h2>
+                                                            <button></button>
+                                                        </div>
+                                                        <ul>
+                                                            <li><button onClick={DeleteDaily}>Excluir daily</button></li>
+                                                        </ul>
+                                                    </div>
+                                                </div> :
+                                                null}
+                                        </></>
+
+                                    :
+                                    null
+                                }
+                            </>
+                                : null
+                            }
                         </div>
                     </div>
                 </div>
@@ -216,23 +285,28 @@ export default function Story() {
                             <div className="Dump-Story-Disabled">
                                 {Loading ? <h2><LoadingContentWhite /></h2> : <h2>Esse daily está indisponível</h2>}
                             </div>
-                            
+
                             <div className="Dump-Story-Bottom">
-                            <div className="Dump-User-LeftSide">
-                                {dataUser ?
-                                    <Link to={window.location.origin + "/user/" + dataUser.$id}>
-                                        <img src={dataUser.photoURL} />
-                                        <div className="Dump-User-Content">
-                                            <h2>{dataUser.displayName}</h2>
-                                            <p>@{dataUser.username}</p>
-                                        </div>
-                                    </Link>
-                                    :
-                                    null
-                                }
+                                <div className="Dump-User-LeftSide">
+                                    {dataUser ?
+                                        <>
+                                            <Link to={window.location.origin + "/user/" + dataUser.$id}>
+                                                <img src={dataUser.photoURL} />
+                                                <div className="Dump-User-Content">
+                                                    <h2>{dataUser.displayName}</h2>
+                                                    <p>@{dataUser.username}</p>
+                                                </div>
+                                            </Link>
+
+                                        </>
+                                        :
+                                        null
+                                    }
+                                </div>
 
                             </div>
-                        </div>
+
+
                         </div>
                     </div>
                 </div>
