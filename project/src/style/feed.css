@@ -1088,8 +1088,8 @@ body {
 }
 
 .dump-edit-my-profile img {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 100%;
     object-fit: cover;
 }
@@ -1596,8 +1596,8 @@ body {
 }
 
 .dump-user-account {
-    width: 250px;
-    height: 400px;
+    width: 210px;
+    height: 210px;
 
 }
 
@@ -4287,8 +4287,8 @@ body {
     }
 
     .dump-user-account {
-        width: 135px;
-        height: 135px;
+        width: 125px;
+        height: 125px;
     }
 
     .dump-user-account img {

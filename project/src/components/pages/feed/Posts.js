@@ -6,7 +6,7 @@ import UserPerfil from './UserPerfil';
 import databases from '../../../lib/appwrite';
 import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Ring } from '@uiball/loaders';
 import { tailChase } from 'ldrs'
 
@@ -320,9 +320,11 @@ export default function Posts(props) {
         }
     }
 
+    let Nav = useNavigate();
+
 
     function gotoPost() {
-        window.location.href = `${window.location.origin}/posts/${props.id}`
+        Nav(`/posts/${props.id}`)
     }
 
     function errorsemuser() {
@@ -482,7 +484,7 @@ export default function Posts(props) {
                                     </div>
                                 }
 
-                                <button onClick={() => window.location.href = window.location.origin + '/posts/' + props.id}><i className="fa-regular fa-comment"></i></button>
+                                <button onClick={() => Nav('/posts/' + props.id)}><i className="fa-regular fa-comment"></i></button>
 
                             </>
                             :
