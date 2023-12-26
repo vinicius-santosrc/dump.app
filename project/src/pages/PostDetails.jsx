@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { HideLoading } from "../components/Loading";
 import databases from "../lib/appwrite";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
 import { ID, Query } from "appwrite";
@@ -23,7 +23,7 @@ export default function PostDetails() {
     const [Comments_Dump, SetComments_Dump] = useState([]);
 
     const USERSIDDATABASE = '64f93be88eee8bb83ec3'
-
+    let Nav = useNavigate();
 
 
     const DB_ID = '64f9329a26b6d59ade09'
@@ -436,6 +436,8 @@ export default function PostDetails() {
     }
     changeInfoPage()
 
+    
+
     async function deletepublic() {
         Swal.fire({
             title: 'Você tem certeza?',
@@ -459,7 +461,8 @@ export default function PostDetails() {
                     idPost
                 ).then((e) => {
                     if (auth.currentUser) {
-                        window.location.href = window.location.origin + '/user/' + auth.currentUser.uid
+                        Nav("/user/" +  auth.currentUser.uid);
+                        
                     }
                 })
                     .catch((error) => {

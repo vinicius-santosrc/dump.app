@@ -204,12 +204,7 @@ export default function SuggestionsPeople() {
                 </div>
 
             </div>
-            <nav className='nav-bar-mobile'>
-                <Link onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></Link>
-                <Link to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
-                {i_ison && ID_ACCOUNT_I ? <Link to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
-                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <Link to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></Link> : <><Link to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
-            </nav>
+
         </>
 
     )

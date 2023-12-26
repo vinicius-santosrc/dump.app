@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { HideLoading } from "../components/Loading";
 import { Link, useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import databases from "../lib/appwrite";
 import { ID, Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
@@ -10,6 +11,7 @@ import { Ring } from '@uiball/loaders'
 import Swal from 'sweetalert2'
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
+
 
 
 export default function Account() {
@@ -114,15 +116,14 @@ export default function Account() {
         }
         getPostsofUser()
     }, [ID_ACCOUNT_I])
+    let Nav = useNavigate();
+
+    const Gotomentions = () => {
+  
+        Nav("/user/" + ID_ACCOUNT + "/mentions");
+      };
 
 
-    function gotomentions() {
-        window.location.href = window.location.origin + '/user/' + ID_ACCOUNT + '/mentions'
-    }
-
-    function gotoHomePage() {
-        window.location.href = window.location.origin
-    }
 
     const [i_ison, setUserOn] = useState('')
     const SignWithGoogle = () => {
@@ -140,33 +141,6 @@ export default function Account() {
         checkIfFollowsUser()
     }
 
-
-
-    const gotomyprofile = () => {
-
-        const getprofile = async () => {
-
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                "64f93be88eee8bb83ec3"
-            ).then((res) => {
-                res.documents.filter(a => a.uid == auth.currentUser.uid).map((r) => {
-                    window.location.href = `${window.location.origin}/user/${r.$id}`
-                })
-            })
-        }
-        getprofile()
-
-        /*database
-        .collection('users')
-        .where('uid' , '==', auth.currentUser.uid)
-        .get()
-        .then(s => {
-            s.docs.map(yourprofile => {
-                window.location.href=window.location.origin + '#/?user=' + yourprofile.data().username
-            })
-        })*/
-    }
 
     if (!ID_ACCOUNT_I) {
         return (
@@ -192,8 +166,7 @@ export default function Account() {
     changeInfoPage()
 
     function backtoprofile() {
-        let url = (window.location.href).replace('/mentions', '')
-        window.location.href = url
+        Nav("/user/" + ID_ACCOUNT);
     }
 
     let targetUserId
@@ -431,7 +404,8 @@ export default function Account() {
 
 
     function editmyprofile_btn() {
-        window.location.href = `${window.location.origin}/accounts/edit/`
+
+        Nav("/accounts/edit");
     }
 
     function openseguidorescard() {
@@ -580,7 +554,7 @@ export default function Account() {
                             :
                             <>
                                 <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
-                                <label onClick={gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
+                                <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
                             </>
                         }
                     </section>
@@ -659,12 +633,7 @@ export default function Account() {
 
                 </div>
             </div>
-            <nav className='nav-bar-mobile'>
-                <Link onClick={gotoHomePage}><i className="fa-solid fa-house"></i></Link>
-                <Link to={window.location.origin + '/search'}><i className="fa-solid fa-magnifying-glass"></i></Link>
-                {i_ison ? <Link to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
-                {i_ison ? <Link onClick={gotomyprofile}><img src={auth.currentUser.photoURL} /></Link> : <><Link to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
-            </nav>
+
         </>
     )
 }

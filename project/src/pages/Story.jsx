@@ -87,6 +87,8 @@ export default function Story() {
         }
     }
 
+    let Nav = useNavigate()
+
     function timerStory() {
         let segundos = 10;
         settimerContent(segundos)
@@ -95,7 +97,7 @@ export default function Story() {
         const intervalId = setInterval(function () {
             segundos--;
             settimerContent(segundos)
-            console.log(segundos)
+
             // Verificar se o contador chegou a zero
             if (segundos === 0) {
                 // Limpar o intervalo e realizar a ação desejada quando o contador atingir zero
@@ -103,7 +105,8 @@ export default function Story() {
 
                 settimerContent(segundos)
                 if (indexStory + 1 < storysAnother.length) {
-                    window.location.href = window.location.origin + `/stories/${jsonStories[indexStory + 1]}`;
+                    Nav(`/stories/${jsonStories[indexStory + 1]}`);
+
                 } else {
                     // Se não houver mais dailys, redirecione para alguma outra página sem atualizar a atual
 

@@ -45,40 +45,14 @@ export default function SearchPage() {
         HideLoading()
     }, [])
 
-    function gotoHomePage() {
-        window.location.href = window.location.origin
-    }
+
     const [i_ison, setUserOn] = useState('')
     const SignWithGoogle = () => {
         signInWithPopup(auth, provider).then((i) => {
         })
     }
 
-    const gotomyprofile = () => {
 
-        const getprofile = async () => {
-
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                "64f93be88eee8bb83ec3"
-            ).then((res) => {
-                res.documents.filter(a => a.uid == auth.currentUser.uid).map((r) => {
-                    window.location.href = `${window.location.origin}/user/${r.$id}`
-                })
-            })
-        }
-        getprofile()
-
-        /*database
-        .collection('users')
-        .where('uid' , '==', auth.currentUser.uid)
-        .get()
-        .then(s => {
-            s.docs.map(yourprofile => {
-                window.location.href=window.location.origin + '#/?user=' + yourprofile.data().username
-            })
-        })*/
-    }
 
     useEffect(() => {
         auth.onAuthStateChanged(function (u) {
@@ -204,12 +178,7 @@ export default function SearchPage() {
                 </div>
 
             </div>
-            <nav className='nav-bar-mobile'>
-                <Link onClick={gotoHomePage} id={window.location.pathname == '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i></Link>
-                <Link to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
-                {i_ison && ID_ACCOUNT_I ? <Link to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
-                {i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <Link to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><img src={ID_ACCOUNT_I.photoURL} /></Link> : <><Link to="./accounts/signup"><i className="fa-solid fa-circle-user"></i></Link></>}
-            </nav>
+
         </>
 
     )

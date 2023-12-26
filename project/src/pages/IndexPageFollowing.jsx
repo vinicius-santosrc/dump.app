@@ -13,6 +13,7 @@ import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
+import { useNavigate } from "react-router-dom";
 
 let currentUserID
 if (auth.currentUser) {
@@ -111,8 +112,11 @@ export default function IndexPageFollowing() {
         user()
     })
 
+    let Nav = useNavigate()
+
     function gotosearch() {
-        window.location.href = window.location.origin + "/search"
+        Nav("/search");
+        
     }
     //document.querySelector('.loading').style.display = 'none'   
 
