@@ -3644,6 +3644,7 @@ body {
         width: 100%;
         justify-content: space-evenly;
         position: fixed;
+        top: 100;
         bottom: 0;
         padding: 10px 0px;
         padding-bottom: 40px;
