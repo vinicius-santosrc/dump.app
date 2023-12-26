@@ -3142,8 +3142,9 @@ body {
 }
 
 .top-dump-user-current img {
-    width: 3rem !important;
-    height: 3rem !important;
+    width: 3rem;
+    height: 3rem;
+    aspect-ratio: 3/3;
     object-fit: cover;
 
     border-radius: 100%;
