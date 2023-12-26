@@ -6,7 +6,7 @@ import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import databases from '../../../lib/appwrite';
 import { Query } from 'appwrite';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Suggestions() {
     const [DumpsMaisAvaliados, setDumpsMaisAvaliados] = useState(null)
@@ -30,6 +30,7 @@ export default function Suggestions() {
 
     const date = new Date()
     const year = date.getFullYear()
+   
 
     useEffect(() => {
         window.addEventListener('DOMContentLoaded', loadUsers())
@@ -70,7 +71,7 @@ export default function Suggestions() {
 
 
     let FirstUsers = Users
-
+    let Nav = useNavigate();
     const version = '0.5.6'
 
     return (
@@ -86,7 +87,7 @@ export default function Suggestions() {
                     {
 
                         FirstUsers.map((user) => {
-                            const gotouser = () => { window.location.href = window.location.origin + '/user/' + user.$id }
+                            const gotouser = () => { Nav('/user/' + user.$id) }
                             return (
                                 <div className="card-user-sg" onClick={gotouser}>
                                     <Suggestions_User
