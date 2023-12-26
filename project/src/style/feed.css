@@ -757,20 +757,20 @@ body {
 
 .dump-post-photo {
     position: relative;
-    padding-left: 50px;
+    padding-left: 0px;
 }
 
 .dump-post-photo img, .dump-post-photo video, .dump-post-photo iframe {
     width: 100%;
     max-width: 100%;
-    height: 60%;
+    height: 50%;
     max-height: 100%;
     object-fit: contain;
     margin-top: 10px;
     border-radius: 0px;
     cursor: pointer;
     z-index: -1;
-    border-radius: 20px;
+    border-radius: 5px;
     border: 1px solid var(--border-gray);
     transition: 500ms;
 
@@ -3520,7 +3520,7 @@ body {
     .dump-post {
         margin: auto;
         width: 100%;
-        margin-bottom: 40px;
+        margin-bottom: 5px;
         padding: 10px 10px;
     }
 
@@ -3551,7 +3551,7 @@ body {
     }
 
     .dump-post-photo img, .dump-post-photo iframe {
-        width: 90%;
+        width: 100%;
         height: 100%;
         margin-top: 10px;
         border-radius: 10px;
@@ -3620,7 +3620,7 @@ body {
         justify-content: left;
         gap: 10px;
         border-radius: 10px;
-        margin-left: 50px;
+        margin-left: 5px;
     }
 
     .btns-dump-comments button {
@@ -4159,6 +4159,11 @@ body {
         color: green;
     }
 
+    .dump-post-photo {
+        position: relative;
+        padding-left: 0px;
+    }
+
     @keyframes openmenuoptions {
         0% {
             transform: scale(0.9)
@@ -4282,8 +4287,8 @@ body {
     }
 
     .dump-user-account {
-        width: 185px;
-        height: 355px;
+        width: 135px;
+        height: 135px;
     }
 
     .dump-user-account img {
@@ -4302,9 +4307,10 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin: 30px 0px;
+        margin: 30px auto;
+        
         width: 100%;
-        gap: 10px;
+        gap: 3px;
 
     }
 
@@ -4462,6 +4468,14 @@ body {
         margin-bottom: 10px;
         display: none
     }
+
+    .Dump-Button-Likes-Show-Wrapper {
+        padding: 0px 0px;
+        display: flex;
+        margin-right: 5px;
+        justify-content: right;
+    }
+    
 
     .error-message-top {
         background-color: rgb(185, 28, 4);
@@ -4761,6 +4775,11 @@ body {
 
     .dump-posts-saved img:hover {
         filter: brightness(0.7);
+    }
+
+    .descriptionofdump {
+        margin-left: 5px;
+    
     }
 
     .dump-posts-saved-empty {

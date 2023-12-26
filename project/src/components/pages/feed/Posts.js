@@ -22,40 +22,6 @@ export default function Posts(props) {
     const [LikesCurrent, setLikesCurrent] = useState([])
     const [likesBox, setlikesBox] = useState(false)
 
-    function gotouser() {
-
-        const getUserUrl = async () => {
-            await databases.listDocuments(
-                "64f9329a26b6d59ade09",
-                "64f93be88eee8bb83ec3",
-            )
-                .then((res) => {
-                    res.documents.filter(e => e.email == props.email).map((r) => {
-                        window.location.href = `${window.location.origin}/user/${r.$id}`
-                    })
-                })
-        }
-        getUserUrl()
-
-        /*database
-            .collection("users")
-            .where("username", "==", props.username)
-            .get()
-            .then(s => {
-                s.docs.map(res => {
-                    window.location.href = window.location.origin + "#?user=" + res.data().username
-                })
-
-
-            }
-
-            )
-            */
-    }
-
-    function Comments() {
-
-    }
 
     const DB_UID = '64f9329a26b6d59ade09'
     const COL_UID = '64f93c1c40d294e4f379'
@@ -65,8 +31,6 @@ export default function Posts(props) {
     if (auth.currentUser) {
         targetUserId = auth.currentUser.uid;
     }
-
-
 
     /** VERIFICAÇÃO DUMP ATUAL */
 
@@ -96,7 +60,7 @@ export default function Posts(props) {
             checkDumpSaves()
         };
 
-    }, []);
+    }, [ID_ACCOUNT]);
 
 
     async function checkDumpLikes() {
@@ -194,9 +158,6 @@ export default function Posts(props) {
 
         }
     }
-
-    const [toUid_Send, setTOUID] = useState('')
-    const [UserAtual, SetUserAtual] = useState('')
 
     let SENDERUID
     if (auth.currentUser) {
@@ -359,8 +320,6 @@ export default function Posts(props) {
         }
     }
 
-    const userId = 'auth.currentUser.uid'
-    const textoComentario = document.querySelector("#comments-dump-photo")
 
     function gotoPost() {
         window.location.href = `${window.location.origin}/posts/${props.id}`
