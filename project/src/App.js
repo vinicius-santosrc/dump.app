@@ -12,7 +12,7 @@ import Cadastrar from './pages/SignUp';
 import Login from './pages/Login';
 import Feed from './pages/Feed';
 import PostDetails from './pages/PostDetails';
-import { Loading, HideLoading } from './components/Loading';
+
 import Inbox from './pages/Inbox';
 import Account from './pages/Account';
 import AccountMentions from './pages/AccountMentions';
@@ -24,6 +24,7 @@ import Notifications from './pages/Notifications';
 import Story from './pages/Story';
 import HeaderFeed from './components/pages/feed/HeaderApp';
 import CreatePost from './components/pages/feed/CreatePost';
+import Loader from './components/Loader';
 
 
 function App() {
@@ -42,11 +43,12 @@ function App() {
     auth.onAuthStateChanged(function (u) {
       setUserOn(u);
     });
+
   }, []);
 
   return (
     <div className="App">
-      <Loading />
+      <Loader />
       <BrowserRouter>
         <HeaderFeed />
         <Routes>
