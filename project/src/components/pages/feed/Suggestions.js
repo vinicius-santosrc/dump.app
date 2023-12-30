@@ -4,7 +4,7 @@ import { auth, provider, signInWithPopup, app, db, database } from '../../../lib
 import { addDoc, collection, doc, getFirebase, setDoc } from 'firebase/firestore'
 import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import databases from '../../../lib/appwrite';
+import {databases} from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { Link, useNavigate } from 'react-router-dom';
 

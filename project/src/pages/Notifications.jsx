@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 
 import { auth, database } from "../lib/firebase";
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { Query } from "appwrite";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";

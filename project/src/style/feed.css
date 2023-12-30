@@ -2581,7 +2581,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    display: none;
+
 }
 
 .error-message-top {
@@ -2591,12 +2591,22 @@ body {
     color: white;
     padding: 10px;
     border-radius: 10px;
-    display: none;
+
 }
 
 .loading-wrapper {
     display: none;
+}
 
+#saveaccount svg circle {
+    font-size:  35px !important	;
+}
+
+#user_indisponivel {
+    color: red;
+}
+#user_disponivel {
+    color: green;
 }
 
 .loading-wrapper svg circle{
@@ -4468,7 +4478,7 @@ body {
         padding: 10px;
         border-radius: 10px;
         margin-bottom: 10px;
-        display: none
+
     }
 
     .Dump-Button-Likes-Show-Wrapper {
@@ -4486,12 +4496,9 @@ body {
         color: white;
         padding: 10px;
         border-radius: 10px;
-        display: none;
+
     }
 
-    .loading-wrapper {
-        display: none;
-    }
 
     .loading {
         background-color: var(--bg-color);

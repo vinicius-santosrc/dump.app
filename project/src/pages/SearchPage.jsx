@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 import { signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../lib/firebase"
-import databases from "../lib/appwrite"
+import {databases} from "../lib/appwrite"
 import HeaderFeed from "../components/pages/feed/HeaderApp"
 
 import axios from 'axios';

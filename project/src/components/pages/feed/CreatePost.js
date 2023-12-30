@@ -4,7 +4,7 @@ import { auth, provider, signInWithPopup, app, db, storage, database } from '../
 import { addDoc, collection, doc, getFirebase, setDoc } from 'firebase/firestore'
 import { reauthenticateWithRedirect } from 'firebase/auth';
 import firebase from "firebase/compat/app"
-import databases from '../../../lib/appwrite';
+import {databases} from '../../../lib/appwrite';
 import { Query, ID } from 'appwrite';
 import UserGet from '../../../lib/user';
 

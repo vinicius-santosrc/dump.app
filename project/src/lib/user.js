@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import databases from "./appwrite";
+import {databases} from "./appwrite";
 import { auth } from "./firebase";
 
 function UserGet() {

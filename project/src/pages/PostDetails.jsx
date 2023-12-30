@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'

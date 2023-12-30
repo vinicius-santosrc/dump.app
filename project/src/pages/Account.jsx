@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { ID, Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";

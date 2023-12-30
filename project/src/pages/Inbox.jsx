@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { auth } from "../lib/firebase";
 
 export default function Inbox() {

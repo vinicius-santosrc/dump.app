@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 
 import { useParams } from "react-router-dom";
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { Query } from "appwrite";
 import Account from "./Account";
 import { Ring } from "@uiball/loaders";

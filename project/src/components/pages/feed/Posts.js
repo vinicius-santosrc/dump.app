@@ -3,7 +3,7 @@ import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
 import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } from 'firebase/firestore'
 import UserPerfil from './UserPerfil';
-import databases from '../../../lib/appwrite';
+import {databases} from '../../../lib/appwrite';
 import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
 import { Link, useNavigate } from 'react-router-dom';

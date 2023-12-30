@@ -7,7 +7,7 @@ import { signOutUser } from "../../../lib/firebase"
 import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from "firebase/compat/app"
-import databases from '../../../lib/appwrite';
+import {databases} from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { Link, useLocation } from 'react-router-dom';
 import UserGet from '../../../lib/user';

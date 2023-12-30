@@ -6,7 +6,7 @@ import '../../../style/authpage.css'
 /* FIREBASE IMPORTS*/
 import { auth, auth2, provider, signInWithPopup, app, database } from '../../../lib/firebase';
 import firebase from "firebase/compat/app"
-import databases from '../../../lib/appwrite';
+import {databases} from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link } from 'react-router-dom';

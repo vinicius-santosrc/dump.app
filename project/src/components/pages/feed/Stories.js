@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserGet from "../../../lib/user";
-import databases from "../../../lib/appwrite";
+import {databases} from "../../../lib/appwrite";
 import { auth } from "../../../lib/firebase";
 import { Link } from "react-router-dom";
 import { Query } from "appwrite";

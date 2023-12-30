@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import UserGet from "../lib/user";
 import { Query } from "appwrite";
 import LoadingContent from "../components/pages/feed/LoadingContent";

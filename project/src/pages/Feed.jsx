@@ -5,7 +5,7 @@ import CreatePost from "../components/pages/feed/CreatePost";
 
 import Messages from "../components/pages/feed/Messages";
 import UserPerfil from "../components/pages/feed/UserPerfil";
-import databases from "../lib/appwrite";
+import {databases} from "../lib/appwrite";
 import { useEffect, useState } from "react";
 import { Query } from "appwrite";
 import PostingPhoto from "../components/pages/feed/PostingPhoto";
