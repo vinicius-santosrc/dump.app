@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { HideLoading } from "../components/Loading";
+
 import databases from "../lib/appwrite";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
@@ -31,7 +31,7 @@ export default function PostDetails() {
     const USERS_UID = "64f93be88eee8bb83ec3"
 
     useEffect(() => {
-        HideLoading()
+
         databases.getDocument(
             "64f9329a26b6d59ade09",
             '64f93c1c40d294e4f379',

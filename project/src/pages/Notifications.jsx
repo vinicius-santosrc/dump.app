@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderFeed from "../components/pages/feed/HeaderApp";
-import { HideLoading } from "../components/Loading";
+
 import { auth, database } from "../lib/firebase";
 import databases from "../lib/appwrite";
 import { Query } from "appwrite";
@@ -31,7 +31,7 @@ export default function Notifications() {
 
     useEffect(() => {
         setLoadingNotifications(true)
-        HideLoading()
+
         async function getNotifications() {
             try {
                 const res = await databases.listDocuments(DB_UID, "64fd4c66a7628f81bde8", [Query.limit(100), Query.equal("TO_UID", i_ison.uid), Query.orderDesc("$createdAt")]);
@@ -45,19 +45,7 @@ export default function Notifications() {
                     const photoREL = await databases.getDocument(DB_UID, "64f93c1c40d294e4f379", notification.PHOTO_REL);
 
 
-                    async function seenChange() {
-                        try {
-                            await databases.updateDocument('64f9329a26b6d59ade09', "64fd4c66a7628f81bde8", notification.$id,
-                                r.id,
-                                {
-                                    SEEN: "true"
-                                }
-                            )
-                        }
-                        catch {
-
-                        }
-                    }
+                    
 
                     const MesesDoAno = [
                         "Janeiro",
@@ -78,9 +66,6 @@ export default function Notifications() {
                     const Mounth = date.getMonth()
                     const Year = date.getFullYear()
                     return (
-
-
-
                         <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL.$id}>
                             <div className="DumpNotification´-Wrapper--item" key={notification.id} id={notification.SEEN ? "SEEN" : "toSEE"}>
 
@@ -104,14 +89,17 @@ export default function Notifications() {
                 });
 
                 const resolvedNotifications = await Promise.all(notifications);
-                setLoadingNotifications(false)
+                
                 setlistLikes(resolvedNotifications);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             }
         }
 
-        getNotifications();
+        getNotifications()
+        .then((sucess) => {
+            setLoadingNotifications(false)
+        })
 
 
     }, [i_ison])

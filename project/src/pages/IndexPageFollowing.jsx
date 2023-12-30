@@ -2,7 +2,7 @@ import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Posts from "../components/pages/feed/Posts";
 import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
-import { HideLoading } from "../components/Loading";
+
 import Messages from "../components/pages/feed/Messages";
 import UserPerfil from "../components/pages/feed/UserPerfil";
 import databases from "../lib/appwrite";
@@ -28,7 +28,7 @@ export default function IndexPageFollowing() {
     const [verifiqued, SetVerif] = useState()
 
     useEffect(() => {
-        HideLoading();
+        ;
     })
 
     const [postsRealtime, setPosts] = useState([]);

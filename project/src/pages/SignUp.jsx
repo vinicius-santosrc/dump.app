@@ -10,7 +10,7 @@ import { auth } from "../lib/firebase";
 
 function Cadastrar() {
     useEffect(() => {
-        HideLoading()
+        
     })
     return(
         <>

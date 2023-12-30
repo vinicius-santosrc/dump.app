@@ -2,7 +2,7 @@ import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Posts from "../components/pages/feed/Posts";
 import Suggestions from "../components/pages/feed/Suggestions";
 import CreatePost from "../components/pages/feed/CreatePost";
-import { HideLoading } from "../components/Loading";
+
 import Messages from "../components/pages/feed/Messages";
 import UserPerfil from "../components/pages/feed/UserPerfil";
 import databases from "../lib/appwrite";
@@ -16,6 +16,7 @@ import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
 import Stories from "../components/pages/feed/Stories";
+import UserGet from "../lib/user";
 
 let limit = 200;
 let limitposts = 5
@@ -28,6 +29,7 @@ export default function Feed() {
 
     const [postsRealtime, setPosts] = useState([])
     const [postsJSON, setPostsJSON] = useState([])
+    const [currentUser, setcurrentUser] = useState(null)
     const getPosts = async () => {
         try {
             await databases.listDocuments(
@@ -54,7 +56,7 @@ export default function Feed() {
         }
     }
     useEffect(() => {
-        HideLoading();
+        ;
     })
 
     window.addEventListener('scroll', () => {
@@ -86,7 +88,7 @@ export default function Feed() {
         postsCarregados = false;
     }
 
-    let PostsFollowing = postsRealtime
+
 
     const [users, Setusersdb] = useState()
     const [verifiqued, SetVerif] = useState()
@@ -108,9 +110,13 @@ export default function Feed() {
             })
     }
 
+
     useEffect(() => {
         user()
+
     })
+
+    const curerntUser = UserGet()
     //document.querySelector('.loading').style.display = 'none'   
     return (
 
@@ -124,6 +130,7 @@ export default function Feed() {
                 <CardFeedStart />
                 {postsJSON && postsJSON.length > 0 && users ? (
                     postsJSON.map((p) => {
+                        
                         const userDocument = users.documents.find((e) => e.email === p.email);
                         const displayName = userDocument ? userDocument.displayName : '';
                         const photoURL = userDocument ? userDocument.photoURL : '';
@@ -131,23 +138,49 @@ export default function Feed() {
                         const uid = userDocument ? userDocument.uid : "";
                         const isVerified = userDocument ? userDocument.isthisverifiqued : false;
 
-                        return (
-                            <Posts
-                                id={p.$id}
-                                datepost={p.$createdAt}
-                                email={p.email}
-                                displayName={displayName}
-                                photoURL={photoURL}
-                                username={username}
-                                fotopostada={p.filePost}
-                                descricao={p.legenda}
-                                timestamp={p.timestamp}
-                                isthisverifiqued={isVerified}
-                                userisfollowing={p.following}
-                                likes={p.likes}
-                                uid_user={uid}
-                            />
-                        );
+                        if(curerntUser && !curerntUser.following.includes(p.uid)) {
+                            return null
+                        }
+
+                        if(!auth) {
+                            return (
+                                <Posts
+                                    id={p.$id}
+                                    datepost={p.$createdAt}
+                                    email={p.email}
+                                    displayName={displayName}
+                                    photoURL={photoURL}
+                                    username={username}
+                                    fotopostada={p.filePost}
+                                    descricao={p.legenda}
+                                    timestamp={p.timestamp}
+                                    isthisverifiqued={isVerified}
+                                    userisfollowing={p.following}
+                                    likes={p.likes}
+                                    uid_user={uid}
+                                />
+                            );
+                        }
+
+                        else {
+                            return (
+                                <Posts
+                                    id={p.$id}
+                                    datepost={p.$createdAt}
+                                    email={p.email}
+                                    displayName={displayName}
+                                    photoURL={photoURL}
+                                    username={username}
+                                    fotopostada={p.filePost}
+                                    descricao={p.legenda}
+                                    timestamp={p.timestamp}
+                                    isthisverifiqued={isVerified}
+                                    userisfollowing={p.following}
+                                    likes={p.likes}
+                                    uid_user={uid}
+                                />
+                            );
+                        }
                     })
                 ) : null}
                 <LoadingContent />

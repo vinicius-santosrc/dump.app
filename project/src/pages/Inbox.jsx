@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HideLoading } from "../components/Loading";
+
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
 import databases from "../lib/appwrite";
@@ -55,7 +55,7 @@ export default function Inbox() {
     }, [databases]);
 
     useEffect(() => {
-        HideLoading()
+        
     })
 
     const handleUserSelect = (user) => {

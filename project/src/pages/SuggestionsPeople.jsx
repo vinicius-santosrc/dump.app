@@ -42,7 +42,7 @@ export default function SuggestionsPeople() {
 
 
     useEffect(() => {
-        HideLoading()
+        
     }, [])
 
     function gotoHomePage() {

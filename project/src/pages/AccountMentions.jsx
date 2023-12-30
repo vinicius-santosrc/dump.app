@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { HideLoading } from "../components/Loading";
+
 import { useParams } from "react-router-dom";
 import databases from "../lib/appwrite";
 import { Query } from "appwrite";
@@ -15,7 +15,7 @@ export default function AccountMentions() {
 
 
     useEffect(() => {
-        HideLoading()
+        
         databases.getDocument(
             "64f9329a26b6d59ade09",
             "64f93be88eee8bb83ec3",

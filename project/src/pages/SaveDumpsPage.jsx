@@ -80,9 +80,7 @@ export default function SaveDumpsPage() {
             })
     }
 
-    useEffect(() => {
-        HideLoading()
-    }, [])
+
 
     useEffect(() => {
 

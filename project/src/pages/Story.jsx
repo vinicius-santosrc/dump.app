@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { HideLoading } from "../components/Loading";
+
 import databases from "../lib/appwrite";
 import UserGet from "../lib/user";
 import { Query } from "appwrite";
@@ -118,7 +118,7 @@ export default function Story() {
 
     useEffect(() => {
 
-        HideLoading();
+        ;
         getStory();
         getAnotherStorys();
         timerStory();
@@ -165,8 +165,8 @@ export default function Story() {
                 if (result.isConfirmed) {
                     databases.deleteDocument(
                         "64f9329a26b6d59ade09",
-                        "64f93be88eee8bb83ec3",
-                        story.id
+                        "656e15735dbeae5aef50",
+                        STORY_ID
                     )
                         .then((res) => {
                             Swal.fire("Daily excluído!", "Daily excluído com sucesso.", "success");

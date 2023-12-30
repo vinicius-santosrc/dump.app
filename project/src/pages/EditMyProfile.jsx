@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HeaderAccount from "../components/HeaderAccount";
-import { HideLoading } from "../components/Loading";
+
 import { auth } from "../lib/firebase";
 import { updateProfile } from "firebase/auth";
 import databases from "../lib/appwrite";
@@ -21,7 +21,7 @@ export default function EditMyProfile() {
 
 
     useEffect(() => {
-        HideLoading()
+        
     }, [])
     function changeInfoPage() {
         document.querySelector("title").innerText = `Editar perfil | Dump`
