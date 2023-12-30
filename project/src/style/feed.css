@@ -35,6 +35,7 @@ html.dark-mode {
 
 body {
     margin: 0 0px;
+    min-height: 100vh;
     position: relative;
     background-color: var(--bg-color);
 
@@ -3645,7 +3646,8 @@ body {
         width: 100%;
         justify-content: space-evenly;
         position: fixed;
-        bottom: 0; /* Definindo na parte inferior da tela */
+
+        bottom: 0;
         padding: 10px 0px;
         padding-bottom: 40px;
         font-size: 1.5rem;
