@@ -8,7 +8,7 @@ import Feed from './Feed';
 /* FIREBASE IMPORTS*/
 import { auth, provider, signInWithPopup, app, db } from '../lib/firebase';
 import {addDoc, collection, doc, getFirebase, setDoc} from 'firebase/firestore'
-import { Loading, HideLoading } from '../components/Loading';
+
 
 
 function IndexPage() {

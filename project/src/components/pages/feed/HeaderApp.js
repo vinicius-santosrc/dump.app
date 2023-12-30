@@ -12,7 +12,6 @@ import { Query } from 'appwrite';
 import { Link, useLocation } from 'react-router-dom';
 import UserGet from '../../../lib/user';
 import CreatePost from './CreatePost';
-import { HideLoading } from '../../Loading';
 
 function gotoHome() {
     window.location.href = window.location.origin

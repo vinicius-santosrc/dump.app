@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { HideLoading } from "../components/Loading"
+
 import { signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../lib/firebase"
 import databases from "../lib/appwrite"

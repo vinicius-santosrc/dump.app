@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { HideLoading } from "../components/Loading"
+
 import databases from "../lib/appwrite"
 import { auth } from "../lib/firebase"
 import { Query } from "appwrite"
