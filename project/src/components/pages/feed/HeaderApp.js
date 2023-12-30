@@ -12,6 +12,7 @@ import { Query } from 'appwrite';
 import { Link, useLocation } from 'react-router-dom';
 import UserGet from '../../../lib/user';
 import CreatePost from './CreatePost';
+import { HideLoading } from '../../Loading';
 
 function gotoHome() {
     window.location.href = window.location.origin
@@ -55,7 +56,9 @@ export default function HeaderFeed(props) {
 
 
 
-
+    useEffect(() => {
+        
+    }, ID_ACCOUNT_I)
 
 
 
@@ -66,7 +69,7 @@ export default function HeaderFeed(props) {
             <div onClick={closeaccountoptions} className='background-button'></div>
             <header aria-live="polite" role='navigation' className="App-Header-Feed FeedHeader">
                 <div className="App-Header-Feed-LeftSide leftsideheader">
-                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
+                    <Link to={window.location.origin}> <img src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" /></Link>
                     <div>
                         <div className="LeftSidePageHeader leftsidepagefeed">
                             <div className="LeftsideRedirect">
