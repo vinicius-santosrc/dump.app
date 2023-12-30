@@ -3645,8 +3645,7 @@ body {
         width: 100%;
         justify-content: space-evenly;
         position: fixed;
-        top: 100;
-        bottom: 0;
+        bottom: 0; /* Definindo na parte inferior da tela */
         padding: 10px 0px;
         padding-bottom: 40px;
         font-size: 1.5rem;
@@ -3655,7 +3654,6 @@ body {
         backdrop-filter: blur(10px);
         border-top: 1px solid var(--border-gray);
         z-index: 20;
-
     }
 
     .nav-bar-mobile a i {
