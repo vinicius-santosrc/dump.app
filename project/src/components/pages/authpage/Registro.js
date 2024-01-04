@@ -193,11 +193,11 @@ function AuthPageComponentRegistro() {
                 <img src='../static/media/undraw_young_and_happy_hfpe.svg' />
                 <h1>Você já está logado</h1>
                 <p>Agora, aproveite o máximo da nossa aplicação.</p>
-                <Link to={window.location.origin}>
+                <a href={window.location.origin}>
                     <div className='button-back'>
                         <label>Voltar</label>
                     </div>
-                </Link>
+                </a>
             </div>
         )
 

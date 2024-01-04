@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderFeed from "../components/pages/feed/HeaderApp";
 
 import { auth, database } from "../lib/firebase";
-import {databases} from "../lib/appwrite";
+import { databases } from "../lib/appwrite";
 import { Query } from "appwrite";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
@@ -10,7 +10,7 @@ import UserGet from "../lib/user";
 
 export default function Notifications() {
 
-    const UserAtual = UserGet()
+    const UserAtual = UserGet();
 
     const DB_UID = '64f9329a26b6d59ade09';
     const COL_UID = '64f93c1c40d294e4f379';
@@ -18,11 +18,13 @@ export default function Notifications() {
     const [i_ison, setUserOn] = useState('');
     const [listLikes, setlistLikes] = useState([]);
     const [LoadingNotifications, setLoadingNotifications] = useState(false);
+    const [numberRequests, setNumberRequests] = useState(0)
 
     useEffect(() => {
         auth.onAuthStateChanged(function (u) {
             setUserOn(u)
         })
+        getNumberOfRequests()
 
     })
 
@@ -42,10 +44,33 @@ export default function Notifications() {
 
                     const photosBD = await databases.listDocuments(DB_UID, "64f93c1c40d294e4f379", [Query.limit(200)])
 
-                    const photoREL = await databases.getDocument(DB_UID, "64f93c1c40d294e4f379", notification.PHOTO_REL);
+                    let photoREL;
+
+                    try {
+                        photoREL = await databases.getDocument(DB_UID, "64f93c1c40d294e4f379", notification.PHOTO_REL);
+                    } catch (error) {
+                        // Se houver um erro na busca, define photoREL como uma string indicando o erro
+                        photoREL = `asdasdasds`;
+                    }
+
+                    async function handleDeleteNotification(not) {
+                        try {
+                            databases.deleteDocument(
+                                "64f9329a26b6d59ade09",
+                                "64fd4c66a7628f81bde8",
+                                not.$id
+                            )
+                                .then(() => {
+                                    getNotifications()
+                                })
+                        }
+                        catch (error) {
+                            console.log(error)
+                        }
+                    }
 
 
-                    
+
 
                     const MesesDoAno = [
                         "Janeiro",
@@ -65,8 +90,43 @@ export default function Notifications() {
                     const Day = date.getDate()
                     const Mounth = date.getMonth()
                     const Year = date.getFullYear()
+                    if (photoREL === "asdasdasds") {
+                        return (
+
+                            <div className="DumpNotification´-Wrapper--item" key={notification.id} id={notification.SEEN ? "SEEN" : "toSEE"}>
+
+                                <div className="DumpNotification--InfoContent">
+                                    <Link className="DumpNotificationRedirect" to={window.location.origin + "/user/" + notification.SENDER_UID}>
+                                        <img src={r.photoURL} alt="" />
+                                    </Link>
+                                    <div className="DumpNotInfo">
+                                        <p><b>@{r.username} </b>
+                                            {notification.ACTION == "like" ?
+                                                "curtiu seu dump"
+                                                :
+                                                <>{notification.ACTION == "follow"
+                                                    ? "começou a seguir você."
+                                                    : <span>comentou em seu dump: {notification.desc}</span>
+                                                }
+
+                                                </>
+                                            }
+
+
+                                        </p>
+                                        <p>{Day} de {MesesDoAno[Mounth]} de {Year}</p>
+                                        <button className="deleteNotification" onClick={() => { handleDeleteNotification(notification) }}><span>Remover notificação</span></button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        );
+                    }
+
                     return (
-                        <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL.$id}>
+                        <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL ? photoREL.$id : null}>
                             <div className="DumpNotification´-Wrapper--item" key={notification.id} id={notification.SEEN ? "SEEN" : "toSEE"}>
 
                                 <div className="DumpNotification--InfoContent">
@@ -89,7 +149,7 @@ export default function Notifications() {
                 });
 
                 const resolvedNotifications = await Promise.all(notifications);
-                
+
                 setlistLikes(resolvedNotifications);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
@@ -97,12 +157,30 @@ export default function Notifications() {
         }
 
         getNotifications()
-        .then((sucess) => {
-            setLoadingNotifications(false)
-        })
+            .then((sucess) => {
+                setLoadingNotifications(false)
+            })
 
 
     }, [i_ison])
+
+    async function getNumberOfRequests() {
+        try {
+            await databases.listDocuments(
+                "64f9329a26b6d59ade09",
+                "6596b4a3d1273755e5b7",
+                [
+                    Query.equal("to_uid", UserAtual.$id)
+                ]
+            )
+                .then((res) => {
+                    setNumberRequests(res.documents.length)
+                })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     function LoadingNot() {
         return (
@@ -142,6 +220,19 @@ export default function Notifications() {
 
             <div className="NotificationsContent-Page--content">
                 <section className="Notifications">
+
+                    {UserAtual ? <>
+                        {UserAtual.private ?
+                            <div className="RequestsToFollow">
+                                <div className="BtnRequestsToFollow">
+                                    <Link to={window.location.origin + "/notifications/requests"}>Solicitações para seguir ({numberRequests})</Link>
+                                </div>
+                            </div>
+                            : null
+                        }
+                    </> : null}
+
+
                     <div className="NotificationsHeader">
                         <h1>Mais recentes</h1>
                     </div>

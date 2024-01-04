@@ -49,7 +49,7 @@ export default function EditMyProfile() {
     const [url, setUrl] = useState(null);
     const [fileProfile, setFileProfile] = useState(null)
 
-    const [checkedUser, setCheckedUser] = useState(false)
+    const [checkedUser, setCheckedUser] = useState(true)
     const [isPrivate, setPrivate] = useState(false)
 
     const [Loading, setLoading] = useState(true);

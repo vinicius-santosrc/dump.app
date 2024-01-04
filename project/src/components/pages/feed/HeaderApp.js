@@ -7,7 +7,7 @@ import { signOutUser } from "../../../lib/firebase"
 import Suggestions_User from './Suggestions_User';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from "firebase/compat/app"
-import {databases} from '../../../lib/appwrite';
+import { databases } from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { Link, useLocation } from 'react-router-dom';
 import UserGet from '../../../lib/user';
@@ -21,6 +21,10 @@ function gotoHome() {
 
 
 export default function HeaderFeed(props) {
+
+    const [AccountOptions, setAccountsOptions] = useState(false)
+    const [notificationsNotSeen, setNotificationsNotSeen] = useState(false)
+
     const [i_ison, setUserOn] = useState('');
 
 
@@ -53,14 +57,26 @@ export default function HeaderFeed(props) {
         document.querySelector(".background-button").style.display = 'none'
     }
 
+    async function notificationUpShow() {
+        if(!ID_ACCOUNT_I) {
+            return
+        }
+        const res = await databases.listDocuments("64f9329a26b6d59ade09", "64fd4c66a7628f81bde8", [Query.limit(100), Query.equal("TO_UID", ID_ACCOUNT_I.$id), Query.orderDesc("$createdAt")]);
+
+        if(res.documents.length > 0) {
+            setNotificationsNotSeen(true)
+        }
+    }
+
 
 
     useEffect(() => {
-        
-    }, ID_ACCOUNT_I)
+        notificationUpShow()
+    })
 
-
-
+    if (window.location.href.includes("/accounts/login") || window.location.href.includes("/accounts/signup")) {
+        return
+    }
 
     return (
 
@@ -109,25 +125,44 @@ export default function HeaderFeed(props) {
                                     <></>
                                 }
                                 {ID_ACCOUNT_I ?
-                                    <Link title='Sua conta' to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}><div className="account-div-flexbox">
-                                        {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
-                                        <div className='leftside-account-dump-index'>
-                                            {ID_ACCOUNT_I.displayName ?
-                                                <div className='top-show-account'>
-                                                    <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
-                                                    {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></>
-                                                        :
-                                                        <></>
-                                                    }
+                                    <>
+
+
+                                        {AccountOptions ?
+                                            <div className='Account-Options-Box' onClick={() => { setAccountsOptions(false) }}>
+                                                <div className='Account-Option'>
+                                                    <Link to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}>
+                                                        <p>Visualizar meu perfil</p>
+                                                    </Link>
                                                 </div>
-                                                :
-                                                <h3></h3>
-                                            }
-                                            {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p></p>}
-                                        </div>
-                                    </div></Link>
+                                                <div className='Account-Option'>
+                                                    <Link onClick={signOutUser}>
+                                                        <p id='endsession'>Finalizar sessão</p>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            : null}
+
+                                        <Link title='Sua conta' onClick={() => { AccountOptions ? setAccountsOptions(false) : setAccountsOptions(true) }} ><div className="account-div-flexbox">
+                                            {ID_ACCOUNT_I.photoURL ? <img src={ID_ACCOUNT_I.photoURL} /> : <img></img>}
+                                            <div className='leftside-account-dump-index'>
+                                                {ID_ACCOUNT_I.displayName ?
+                                                    <div className='top-show-account'>
+                                                        <h3 className="currentuser-displayname">{ID_ACCOUNT_I.displayName}</h3>
+                                                        {ID_ACCOUNT_I.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></>
+                                                            :
+                                                            <></>
+                                                        }
+                                                    </div>
+                                                    :
+                                                    <h3></h3>
+                                                }
+                                                {ID_ACCOUNT_I.username ? <p className="currentuser-id">@{ID_ACCOUNT_I.username}</p> : <p></p>}
+                                            </div>
+                                        </div></Link>
+                                    </>
                                     :
-                                    <Link to={window.location.origin + "/accounts/signup"}>
+                                    <a href={window.location.origin + "/accounts/signup"}>
                                         <div className="account-off-div-flexbox" title='Fazer login'>
                                             <i className="fa-solid fa-right-to-bracket"></i>
                                             <div className='right-side-enter-account'>
@@ -139,7 +174,7 @@ export default function HeaderFeed(props) {
                                                 </p>
                                             </div>
                                         </div>
-                                    </Link>
+                                    </a>
                                 }
 
                             </div>
@@ -148,35 +183,36 @@ export default function HeaderFeed(props) {
                     </div>
                 </div>
 
-                
+
                 <div className="App-Header-Feed-RightSide rightsideheader">
                     <Link to={window.location.origin + "/notifications"}>
                         <i className="fa-regular fa-heart"></i>
-                        <label className='notification-show'></label>
+                        {notificationsNotSeen ? <label className='notification-show'></label> : null}
+                        
                     </Link>
 
                 </div>
             </header>
             <header aria-live="polite" role='navigation' className='dump-mobile-header'>
 
-                    <div className='top-header-mobile'>
-                        <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
-                        <div className="top-header-mobile-icons-rightside rightsideheadermobile">
-                            {ID_ACCOUNT_I ?
-                                <Link to={window.location.origin + "/notifications"}>
-                                    <i className="fa-regular fa-heart"></i>
-                                    <label className='notification-show'></label>
-                                </Link>
-                                :
-                                null
-                            }
+                <div className='top-header-mobile'>
+                    <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
+                    <div className="top-header-mobile-icons-rightside rightsideheadermobile">
+                        {ID_ACCOUNT_I ?
+                            <Link to={window.location.origin + "/notifications"}>
+                                <i className="fa-regular fa-heart"></i>
+                                {notificationsNotSeen ? <label className='notification-show'></label> : null}
+                            </Link>
+                            :
+                            null
+                        }
 
 
-                            {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
-                            {ID_ACCOUNT_I ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
-                        </div>
+                        {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
+                        {ID_ACCOUNT_I ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
                     </div>
-                
+                </div>
+
             </header >
             <nav aria-live="polite" role='navigation' className='nav-bar-mobile'>
                 <div>

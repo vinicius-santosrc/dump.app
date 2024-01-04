@@ -25,6 +25,7 @@ import Story from './pages/Story';
 import HeaderFeed from './components/pages/feed/HeaderApp';
 import CreatePost from './components/pages/feed/CreatePost';
 import Loader from './components/Loader';
+import RequestsPage from './pages/RequestsPage';
 
 
 function App() {
@@ -46,13 +47,15 @@ function App() {
 
   }, []);
 
+  
+
   return (
     <div className="App">
       <Loader />
       <BrowserRouter>
         <HeaderFeed />
         <Routes>
-          <Route path='/' element={<Feed />} />
+          <Route path='/' element={<><Feed /></>} />
           <Route path='/following' element={<IndexPageFollowing />} />
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
@@ -64,11 +67,12 @@ function App() {
           <Route path='/accounts/edit' element={<EditMyProfile />} />
           <Route path='/saves' element={<SaveDumpsPage />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/notifications/requests" element={<RequestsPage />} />
           <Route path="/stories/:STORY_ID" element={<Story />} />
           <Route path="/posts/create" element={<CreatePost />} />
         </Routes>
       </BrowserRouter>
-      
+
     </div>
   );
 }

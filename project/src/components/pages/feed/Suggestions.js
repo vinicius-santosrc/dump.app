@@ -72,7 +72,7 @@ export default function Suggestions() {
 
     let FirstUsers = Users
     let Nav = useNavigate();
-    const version = '0.5.6'
+    const version = '1.0.0'
 
     return (
         <div className='card-suggestios-block'>

@@ -2594,6 +2594,87 @@ body {
 
 }
 
+.Account-Options-Box {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0px;
+    background: var(--border-gray);
+    border-radius: 5px;
+    
+}
+
+.BtnRequestsToFollow {
+    width: 100%;
+    padding: 10px 0px;
+    
+}
+
+.BtnRequestsToFollow a {
+    color: var(--principal-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.ButtonActions {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+.HeaderContent h2 {
+    color: var(--text-color);
+}
+
+.BtnBackNotifications a {
+    color: var(--text-color) ;
+}
+
+.acceptButton {
+    background: transparent;
+    color: var(--principal-color);
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.denyButton {
+    background: transparent;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.DumpNotification--InfoContent{
+    color: var(--text-color);
+}
+
+.HeaderRequests {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    align-items: center;
+}
+
+.DumpNotification´-Wrapper--item a{
+    color: black;
+    text-decoration: none;
+}
+
+.Account-Options-Box p {
+    font-size: 14px;
+}
+
+#endsession:hover {
+    color: red
+}
+
+.Account-Option {
+    padding: 5px 0px;
+}
+
 .loading-wrapper {
     display: none;
 }
@@ -2831,6 +2912,14 @@ body {
 
 .ItensOptions li {
     list-style: none;
+}
+
+.deleteNotification {
+    padding: 5px 0px;
+    background: transparent;
+    border: none;
+    color: rgb(181, 126, 245);
+    cursor: pointer;
 }
 
 .ItensOptions ul button{

@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import {databases} from "../lib/appwrite";
+import { databases } from "../lib/appwrite";
 import { ID, Query } from "appwrite";
 import HeaderAccount from "../components/HeaderAccount";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
@@ -23,6 +23,7 @@ export default function Account() {
     const [USERS_POSTS, setPostsofUser] = useState('')
     const userUID = auth.currentUser
     const [isFollowing, setIsFollow] = useState(null)
+    const [requestSended, setrequestSended] = useState(false)
     const [listofFollowers, setListOfFollowers] = useState("")
     const [diadecriacao, setdiadecriacao] = useState(null)
 
@@ -44,7 +45,7 @@ export default function Account() {
 
     let Data
     useEffect(() => {
-        
+
         databases.getDocument(
             "64f9329a26b6d59ade09",
             "64f93be88eee8bb83ec3",
@@ -119,9 +120,9 @@ export default function Account() {
     let Nav = useNavigate();
 
     const Gotomentions = () => {
-  
+
         Nav("/user/" + ID_ACCOUNT + "/mentions");
-      };
+    };
 
 
 
@@ -190,6 +191,9 @@ export default function Account() {
     async function checkIfFollowsUser() {
 
         try {
+
+
+
             // Obtenha o documento do usuário
             const user = await databases.getDocument(
                 DB_UID,
@@ -197,6 +201,22 @@ export default function Account() {
                 userId);
 
             setListOfFollowers(user.followers)
+
+            if (user.private) {
+                const docReq = await databases.listDocuments(
+                    "64f9329a26b6d59ade09",
+                    "6596b4a3d1273755e5b7",
+                    [
+                        Query.equal("sender_request", targetUserId),
+                        Query.equal("to_uid", userId)
+                    ]
+                )
+
+                if (docReq.documents.length > 0) {
+                    console.log(docReq.documents)
+                    return setrequestSended(true)
+                }
+            }
 
             if (!user) {
                 document.querySelector(".loading-btn").style.display = 'block'
@@ -247,6 +267,22 @@ export default function Account() {
         }
     }
 
+    async function requestFollow(a, b) {
+        try {
+            await databases.createDocument(
+                "64f9329a26b6d59ade09",
+                "6596b4a3d1273755e5b7",
+                ID.unique(),
+                {
+                    sender_request: b,
+                    to_uid: a
+                }
+            )
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     // Função para verificar se um usuário segue outro
     async function followUser() {
@@ -263,6 +299,8 @@ export default function Account() {
 
         try {
 
+
+
             /** ADICIONAR SEGUIDOR PARA O USUÁRIO */
             const userDocument = await databases.getDocument(
                 '64f9329a26b6d59ade09',
@@ -277,9 +315,16 @@ export default function Account() {
                 return;
             }
 
+            if (ID_ACCOUNT_I.private) {
+                await requestFollow(ID_ACCOUNT_I.$id, targetUserId)
+                voltarbotoes()
+                return checkIfFollowsUser()
+            }
+
             followers.push(targetUserId);
 
-            await databases.updateDocument('64f9329a26b6d59ade09',
+            await databases.updateDocument(
+                '64f9329a26b6d59ade09',
                 '64f93be88eee8bb83ec3',
                 userId, {
                 followers: followers,
@@ -313,15 +358,11 @@ export default function Account() {
 
             // ENVIAR NOTIFICAÇÃO SEGUINDO PARA USUÁRIO
 
-            
 
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Você começou a seguir.',
-                showConfirmButton: false,
-                timer: 1500
-            })
+
+            checkIfFollowsUser()
+            SetNumberOfFollowers(Number(numberofFollowers) + 1);
+
             voltarbotoes()
         } catch (error) {
             console.error('Erro ao seguir o usuário:', error);
@@ -352,6 +393,8 @@ export default function Account() {
                 voltarbotoes()
                 return;
             }
+
+
 
             const updatedFollowers = followers.filter((id) => id !== targetUserId);
 
@@ -395,7 +438,7 @@ export default function Account() {
 
 
             voltarbotoes()
-
+            SetNumberOfFollowers(numberofFollowers - 1);
             ButtonActionProfile()
         } catch (error) {
             console.error('Erro ao parar de seguir o usuário:', error);
@@ -471,23 +514,30 @@ export default function Account() {
                                             <button onClick={editmyprofile_btn}>EDITAR PERFIL</button>
                                             :
                                             <>
-                                                {isFollowing ?
+                                                {requestSended ? 
+                                                <button title='Seguindo' id="following-user">Solicitação pendente <i className="fa-solid fa-user-check"></i></button>
+                                                :
                                                     <>
-                                                        <button title='Seguindo' onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
-                                                        <button><i className="fa-solid fa-inbox"></i></button>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <button title='Seguir' onClick={followUser}>Seguir</button>
-                                                        <button><i className="fa-solid fa-inbox"></i></button>
+                                                        {isFollowing ?
+                                                            <>
+                                                                <button title='Seguindo' onClick={unfollowUser} id="following-user">Seguindo <i className="fa-solid fa-user-check"></i></button>
+
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <button title='Seguir' onClick={followUser}>Seguir</button>
+
+                                                            </>
+                                                        }
+
                                                     </>
                                                 }
-
                                             </>
+
                                         }
                                         <button className="loading-btn">
                                             <Ring
-                                                size={40}
+                                                size={35}
                                                 lineWeight={5}
                                                 speed={2}
                                                 color="black"

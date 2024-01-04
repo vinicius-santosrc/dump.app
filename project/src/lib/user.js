@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {databases} from "./appwrite";
+import { databases } from "./appwrite";
 import { auth } from "./firebase";
 
-function UserGet() {
+const UserGet = () => {
   const [account, setAccount] = useState(null);
 
   let idAccount;
@@ -19,15 +19,15 @@ function UserGet() {
       );
       setAccount(response);
     } catch (e) {
-      // Handle error
+      console.log("Error ao pegar usuário atual: " + e)
     }
   };
 
   useEffect(() => {
     getUserAtual();
-  }, [idAccount]);
+  }, [auth.currentUser]);
 
   return account;
-}
+};
 
 export default UserGet;
