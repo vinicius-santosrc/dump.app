@@ -22,6 +22,8 @@ function gotoHome() {
 
 export default function HeaderFeed(props) {
 
+    const [openSettingsAccount, setopenSettingsAccount] = useState(false)
+
     const [AccountOptions, setAccountsOptions] = useState(false)
     const [notificationsNotSeen, setNotificationsNotSeen] = useState(false)
 
@@ -58,12 +60,12 @@ export default function HeaderFeed(props) {
     }
 
     async function notificationUpShow() {
-        if(!ID_ACCOUNT_I) {
+        if (!ID_ACCOUNT_I) {
             return
         }
         const res = await databases.listDocuments("64f9329a26b6d59ade09", "64fd4c66a7628f81bde8", [Query.limit(100), Query.equal("TO_UID", ID_ACCOUNT_I.$id), Query.orderDesc("$createdAt")]);
 
-        if(res.documents.length > 0) {
+        if (res.documents.length > 0) {
             setNotificationsNotSeen(true)
         }
     }
@@ -188,7 +190,7 @@ export default function HeaderFeed(props) {
                     <Link to={window.location.origin + "/notifications"}>
                         <i className="fa-regular fa-heart"></i>
                         {notificationsNotSeen ? <label className='notification-show'></label> : null}
-                        
+
                     </Link>
 
                 </div>
@@ -209,9 +211,26 @@ export default function HeaderFeed(props) {
 
 
                         {/*i_ison && ID_ACCOUNT_I && ID_ACCOUNT_I.photoURL ? <img alt='Foto de perfil' src={ID_ACCOUNT_I.photoURL} /> : <></>*/}
-                        {ID_ACCOUNT_I ? <img src={ID_ACCOUNT_I.photoURL} /> : <></>}
+                        {ID_ACCOUNT_I ? <img onClick={() => { setopenSettingsAccount(openSettingsAccount == false) }} src={ID_ACCOUNT_I.photoURL} /> : <></>}
                     </div>
                 </div>
+                {openSettingsAccount ?
+                    <div className='Account-Options-Box' onClick={() => { setopenSettingsAccount(openSettingsAccount == false) }}>
+                        <div className='Account-Option'>
+                            <Link to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}>
+                                <p>Visualizar meu perfil</p>
+                            </Link>
+                        </div>
+                        <div className='Account-Option'>
+                            <Link onClick={signOutUser}>
+                                <p id='endsession'>Finalizar sessão</p>
+                            </Link>
+                        </div>
+                    </div>
+                    :
+                    null
+                }
+
 
             </header >
             <nav aria-live="polite" role='navigation' className='nav-bar-mobile'>
@@ -228,9 +247,9 @@ export default function HeaderFeed(props) {
                     </Link>
                     :
 
-                    <Link id={window.location.pathname.includes('/user') ? 'selected' : ''} to={window.location.origin + "/accounts/signup"}>
+                    <a id={window.location.pathname.includes('/user') ? 'selected' : ''} href={window.location.origin + "/accounts/signup"}>
                         <i className="fa-solid fa-right-to-bracket"></i>
-                    </Link>
+                    </a>
 
                 }
             </nav>

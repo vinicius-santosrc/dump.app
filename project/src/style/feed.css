@@ -5134,4 +5134,28 @@ body {
         right: 0;
         position: absolute;
     }
+
+    .Account-Options-Box {
+        width: 50%;
+        position: fixed;
+        right: 20px;
+        padding: 10px;
+        margin: 10px 0px;
+        background: var(--border-gray);
+        border-radius: 5px;
+        
+    }
+
+    .Account-Options-Box a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    #endsession {
+        color: red;
+    }
+
+    .auth-content {
+        padding-bottom: 150px;
+    }
 }
