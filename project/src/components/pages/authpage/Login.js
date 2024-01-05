@@ -5,58 +5,65 @@ import '../../../style/authpage.css'
 /* FIREBASE IMPORTS*/
 import { auth, provider, signInWithPopup, app } from '../../../lib/firebase';
 import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function ComponentLogin() {
-  const [i_ison, setUserOn] = useState('')
-  const SignWithGoogle =()=> {
-    signInWithPopup(auth, provider).then((i) => {
 
-        window.location.href = window.location.origin
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [i_ison, setUserOn] = useState('');
+
+    const [MessageError, setMessageError] = useState(false)
+
+    const signInAccount = (e) => {
+        e.preventDefault()
+        signInWithEmailAndPassword(auth, email, password)
+            .then((res) => {
+                window.location.href = window.location.origin
+            })
+            .catch((error) => {
+                setMessageError(true)
+                console.log(error)
+            })
+    }
+
+
+    useEffect(() => {
+        auth.onAuthStateChanged(function (u) {
+            setUserOn(u)
+        })
     })
-  }
+    if (i_ison) {
 
-
-  useEffect(() => {
-    auth.onAuthStateChanged(function (u) {
-      setUserOn(u)      
-    })
-  })
-  if(i_ison) {
-    
-  }
-  else {
-    return(
-        <>
+    }
+    else {
+        return (
+            <>
 
                 <div className="auth-content">
                     <img src={window.location.origin + '/static/media/authpage-image.fe13t183t1.webp'} alt="Mulher tirando selfie Dump" />
                     <div className="right-side-auth-content">
+                        {MessageError ?
+                            <div className='handle-message-error'>
+                                <h2>Ops...</h2>
+                                <p>Ocorreu um erro inesperado que afetou na criação de sua conta.</p>
+                                <label>Erro: <span></span></label>
+                            </div> : null
+                        }
                         <header>
                             <h1><i>Entrar no Dump</i></h1>
                         </header>
-                        <div className="btns-signup">
-                            <div className="btn-google-providar-authentication xf3 cged vdh4 bda2">
-                                <button >
-                                    <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" /> 
-                                    Entrar com o Google</button>
-                            </div>
-                            
-                        </div>
-                        <div className="another">
-                            <div className="line"></div>
-                            <h2>OU</h2>
-                            <div className="line"></div>
-                        </div>
+
                         <form className="signup-btns-mail">
                             <div>
-                                <input type="email" id="email" placeholder="E-mail" />
+                                <input value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" id="email" placeholder="E-mail" />
                             </div>
                             <div>
-                                <input type="password" id="password" min={6} max={15} placeholder="Senha"></input>
+                                <input value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" id="password" min={6} max={15} placeholder="Senha" />
                             </div>
                             <div>
                                 <div>
-                                    <button type="submit" id="signup">Entrar</button>
+                                    <button onClick={signInAccount} id="signup">Entrar</button>
                                 </div>
                             </div>
                             <div className="forgetpass">
@@ -65,9 +72,9 @@ function ComponentLogin() {
                         </form>
                     </div>
                 </div>
-        </>
-    )
-  }
+            </>
+        )
+    }
 }
 
 export default ComponentLogin

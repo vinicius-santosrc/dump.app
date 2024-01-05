@@ -6,30 +6,91 @@ import '../../../style/authpage.css'
 /* FIREBASE IMPORTS*/
 import { auth, auth2, provider, signInWithPopup, app, database } from '../../../lib/firebase';
 import firebase from "firebase/compat/app"
-import {databases} from '../../../lib/appwrite';
+import { databases } from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 
+
+function createUserName(name) {
+
+    // Garante que o nome esteja em minúsculas e remove espaços em branco
+    const formattedName = name.toLowerCase().replace(/\s/g, '');
+
+    // Gera um número aleatório entre 100000 e 999999
+    const randomSuffix = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+
+    // Combina o nome formatado com o sufixo aleatório
+    const userName = formattedName + randomSuffix;
+
+    // Limita o comprimento do nome de usuário a 20 caracteres
+    return userName.substring(0, 20);
+}
+
 function AuthPageComponentRegistro() {
-    const [name, setName] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [MessageError, setMessageError] = useState(false)
+    const [name, setName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [emailUsed, setEmailUsed] = useState(false)
 
     const [userdb, Setuserdb] = useState('')
     const [i_ison, setUserOn] = useState('')
 
+    let noPHOTO = "https://cloud.appwrite.io/v1/storage/buckets/65160b9641ad26b1b899/files/6597505b316f7b557366/view?project=64f930eab00dac51283b&mode=admin"
+    function SignUpWithEmail(email, password) {
+        databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3",
+            [
+                Query.equal("email", email)
+            ]
+        ).then(res => {
+            if (res.documents.length > 0) {
+                setEmailUsed(true)
+            }
+            else {
 
-    function SignWithEmail(email, password) {
+            }
+        })
+
+
+        if (emailUsed) {
+            setMessageError(true)
+            return
+        }
+        if(!email || !password || !name) {
+            setMessageError(true)
+            return
+        }
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log(`Usuário criado: `, userCredential.user)
+
+                const username = createUserName(name);
+
+                databases.createDocument(
+                    '64f9329a26b6d59ade09',
+                    "64f93be88eee8bb83ec3",
+                    userCredential.user.uid,
+                    {
+                        displayName: name,
+                        username: username,
+                        email: email,
+                        phonenumber: null,
+                        photoURL: noPHOTO,
+                        uid: userCredential.user.uid,
+                        isthisverifiqued: 'false'
+                        // Outros campos do documento do usuário
+                    }
+                )
+                    .then(() => {
+                        window.location.href = window.location.origin
+                    })
             })
             .catch((e) => {
-                document.querySelector(".handle-message-error").style.display = 'block'
-                document.querySelector(".handle-message-error span").innerHTML = e.message
+                setMessageError(true)
                 setInterval(() => {
-                    document.querySelector(".handle-message-error").style.display = 'none'
+                    setMessageError(false)
                 }, 8000);
             })
 
@@ -89,21 +150,6 @@ function AuthPageComponentRegistro() {
                 window.location.href = window.location.origin
             }
 
-            //window.location.href = window.location.origin
-            /*database.collection("users")
-            .doc(i.user.uid)
-            .set({
-                name: i.user.displayName,
-                username: username,
-                email: i.user.email,
-                emailverif: i.user.emailVerified,
-                phonenumber: i.user.phoneNumber,
-                photoURL: i.user.photoURL,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                uid: i.user.uid
-            })
-          )*/
-
         })
     }
 
@@ -137,15 +183,17 @@ function AuthPageComponentRegistro() {
                             <h2>OU</h2>
                             <div className="line"></div>
                         </div>
-                        <div className='handle-message-error'>
-                            <h2>Ops...</h2>
-                            <p>Ocorreu um erro inesperado que afetou na criação de sua conta.</p>
-                            <label>Erro: <span></span></label>
-                        </div>
-                        <div className='handle-message-preencha-error'>
-                            <h2>Erro!</h2>
-                            <p>Preencha todos os dados.</p>
-                        </div>
+                        {MessageError ?
+                            <div className='handle-message-error'>
+                                <h2>Ops...</h2>
+                                <p>Ocorreu um erro inesperado que afetou na criação de sua conta.</p>
+                                <label>Erro: <span></span></label>
+                            </div>
+                            :
+                            null
+                        }
+                        
+
                         <form className="signup-btns-mail">
                             <div>
                                 <input
@@ -174,7 +222,7 @@ function AuthPageComponentRegistro() {
                             </div>
                             <div>
                                 <div>
-                                    <button type="button" onClick={SignWithEmail} id="signup">Indisponível</button>
+                                    <button type="button" onClick={() => { SignUpWithEmail(email, password) }} id="signup">Criar conta</button>
                                 </div>
                             </div>
                             <div className="forgetpass">
