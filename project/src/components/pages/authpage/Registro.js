@@ -75,7 +75,7 @@ function AuthPageComponentRegistro() {
                     {
                         displayName: name,
                         username: username,
-                        email: email,
+                        email: email.toLocaleLowerCase(),
                         phonenumber: null,
                         photoURL: noPHOTO,
                         uid: userCredential.user.uid,

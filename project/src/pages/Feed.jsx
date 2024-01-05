@@ -5,12 +5,13 @@ import CreatePost from "../components/pages/feed/CreatePost";
 
 import Messages from "../components/pages/feed/Messages";
 import UserPerfil from "../components/pages/feed/UserPerfil";
-import {databases} from "../lib/appwrite";
+import { databases } from "../lib/appwrite";
 import { useEffect, useState } from "react";
 import { Query } from "appwrite";
 import PostingPhoto from "../components/pages/feed/PostingPhoto";
 import LoadingContent from "../components/pages/feed/LoadingContent";
 import EndOfPage from "../components/pages/feed/EndOfPage";
+import { useNavigate } from 'react-router-dom';
 
 import { Client, Databases } from 'appwrite'
 import { auth } from "../lib/firebase";
@@ -25,8 +26,6 @@ let postsCarregados = false;
 
 export default function Feed() {
 
-
-
     const [postsRealtime, setPosts] = useState([])
     const [postsJSON, setPostsJSON] = useState([])
     const [currentUser, setcurrentUser] = useState(null)
@@ -37,7 +36,6 @@ export default function Feed() {
                 '64f93c1c40d294e4f379',
                 [
                     Query.limit(limit),
-
                     Query.orderDesc("$createdAt"),
 
                 ],
@@ -116,6 +114,12 @@ export default function Feed() {
 
     })
 
+    let Nav = useNavigate();
+
+    function gotoSearch() {
+        Nav("/search")
+    }
+
     const curerntUser = UserGet()
     //document.querySelector('.loading').style.display = 'none'   
     return (
@@ -128,66 +132,79 @@ export default function Feed() {
                 <Stories />
                 <PostingPhoto />
                 <CardFeedStart />
-                {postsJSON && postsJSON.length > 0 && users ? (
-                    postsJSON.map((p) => {
-                        
-                        const userDocument = users.documents.find((e) => e.email === p.email);
-                        const displayName = userDocument ? userDocument.displayName : '';
-                        const photoURL = userDocument ? userDocument.photoURL : '';
-                        const username = userDocument ? userDocument.username : '';
-                        const uid = userDocument ? userDocument.uid : "";
-                        const isVerified = userDocument ? userDocument.isthisverifiqued : false;
+                {curerntUser && curerntUser.following.length <= 0 ?
+                    <div className="NoFeedShow-Wrapper">
+                        <div className="ImageContent">
+                            <img src={window.location.origin + "/static/media/undraw_buddies_2ae5.svg"} />
+                        </div>
+                        <h2>Que triste!</h2>
+                        <p>Você ainda não segue ninguém. Que tal conhecer alguns amigos?</p>
+                        <button className="ButtonToSearch" onClick={gotoSearch}><span>Procurar amigos</span></button>
+                    </div>
+                    :
+                    <>
+                        {postsJSON && postsJSON.length > 0 && users ? (
+                            postsJSON.map((p) => {
 
-                        if(curerntUser && !curerntUser.following.includes(p.uid)) {
-                            return null
-                        }
+                                const userDocument = users.documents.find((e) => e.email === p.email);
+                                const displayName = userDocument ? userDocument.displayName : '';
+                                const photoURL = userDocument ? userDocument.photoURL : '';
+                                const username = userDocument ? userDocument.username : '';
+                                const uid = userDocument ? userDocument.uid : "";
+                                const isVerified = userDocument ? userDocument.isthisverifiqued : false;
 
-                        if(!auth) {
-                            return (
-                                <Posts
-                                    id={p.$id}
-                                    datepost={p.$createdAt}
-                                    email={p.email}
-                                    displayName={displayName}
-                                    photoURL={photoURL}
-                                    username={username}
-                                    fotopostada={p.filePost}
-                                    descricao={p.legenda}
-                                    timestamp={p.timestamp}
-                                    isthisverifiqued={isVerified}
-                                    userisfollowing={p.following}
-                                    likes={p.likes}
-                                    uid_user={uid}
-                                />
-                            );
-                        }
+                                if (curerntUser && !curerntUser.following.includes(p.uid)) {
+                                    return null
+                                }
 
-                        else {
-                            return (
-                                <Posts
-                                    id={p.$id}
-                                    datepost={p.$createdAt}
-                                    email={p.email}
-                                    displayName={displayName}
-                                    photoURL={photoURL}
-                                    username={username}
-                                    fotopostada={p.filePost}
-                                    descricao={p.legenda}
-                                    timestamp={p.timestamp}
-                                    isthisverifiqued={isVerified}
-                                    userisfollowing={p.following}
-                                    likes={p.likes}
-                                    uid_user={uid}
-                                />
-                            );
-                        }
-                    })
-                ) : null}
-                <LoadingContent />
+                                if (!auth) {
+                                    return (
+                                        <Posts
+                                            id={p.$id}
+                                            datepost={p.$createdAt}
+                                            email={p.email}
+                                            displayName={displayName}
+                                            photoURL={photoURL}
+                                            username={username}
+                                            fotopostada={p.filePost}
+                                            descricao={p.legenda}
+                                            timestamp={p.timestamp}
+                                            isthisverifiqued={isVerified}
+                                            userisfollowing={p.following}
+                                            likes={p.likes}
+                                            uid_user={uid}
+                                        />
+                                    );
+                                }
+
+                                else {
+                                    return (
+                                        <Posts
+                                            id={p.$id}
+                                            datepost={p.$createdAt}
+                                            email={p.email}
+                                            displayName={displayName}
+                                            photoURL={photoURL}
+                                            username={username}
+                                            fotopostada={p.filePost}
+                                            descricao={p.legenda}
+                                            timestamp={p.timestamp}
+                                            isthisverifiqued={isVerified}
+                                            userisfollowing={p.following}
+                                            likes={p.likes}
+                                            uid_user={uid}
+                                        />
+                                    );
+                                }
+                            })
+                        ) : null}
+                    </>}
+
+                {/* <LoadingContent /> */}
                 <EndOfPage />
             </main>
             <Suggestions />
-            
+
         </section>
     )
 }

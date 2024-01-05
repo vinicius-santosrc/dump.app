@@ -60,6 +60,26 @@ body {
     color: var(--text-color);
 }
 
+.NoFeedShow-Wrapper {
+    text-align: center;
+    color: var(--text-color);
+    padding: 10px 0px;
+}
+
+.NoFeedShow-Wrapper img {
+    width: 50%;
+}
+
+.NoFeedShow-Wrapper button {
+    background: var(--principal-color);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+
 .handle-message-error, .handle-message-preencha-error {
     background-color: red;
     color: white;
@@ -3181,6 +3201,10 @@ body {
     pointer-events: none;
 }
 
+.NotificationsHeader h1 {
+    color: var(--text-color);
+}
+
 
 
 .button-close-profile-image {
@@ -4138,6 +4162,12 @@ body {
 
     .dump-post-show-mobile {
         display: block;
+    }
+
+    .NoFeedShow-Wrapper {
+        width: 90%;
+        margin: auto;
+        text-align: center;
     }
 
     .dump-post-show-mobile .dump-post-header-show {

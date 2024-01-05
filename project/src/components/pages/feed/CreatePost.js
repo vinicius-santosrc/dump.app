@@ -55,15 +55,17 @@ export default function CreatePost() {
             )
         }
 
+
         const postthis = (url) => {
+
             if (DumpOption == 'POST') {
                 databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
                     filePost: url,
                     legenda: desc,
-                    displayName: user.displayName,
-                    username: (user.displayName).toLocaleLowerCase(),
+                    displayName: null,
+                    username: null,
                     email: user.email,
-                    photoURL: user.photoURL,
+                    photoURL: null,
                     uid: auth.currentUser.uid
                 })
                     .then(() => {

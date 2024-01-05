@@ -140,6 +140,7 @@ export default function Notifications() {
                                 <div className="DumpNotificationPHOTOREL">
                                     <img src={photoREL.filePost} />
                                 </div>
+                                <button className="deleteNotification" onClick={() => { handleDeleteNotification(notification) }}><span>Remover notificação</span></button>
 
                             </div>
                         </Link>
