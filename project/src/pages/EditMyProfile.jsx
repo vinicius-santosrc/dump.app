@@ -171,39 +171,39 @@ export default function EditMyProfile() {
     }
 
     async function updatePhotoURL(newFileProfile) {
-        if(newFileProfile) {
+        if (newFileProfile) {
             window.addEventListener('beforeunload', handleBeforeUnload);
             storageWrite.createFile(
                 "65160b9641ad26b1b899",
                 ID.unique(),
                 newFileProfile,
-                
+
             )
-            .then((res) => {
-                const URL = `https://cloud.appwrite.io/v1/storage/buckets/65160b9641ad26b1b899/files/${res.$id}/view?project=64f930eab00dac51283b&mode=admin`;
-                databases.updateDocument(
-                    "64f9329a26b6d59ade09",
-                    "64f93be88eee8bb83ec3",
-                    currentUser.$id,
-                    {
-                        photoURL: URL
-                    }
-                    
-                )
-                .then((sucess) => {
-                    setFileProfile(null)
-                    window.removeEventListener('beforeunload', handleBeforeUnload);
+                .then((res) => {
+                    const URL = `https://cloud.appwrite.io/v1/storage/buckets/65160b9641ad26b1b899/files/${res.$id}/view?project=64f930eab00dac51283b&mode=admin`;
+                    databases.updateDocument(
+                        "64f9329a26b6d59ade09",
+                        "64f93be88eee8bb83ec3",
+                        currentUser.$id,
+                        {
+                            photoURL: URL
+                        }
+
+                    )
+                        .then((sucess) => {
+                            setFileProfile(null)
+                            window.removeEventListener('beforeunload', handleBeforeUnload);
+                        })
+                        .catch((error) => {
+                            window.removeEventListener('beforeunload', handleBeforeUnload);
+                        })
+
                 })
                 .catch((error) => {
                     window.removeEventListener('beforeunload', handleBeforeUnload);
                 })
-                
-            })
-            .catch((error) => {
-                window.removeEventListener('beforeunload', handleBeforeUnload);
-            })
         }
-        
+
     }
 
 
@@ -228,8 +228,29 @@ export default function EditMyProfile() {
 
     const handleFileChange = (e) => {
         updatePhotoURL(e.target.files[0])
-        
+
     };
+
+    let noPHOTO = "https://cloud.appwrite.io/v1/storage/buckets/65160b9641ad26b1b899/files/6597505b316f7b557366/view?project=64f930eab00dac51283b&mode=admin"
+
+    const handleRemovePhoto = () => {
+        databases.updateDocument(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3",
+            currentUser.$id,
+            {
+                photoURL: noPHOTO
+            }
+
+        )
+            .then((sucess) => {
+                setFileProfile(null)
+                window.removeEventListener('beforeunload', handleBeforeUnload);
+            })
+            .catch((error) => {
+                window.removeEventListener('beforeunload', handleBeforeUnload);
+            })
+    }
 
     return (
         <>
@@ -271,7 +292,13 @@ export default function EditMyProfile() {
                                     <img
                                         src={auth.currentUser && ID_ACCOUNT_I ? ID_ACCOUNT_I.photoURL : ''}
                                     />
-                                    <input type="file" accept="image/*" onChange={(e) => {handleFileChange(e)}}/>
+                                    <input type="file" accept="image/*" onChange={(e) => { handleFileChange(e) }} />
+                                    {currentUser.photoURL == noPHOTO ?
+                                        null
+                                        :
+                                        <button onClick={handleRemovePhoto}><span>Remover foto de perfil</span></button>
+                                    }
+
 
                                 </div>
                                 <div className="InputFileTopCard">
