@@ -20,6 +20,8 @@ export default function CreatePost() {
     const fileRef = useRef("")
     const [filePost, setFilePost] = useState("")
     const [DreamPost, setDreamPost] = useState("")
+    const [previewVideo, setpreviewVideo] = useState(null)
+    const userATUAL = UserGet()
     if (!user) {
         return user
     }
@@ -80,7 +82,7 @@ export default function CreatePost() {
                             })
                     }
                 )
-                
+
             }
         }
 
@@ -174,11 +176,7 @@ export default function CreatePost() {
         if (e.target.files[0]) {
             const file = e.target.files[0];
 
-            document.querySelector(".imagechanger").style.display = 'none';
-            document.querySelector(".descriptionphoto").style.display = 'block';
 
-            document.querySelector(".previewdesc").style.display = 'block';
-            document.querySelector(".bottom-card-post").style.display = 'block';
 
             setDreamPost(file);
         }
@@ -197,11 +195,6 @@ export default function CreatePost() {
             const file = e.target.files[0];
             reader.readAsDataURL(file);
 
-            document.querySelector(".imagechanger").style.display = 'none';
-            document.querySelector(".descriptionphoto").style.display = 'block';
-
-            document.querySelector(".previewdesc").style.display = 'block';
-            document.querySelector(".bottom-card-post").style.display = 'block';
 
             setDreamPost(file)
         }
@@ -259,7 +252,17 @@ export default function CreatePost() {
 
     }
 
-    const userATUAL = UserGet()
+
+
+    function changeDumpOption(option) {
+        if (option != "DREAM") {
+            setDreamPost("")
+        }
+        else {
+            setFilePost("")
+        }
+        setDumpOption(option)
+    }
 
     return (
         <>
@@ -273,22 +276,23 @@ export default function CreatePost() {
                     <h2><i className="fa-solid fa-square-plus"></i> Criar um Dump</h2>
                 </div>
                 <div className='Buttons-Change-Option'>
-                    <button className='Button-Change' onClick={() => { setDumpOption('POST') }} id={DumpOption == 'POST' ? 'selected' : ''}><span>PUBLICAÇÃO</span></button>
-                    <button className='Button-Change' onClick={() => { setDumpOption('STORY') }} id={DumpOption == 'STORY' ? 'selected' : ''}><span>STORY</span></button>
-                    <button className='Button-Change' onClick={() => { setDumpOption('DREAM') }} id={DumpOption == 'DREAM' ? 'selected' : ''}><span>DREAM</span></button>
+                    <button className='Button-Change' onClick={() => { changeDumpOption('POST') }} id={DumpOption == 'POST' ? 'selected' : ''}><span>PUBLICAÇÃO</span></button>
+                    <button className='Button-Change' onClick={() => { changeDumpOption("STORY") }} id={DumpOption == 'STORY' ? 'selected' : ''}><span>STORY</span></button>
+                    <button className='Button-Change' onClick={() => { changeDumpOption("DREAM") }} id={DumpOption == 'DREAM' ? 'selected' : ''}><span>DREAM</span></button>
                 </div>
                 <div className="createnewpost-middle">
                     <h2><i className="fa-solid fa-image"></i> Adicione sua imagem</h2>
                     <div className='left-side-preview'>
                         <label id='labelpostINPUT' htmlFor='postINPUT'>Clique aqui para enviar sua foto</label>
-                        {filePost != "" && (
+                        {DumpOption != "DREAM" && filePost != "" ?
                             <img className='previewimage' src={filePost} />
+                            :
+                            null}
 
-                        )}
-
-                        {DreamPost != "" && (
-                            <video controls muted autoPlay className='previewimage' src={DreamPost} />
-                        )}
+                        {DumpOption == "DREAM" && DreamPost != "" ?
+                            <video controls muted autoPlay className='previewimage' src={URL.createObjectURL(DreamPost)} />
+                            :
+                            null}
                     </div>
                     <div className='right-side-previewimage'>
                         {DumpOption == "POST" || DumpOption == "STORY" ?
@@ -297,21 +301,25 @@ export default function CreatePost() {
                             <input id='postINPUT' name="postINPUT" className='imagechanger' accept="video/*" type="file" onChange={handleDream} />
                         }
 
-                        <div className='previewdesc'>
-                            <div className='previewdesc-top'>
-                                <img src={userATUAL ? userATUAL.photoURL : ""} />
-                                <p>{userATUAL ? userATUAL.displayName : ""}</p>
+                        {filePost || DreamPost ?
+                            <div className='previewdesc'>
+                                <div className='previewdesc-top'>
+                                    <img src={userATUAL ? userATUAL.photoURL : ""} />
+                                    <p>{userATUAL ? userATUAL.displayName : ""}</p>
+                                </div>
+                                <div>
+                                    <input type='text' placeholder='Escreva um comentário' max={2000} className='descriptionphoto' value={desc} onChange={((e) => setDesc(e.target.value))}></input>
+                                </div>
+                                <div className='alert'>
+                                    <p>Insira uma descrição para sua publicação.</p>
+                                </div>
+                                <div className='bottom-card-post'>
+                                    <button onClick={HandlePost}><span>Publicar</span></button>
+                                </div>
                             </div>
-                            <div>
-                                <input type='text' placeholder='Escreva um comentário' max={2000} className='descriptionphoto' value={desc} onChange={((e) => setDesc(e.target.value))}></input>
-                            </div>
-                            <div className='alert'>
-                                <p>Insira uma descrição para sua publicação.</p>
-                            </div>
-                            <div className='bottom-card-post'>
-                                <button onClick={HandlePost}><span>Publicar</span></button>
-                            </div>
-                        </div>
+                            :
+                            null
+                        }
 
 
                     </div>
