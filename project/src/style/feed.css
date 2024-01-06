@@ -4882,6 +4882,7 @@ B .spacer-title {
         display: flex;
         align-items: center;
         gap: 10px;
+        padding-top: 40px;
     
     }
     
