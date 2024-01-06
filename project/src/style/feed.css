@@ -4038,6 +4038,7 @@ B .spacer-title {
     .createnewpost-middle {
         text-align: center;
         align-items: center;
+        margin-bottom: 200px;
     }
 
     .createnewpost-middle img {
@@ -4141,7 +4142,7 @@ B .spacer-title {
     }
 
     .previewdesc {
-        display: none;
+
         align-items: center;
         justify-content: left;
         padding-left: 0px;
