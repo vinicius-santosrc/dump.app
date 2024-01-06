@@ -154,7 +154,7 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                     <div className="DreamHeaderContent"></div>
                     <div className="DreamVideoContent">
 
-                        <video
+                        <iframe
                             id="dreamContent"
                             muted
                             onClick={(e) => {
