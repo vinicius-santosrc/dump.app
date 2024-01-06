@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../../../lib/firebase";
 import { Link } from "react-router-dom";
 import { databases } from "../../../lib/appwrite";
+import Swal from "sweetalert2";
 
 
 const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
@@ -134,7 +135,6 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
             id
         )
 
-
         return auth
     }
 
@@ -146,6 +146,36 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
 
     };
 
+    async function deleteDream() {
+        Swal.fire({
+            title: "Deseja excluir?",
+            text: "Essa ação não poderá ser desfeita!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                databases.deleteDocument(
+                    "64f9329a26b6d59ade09",
+                    "6598d0374c841ff2ed4e",
+                    id
+                )
+                    .then((res) => {
+                        Swal.fire({
+                            title: "Removido!",
+                            text: "Seu dream foi excluído..",
+                            icon: "success"
+                        });
+                    })
+
+            }
+        });
+
+    }
+
     if (author) {
 
         return (
@@ -156,7 +186,7 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
 
                         <video
                             id="dreamContent"
-                            
+
                             x-webkit-airplay=""
                             aria-hidden="true"
                             muted
@@ -164,13 +194,13 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                                 changeMuted(e);
                             }}
                             onDoubleClick={null}
-                            
+
                             autoPlay
                             playsInline
                             loop
                             preload="auto"
                             src={dream.dreamURL}
-                            
+
                         />
                     </div>
                     <div className="DreamRightSideCommands">
@@ -209,6 +239,11 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                         </Link>
                         <div className="DreamLegenda">
                             <p>{dream.legenda}</p>
+                            {targetUserId && author.$id == targetUserId ?
+                                <button onClick={deleteDream}>REMOVER DREAM</button>
+                                :
+                                null
+                            }
                         </div>
                     </div>
                 </div>

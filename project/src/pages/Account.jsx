@@ -802,20 +802,20 @@ export default function Account() {
 
                             <>
                                 <label onClick={backtoprofile}><i className="fa-regular fa-image"></i> Dumps</label>
-                                <label onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
+                                <label onClick={gotoDreams}><i className="fa-solid fa-tv"></i> Dreams</label>
                                 <label id="selected"><i className="fa-solid fa-quote-left"></i> Menções</label>
                             </>
                             :
                             <>{window.location.pathname == `/user/${ID_ACCOUNT_I.uid}` ?
                                 <>
                                     <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
-                                    <label onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
+                                    <label onClick={gotoDreams}><i className="fa-solid fa-tv"></i> Dreams</label>
                                     <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
                                 </>
                                 :
                                 <>
                                     <label onClick={backtoprofile}><i className="fa-regular fa-image"></i> Dumps</label>
-                                    <label id="selected" onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
+                                    <label id="selected" onClick={gotoDreams}><i className="fa-solid fa-tv"></i> Dreams</label>
                                     <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
                                 </>
                             }</>

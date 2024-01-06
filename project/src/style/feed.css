@@ -1348,6 +1348,11 @@ body {
     width: 100%;
 }
 
+
+.left-side-preview video {
+    width: 100%;
+}
+
 .bottom-card-post {
     position: relative;
     display: none;
@@ -1398,6 +1403,7 @@ body {
 
 .createnewpost-middle {
     padding: 10px;
+    padding-bottom: 100px;
     border-radius: 10px;
     background: var(--border-gray);
     text-align: left;
@@ -4068,6 +4074,10 @@ B .spacer-title {
         width: 100%;
     }
 
+    .left-side-preview video {
+        width: 100%;
+    }
+
     .bottom-card-post {
         position: relative;
         display: none;
@@ -4687,8 +4697,7 @@ B .spacer-title {
     }
 
     .selecttypeofpublic {
-        width: 350px;
-        padding: 0px;
+        width: 95%;
         margin: auto;
         text-align: center;
         border: 1px solid gray;
@@ -4696,11 +4705,12 @@ B .spacer-title {
         display: flex;
 
         justify-content: space-between;
-        margin: 10px 30px;
+        margin: 10px auto;
     }
 
     .selecttypeofpublic label {
-        padding: 10px 52px;
+        padding: 10px 0px;
+        width: 100%;
         font-size: 0.9rem;
         cursor: pointer;
         border-radius: 10px;

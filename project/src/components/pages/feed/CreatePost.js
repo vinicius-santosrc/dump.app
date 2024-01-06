@@ -4,9 +4,10 @@ import { auth, provider, signInWithPopup, app, db, storage, database } from '../
 import { addDoc, collection, doc, getFirebase, setDoc } from 'firebase/firestore'
 import { reauthenticateWithRedirect } from 'firebase/auth';
 import firebase from "firebase/compat/app"
-import {databases} from '../../../lib/appwrite';
+import { databases, storageWrite } from '../../../lib/appwrite';
 import { Query, ID } from 'appwrite';
 import UserGet from '../../../lib/user';
+import Swal from 'sweetalert2';
 
 export default function CreatePost() {
 
@@ -18,6 +19,7 @@ export default function CreatePost() {
     const [desc, setDesc] = useState("");
     const fileRef = useRef("")
     const [filePost, setFilePost] = useState("")
+    const [DreamPost, setDreamPost] = useState("")
     if (!user) {
         return user
     }
@@ -28,33 +30,59 @@ export default function CreatePost() {
             setDesc('Sem legenda')
         };
 
-        if (filePost) {
-            
-            const upload = storage
+        if (DumpOption == "DREAM") {
+            if (DreamPost) {
+                setFilePost(null);
+                removeFile();
 
-                .ref(`posts/${idpost}`)
-                .putString(filePost, 'data_url')
+                storageWrite.createFile(
+                    "6598d2258fab991c729e",
+                    ID.unique(),
+                    DreamPost
+                )
+                    .then((res) => {
+                        const URL = `https://cloud.appwrite.io/v1/storage/buckets/6598d2258fab991c729e/files/${res.$id}/view?project=64f930eab00dac51283b&mode=admin`;
+                        setFilePost(null);
+                        setDreamPost(null);
+                        postthis(URL);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
 
-            removeFile();
-
-            upload.on(
-                "state_change",
-                null,
-                (err) => {
-                    console.log("Erro ao publicar o dump", err)
-                },
-                () => {
-                    storage
-                        .ref("posts")
-                        .child(idpost)
-                        .getDownloadURL()
-                        .then((url) => {
-                            postthis(url)
-                        })
-                }
-            )
         }
 
+        else {
+            if (filePost) {
+                setDreamPost(null)
+
+                const upload = storage
+
+                    .ref(`posts/${idpost}`)
+                    .putString(filePost, 'data_url')
+
+                removeFile();
+
+                upload.on(
+                    "state_change",
+                    null,
+                    (err) => {
+                        console.log("Erro ao publicar o dump", err)
+                    },
+                    () => {
+                        storage
+                            .ref("posts")
+                            .child(idpost)
+                            .getDownloadURL()
+                            .then((url) => {
+                                postthis(url)
+                            })
+                    }
+                )
+                
+            }
+        }
 
         const postthis = (url) => {
 
@@ -69,11 +97,17 @@ export default function CreatePost() {
                     uid: auth.currentUser.uid
                 })
                     .then(() => {
-                        alert("SUCESS DUMP")
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Seu Dump foi publicado com sucesso!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
                     })
                     .catch((err) => {
-       
+
                         console.log("Erro ao publicar o dump: ", err)
                     })
             }
@@ -88,10 +122,41 @@ export default function CreatePost() {
                     }
                 )
                     .then((sucess) => {
-                        alert("SUCESS STORY")
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Seu Daily foi publicado com sucesso!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     })
                     .catch(error => {
-           
+
+                        console.log("Erro ao publicar o story dump: ", error)
+                    })
+            }
+            if (DumpOption == 'DREAM') {
+                databases.createDocument(
+                    "64f9329a26b6d59ade09",
+                    "6598d0374c841ff2ed4e",
+                    ID.unique(),
+                    {
+                        dreamURL: url,
+                        createdBy: auth.currentUser.uid,
+                        legenda: desc
+                    }
+                )
+                    .then((sucess) => {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Seu Dream foi publicado com sucesso!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+                    .catch(error => {
+
                         console.log("Erro ao publicar o story dump: ", error)
                     })
             }
@@ -102,9 +167,32 @@ export default function CreatePost() {
 
     };
 
-    const handleImage = (e) => {
-        const reader = new FileReader();
+    function handleDream(e) {
+        console.log(DreamPost)
+        console.log(filePost)
+        setFilePost(null)
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
 
+            document.querySelector(".imagechanger").style.display = 'none';
+            document.querySelector(".descriptionphoto").style.display = 'block';
+
+            document.querySelector(".previewdesc").style.display = 'block';
+            document.querySelector(".bottom-card-post").style.display = 'block';
+
+            setDreamPost(file);
+        }
+        // Outras ações, se necessário
+    }
+
+
+
+
+    const handleImage = (e) => {
+        console.log(DreamPost)
+        console.log(filePost)
+        const reader = new FileReader();
+        setDreamPost(null)
         if (e.target.files[0]) {
             const file = e.target.files[0];
             reader.readAsDataURL(file);
@@ -114,6 +202,8 @@ export default function CreatePost() {
 
             document.querySelector(".previewdesc").style.display = 'block';
             document.querySelector(".bottom-card-post").style.display = 'block';
+
+            setDreamPost(file)
         }
 
         reader.onload = (readerEvent) => {
@@ -185,18 +275,28 @@ export default function CreatePost() {
                 <div className='Buttons-Change-Option'>
                     <button className='Button-Change' onClick={() => { setDumpOption('POST') }} id={DumpOption == 'POST' ? 'selected' : ''}><span>PUBLICAÇÃO</span></button>
                     <button className='Button-Change' onClick={() => { setDumpOption('STORY') }} id={DumpOption == 'STORY' ? 'selected' : ''}><span>STORY</span></button>
+                    <button className='Button-Change' onClick={() => { setDumpOption('DREAM') }} id={DumpOption == 'DREAM' ? 'selected' : ''}><span>DREAM</span></button>
                 </div>
                 <div className="createnewpost-middle">
                     <h2><i className="fa-solid fa-image"></i> Adicione sua imagem</h2>
                     <div className='left-side-preview'>
                         <label id='labelpostINPUT' htmlFor='postINPUT'>Clique aqui para enviar sua foto</label>
-                        {filePost && (
+                        {filePost != "" && (
                             <img className='previewimage' src={filePost} />
+
+                        )}
+
+                        {DreamPost != "" && (
+                            <video controls muted autoPlay className='previewimage' src={DreamPost} />
                         )}
                     </div>
                     <div className='right-side-previewimage'>
-                        <input id='postINPUT' name="postINPUT" className='imagechanger' type="file" onChange={handleImage}>
-                        </input>
+                        {DumpOption == "POST" || DumpOption == "STORY" ?
+                            <input id='postINPUT' name="postINPUT" className='imagechanger' accept="image/*" type="file" onChange={handleImage} />
+                            :
+                            <input id='postINPUT' name="postINPUT" className='imagechanger' accept="video/*" type="file" onChange={handleDream} />
+                        }
+
                         <div className='previewdesc'>
                             <div className='previewdesc-top'>
                                 <img src={userATUAL ? userATUAL.photoURL : ""} />
