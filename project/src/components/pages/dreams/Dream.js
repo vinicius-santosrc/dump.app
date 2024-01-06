@@ -170,7 +170,6 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                             loop
                             preload="auto"
                             src={dream.dreamURL}
-                            type="video/mp4" // Adicione o tipo do vídeo
                             
                         />
                     </div>
