@@ -17,9 +17,6 @@ function gotoHome() {
     window.location.href = window.location.origin
 }
 
-
-
-
 export default function HeaderFeed(props) {
 
     const [openSettingsAccount, setopenSettingsAccount] = useState(false)
@@ -93,7 +90,10 @@ export default function HeaderFeed(props) {
                                 <Link className="Redirect" to={window.location.origin} title='Página Inicial' id={window.location.pathname === '/' ? 'selected' : ''}><i className="fa-solid fa-house"></i><span>Página Inicial</span></Link>
                             </div>
                             <div className="LeftsideRedirect" >
-                                <Link to={window.location.origin + '/search'} className="Redirect" title='Pesquisar' id={window.location.pathname === '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i><span>Pesquisar</span></Link>
+                                <Link to={window.location.origin + '/search'} className="Redirect" title='Explorar' id={window.location.pathname === '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i><span>Explorar</span></Link>
+                            </div>
+                            <div className="LeftsideRedirect" >
+                                <Link to={window.location.origin + '/dreams'} className="Redirect" title='Explorar' id={window.location.href.includes('/dreams') ? 'selected' : ''}><i className="fa-solid fa-tv"></i><span>Dreams</span></Link>
                             </div>
                             <div className="LeftsideRedirect">
                                 {ID_ACCOUNT_I ? <Link to={window.location.origin + "/notifications"} className="Redirect" title='Notificações'><i className="fa-solid fa-bell"></i><span>Notificações</span></Link> : ''}
@@ -195,6 +195,8 @@ export default function HeaderFeed(props) {
 
                 </div>
             </header>
+
+
             <header aria-live="polite" role='navigation' className='dump-mobile-header'>
 
                 <div className='top-header-mobile'>
@@ -244,7 +246,7 @@ export default function HeaderFeed(props) {
                 </div>
 
                 <Link to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
-                <Link to={null}><i className="fa-solid fa-tv"></i></Link>
+                <Link to={window.location.origin + "/dreams"}><i className="fa-solid fa-tv"></i></Link>
                 {ID_ACCOUNT_I ? <Link id={window.location.pathname.includes('/saves') ? 'selected' : ''} to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
                 {ID_ACCOUNT_I ?
                     <Link id={window.location.pathname.includes('/user') ? 'selected' : ''} to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}>
@@ -258,6 +260,9 @@ export default function HeaderFeed(props) {
 
                 }
             </nav>
+
+
+
 
 
         </>

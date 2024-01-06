@@ -99,10 +99,10 @@ body {
 .null-mentions-of-user img {
     width: 15rem;
     padding: 10px 0px;
-    
+
 }
 
-.dumps-account-user-show h1, .dumps-account-user-show p{
+.dumps-account-user-show h1, .dumps-account-user-show p {
     color: var(--text-color);
     cursor: default;
 }
@@ -157,7 +157,7 @@ body {
     justify-content: space-between;
     padding: 20px;
     color: var(--text-color);
-    
+
     border-bottom: 1px solid var(--another-gray);
 }
 
@@ -243,7 +243,7 @@ body {
 
 }
 
-.DumpNotificationPHOTOREL img{
+.DumpNotificationPHOTOREL img {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
@@ -1005,7 +1005,7 @@ body {
     justify-content: space-between;
     gap: 10px;
     margin-top: 10px;
-    
+
 }
 
 .dumprated img {
@@ -1029,7 +1029,7 @@ body {
     margin-bottom: 1vh;
     font-size: 0.7rem;
 
-    
+
 }
 
 
@@ -1468,7 +1468,7 @@ body {
     height: 300px;
 }
 
-.accountheader p{
+.accountheader p {
     color: var(--another-gray);
 }
 
@@ -1625,6 +1625,148 @@ body {
     cursor: pointer;
 }
 
+.Dump-Dream-Page {
+    width: 700px;
+    height: 100vh;
+    z-index: 30;
+    background: black;
+    margin: auto;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    text-align: center;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+.Dump-Dream-Page video {
+    width: 100%;
+    height: 55rem;
+    background-color: black;
+    position: relative;
+    cursor: pointer;
+}
+
+.DreamRightSideCommands {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+
+}
+
+.DreamHeader {
+    position: fixed;
+    width: 700px;
+    margin: auto;
+    top: 20px;
+    left: 0px;
+    right: 0;
+    z-index: 50;
+
+}
+
+.DreamHeader-LeftSide {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.DreamHeader-LeftSide a {
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+}
+
+.DreamHeader-LeftSide img {
+    width: 200px;
+    cursor: default;
+    pointer-events: none;
+}
+
+
+.DreamButtonWrapper {
+    background: transparent;
+    color: white;
+    text-shadow: 5px 5px 5px black;
+    width: 60px;
+    height: 60px;
+    font-size: 27px;
+    border: none;
+    cursor: pointer;
+}
+
+.DreamButtonWrapper p {
+    font-size: 20px;
+}
+
+.DreamButtonCommand {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.DreamCreatorImage-Wrapper {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.DreamBottomVideoContent {
+    color: white;
+    text-shadow: 5px 5px 5px black;
+
+}
+
+.DreamBottomVideoContent p {
+    text-align: left;
+}
+
+
+.DreamAuthorContents {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.DreamBottomVideoContent a {
+    color: white;
+    text-decoration: none;
+}
+
+.dreamspage {
+    display: flex;
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.MutedAlert {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.MutedAlert i {
+    font-size: 22px;
+    color: white;
+    z-index: 50;
+}
+
+.DreamButtonWrapper:hover {
+    filter: brightness(85%);
+}
+
+.DreamBottomVideoContent {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+
 .dump-user-account {
     width: 210px;
     height: 210px;
@@ -1639,7 +1781,13 @@ body {
     transition: 500ms;
 }
 
-.dump-user-account img:hover {
+.dump-user-account video{
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.dump-user-account img:hover,.dump-user-account video:hover {
     filter: brightness(0.8)
 }
 
@@ -1808,7 +1956,7 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-    
+
 }
 
 
@@ -1824,7 +1972,7 @@ body {
     border: none;
     margin-top: 10px;
     transition: 500ms;
-    
+
 }
 
 .inbox-content-contacts button:hover {
@@ -1931,9 +2079,9 @@ body {
         margin: 0px 80px;
         z-index: 4;
         border-radius: 10px;
-    
+
     }
-    
+
 
 
     .App-Header-Feed {
@@ -2008,7 +2156,7 @@ body {
         width: 58%;
         margin: 0 90px;
 
-        
+
     }
 
     .dump-header-flexible {
@@ -2181,7 +2329,7 @@ body {
         font-weight: 600;
     }
 
-    
+
 
     .inbox-dump-page {
         padding: 100px 0px;
@@ -2512,12 +2660,12 @@ body {
     width: 5rem;
 }
 
-.dump-already-login h1{
+.dump-already-login h1 {
     color: var(--text-color)
 }
 
 
-.dump-already-login p{
+.dump-already-login p {
     color: var(--text-color)
 }
 
@@ -2529,7 +2677,7 @@ body {
 
 
 .selecttypeofpublic {
-    width: 400px;
+    width: 100%;
     padding: 0px;
     margin: 0;
     text-align: center;
@@ -2567,9 +2715,9 @@ body {
 .comments-section h2 {
     color: var(--text-color);
     font-size: 1rem;
-}B
+}
 
-.spacer-title {
+B .spacer-title {
     margin: 10px 0px;
 }
 
@@ -2629,13 +2777,13 @@ body {
     margin: 10px 0px;
     background: var(--border-gray);
     border-radius: 5px;
-    
+
 }
 
 .BtnRequestsToFollow {
     width: 100%;
     padding: 10px 0px;
-    
+
 }
 
 .BtnRequestsToFollow a {
@@ -2655,7 +2803,7 @@ body {
 }
 
 .BtnBackNotifications a {
-    color: var(--text-color) ;
+    color: var(--text-color);
 }
 
 .acceptButton {
@@ -2676,7 +2824,7 @@ body {
     cursor: pointer;
 }
 
-.DumpNotification--InfoContent{
+.DumpNotification--InfoContent {
     color: var(--text-color);
 }
 
@@ -2687,7 +2835,7 @@ body {
     align-items: center;
 }
 
-.DumpNotification´-Wrapper--item a{
+.DumpNotification´-Wrapper--item a {
     color: black;
     text-decoration: none;
 }
@@ -2709,17 +2857,18 @@ body {
 }
 
 #saveaccount svg circle {
-    font-size:  35px !important	;
+    font-size: 35px !important;
 }
 
 #user_indisponivel {
     color: red;
 }
+
 #user_disponivel {
     color: green;
 }
 
-.loading-wrapper svg circle{
+.loading-wrapper svg circle {
     color: var(--text-color) !important;
     fill: var(--text-color);
 }
@@ -2728,12 +2877,12 @@ body {
     color: var(--text-color);
 }
 
-.content-name-curtida h2{
+.content-name-curtida h2 {
     color: var(--text-color)
 }
 
-.contentalert p{
-    color:var(--text-color)
+.contentalert p {
+    color: var(--text-color)
 }
 
 .btn-bottom-profile {
@@ -2818,12 +2967,12 @@ body {
     justify-content: right;
 }
 
-.Dump-Btn-Likes-Show{
+.Dump-Btn-Likes-Show {
     background: transparent;
     color: var(--another-gray);
     border: none;
     cursor: pointer;
-    
+
 }
 
 .filters-search {
@@ -2847,6 +2996,8 @@ body {
     padding: 10px;
 
 }
+
+
 
 .dump-post-liked {
     color: var(--principal-color) !important;
@@ -2951,9 +3102,9 @@ body {
     cursor: pointer;
 }
 
-.ItensOptions ul button{
+.ItensOptions ul button {
     background: white;
-    
+
     border: 1px solid lightgray;
     border-left: none;
     border-right: none;
@@ -2993,7 +3144,7 @@ body {
     width: 25vw;
     background: #141414cb;
     height: 100%;
-    
+
 }
 
 .Dump-Story-Disabled h2 {
@@ -3005,14 +3156,14 @@ body {
     position: absolute;
 }
 
-.Dump-Story-Content img{
+.Dump-Story-Content img {
     width: 80px;
     border-radius: 100%;
     height: 80px;
-    
+
     padding: 3px;
     object-fit: cover;
-    
+
     transition: 1000ms;
     text-align: center;
 }
@@ -3067,7 +3218,7 @@ body {
     text-align: center;
     margin: 0vh auto;
     justify-content: center;
-    
+
     position: relative;
 }
 
@@ -3091,7 +3242,7 @@ body {
     text-shadow: 0px 0px 15px black;
 }
 
-.dump-loading-content svg{
+.dump-loading-content svg {
     width: 80px;
     height: 80px;
     border-radius: 100%;
@@ -3136,6 +3287,8 @@ body {
     text-align: left;
     gap: 10px;
 }
+
+
 
 .Dump-User-LeftSide img {
     border-radius: 100%;
@@ -3431,7 +3584,7 @@ body {
 
 .NullContentLoading-flex {
     display: block;
-    
+
 }
 
 .NullContentLoading {
@@ -3501,7 +3654,7 @@ body {
         align-items: center;
         position: fixed;
         padding: 5px 0;
-        
+
         background: white;
         width: 100%;
         margin: 0 0;
@@ -3794,8 +3947,10 @@ body {
         background-color: var(--blur-back);
         backdrop-filter: blur(10px);
         border-top: 1px solid var(--border-gray);
-        z-index: 20;
+        z-index: 50;
     }
+
+
 
     .nav-bar-mobile a i {
         color: var(--text-color);
@@ -3807,6 +3962,17 @@ body {
     .nav-bar-mobile a#selected i {
         opacity: 1;
         border-bottom: 3px solid var(--principal-color);
+    }
+
+    .navbardreams {
+        border-top: 1px solid gray;
+        background: black;
+        z-index: 50;
+    }
+
+
+    .navbardreams a i {
+        color: white;
     }
 
     .nav-bar-mobile img {
@@ -3953,7 +4119,7 @@ body {
         height: 100%;
     }
 
-    
+
 
     .alert {
         background-color: red;
@@ -3980,7 +4146,7 @@ body {
         justify-content: left;
         text-align: left;
         gap: 10px;
-        
+
     }
 
     .previewdesc-top img {
@@ -4157,6 +4323,16 @@ body {
 
     }
 
+    .DreamBottomVideoContent {
+        position: absolute;
+        bottom: 120px;
+        left: 20px;
+    }
+
+    .DreamRightSideCommands {
+        bottom: 100px
+    }
+
     @keyframes closecurtidas {
         0% {
             right: 0;
@@ -4204,7 +4380,7 @@ body {
     .dump-post-show-mobile .dump-post-topimage img {
         width: 100%;
         border-radius: 20px;
-        
+
     }
 
     .dump-post-show-mobile .dump-post-header-show a {
@@ -4218,6 +4394,7 @@ body {
         border: 0.5px solid gray;
         object-fit: cover;
     }
+
     .dump-post-show-mobile .flex-dump-info-image svg {
         border: none;
     }
@@ -4242,7 +4419,7 @@ body {
 
     .NullContentLoading-flex {
         display: block;
-        
+
     }
 
     .NullContentLoading {
@@ -4455,7 +4632,7 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         margin: 30px auto;
-        
+
         width: 100%;
         gap: 3px;
 
@@ -4622,7 +4799,39 @@ body {
         margin-right: 5px;
         justify-content: right;
     }
-    
+
+
+
+    .Dump-Dream-Page {
+        width: 100%;
+        height: 100vh;
+        z-index: 30;
+        background: black;
+        margin: auto;
+        flex: 0 0 100%;
+        box-sizing: border-box;
+        text-align: center;
+        scroll-snap-align: start;
+
+    }
+
+    .dreamspage {
+        display: flex;
+        flex-direction: column;
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+        height: 100vh;
+    }
+
+    .Dump-Dream-Page iframe {
+        width: 100%;
+        height: 800px;
+        border: none;
+    }
+
+    .Dump-Dream-Page video {
+        width: 100%;
+    }
 
     .error-message-top {
         background-color: rgb(185, 28, 4);
@@ -4659,6 +4868,31 @@ body {
         display: block;
         justify-content: center;
 
+    }
+
+    .DreamHeader {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 50;
+    
+    }
+    
+    .DreamHeader-LeftSide {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    
+    }
+    
+    .DreamHeader-LeftSide a {
+        text-decoration: none;
+        color: white;
+        font-size: 22px;
+    }
+    
+    .DreamHeader-LeftSide img {
+        width: 200px;
     }
 
     .btn-bottom-profile button {
@@ -4923,7 +5157,7 @@ body {
 
     .descriptionofdump {
         margin-left: 5px;
-    
+
     }
 
     .dump-posts-saved-empty {
@@ -5100,7 +5334,7 @@ body {
         z-index: -6;
         background: rgba(0, 0, 0, 0.515);
     }
-    
+
     .Dump-Likes-Post-ShowBox {
         z-index: 30;
         width: 100%;
@@ -5113,36 +5347,35 @@ body {
         0% {
             bottom: -150vh
         }
-        100% {
 
-        }
+        100% {}
     }
 
     #toSEE {
         border-top: 1px solid var(--border-gray);
         border-left: 1px solid var(--principal-color);
-    
+
     }
-    
+
     #SEEN {
         border-top: 1px solid var(--border-gray);
         border-left: 1px solid var(--another-gray);
-    
+
     }
 
     .NotificationsContent-Page--content {
         padding: 140px 20px;
     }
-    
+
     .Dump-Story-Disabled {
         position: fixed;
         filter: blur(1);
         width: 100%;
         background: #141414cb;
         height: 100%;
-        
+
     }
-    
+
     .Dump-Story-Disabled h2 {
         color: white;
         top: 40%;
@@ -5160,7 +5393,7 @@ body {
         margin: 10px 0px;
         background: var(--border-gray);
         border-radius: 5px;
-        
+
     }
 
     .Account-Options-Box a {

@@ -46,16 +46,11 @@ export default function Feed() {
                     setPostsJSON(res.documents.slice(0, 5))
 
                 })
-                .catch((e) => {
-                    console.log(e)
-                })
         } catch (error) {
             console.log('error: ', error)
         }
     }
-    useEffect(() => {
-        ;
-    })
+
 
     window.addEventListener('scroll', () => {
 

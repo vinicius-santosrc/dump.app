@@ -21,6 +21,7 @@ export default function Account() {
     const [numberofFollowing, SetNumberOfFollowing] = useState(null)
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [USERS_POSTS, setPostsofUser] = useState('')
+    const [USERS_DREAMS, setUSERS_DREAMS] = useState('')
     const userUID = auth.currentUser
     const [isFollowing, setIsFollow] = useState(null)
     const [requestSended, setrequestSended] = useState(false)
@@ -120,6 +121,27 @@ export default function Account() {
                 .catch((e) => {
                     console.log(e)
                 })
+            await databases.listDocuments(
+                "64f9329a26b6d59ade09",
+                "6598d0374c841ff2ed4e",
+                [
+                    Query.orderDesc("$createdAt"),
+                    Query.equal("createdBy", ID_ACCOUNT)
+                ]
+            )
+                .then((res) => {
+                    setUSERS_DREAMS(res.documents.map((dream) => {
+                        return (
+                            <>
+                                <article title={`${dream.legenda}`} className="dump-user-account dump-dream-show" id={dream.$id} tabIndex={0} role="article">
+                                    <Link to={window.location.origin + "/dream/" + dream.$id}>
+                                        <video paused className="dump-image-show" alt={dream.legenda} id={`DPid_` + dream.$id} src={dream.dreamURL} />
+                                    </Link>
+                                </article>
+                            </>
+                        )
+                    }))
+                })
         }
         getPostsofUser()
     }, [ID_ACCOUNT_I])
@@ -129,6 +151,10 @@ export default function Account() {
 
         Nav("/user/" + ID_ACCOUNT + "/mentions");
     };
+
+    const gotoDreams = () => {
+        Nav("/user/" + ID_ACCOUNT + '/dreams')
+    }
 
 
 
@@ -616,7 +642,7 @@ export default function Account() {
             }
             {followingBox ?
                 <div className='Dump-Likes-Post-ShowBox'>
-                    <div onClick={() => {setfollowingBox(false);}} className='backgroundCurtidas'></div>
+                    <div onClick={() => { setfollowingBox(false); }} className='backgroundCurtidas'></div>
                     <div className='Dump-Likes-Header-Box'>
                         <div className='HeaderLeft'>
                             <h2>Seguindo</h2>
@@ -776,15 +802,27 @@ export default function Account() {
 
                             <>
                                 <label onClick={backtoprofile}><i className="fa-regular fa-image"></i> Dumps</label>
+                                <label onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
                                 <label id="selected"><i className="fa-solid fa-quote-left"></i> Menções</label>
                             </>
                             :
-                            <>
-                                <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
-                                <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
-                            </>
+                            <>{window.location.pathname == `/user/${ID_ACCOUNT_I.uid}` ?
+                                <>
+                                    <label id="selected"><i className="fa-regular fa-image"></i> Dumps</label>
+                                    <label onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
+                                    <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
+                                </>
+                                :
+                                <>
+                                    <label onClick={backtoprofile}><i className="fa-regular fa-image"></i> Dumps</label>
+                                    <label id="selected" onClick={gotoDreams}><i className="fa-solid fa-quote-left"></i> Dreams</label>
+                                    <label onClick={Gotomentions}><i className="fa-solid fa-quote-left"></i> Menções</label>
+                                </>
+                            }</>
                         }
                     </section>
+
+
                     {(window.location.href).includes("/mentions") ?
                         <section className="dumps-account-user-show">
                             {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
@@ -819,39 +857,84 @@ export default function Account() {
                         </section>
                         :
                         <>
-                            {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
-                                <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
-                                    <>
-                                        <label id="youraccountislocked">Sua conta está privada.</label>
-                                    </>
-                                    :
-                                    <></>
-                                }</>
-                                :
-                                <></>
-                            }
-                            <section className="dumps-account-user-show">
+                            {(window.location.href).includes("/dreams") ?
+                                <section className="dumps-account-user-show">
+                                    {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
+                                            <>
+                                                <label id="youraccountislocked">Sua conta está privada.</label>
+                                            </>
+                                            :
+                                            <div className="private-account">
+                                                <i className="fa-solid fa-lock"></i>
+                                                <p>
+                                                    Conta privada
+                                                </p>
+                                                <p>Para acessar os dreams, siga @{ID_ACCOUNT_I.username}.</p>
+                                            </div>
 
-
-                                {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
-                                    <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
-                                        <>
-                                            {USERS_POSTS}
-                                        </>
+                                        }</>
                                         :
-                                        <div className="private-account">
-                                            <i className="fa-solid fa-lock"></i>
-                                            <p>
-                                                Conta privada
-                                            </p>
-                                            <p>Para acessar seus dumps, siga @{ID_ACCOUNT_I.username}.</p>
-                                        </div>
+                                        <>
+                                            {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                                <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
+                                                    <>
+                                                        {USERS_DREAMS}
+                                                    </>
+                                                    :
+                                                    <div className="private-account">
+                                                        <i className="fa-solid fa-lock"></i>
+                                                        <p>
+                                                            Conta privada
+                                                        </p>
+                                                        <p>Para acessar seus dumps, siga @{ID_ACCOUNT_I.username}.</p>
+                                                    </div>
 
-                                    }</>
-                                    :
-                                    <>{USERS_POSTS}</>
-                                }
-                            </section>
+                                                }</>
+                                                :
+                                                <>{USERS_DREAMS}</>
+                                            }
+                                        </>
+                                    }
+                                </section>
+                                :
+                                <>
+                                    {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                        <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid ?
+                                            <>
+                                                <label id="youraccountislocked">Sua conta está privada.</label>
+                                            </>
+                                            :
+                                            <></>
+                                        }</>
+                                        :
+                                        <></>
+                                    }
+                                    <section className="dumps-account-user-show">
+
+
+                                        {ID_ACCOUNT_I && ID_ACCOUNT_I.private == true ?
+                                            <>{ID_ACCOUNT_I.private == true && auth.currentUser && auth.currentUser.uid === ID_ACCOUNT_I.uid || (ID_ACCOUNT_I.followers && ID_ACCOUNT_I.followers.includes(targetUserId)) ?
+                                                <>
+                                                    {USERS_POSTS}
+                                                </>
+                                                :
+                                                <div className="private-account">
+                                                    <i className="fa-solid fa-lock"></i>
+                                                    <p>
+                                                        Conta privada
+                                                    </p>
+                                                    <p>Para acessar seus dumps, siga @{ID_ACCOUNT_I.username}.</p>
+                                                </div>
+
+                                            }</>
+                                            :
+                                            <>{USERS_POSTS}</>
+                                        }
+                                    </section>
+                                </>
+                            }
+
                         </>
                     }
 

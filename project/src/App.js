@@ -26,6 +26,8 @@ import HeaderFeed from './components/pages/feed/HeaderApp';
 import CreatePost from './components/pages/feed/CreatePost';
 import Loader from './components/Loader';
 import RequestsPage from './pages/RequestsPage';
+import DreamDetails from './pages/DreamDetails';
+import AccountDreams from './pages/AccountDreams';
 
 
 function App() {
@@ -61,9 +63,11 @@ function App() {
           <Route path='/accounts/signup' element={<Cadastrar />} />
           <Route path='/accounts/login' element={<Login />} />
           <Route path='/posts/:idPost' element={<PostDetails />} />
+          <Route path='/dreams' element={<DreamDetails />} />
           <Route path='/messages/inbox' element={<Inbox />} />
           <Route path='/user/:ID_ACCOUNT' element={<Account />} />
           <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
+          <Route path='/user/:ID_ACCOUNT/dreams' element={<AccountDreams />} />
           <Route path='/search' element={<SearchPage />} />
           <Route path='/accounts/edit' element={<EditMyProfile />} />
           <Route path='/saves' element={<SaveDumpsPage />} />
