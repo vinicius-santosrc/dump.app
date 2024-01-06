@@ -161,13 +161,14 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                                 changeMuted(e);
                             }}
                             onDoubleClick={null}
-
+                            
                             autoPlay
                             playsInline
                             loop
                             preload="auto"
                             src={dream.dreamURL}
-                            crossorigin="use-credentials"
+                            type="video/mp4" // Adicione o tipo do vídeo
+                            crossOrigin="anonymous"
                         />
                     </div>
                     <div className="DreamRightSideCommands">
