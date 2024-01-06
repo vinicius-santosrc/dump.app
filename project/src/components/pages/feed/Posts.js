@@ -350,7 +350,6 @@ export default function Posts(props) {
     var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
 
     function showLikesOfThatPublic(p) {
-        console.log(p.likes);
         const likes = p.likes;
         setlikesBox(true);
 

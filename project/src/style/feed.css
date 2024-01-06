@@ -218,9 +218,10 @@ body {
 }
 
 .DumpNotification--InfoContent img, .DumpNotification--InfoContent svg {
-    width: 4.5rem;
-    
-    height: 4.5rem;
+    max-width: 70px;
+    max-height: 70px;
+    width: 70px;
+    height: 80px;
     object-fit: cover;
     pointer-events: none;
     border-radius: 100%;
@@ -1065,6 +1066,11 @@ body {
     object-fit: cover;
 }
 
+.Card-Suggestions-Users {
+    height: 80%;
+    overflow-y: scroll;
+}
+
 .Card-Suggestions-Users a {
     text-decoration: none
 }
@@ -1613,6 +1619,10 @@ body {
 .followers-card {
     display: flex;
     gap: 10px;
+}
+
+.followers-card p {
+    cursor: pointer;
 }
 
 .dump-user-account {
@@ -3610,19 +3620,26 @@ body {
     }
 
     .DumpNotification--InfoContent img, .DumpNotification--InfoContent svg {
-        width: 4rem;
-        height: 4rem;
+        max-width: 70px;
+        width: 70px;
+        max-height: 70px;
+        height: 70px;
     }
-
-
-
-
 
     .rightsideheader {
         display: flex;
         gap: 15px;
         position: fixed;
         right: 30px;
+    }
+
+    .WifiNoConexion {
+        margin: auto;
+        justify-content: center;
+        text-align: center;
+        position: absolute;
+        width: 100% !important;
+        top: 35%;
     }
 
     .App-Header-Feed a, .top-header-mobile a {

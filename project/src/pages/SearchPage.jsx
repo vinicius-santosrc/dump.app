@@ -42,7 +42,7 @@ export default function SearchPage() {
 
 
     useEffect(() => {
-        
+        searchpeople()
     }, [])
 
 

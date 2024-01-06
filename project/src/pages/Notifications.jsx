@@ -134,13 +134,13 @@ export default function Notifications() {
                                     <div className="DumpNotInfo">
                                         <p><b>@{r.username}</b> {notification.ACTION == "like" ? "curtiu seu dump" : <span>comentou em seu dump: {notification.desc}</span>}</p>
                                         <p>{Day} de {MesesDoAno[Mounth]} de {Year}</p>
-
+                                        <button className="deleteNotification" onClick={() => { handleDeleteNotification(notification) }}><span>Remover notificação</span></button>
                                     </div>
                                 </div>
                                 <div className="DumpNotificationPHOTOREL">
                                     <img src={photoREL.filePost} />
                                 </div>
-                                <button className="deleteNotification" onClick={() => { handleDeleteNotification(notification) }}><span>Remover notificação</span></button>
+                                
 
                             </div>
                         </Link>
@@ -240,6 +240,10 @@ export default function Notifications() {
                     <ul className="ListNotifications">
                         {LoadingNotifications ?
                             <>
+                                <LoadingNot></LoadingNot>
+                                <LoadingNot></LoadingNot>
+                                <LoadingNot></LoadingNot>
+                                <LoadingNot></LoadingNot>
                                 <LoadingNot></LoadingNot>
                                 <LoadingNot></LoadingNot>
                                 <LoadingNot></LoadingNot>

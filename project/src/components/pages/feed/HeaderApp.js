@@ -201,6 +201,11 @@ export default function HeaderFeed(props) {
                     <img onClick={gotoHome} src={window.location.origin + "/static/media/dumplogo.f3r818ht813gh78t13t.svg"} alt="Logo Dump" />
                     <div className="top-header-mobile-icons-rightside rightsideheadermobile">
                         {ID_ACCOUNT_I ?
+                            <Link id={window.location.pathname.includes('/posts/create') ? 'selected' : ''} to={window.location.origin + "/posts/create"}><i className="fa-solid fa-square-plus"></i></Link>
+                            :
+                            null
+                        }
+                        {ID_ACCOUNT_I ?
                             <Link to={window.location.origin + "/notifications"}>
                                 <i className="fa-regular fa-heart"></i>
                                 {notificationsNotSeen ? <label className='notification-show'></label> : null}
@@ -239,7 +244,7 @@ export default function HeaderFeed(props) {
                 </div>
 
                 <Link to={window.location.origin + '/search'} id={window.location.pathname == '/search' ? 'selected' : ''}><i className="fa-solid fa-magnifying-glass"></i></Link>
-                {ID_ACCOUNT_I ? <Link id={window.location.pathname.includes('/posts/create') ? 'selected' : ''} to={window.location.origin + "/posts/create"}><i className="fa-solid fa-square-plus"></i></Link> : <></>}
+                <Link to={null}><i className="fa-solid fa-tv"></i></Link>
                 {ID_ACCOUNT_I ? <Link id={window.location.pathname.includes('/saves') ? 'selected' : ''} to={window.location.origin + '/saves'}><i className="fa-solid fa-bookmark"></i></Link> : ''}
                 {ID_ACCOUNT_I ?
                     <Link id={window.location.pathname.includes('/user') ? 'selected' : ''} to={window.location.origin + '/user/' + ID_ACCOUNT_I.uid}>
