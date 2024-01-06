@@ -154,7 +154,7 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                     <div className="DreamHeaderContent"></div>
                     <div className="DreamVideoContent">
 
-                        <iframe
+                        <video
                             id="dreamContent"
                             muted
                             onClick={(e) => {
@@ -167,8 +167,7 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                             loop
                             preload="auto"
                             src={dream.dreamURL}
-                            type="video/mp4" // Adicione o tipo do vídeo
-                            crossOrigin="anonymous"
+                            crossorigin="use-credentials"
                         />
                     </div>
                     <div className="DreamRightSideCommands">

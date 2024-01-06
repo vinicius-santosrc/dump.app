@@ -1706,8 +1706,8 @@ body {
 }
 
 .DreamCreatorImage-Wrapper {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 100%;
 }
@@ -4893,7 +4893,7 @@ B .spacer-title {
     }
     
     .DreamHeader-LeftSide img {
-        width: 200px;
+        width: 180px;
     }
 
     .btn-bottom-profile button {
