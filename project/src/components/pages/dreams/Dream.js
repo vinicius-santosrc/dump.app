@@ -156,6 +156,9 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
 
                         <video
                             id="dreamContent"
+                            
+                            x-webkit-airplay=""
+                            aria-hidden="true"
                             muted
                             onClick={(e) => {
                                 changeMuted(e);
@@ -167,7 +170,8 @@ const DreamItem = ({ id, dream, targetUserId, createdBy, liked }) => {
                             loop
                             preload="auto"
                             src={dream.dreamURL}
-                            crossorigin="use-credentials"
+                            type="video/mp4" // Adicione o tipo do vídeo
+                            
                         />
                     </div>
                     <div className="DreamRightSideCommands">
