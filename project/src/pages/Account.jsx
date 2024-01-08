@@ -175,8 +175,6 @@ export default function Account() {
     if (!ID_ACCOUNT_I) {
         return (
             <>
-
-
                 <Suggestions />
                 <div className="loading-inner">
                     <Ring
@@ -221,8 +219,7 @@ export default function Account() {
 
         try {
 
-
-
+            
             // Obtenha o documento do usuário
             const user = await databases.getDocument(
                 DB_UID,
@@ -242,7 +239,7 @@ export default function Account() {
                 )
 
                 if (docReq.documents.length > 0) {
-                    console.log(docReq.documents)
+
                     return setrequestSended(true)
                 }
             }
@@ -297,6 +294,7 @@ export default function Account() {
     }
 
     async function requestFollow(a, b) {
+        
         try {
             await databases.createDocument(
                 "64f9329a26b6d59ade09",
@@ -327,8 +325,6 @@ export default function Account() {
         esconderbotoes()
 
         try {
-
-
 
             /** ADICIONAR SEGUIDOR PARA O USUÁRIO */
             const userDocument = await databases.getDocument(
@@ -603,6 +599,37 @@ export default function Account() {
 
     }
 
+    const cancelRequest = async () => {
+        function esconderbotoes() {
+            document.querySelector(".btns-links button").style.display = 'none'
+            document.querySelector(".loading-btn").style.display = 'block'
+        }
+        function voltarbotoes() {
+            document.querySelector(".btns-links button").style.display = 'block'
+            document.querySelector(".loading-btn").style.display = 'none'
+        }
+        esconderbotoes()
+        const requests = await databases.listDocuments("64f9329a26b6d59ade09", "6596b4a3d1273755e5b7", [Query.equal("sender_request", targetUserId)])
+
+        requests.documents.map(async (r) =>
+            await databases.deleteDocument(
+                "64f9329a26b6d59ade09",
+                "6596b4a3d1273755e5b7",
+                r.$id
+            )
+            .then(() => {
+                voltarbotoes()
+                setrequestSended(false)
+                checkIfFollowsUser()
+            })
+            .catch((error) => {
+                voltarbotoes()
+                setrequestSended(true)
+                checkIfFollowsUser()
+            })
+        )
+    }
+
     return (
         <>
             <Suggestions />
@@ -718,7 +745,7 @@ export default function Account() {
                                             :
                                             <>
                                                 {requestSended ?
-                                                    <button title='Seguindo' id="following-user">Solicitação pendente <i className="fa-solid fa-user-check"></i></button>
+                                                    <button onClick={cancelRequest} title='Seguindo' id="following-user">Solicitação pendente <i className="fa-solid fa-user-check"></i></button>
                                                     :
                                                     <>
                                                         {isFollowing ?
