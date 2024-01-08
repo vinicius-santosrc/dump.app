@@ -12,9 +12,16 @@ export default function RequestsPage() {
 
     async function handleAcceptRequest(req) {
         try {
+            const USER_REQUEST = await databases.getDocument("64f9329a26b6d59ade09", "64f93be88eee8bb83ec3", req.sender_request);
             const followers = currentUser.followers || [];
+            const followingSenderRequest = USER_REQUEST.following || [];
+
+
+
+
 
             followers.push(req.sender_request)
+            followingSenderRequest.push(req.to_uid)
 
             await databases.updateDocument(
                 "64f9329a26b6d59ade09",
@@ -23,15 +30,23 @@ export default function RequestsPage() {
                 followers: followers,
             }
             )
-                .then((res) => {
+                .then(() => {
                     databases.deleteDocument(
                         "64f9329a26b6d59ade09",
                         "6596b4a3d1273755e5b7",
                         req.$id
                     )
-                    .then((res) => {
-                        RequestsUser()
-                    })
+                        .then(async () => {
+                            await databases.updateDocument(
+                                "64f9329a26b6d59ade09",
+                                "64f93be88eee8bb83ec3",
+                                req.sender_request, {
+                                following: followingSenderRequest
+                            }
+
+                            )
+                            RequestsUser()
+                        })
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -39,7 +54,7 @@ export default function RequestsPage() {
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    
+
                 })
         }
         catch (error) {
@@ -54,9 +69,9 @@ export default function RequestsPage() {
                 "6596b4a3d1273755e5b7",
                 req.$id
             )
-            .then((res) => {
-                RequestsUser()
-            })
+                .then((res) => {
+                    RequestsUser()
+                })
         }
         catch (error) {
             console.log(error)

@@ -18,13 +18,17 @@ import { auth } from "../lib/firebase";
 import CardFeedStart from "../components/pages/feed/CardFeedStart";
 import Stories from "../components/pages/feed/Stories";
 import UserGet from "../lib/user";
+import { useAppContext } from "../context/AppContext";
 
 let limit = 200;
 let limitposts = 5
 // Defina uma variável para controlar se os posts adicionais já foram carregados
 let postsCarregados = false;
 
+
+
 export default function Feed() {
+
 
     const [postsRealtime, setPosts] = useState([])
     const [postsJSON, setPostsJSON] = useState([])

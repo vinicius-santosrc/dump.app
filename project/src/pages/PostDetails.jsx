@@ -432,7 +432,7 @@ export default function PostDetails() {
     }
 
     function changeInfoPage() {
-        document.querySelector("title").innerText = `${publicacao.displayName} | Dump`
+        document.querySelector("title").innerText = `${publicacao.displayName || null} | Dump`
     }
     changeInfoPage()
 

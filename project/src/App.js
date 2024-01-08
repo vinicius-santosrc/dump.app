@@ -28,6 +28,7 @@ import Loader from './components/Loader';
 import RequestsPage from './pages/RequestsPage';
 import DreamDetails from './pages/DreamDetails';
 import AccountDreams from './pages/AccountDreams';
+import { AppProvider } from './context/AppContext';
 
 
 function App() {
@@ -49,33 +50,35 @@ function App() {
 
   }, []);
 
-  
- 
+
+
 
   return (
     <div className="App">
       <Loader />
       <BrowserRouter>
         <HeaderFeed />
-        <Routes>
-          <Route path='/' element={<><Feed /></>} />
-          <Route path='/following' element={<IndexPageFollowing />} />
-          <Route path='/accounts/signup' element={<Cadastrar />} />
-          <Route path='/accounts/login' element={<Login />} />
-          <Route path='/posts/:idPost' element={<PostDetails />} />
-          <Route path='/dreams' element={<DreamDetails />} />
-          <Route path='/messages/inbox' element={<Inbox />} />
-          <Route path='/user/:ID_ACCOUNT' element={<Account />} />
-          <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
-          <Route path='/user/:ID_ACCOUNT/dreams' element={<AccountDreams />} />
-          <Route path='/search' element={<SearchPage />} />
-          <Route path='/accounts/edit' element={<EditMyProfile />} />
-          <Route path='/saves' element={<SaveDumpsPage />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/notifications/requests" element={<RequestsPage />} />
-          <Route path="/stories/:STORY_ID" element={<Story />} />
-          <Route path="/posts/create" element={<CreatePost />} />
-        </Routes>
+        <AppProvider>
+          <Routes>
+            <Route path='/' element={<><Feed /></>} />
+            <Route path='/following' element={<IndexPageFollowing />} />
+            <Route path='/accounts/signup' element={<Cadastrar />} />
+            <Route path='/accounts/login' element={<Login />} />
+            <Route path='/posts/:idPost' element={<PostDetails />} />
+            <Route path='/dreams' element={<DreamDetails />} />
+            <Route path='/messages/inbox' element={<Inbox />} />
+            <Route path='/user/:ID_ACCOUNT' element={<Account />} />
+            <Route path='/user/:ID_ACCOUNT/mentions' element={<AccountMentions />} />
+            <Route path='/user/:ID_ACCOUNT/dreams' element={<AccountDreams />} />
+            <Route path='/search' element={<SearchPage />} />
+            <Route path='/accounts/edit' element={<EditMyProfile />} />
+            <Route path='/saves' element={<SaveDumpsPage />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/notifications/requests" element={<RequestsPage />} />
+            <Route path="/stories/:STORY_ID" element={<Story />} />
+            <Route path="/posts/create" element={<CreatePost />} />
+          </Routes>
+        </AppProvider>
       </BrowserRouter>
 
     </div>

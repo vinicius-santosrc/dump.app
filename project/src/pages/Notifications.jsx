@@ -126,7 +126,7 @@ export default function Notifications() {
                     }
 
                     return (
-                        <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + photoREL ? photoREL.$id : null}>
+                        <Link className="DumpNotificationRedirect" to={window.location.origin + "/posts/" + (photoREL ? photoREL.$id : null)}>
                             <div className="DumpNotification´-Wrapper--item" key={notification.id} id={notification.SEEN ? "SEEN" : "toSEE"}>
 
                                 <div className="DumpNotification--InfoContent">
