@@ -80,7 +80,6 @@ export default function Posts(props) {
             setNumberOfLikes(user.likes.length)
             setNumberOfSaves(user.saves.length)
 
-
             const likes = user.likes || [];
 
             if (likes.includes(targetUserId)) {
@@ -166,6 +165,7 @@ export default function Posts(props) {
 
 
     async function likethepost() {
+        setLike(true)
         try {
             const userDocument = await databases.getDocument(
                 DB_UID,
@@ -218,11 +218,13 @@ export default function Posts(props) {
 
 
         } catch (error) {
-            console.error('Erro ao seguir o usuário:', error);
+            console.error('Erro ao curtir o dump:', error);
+            setLike(false)
         }
     }
 
     async function unlikethisphoto() {
+        setLike(false)
         try {
             const userDocument = await databases.getDocument(
                 DB_UID,
@@ -250,7 +252,8 @@ export default function Posts(props) {
 
 
         } catch (error) {
-            console.error('Erro ao parar de seguir o usuário:', error);
+            console.error('Erro ao tirar o like do dump:', error);
+            setLike(true)
         }
     }
 
