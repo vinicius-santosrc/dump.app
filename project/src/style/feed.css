@@ -1166,8 +1166,30 @@ body {
 
 }
 
+.MentionsFlex img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.MentionsFlex .rightside_user_information {
+    font-size: 9px;
+}
+
 .TitleMentions {
     text-align: left;
+}
+
+.MentionedUsersBox {
+    display: flex;
+    align-items: center;
+}
+
+.MentionsFlex {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .background-posts {
@@ -3332,6 +3354,17 @@ B .spacer-title {
     text-shadow: 0px 0px 15px black;
 }
 
+.button-remove {
+    justify-content: right;
+    text-align: right;
+}
+
+.button-remove button {
+    padding: 7px 30px;
+    cursor: pointer;
+    border: none;
+}
+
 .Dump-User-RightSide button {
     padding: 5px;
     font-size: 22px;
@@ -3523,6 +3556,15 @@ B .spacer-title {
 
 .flexbox-dump-btn {
     text-decoration: none;
+}
+
+.MentionsSection {
+    padding: 10px 20px
+}
+
+.MentionedLink {
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .top-dump-user-current .right-side-dump-current button {
@@ -4463,6 +4505,10 @@ B .spacer-title {
 
     .dump-post-show-mobile .dump-post-header-show a {
         color: black;
+    }
+
+    .MentionsSection {
+        padding: 10px 20px
     }
 
     .dump-post-show-mobile .flex-dump-info-image img, .dump-post-show-mobile .flex-dump-info-image svg {

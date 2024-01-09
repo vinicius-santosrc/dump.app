@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-import {databases} from "../lib/appwrite";
+import { databases } from "../lib/appwrite";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import Swal from 'sweetalert2'
@@ -19,8 +19,16 @@ export default function PostDetails() {
     const [USER_DOC, setUserAt] = useState(null)
     const [user_comment_set, setuser_comment_set] = useState(null)
     const [comments_length, setcomments_length] = useState(null)
+    const [mentions, setmentions] = useState([])
 
     const [Comments_Dump, SetComments_Dump] = useState([]);
+    const DB_UID = '64f9329a26b6d59ade09'
+    const COL_UID = '64f93c1c40d294e4f379'
+    let targetUserId
+
+    if (auth.currentUser) {
+        targetUserId = auth.currentUser.uid;
+    }
 
     const USERSIDDATABASE = '64f93be88eee8bb83ec3'
     let Nav = useNavigate();
@@ -29,6 +37,35 @@ export default function PostDetails() {
     const DB_ID = '64f9329a26b6d59ade09'
     const COMMENTS_UID = "65136577656a75010795"
     const USERS_UID = "64f93be88eee8bb83ec3"
+
+    async function getMentions(dataMentions) {
+        if (dataMentions) {
+            const mentionsPromises = dataMentions.map(async (user) => {
+                const userMentioned = await databases.getDocument(
+                    "64f9329a26b6d59ade09",
+                    "64f93be88eee8bb83ec3",
+                    user
+                );
+
+                return (
+                    <Link className="MentionedLink" to={window.location.origin + "/user/" + userMentioned.uid}>
+                        <div className="dump-leftside-info-user">
+                            <img src={userMentioned.photoURL} />
+                            <div className="rightside_user_information">
+                                <h1>{userMentioned.displayName} {userMentioned.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                <p>@{userMentioned.username}</p>
+                            </div>
+
+                        </div>
+                    </Link>
+                );
+            });
+
+            const mentions = await Promise.all(mentionsPromises);
+
+            setmentions(mentions);
+        }
+    }
 
     useEffect(() => {
 
@@ -40,19 +77,15 @@ export default function PostDetails() {
             .then((response) => {
                 setPublicacao(response)
                 setPublicaoId(response.$id)
+                if (response.mentions) {
+                    getMentions(response.mentions)
+                }
             })
             .catch((e) => {
                 console.log(e)
             })
+
     }, [idPost])
-
-    const DB_UID = '64f9329a26b6d59ade09'
-    const COL_UID = '64f93c1c40d294e4f379'
-    let targetUserId
-
-    if (auth.currentUser) {
-        targetUserId = auth.currentUser.uid;
-    }
 
     useEffect(() => {
         comments_of_dump()
@@ -359,7 +392,7 @@ export default function PostDetails() {
     if (!publicacao) {
         return (
             <>
-                
+
                 <div className="loading-wrapper">
                     <Ring
                         size={40}
@@ -436,7 +469,7 @@ export default function PostDetails() {
     }
     changeInfoPage()
 
-    
+
 
     async function deletepublic() {
         Swal.fire({
@@ -461,8 +494,8 @@ export default function PostDetails() {
                     idPost
                 ).then((e) => {
                     if (auth.currentUser) {
-                        Nav("/user/" +  auth.currentUser.uid);
-                        
+                        Nav("/user/" + auth.currentUser.uid);
+
                     }
                 })
                     .catch((error) => {
@@ -736,7 +769,7 @@ export default function PostDetails() {
                     <div className="dump-post-options-background"></div>
                     <div className="dump-post-show">
                         <div className="dump-post-show">
-                            
+
                             <div className="dump-post-options">
                                 <div className="select-post-options">
                                     <Link onClick={compartilhar}>Compartilhar</Link>
@@ -773,13 +806,15 @@ export default function PostDetails() {
                                                             <h1>{USER_DOC.displayName} {USER_DOC.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
                                                             <p>@{USER_DOC.username}</p>
                                                         </div>
+
                                                     </div>
+
 
                                                     <div className="button-right-side">
                                                         <button onClick={open_options_post}><i className="fa-solid fa-ellipsis"></i></button>
                                                     </div>
-
                                                 </div>
+
                                             </Link>
                                         </>
                                             :
@@ -818,7 +853,15 @@ export default function PostDetails() {
                                 </div>
                                 <label className="time-display-dump">{datefilepost}</label>
                                 <div className="dump-post-middle-bottom-img">
+                                    {mentions != "" &&
+                                        <div className="MentionsSection">
+                                            <h4>Pessoas nesse Dump: </h4>
+                                            <div className="MentionsFlex">
+                                                {mentions}
+                                            </div>
 
+                                        </div>
+                                    }
                                     {UserAtual ?
                                         <div className="btns-inner">
                                             {isLiked ?
@@ -915,7 +958,7 @@ export default function PostDetails() {
                 <div className="dump-post-show-mobile">
                     <div onClick={closepopups} className="dump-post-options-background"></div>
                     <div className="dump-post-show">
-                        
+
                         <div className="dump-post-options">
                             <div className="select-post-options">
                                 <Link onClick={compartilhar}>Compartilhar</Link>
@@ -985,6 +1028,7 @@ export default function PostDetails() {
 
                                 </div>
                             </div>
+
                             <div className="bottom-desc">
                                 <p>{publicacao.legenda}</p>
                             </div>
@@ -993,7 +1037,15 @@ export default function PostDetails() {
                             </div>
                             <label className="time-display-dump">{datefilepost}</label>
                             <div className="dump-post-middle-bottom-img">
+                                {mentions != "" &&
+                                    <div className="MentionsSection">
+                                        <h4>Pessoas nesse Dump: </h4>
+                                        <div className="MentionsFlex">
+                                            {mentions}
+                                        </div>
 
+                                    </div>
+                                }
                                 <div className="btns-inner">
                                     {auth.currentUser ?
                                         <>
@@ -1039,6 +1091,7 @@ export default function PostDetails() {
                                     }
 
                                 </div>
+
                                 <div className="button-remove">
                                     {auth.currentUser ?
                                         publicacao.email == auth.currentUser.email ?
@@ -1048,6 +1101,7 @@ export default function PostDetails() {
                                         :
                                         ''}
                                 </div>
+
                                 <section className="comments-section">
                                     <div className="top-dump-user-current mobiletopcurrent">
                                         {UserAtual ?
