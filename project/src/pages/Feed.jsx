@@ -19,6 +19,9 @@ import CardFeedStart from "../components/pages/feed/CardFeedStart";
 import Stories from "../components/pages/feed/Stories";
 import UserGet from "../lib/user";
 import { useAppContext } from "../context/AppContext";
+import { ring } from 'ldrs'
+
+ring.register()
 
 let limit = 200;
 let limitposts = 5
@@ -28,99 +31,184 @@ let postsCarregados = false;
 
 
 export default function Feed() {
+    const [postsRealtime, setPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState([]);
+    const [allPostsNoUser, setallPostsNoUser] = useState([])
+    const [postsJSON, setPostsJSON] = useState([]);
+    const [users, Setusersdb] = useState([]);
+    const [verifiqued, SetVerif] = useState();
+    const [Loading, setLoading] = useState(true);
+    const [showPosts, setShowPosts] = useState([]);
+    const Nav = useNavigate();
 
+    const currentUser = UserGet()
 
-    const [postsRealtime, setPosts] = useState([])
-    const [postsJSON, setPostsJSON] = useState([])
-    const [currentUser, setcurrentUser] = useState(null)
     const getPosts = async () => {
         try {
-            await databases.listDocuments(
+            const res = await databases.listDocuments(
                 "64f9329a26b6d59ade09",
                 '64f93c1c40d294e4f379',
                 [
                     Query.limit(limit),
                     Query.orderDesc("$createdAt"),
+                ]
+            );
 
-                ],
-            )
 
-                .then((res) => {
-                    setPosts(res.documents)
-                    setPostsJSON(res.documents.slice(0, 5))
 
+            setPosts(res.documents.slice(0, 5));
+            setAllPosts(res.documents);
+            const postsNoPrivate = res.documents
+                .map((r) => {
+                    console.log(r)
+                    const userDocument = users.documents.find((e) => e.uid === r.uid);
+
+                    if (!userDocument || !userDocument.private) {
+                        return r;
+                    }
+                    return null;
                 })
+                .filter((item) => item !== null);
+
+
+
+            setPostsJSON(postsNoPrivate.slice(0, 5));
+            setallPostsNoUser(postsNoPrivate)
         } catch (error) {
-            console.log('error: ', error)
+            console.log('error: ', error);
+            setLoading(false)
+        }
+    };
+
+    const LoadPosts = () => {
+
+        if (!auth.currentUser) {
+
+            setShowPosts(
+                allPosts.map((p) => {
+                    const userDocument = users.documents.find((e) => e.uid === p.uid);
+                    const displayName = userDocument ? userDocument.displayName : '';
+                    const photoURL = userDocument ? userDocument.photoURL : '';
+                    const username = userDocument ? userDocument.username : '';
+                    const uid = userDocument ? userDocument.uid : "";
+                    const isVerified = userDocument ? userDocument.isthisverifiqued : false;
+
+                    if (currentUser && !currentUser.following.includes(p.uid)) {
+                        return null
+                    }
+
+                    if(!auth.currentUser && userDocument && userDocument.private) {
+                        return null
+                    }
+
+                    return (
+                        <Posts
+                            key={p.$id}
+                            id={p.$id}
+                            datepost={p.$createdAt}
+                            email={p.email}
+                            displayName={displayName}
+                            photoURL={photoURL}
+                            username={username}
+                            fotopostada={p.filePost}
+                            descricao={p.legenda}
+                            timestamp={p.timestamp}
+                            isthisverifiqued={isVerified}
+                            userisfollowing={p.following}
+                            likes={p.likes}
+                            uid_user={uid}
+                        />
+                    );
+                })
+            )
+        }
+
+        else if (postsRealtime && postsRealtime.length > 0 && users) {
+            setShowPosts(
+                postsRealtime.map((p) => {
+                    const userDocument = users.documents.find((e) => e.uid === p.uid);
+                    const displayName = userDocument ? userDocument.displayName : '';
+                    const photoURL = userDocument ? userDocument.photoURL : '';
+                    const username = userDocument ? userDocument.username : '';
+                    const uid = userDocument ? userDocument.uid : "";
+                    const isVerified = userDocument ? userDocument.isthisverifiqued : false;
+
+                    if (currentUser && !currentUser.following.includes(p.uid)) {
+                        return null
+                    }
+
+                    return (
+                        <Posts
+                            key={p.$id}
+                            id={p.$id}
+                            datepost={p.$createdAt}
+                            email={p.email}
+                            displayName={displayName}
+                            photoURL={photoURL}
+                            username={username}
+                            fotopostada={p.filePost}
+                            descricao={p.legenda}
+                            timestamp={p.timestamp}
+                            isthisverifiqued={isVerified}
+                            userisfollowing={p.following}
+                            likes={p.likes}
+                            uid_user={uid}
+                        />
+                    );
+                })
+            )
+            setLoading(false)
         }
     }
-
-
-    window.addEventListener('scroll', () => {
-
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            limitposts += 5
-
-            setPostsJSON(postsRealtime.slice(0, limitposts))
-        }
-
-
-    });
-
-
-
-
-
-    // Verifique se o usuário chegou no final da página e se os posts ainda não foram carregados
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !postsCarregados) {
-        // Aumente o limite de posts e atualize a lista
-        limitposts += 5;
-        setPostsJSON(postsRealtime.slice(0, limitposts));
-
-        // Marque os posts como carregados
-        postsCarregados = true;
-    }
-    else {
-        // Defina uma variável para controlar se os posts adicionais já foram carregados
-        postsCarregados = false;
-    }
-
-
-
-    const [users, Setusersdb] = useState()
-    const [verifiqued, SetVerif] = useState()
-
-    useEffect(() => {
-        getPosts()
-        document.title = "Dump"
-    }, [])
 
     const user = async () => {
-        await databases.listDocuments(
-            '64f9329a26b6d59ade09',
-            "64f93be88eee8bb83ec3",
+        try {
+            const r = await databases.listDocuments(
+                '64f9329a26b6d59ade09',
+                "64f93be88eee8bb83ec3"
+            );
 
-        )
-            .then((r) => {
-                Setusersdb(r)
-
-            })
-    }
-
+             Setusersdb(r);
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    };
 
     useEffect(() => {
-        user()
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                limitposts += 5;
+                setPosts(allPosts.slice(0, limitposts))
+                setPostsJSON(allPostsNoUser.slice(0, limitposts));
+            }
+        };
 
-    })
+        window.addEventListener('scroll', handleScroll);
 
-    let Nav = useNavigate();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [postsRealtime]);
 
-    function gotoSearch() {
-        Nav("/search")
-    }
+    useEffect(() => {
+        const getAllData = async () => {
+            await user();
+            await getPosts();
+        };
 
-    const curerntUser = UserGet()
-    //document.querySelector('.loading').style.display = 'none'   
+        getAllData();
+        document.title = "Dump";
+    }, []);
+
+    useEffect(() => {
+        LoadPosts()
+
+    }, [auth.currentUser, currentUser, allPosts, users]);
+
+    const gotoSearch = () => {
+        Nav("/search");
+    };
+
 
     if (!navigator.onLine) {
         return (
@@ -154,7 +242,6 @@ export default function Feed() {
                         <p>Ocorreu um erro relacionado com a sua conexão. Tente novamente mais tarde.</p>
                         <button className="ButtonToSearch" onClick={() => window.location.reload()}><span>Recarregar página</span></button>
                     </div>
-                    {/* <LoadingContent /> */}
                     <EndOfPage />
                 </main>
                 <Suggestions />
@@ -164,83 +251,46 @@ export default function Feed() {
 
     }
 
+
     return (
 
         <section aria-label="Timeline da página inicial" tabindex="0" role="main" className="App-Feed feedposts dark-mode">
 
             <UserPerfil />
             <Messages />
+
             <main className="dump-feed-posts">
                 <Stories />
                 <PostingPhoto />
                 <CardFeedStart />
-                {curerntUser && curerntUser.following.length <= 0 ?
-                    <div className="NoFeedShow-Wrapper">
-                        <div className="ImageContent">
-                            <img src={window.location.origin + "/static/media/undraw_buddies_2ae5.svg"} />
-                        </div>
-                        <h2>Que triste!</h2>
-                        <p>Você ainda não segue ninguém. Que tal conhecer alguns amigos?</p>
-                        <button className="ButtonToSearch" onClick={gotoSearch}><span>Procurar amigos</span></button>
-                    </div>
-                    :
+                {Loading ? (
+                    <l-ring
+                        size="40"
+                        stroke="5"
+                        bg-opacity="0"
+                        speed="2"
+                        color="black"
+                    ></l-ring>
+                ) : (
                     <>
-                        {postsJSON && postsJSON.length > 0 && users ? (
-                            postsJSON.map((p) => {
+                        {currentUser && currentUser.following.length <= 0 ? (
+                            <div className="NoFeedShow-Wrapper">
+                                <div className="ImageContent">
+                                    <img src={window.location.origin + "/static/media/undraw_buddies_2ae5.svg"} alt="No followers" />
+                                </div>
+                                <h2>Que triste!</h2>
+                                <p>Você ainda não segue ninguém. Que tal conhecer alguns amigos?</p>
+                                <button className="ButtonToSearch" onClick={gotoSearch}><span>Procurar amigos</span></button>
+                            </div>
+                        ) : (
+                            <>
+                                {showPosts}
+                            </>
+                        )}
+                    </>
+                )}
 
-                                const userDocument = users.documents.find((e) => e.email === p.email);
-                                const displayName = userDocument ? userDocument.displayName : '';
-                                const photoURL = userDocument ? userDocument.photoURL : '';
-                                const username = userDocument ? userDocument.username : '';
-                                const uid = userDocument ? userDocument.uid : "";
-                                const isVerified = userDocument ? userDocument.isthisverifiqued : false;
 
-                                if (curerntUser && !curerntUser.following.includes(p.uid)) {
-                                    return null
-                                }
-
-                                if (!auth) {
-                                    return (
-                                        <Posts
-                                            id={p.$id}
-                                            datepost={p.$createdAt}
-                                            email={p.email}
-                                            displayName={displayName}
-                                            photoURL={photoURL}
-                                            username={username}
-                                            fotopostada={p.filePost}
-                                            descricao={p.legenda}
-                                            timestamp={p.timestamp}
-                                            isthisverifiqued={isVerified}
-                                            userisfollowing={p.following}
-                                            likes={p.likes}
-                                            uid_user={uid}
-                                        />
-                                    );
-                                }
-
-                                else {
-                                    return (
-                                        <Posts
-                                            id={p.$id}
-                                            datepost={p.$createdAt}
-                                            email={p.email}
-                                            displayName={displayName}
-                                            photoURL={photoURL}
-                                            username={username}
-                                            fotopostada={p.filePost}
-                                            descricao={p.legenda}
-                                            timestamp={p.timestamp}
-                                            isthisverifiqued={isVerified}
-                                            userisfollowing={p.following}
-                                            likes={p.likes}
-                                            uid_user={uid}
-                                        />
-                                    );
-                                }
-                            })
-                        ) : null}
-                    </>}
 
                 {/* <LoadingContent /> */}
                 <EndOfPage />

@@ -2,18 +2,21 @@ import { useEffect, useState } from "react"
 
 import { signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../lib/firebase"
-import {databases} from "../lib/appwrite"
+import { databases } from "../lib/appwrite"
 import HeaderFeed from "../components/pages/feed/HeaderApp"
 
 import axios from 'axios';
 import Suggestions from "../components/pages/feed/Suggestions"
 import { Query } from "appwrite"
 import { Link } from "react-router-dom"
+import UserGet from "../lib/user"
 
 export default function SearchPage() {
     const [ID_ACCOUNT_I, SetAccount] = useState(null)
     const [SearchPeople, setSearchPeople] = useState("")
     const [SugesstPub, setPublicoes] = useState('')
+
+    let currentUser = UserGet();
 
     let ID_ACCOUNT = ''
     if (auth.currentUser) {
@@ -110,42 +113,57 @@ export default function SearchPage() {
             })
 
         async function procurarPosts() {
-            const inputsearch = document.querySelector(".search-input")
-            const DB_ID = '64f9329a26b6d59ade09'
-            const POSTS_ID = '64f93c1c40d294e4f379'
+            const inputsearch = document.querySelector(".search-input");
+            const DB_ID = '64f9329a26b6d59ade09';
+            const POSTS_ID = '64f93c1c40d294e4f379';
 
-
-            if (inputsearch.value == '') {
-                document.querySelector("title").innerText = `Dump`
-            }
-            else {
-                document.querySelector("title").innerText = `${inputsearch.value} - Pesquisa | Dump`
+            if (inputsearch.value === '') {
+                document.querySelector("title").innerText = 'Dump';
+            } else {
+                document.querySelector("title").innerText = `${inputsearch.value} - Pesquisa | Dump`;
             }
 
-
-            await databases.listDocuments(
-                DB_ID,
-                POSTS_ID,
-                [
+            try {
+                const response = await databases.listDocuments(DB_ID, POSTS_ID, [
                     Query.limit(300),
                     Query.orderDesc("$createdAt")
-                ]
-            )
-                .then((r) => {
-                    setPublicoes(r.documents.filter(r => r.legenda.includes((inputsearch.value).toLowerCase())).slice(0, 6).map((i) => {
-                        return (
-                            <div className="dump-user-posts-search">
-                                <Link to={window.location.origin + "/posts/" + i.$id}>
-                                    <img src={i.filePost} />
-                                </Link>
-                            </div>
-                        )
-                    }
+                ]);
 
-                    )
-                    )
-                })
+                async function getOwnerPublic(uid) {
+                    return await databases.getDocument("64f9329a26b6d59ade09", "64f93be88eee8bb83ec3", uid);
+                }
+
+                const publicoes = await Promise.all(
+                    response.documents
+                        .filter((r) => r.legenda.includes(inputsearch.value.toLowerCase()))
+                        .slice(0, 6)
+                        .map(async (i) => {
+                            const ownerPublic = await getOwnerPublic(i.uid);
+
+                            if (!auth.currentUser && ownerPublic.private) {
+                                return null;
+                            }
+
+                            if(currentUser && !currentUser.following.includes(i.uid)) {
+                                return null;
+                            }
+
+                            return (
+                                <div className="dump-user-posts-search" key={i.$id}>
+                                    <Link to={window.location.origin + "/posts/" + i.$id}>
+                                        <img src={i.filePost} />
+                                    </Link>
+                                </div>
+                            );
+                        })
+                );
+
+                setPublicoes(publicoes);
+            } catch (error) {
+                console.error("Erro ao processar os documentos:", error);
+            }
         }
+
 
 
     }
@@ -153,7 +171,7 @@ export default function SearchPage() {
 
     return (
         <>
- 
+
             <Suggestions />
             <div className="dump-search-page">
                 <div className="dump-input-top">

@@ -1166,6 +1166,10 @@ body {
 
 }
 
+.TitleMentions {
+    text-align: left;
+}
+
 .background-posts {
     width: 100%;
     height: 100%;
@@ -3254,6 +3258,67 @@ B .spacer-title {
     border-radius: 100%;
 }
 
+.dumpOptions {
+    display: flex;
+    justify-content: right;
+    gap: 5px;
+}
+
+.btnOptions {
+    display: flex;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: var(--principal-color);
+    margin: 10px 0px;
+    align-items: center;
+}
+
+.mentionCard img{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.ListMentionsDump img {
+    width: 40px;
+    border-radius: 100%;
+    height: 40px;
+    object-fit: cover;
+}
+
+.MentionCard-Users {
+    position: absolute;
+    overflow-y: auto;
+    width: 500px;
+    height: 600px;
+    z-index: 10;
+    padding: 5px;
+    background: var(--border-gray);
+    border: 1px solid var(--another-gray);
+    right: 0;
+}
+
+.inputSearch {
+    padding: 10px;
+}
+
+.inputSearch input {
+    background: transparent;
+    color: var(--text-color);
+    border: none;
+    padding: 5px;
+    outline: none;
+}
+
+.leftside-perfil {
+    cursor: pointer;
+}
+
 
 .Dump-Story-Bottom {
     position: fixed;
@@ -3374,7 +3439,9 @@ B .spacer-title {
     color: var(--text-color);
 }
 
-
+.ListMentionsDump {
+    margin: 20px 0px;
+}
 
 .button-close-profile-image {
     position: fixed;
@@ -3992,7 +4059,7 @@ B .spacer-title {
     .createneewpost-card {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: auto;
         margin: auto;
         background-color: var(--bg-color);
         padding: 20px 20px;
@@ -5199,6 +5266,41 @@ B .spacer-title {
         font-weight: 400;
         font-size: 1.0rem;
         color: rgb(103, 103, 103);
+    }
+
+    .MentionCard-Users {
+        position: absolute;
+        overflow-y: auto;
+        width: 90%;
+        height: 300px;
+        z-index: 10;
+        padding: 5px;
+        background: var(--border-gray);
+        border: 1px solid var(--another-gray);
+        right: 0;
+    }
+
+    .MentionCard-Users .leftside-perfil {
+        text-align: left;
+    }
+
+    .ListMentionsDump .leftside-perfil {
+        text-align: left;
+    }
+
+    .ListMentionsDump {
+        margin: 10px 0px;
+    }
+
+    .ListMentionsDump .leftside-perfil img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .MentionCard-Users .leftside-perfil img {
+        width: 50px;
+        height: 50px;
+
     }
 
     .btns-inner {

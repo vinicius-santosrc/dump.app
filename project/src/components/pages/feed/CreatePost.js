@@ -21,10 +21,108 @@ export default function CreatePost() {
     const [filePost, setFilePost] = useState("")
     const [DreamPost, setDreamPost] = useState("")
     const [previewVideo, setpreviewVideo] = useState(null)
+    const [ALLUSERS, setALLUSERS] = useState([])
+    const [openMention, setOpenMention] = useState(false)
+    const [listMentions, setListMentions] = useState([])
+    const [searchMentions, setSearchMentions] = useState(null)
     const userATUAL = UserGet()
     if (!user) {
         return user
     }
+
+
+    async function addtoList(user) {
+        const lengthList = listMentions.filter((item) => item.$id == user.$id);
+        if (!lengthList.length > 0) {
+            let list = listMentions
+            list.push(user)
+
+
+            setListMentions(list);
+            await getAllUsers();
+            setOpenMention(!openMentions)
+        }
+    }
+
+    async function unlistUser(user) {
+        const list = listMentions.filter((item) => item.$id != user.$id);
+
+        setListMentions(list);
+        await getAllUsers();
+        setOpenMention(!openMentions)
+
+    }
+
+
+    const getAllUsers = async () => {
+        await databases.listDocuments(
+            "64f9329a26b6d59ade09",
+            "64f93be88eee8bb83ec3",
+            [
+                Query.orderDesc("$createdAt")
+            ]
+        )
+            .then((users) => {
+                if (searchMentions) {
+                    setALLUSERS(users.documents.map((user) => {
+                        if (user.$id === userATUAL.$id) {
+                            return
+                        }
+                        if (listMentions.includes(user.$id)) {
+                            return
+                        }
+                        if (((user.displayName).includes(searchMentions))) {
+                            return (
+                                <div className='leftside-perfil'
+                                    id={user.$id}
+                                    key={user.$id}
+                                    onClick={async () => await addtoList(user)}
+                                >
+                                    <div className='selectOption'>
+                                        <input type='checkbox' disabled />
+                                    </div>
+                                    <img src={user.photoURL} />
+                                    <div className="card-user-sg-rightside">
+                                        <h1>{user.displayName} {user.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                        <p>@{user.username}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    }))
+                }
+                else {
+                    setALLUSERS(users.documents.map((user) => {
+                        if (user.$id === userATUAL.$id) {
+                            return
+                        }
+                        if (listMentions.includes(user.$id)) {
+                            return
+                        }
+                        else {
+                            return (
+                                <div className='leftside-perfil'
+                                    id={user.$id}
+                                    key={user.$id}
+                                    onClick={async () => await addtoList(user)}
+                                >
+                                    <div className='selectOption'>
+                                        <input type='checkbox' disabled />
+                                    </div>
+                                    <img src={user.photoURL} />
+                                    <div className="card-user-sg-rightside">
+                                        <h1>{user.displayName} {user.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                        <p>@{user.username}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                    }))
+                }
+            })
+    }
+
     const HandlePost = async (e) => {
         e.preventDefault();
         let idpost = auth.currentUser.uid + '_' + Math.random(2, 100)
@@ -88,6 +186,14 @@ export default function CreatePost() {
 
         const postthis = (url) => {
 
+            let Mentions = []
+
+            if (listMentions) {
+                listMentions.map((mention) => {
+                    Mentions.push(mention.$id)
+                })
+            }
+
             if (DumpOption == 'POST') {
                 databases.createDocument("64f9329a26b6d59ade09", '64f93c1c40d294e4f379', ID.unique(), {
                     filePost: url,
@@ -96,7 +202,8 @@ export default function CreatePost() {
                     username: null,
                     email: user.email,
                     photoURL: null,
-                    uid: auth.currentUser.uid
+                    uid: auth.currentUser.uid,
+                    mentions: Mentions
                 })
                     .then(() => {
                         Swal.fire({
@@ -145,7 +252,9 @@ export default function CreatePost() {
                     {
                         dreamURL: url,
                         createdBy: auth.currentUser.uid,
-                        legenda: desc
+                        legenda: desc,
+                        mentions: Mentions
+
                     }
                 )
                     .then((sucess) => {
@@ -187,8 +296,6 @@ export default function CreatePost() {
 
 
     const handleImage = (e) => {
-        console.log(DreamPost)
-        console.log(filePost)
         const reader = new FileReader();
         setDreamPost(null)
         if (e.target.files[0]) {
@@ -264,6 +371,11 @@ export default function CreatePost() {
         setDumpOption(option)
     }
 
+    async function openMentions() {
+        await getAllUsers()
+        setOpenMention(!openMention)
+    }
+
     return (
         <>
             <div className='loading-wrap'>
@@ -281,16 +393,28 @@ export default function CreatePost() {
                     <button className='Button-Change' onClick={() => { changeDumpOption("DREAM") }} id={DumpOption == 'DREAM' ? 'selected' : ''}><span>DREAM</span></button>
                 </div>
                 <div className="createnewpost-middle">
-                    <h2><i className="fa-solid fa-image"></i> Adicione sua imagem</h2>
+                    <h2><i className="fa-solid fa-image"></i> Adicione {DumpOption != "DREAM" ? "sua imagem" : "seu vídeo"}</h2>
                     <div className='left-side-preview'>
+                        {DumpOption != "DREAM" ?
                         <label id='labelpostINPUT' htmlFor='postINPUT'>Clique aqui para enviar sua foto</label>
+                        :
+                        <label id='labelpostINPUT' htmlFor='postINPUT'>Clique aqui para enviar seu vídeo</label> 
+                        }
+                        
                         {DumpOption != "DREAM" && filePost != "" ?
-                            <img className='previewimage' src={filePost} />
+                            <>
+                                <img className='previewimage' src={filePost} />
+
+                            </>
+
                             :
                             null}
 
                         {DumpOption == "DREAM" && DreamPost != "" ?
-                            <video controls muted autoPlay className='previewimage' src={URL.createObjectURL(DreamPost)} />
+                            <>
+                                <video controls muted autoPlay className='previewimage' src={URL.createObjectURL(DreamPost)} />
+                            </>
+
                             :
                             null}
                     </div>
@@ -302,9 +426,69 @@ export default function CreatePost() {
                         }
 
                         {filePost || DreamPost ?
+
                             <div className='previewdesc'>
+                                <div className='dumpOptions'>
+                                    {DumpOption != "STORY" && <button onClick={openMentions} className='btnOptions'><i className="fa-solid fa-user"></i> <p>MARCAR PESSOAS</p></button>}
+
+                                </div>
+                                {DumpOption != 'STORY' &&
+                                    <>
+                                        {listMentions ?
+                                            <div className='ListMentionsDump'>
+                                                {listMentions != "" &&
+                                                    <div className='TitleMentions'>
+                                                        <h2>Menções</h2>
+                                                    </div>
+                                                }
+
+                                                {listMentions.map((user) => {
+                                                    return (
+                                                        <div className='leftside-perfil'
+                                                            id={user.$id}
+                                                            key={user.$id}
+                                                            onClick={async () => await unlistUser(user)}
+
+                                                        >
+                                                            <div className='selectOption'>
+                                                                <input type='checkbox' checked disabled />
+                                                            </div>
+                                                            <img src={user.photoURL} />
+                                                            <div className="card-user-sg-rightside">
+                                                                <h1>{user.displayName} {user.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h1>
+                                                                <p>@{user.username}</p>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+
+                                            :
+                                            null}
+                                        {openMention ?
+                                            <div className='mentionCard'>
+                                                <div className='MentionCard-Users'>
+                                                    <div className='inputSearch'>
+                                                        <input
+                                                            className='SearchMentions'
+                                                            value={searchMentions}
+                                                            onChange={async (e) => { setSearchMentions(e.target.value); await getAllUsers(); }}
+
+                                                            type='text'
+                                                            placeholder='Procurar pessoas' />
+                                                    </div>
+                                                    {ALLUSERS}
+                                                </div>
+                                            </div>
+                                            :
+                                            null
+                                        }
+
+                                    </>
+                                }
                                 <div className='previewdesc-top'>
                                     <img src={userATUAL ? userATUAL.photoURL : ""} />
+
                                     <p>{userATUAL ? userATUAL.displayName : ""}</p>
                                 </div>
                                 <div>
