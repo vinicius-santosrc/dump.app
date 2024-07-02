@@ -4,6 +4,7 @@ import HeaderFeed from "../components/pages/feed/HeaderApp";
 import Suggestions from "../components/pages/feed/Suggestions";
 import {databases} from "../lib/appwrite";
 import { auth } from "../lib/firebase";
+import { Query } from "appwrite";
 
 export default function Inbox() {
     const [users, setUsers] = useState([]);

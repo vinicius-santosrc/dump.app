@@ -174,6 +174,7 @@ export default function Feed() {
                                 return (
                                     <Posts
                                         id={p.$id}
+                                        key={p.$id}
                                         datepost={p.$createdAt}
                                         email={p.email}
                                         displayName={displayName}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserGet from "../../../lib/user";
-import {databases} from "../../../lib/appwrite";
+import { databases } from "../../../lib/appwrite";
 import { auth } from "../../../lib/firebase";
 import { Link } from "react-router-dom";
 import { Query } from "appwrite";
@@ -60,7 +60,7 @@ export default function Stories() {
                         return story.created_by === auth.currentUser.uid
                     }
 
-                    if(StoryYours() ) {
+                    if (StoryYours()) {
                         setYourDaily(
                             <div className="Dump-Story-Content" key={story.documentId}>
                                 <Link to={window.location.origin + `/stories/${story.$id}`}>
@@ -77,7 +77,7 @@ export default function Stories() {
                         continue;
                     } // Se o daily for do usuário, adiciona como seu Daily e pula.
 
-                    if (!USER_ATUAL || !USER_ATUAL.following.includes(story.created_by)) {                        
+                    if (!USER_ATUAL || !USER_ATUAL.following.includes(story.created_by)) {
                         continue;
 
                     } // Se o usuário não segue o criador do story, pula.
@@ -86,8 +86,8 @@ export default function Stories() {
                         continue; // Se o usuário já foi processado, pula este daily
                     }
 
-                    
-                    
+
+
 
                     if (!USER_ATUAL.following.includes(story.created_by)) {
                         continue; // Se o usuário não está sendo seguido, pula este story
@@ -95,7 +95,7 @@ export default function Stories() {
 
                     processedUsers.add(story.created_by); // Adiciona o usuário ao conjunto de usuários processados
 
-                   
+
 
                     stories.push(
                         <div className="Dump-Story-Content" key={story.documentId}>
@@ -105,8 +105,8 @@ export default function Stories() {
                                 </div>
                                 <div className="Dump-Username-Content">
                                     <p>
-                                        @{userResponse.username.length > 13
-                                            ? userResponse.username.slice(0, 15) + "..."
+                                        {userResponse.username.length > 13
+                                            ? userResponse.username.slice(0, 10) + "..."
                                             : userResponse.username}
                                     </p>
                                 </div>
@@ -162,40 +162,42 @@ export default function Stories() {
 
 
             {Loading ?
-                <>
-                    <h2>Dailys</h2>
-                    <div className="Dump-Stories-Flexbox">
-                        <>
-                            <LoadingStorys />
-                            <LoadingStorys />
-                            <LoadingStorys />
-                            <LoadingStorys />
-                        </>
 
-                    </div>
-                </>
+                <div className="Dump-Stories-Flexbox">
+
+                    <LoadingStorys />
+                    <LoadingStorys />
+                    <LoadingStorys />
+                    <LoadingStorys />
+
+
+                </div>
+
                 :
-                <>
-                    <h2>Dailys</h2>
-                    <div className="Dump-Stories-Flexbox">
 
-                        {yourDaily ? (
-                            <>{yourDaily}</>
-                        ) : (
-                            <div className="Dump-Story-Content">
-                                <Link to={window.location.origin + `/posts/create`}>
-                                    <div className="Dump-Image-Profile">
-                                        <img src={USER_ATUAL ? USER_ATUAL.photoURL : null} alt="Profile" />
-                                    </div>
-                                    <div className="Dump-Username-Content">
-                                        <p><b>Adicionar Daily</b></p>
-                                    </div>
-                                </Link>
-                            </div>
-                        )}
-                        {anotherStories}
-                    </div>
-                </>
+                <div className="Dump-Stories-Flexbox">
+
+                    {yourDaily ? (
+                        <>{yourDaily}</>
+                    ) : (
+                        <div className="Dump-Story-Content">
+                            <Link to={window.location.origin + `/posts/create`}>
+                                <div className="Dump-Image-Profile">
+                                    <img src={USER_ATUAL ? USER_ATUAL.photoURL : null} alt="Profile" />
+                                </div>
+                                <div className="btnPlusStory">
+                                    <span>+</span>
+                                </div>
+                                <div className="Dump-Username-Content">
+                                    <p>Seu daily</p>
+                                </div>
+                                
+                            </Link>
+                        </div>
+                    )}
+                    {anotherStories}
+                </div>
+
             }
 
 

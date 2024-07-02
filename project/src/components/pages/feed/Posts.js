@@ -3,7 +3,7 @@ import 'firebase/auth'
 import { auth, provider, signInWithPopup, app, db, database } from '../../../lib/firebase'
 import { addDoc, collection, doc, getDocs, getFirebase, onSnapshot, setDoc } from 'firebase/firestore'
 import UserPerfil from './UserPerfil';
-import {databases} from '../../../lib/appwrite';
+import { databases } from '../../../lib/appwrite';
 import { ID, Query } from 'appwrite';
 import Swal from 'sweetalert2'
 import { Link, useNavigate } from 'react-router-dom';
@@ -349,8 +349,12 @@ export default function Posts(props) {
         "Dezembro"
     ]
 
-    var datepost = new Date(props.datepost)
-    var datefilepost = datepost.getDate() + ' de ' + MesesDoAno[datepost.getMonth()]
+    let datepost = new Date(props.datepost);
+    let dia = datepost.getDate() < 10 ? '0' + datepost.getDate() : datepost.getDate();
+    let mes = datepost.getMonth() < 10 ? '0' + datepost.getMonth() : datepost.getMonth();
+
+
+    let datefilepost = dia + '/' + mes + "/" + datepost.getFullYear()
 
     function showLikesOfThatPublic(p) {
         const likes = p.likes;
@@ -368,7 +372,7 @@ export default function Posts(props) {
                     <div className="card-user-sg" id={r.$id} key={r.someUniqueKey}>
                         <Link to={window.location.origin + "/user/" + r.$id}>
                             <div className='leftside-perfil'>
-                                <img src={r.photoURL} />
+                                <img src={r.photoURL} alt='Profile' />
                                 <div className='card-user-sg-rightside'>
                                     <h1>{r.displayName}</h1>
                                     <p>@{r.username}</p>
@@ -389,7 +393,7 @@ export default function Posts(props) {
         <>
             {likesBox ?
                 <div className='Dump-Likes-Post-ShowBox'>
-                <div onClick={() => setlikesBox(false)} className='backgroundCurtidas'></div>
+                    <div onClick={() => setlikesBox(false)} className='backgroundCurtidas'></div>
                     <div className='Dump-Likes-Header-Box'>
                         <div className='HeaderLeft'>
                             <h2>Curtidas</h2>
@@ -399,12 +403,10 @@ export default function Posts(props) {
                         </div>
                     </div>
                     {LikesCurrent != '' ?
-                        <>
-                        
-                            <div className='Card-Suggestions-Users'>
-                                {LikesCurrent}
-                            </div>
-                        </>
+                        <div className='Card-Suggestions-Users'>
+                            {LikesCurrent}
+                        </div>
+
                         :
                         <div className='LoaderContent'>
 
@@ -424,33 +426,29 @@ export default function Posts(props) {
             <article className="dump-post dumpfile" tabIndex='0' data-testid="dump" role='article'>
                 <Link to={window.location.origin + "/user/" + props.uid_user}>
                     <div className="dump-post-header">
-                        <img src={props.photoURL} />
                         <div className="dump-post-header-rightside">
+                            <img src={props.photoURL} alt='Profile' />
                             <div className='information-user-dump-post'>
                                 <h3>{props.displayName} {props.isthisverifiqued == 'true' ? <><i alt="CONTA VERIFICADA" title='Verificado' className="fa-solid fa-circle-check fa-fade verifyaccount" ></i></> : <></>}</h3>
-                                <p>@{props.username}</p>
+                                <p>@{props.username} / {datefilepost}</p>
                             </div>
 
 
                         </div>
-                        <div>
-                            <label className="time-display-dump">{datefilepost}</label>
+                        <div className='btnFollow'>
+                            <button><span>Seguindo</span></button>
                         </div>
+
                     </div>
-                    <div className='descriptionofdump'>
-                        <p>{props.descricao ? props.descricao : ""}</p>
-                    </div>
+
                 </Link>
                 <aside className="dump-post-photo">
                     <Link to={window.location.origin + '/posts/' + props.id} >
                         <img id={`D-IG-${props.id}-filePost`} draggable="true" onClick={gotoPost} alt={props.descricao} controls autoPlay src={props.fotopostada} />
                     </Link>
                 </aside>
-                <div className='Dump-Button-Likes-Show-Wrapper'>
-                    <button onClick={() => { showLikesOfThatPublic(props) }} className='Dump-Btn-Likes-Show'>Ver curtidas</button>
-                </div>
-                <div className="dump-post-bottom">
 
+                <div className="dump-post-bottom">
                     <div className="Dump-Buttons-Wrapper-Post btns-dump-comments">
 
                         {auth.currentUser ?
@@ -476,9 +474,8 @@ export default function Posts(props) {
                                 {isSaved ?
                                     <div className='dump-like-action-button'>
                                         <button onClick={unsavedump}><i className="fa-solid fa-bookmark"></i><p>{NumberOfSaves}</p></button>
-
+                                        <></>
                                     </div>
-
                                     :
                                     <div className='dump-like-action-button'>
                                         <button onClick={savedump}><i className="fa-regular fa-bookmark"></i><p>{NumberOfSaves}</p></button>
@@ -503,13 +500,26 @@ export default function Posts(props) {
                                 </Link>
 
                             </>}
-
-
-
-
                     </div>
+                    {NumberOfLikes > 0 &&
+                        <div className='Dump-Button-Likes-Show-Wrapper'>
+                            <button onClick={() => { showLikesOfThatPublic(props) }} className='Dump-Btn-Likes-Show'>
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="14" cy="14" r="14" fill="#EFEFEF" />
+                                    <path d="M13.9167 21.5271L12.7687 20.4821C8.69167 16.785 6 14.3387 6 11.3542C6 8.90792 7.91583 7 10.3542 7C11.7317 7 13.0537 7.64125 13.9167 8.64667C14.7796 7.64125 16.1017 7 17.4792 7C19.9175 7 21.8333 8.90792 21.8333 11.3542C21.8333 14.3387 19.1417 16.785 15.0646 20.4821L13.9167 21.5271Z" fill="#FF7B7B" />
+                                </svg>
+                                Ver curtidas
+                            </button>
+                        </div>
+                    }
 
+                    {props.descricao &&
+                        <div className='descriptionofdump'>
+                            <p>{props.username}: {props.descricao}</p>
+                        </div>
+                    }
                 </div>
+
 
             </article >
         </>
